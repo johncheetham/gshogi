@@ -222,8 +222,9 @@ class Pieces:
         outline_colour = self.convert_RGB(outline_colour)
         kanji_colour = self.convert_RGB(kanji_colour)
 
-        if self.piece_fill_colour == fill_colour and self.piece_outline_colour == outline_colour and self.piece_kanji_colour == kanji_colour:            
-            return       
+        # these lines removed since they cause an issue with custom pieces
+        #if self.piece_fill_colour == fill_colour and self.piece_outline_colour == outline_colour and self.piece_kanji_colour == kanji_colour:            
+        #    return       
 
         self.load_pieces(self.prefix)
 

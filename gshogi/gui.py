@@ -418,7 +418,15 @@ class Gui:
         self.setup_black_komadai(main_hbox)        
 
         # status bar
-        self.status_bar = self.builder.get_object('status_bar') 
+        self.status_bar = self.builder.get_object('status_bar')
+
+        # set status bar bg color
+        # Use an event box and set its background colour.
+        # This was needed on Fedora 19 to set the statusbar bg colour.
+        # Otherwise it uses the window bg colour which is not
+        # correct. This was not needed on F17.       
+        eb_2 = self.builder.get_object('eb_2')
+        eb_2.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('#EDECEB'))  
         #self.status_bar = gtk.Statusbar() 
         #main_vbox.pack_start(self.status_bar, False, False, 0)        
         self.context_id = self.status_bar.get_context_id("gshogi statusbar") 

@@ -61,14 +61,20 @@
           </packing>
         </child>
         <child>
-          <object class="GtkStatusbar" id="status_bar">
+          <object class="GtkEventBox" id="eb_2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="spacing">2</property>
+            <child>
+              <object class="GtkStatusbar" id="status_bar">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="spacing">2</property>
+              </object>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
-            <property name="fill">False</property>
+            <property name="fill">True</property>
             <property name="position">2</property>
           </packing>
         </child>

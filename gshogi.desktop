@@ -1,0 +1,11 @@
+
+[Desktop Entry]
+Type=Application
+Name=gShogi
+Comment=gShogi is a Shogi (Japanese Chess) program for the Gnome desktop
+GenericName=Shogi Game
+Icon=gshogi.png
+Exec=gshogi
+Terminal=false
+Categories=GNOME;Game;BoardGame;
+

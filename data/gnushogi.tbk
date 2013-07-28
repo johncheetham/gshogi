@@ -1,0 +1,3170 @@
+# BASIC LINES
+#
+# ---------------------------
+# Static Rook vs. Static Rook
+# ---------------------------
+#
+P7f P8d S6h P3d S7g S6b P2f S4b S4h G3b G7h P5d
+P5f K4a K6i G5b G5h S3c P3f P4d B7i B3a P6f P7d
+# 
+P7f P8d P2f P8e B7g P3d S8h G3b G7h S4b B2b+ G2b
+S7g S7b S3h S8c P2e S3c P3f S8d S3g S9e B*5f B*7b
+#
+P7f P8d S6h P3d S7g S6b P2f S4b S4h G3b G7h P5d
+P5f K4a K6i G5b G5h S3c B7i B3a P6f P4d P1f P1d
+#
+P7f P3d P2f G3b P2e B8h+ S8h S2b S7g K4b S4h S3c
+G7h S6b K6h P9d P9f P6d P4f S6c S4g S5d S5f K3a
+#
+P7f P8d P2f P8e P2e G3b B7g P3d S8h B7g+ S7g S2b
+S3h S6b G7h S3c S2g P7d S2f S7c S1e B*5d G5h S6d
+#
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b
+P9f P1d P1f P3d R3f G3c K4h P6d B9g S6c P7f K4a
+#
+P7f P8d S7h P8e S7g P3d P2f S4b P2e S3c G7h G3b
+K6i S6b G5h K4a P5f P5d B7i G5b S3h P4d S2g 5b4c 
+#
+P7f P8d S7h P8e S7g P3d P2f S4b P2e S3c G7h G3b
+K6i S6b G5h K4a P5f P5d B7i G5b S3h P4d S2g 5b4c 
+# 
+P7f P8d P5f P8e B7g P5d R5h S6b S6h P3d K4h K4b 
+K3h K3b P1f P1d K2h 6a5b S3h P9d P9f 2b7g+ S7g S4b
+#
+P7f P8d S6h P3d P6f S6b S6g P5d P9f 6a5b R5h K4b 
+K4h K3b K3h P1d P1f P9d K2h S4b S3h P8e B7g S3c 
+# 
+P7f P3d P2f P4d P2e B3c S4h S3b P5f P5d 4i5h 6a5b
+S7h G4c B7i K4b P2d P2d B2d B2d R2d P*2c R2h K3a
+# 
+P7f P3d P2f P5d P5f S6b S4h P8d P2e G3b G7h P8e
+P2d P2d R2d P*2c R2h P8f P8f R8f P*8g R8b K6i K4a
+#
+P7f P8d S6h P3d S7g S6b P2f S4b S4h G3b G7h P5d
+P5f K4a K6i G5b P3f P7d G5h S3c B7i B3a P6f P4d
+#
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2h P8f 
+P8f R8f P*8g R8d S3h S6b S2g P3d S3f B3c P7f S2b 
+# 
+P2f P8d P2e P8e G7h G3b S4h S6b P2d P2d R2d P*2c 
+R2f P3d P7f P8f P8f R8f P*8g R8d P4f P6d S4g S6c 
+#
+P7f P3d P2f P8d P2e P8e G7h G3b P2d P2d R2d P8f 
+P8f R8f R3d B8h+ S8h P*2h S2h B*4e R2d P*2c B*7g R8h+ 
+#
+P7f P8d S7h P3d S7g S6b S4h S4b P2f S3c G7h G3b 
+G5h G5b P5f P5d P3f P7d B7i B3a K6i K4a P6f P4d 
+#
+P7f P8d S7h P3d S7g S6b S4h S4b P2f S3c G7h G3b 
+G5h G5b P5f P5d P3f P7d B7i B3a K6i K4a P6f P4d 
+#
+# ----------------------------
+# Static Rook vs. Ranging Rook
+# ----------------------------
+#
+# Static vs. 2nd-file
+#
+P7f P3d P2f P4d P2e B3c S4h S3b P5f P5d 4i5h S4c 
+K6h R2b K7h K6b P3f K7b P9f P9d S6h K8b P4f S7b
+#
+P2f P3d  P7f P4d P2e B3c S4h R2b K6h S4b K7h K6b
+4i5h K7b P5f K8b P3f S7b S6h S4c 6h5g G3b P4f P2d
+#
+# Static vs. 3rd-file
+#
+P7f P3d P2f P4d S4h R3b P2e B3c K6h S4b K7h K6b 
+4i5h K7b P5f 4a5b P3f K8b P9f P9d P1f P1d P4f S7b 
+#
+P7f P3d P2f P4d S4h R3b K6h P3e K7h K6b P4f 4a5b
+P2e R3d S4g K7b S6h K8b P9f S7b G3h P1d G2g S4b
+#
+P7f P3d P9f P4d P2f R3b P2e B3c S4h S4b K6h K6b
+K7h K7b P5f K8b P3f P5d 4i5h 4a5b P1f P1d S6h S4c
+#
+# Static vs. 4th-file
+#
+P7f P3d S4h P4d P4f S4b S4g S4c P3f R4b R4h B3c
+P1f P1d P2f K6b K6h K7b K7h S6b 4i5h P5d P5f S5c
+#
+P7f P3d S4h P4d P4f S4b S4g S4c P3f R4b R4h B3c
+P1f P1d P2f K6b K6h K7b K7h S6b 4i5h P5d P5f S5c
+#
+P7f P3d P2f P4d P5f S3b S4h R4b K6h K6b 4i5h K7b 
+K7h K8b S6h S7b P9f P9d 4h5g S4c P7e 4a5b S7g P5d 
+#
+P7f P3d P2f P4d P5f S3b S4h R4b K6h K6b 4i5h K7b 
+K7h K8b S6h S7b P9f P9d P3f 4a5b 6h5g S4c P2e B3c 
+#
+P7f P3d P2f P4d P5f S3b S4h R4b K6h K6b 4i5h K7b 
+K7h K8b S6h S7b P9f P9d P3f 4a5b 6h5g S4c P2e B3c
+#
+# Static vs. 5th-file
+#
+P7f P8d S6h P3d P6f S6b S6g P5d P9f 6a5b R5h K4b 
+K4h K3b K3h P1d P1f P9d K2h S4b S3h P8e B7g S3c
+#
+P7f P8d P5f P5d S6h P3d P6f S6b R5h K4b K4h K3b
+K3h 6a5b S6g P1d P1f S4b K2h P7d B7g P8e G7h 4b5c
+#
+# ----------------------------
+# Ranging Rook vs. Static Rook
+# ----------------------------       
+#
+# 3rd-file vs. Static
+#
+P7f P3d P6f P8d R7h P8e B7g S6b S6h P5d K4h K4b
+K3h K3b K2h P1d P1f P9d P9f 6a5b S3h P7d 6i5h S4b
+#
+# 5th-file vs. Static
+#
+P7f P8d P5f P8e B7g P5d S6h P3d P6f S6b R5h K4b
+K4h K3b K3h 6a5b K2h P1d P1f S5c S3h B3c P4f P4d
+#
+P7f P3d P2f P4d S4h S4b P5f R5b K6h K6b K7h K7b
+4i5h K8b P9f P9d P6f S4c G6g S5d S5g S7b B7g P6d
+#
+# -----------------------------
+# Ranging Rook vs. Ranging Rook
+# -----------------------------
+#
+P7f P3d P6f P3e S7h R3b S6g K6b B7g K7b R8h P1d
+P1f 4a5b P8f P2d P8e R3d S2h P2e K4h S4b 6i5h S8b
+#
+# ADDITIONAL LINES
+#
+# Source: SHOGI May 1984 Issue No. 49
+#
+# p.2
+1.P-7f P-3d 2.P-6f P-8d 3.S-7h S-6b 4.P-5f P-5d 5.P-2f S-4b
+6.S-4h G-3b 7.S-7g K-4a 8.G-7h G-5b 9.K-6i S-3c 10.G-5h P-7d
+11.P-3f B-3a 12.B-7i P-4d 13.P-2e G5b-4c 14.B-4f B-6d 15.S-3g K-3a
+16.K-7i K-2b 17.B-5g P-8e 18.K-8h P-9d 19.G5h-6g S-7c 20.P-1f S-8d
+# p.4 Double Fortress
+1.P-7f P-3d 2.P-6f S-6b 3.S-7h P-6d 4.P-2f S-3b 5.P-2e S-3c
+6.S-6g S-6c 7.S-4h P-8d 8.P-5f P-8e 9.B-7g B-3a 10.G-7h P-5d
+11.S-5g G-3b 12.K-6i K-4a 13.G-5h G-5b 14.K-7i P-4d 15.P-3f B-4b
+16.B-5i P-7d 17.K-8h N-7c 18.P-1f P-1d 19.P-9f P-9d 20.R-3h G5b-4c
+# p.13 Game 1
+1.P-7f P-8d 2.S-6h P-3d 3.S-7g S-6b 4.S-4h S-4b 5.G-7h P-5d
+6.P-5f G6a-5b 7.K-6i P-4d 8.G-5h G-4c 9.P-3f S-3c 10.B-7i B-3a
+11.P-6f K-4b 12.P-3e Px3e 13.Bx3e P-4e 14.S-3g S-4d 15.B-6h K-3b
+16.P-2f B-6d 17.R-3h N-3c 18.P-6e B-5c 19.P-1f G4a-4b 20.P-1e P*3e
+# p.13 Game 2
+1.P-7f P-8d 2.S-6h P-3d 3.S-7g S-6b 4.P-2f S-4b 5.S-4h G-3b
+6.G-7h K-4a 7.P-5f P-5d 8.K-6i G-5b 9.P-3f P-7d 10.G-5h S-3c
+11.B-7i B-3a 12.P-6f P-4d 13.P-1f G5b-4c 14.P-1e B-6d 15.N-3g K-3a
+16.B-4f S-7c 17.K-7i P-8e 18.K-8h K-2b 19.S-5g Bx4f 20.Px4f S-6d
+# p.13 Game 3
+1.P-7f P-8d 2.S-6h P-3d 3.S-7g S-6b 4.S-4h S-4b 5.G-7h G-3b
+6.K-6i P-5d 7.P-5f K-4a 8.G-5h G-5b 9.P-6f S6b-5c 10.P-2f P-5e
+11.Px5e Bx5e 12.P-2e S-5d 13.P-2d Px2d 14.Rx2d P*2c 15.R-2h P-6d
+16.S-5g B-2b 17.G5h-6g S-5c 18.S-4f S-4d 19.P-7e G-6c 20.S-7f P-8e
+# p.13 Game 4
+1.P-7f P-8d 2.S-6h P-3d 3.S-7g S-6b 4.P-2f S-4b 5.S-4h G-3b
+6.G-7h K-4a 7.P-5f P-5d 8.K-6i G-5b 9.P-3f P-7d 10.G-5h S-3c
+11.B-7i B-3a 12.P-6f P-4d 13.P-1f G5b-4c 14.P-1e P-9d 15.G5h-6g P-9e
+16.B-6h S-7c 17.K-7i S-6d 18.P-2e N-7c 19.P-4f R-7b 20.S-8f N-8e
+# p.13 Game 5
+1.P-7f P-8d 2.S-6h P-3d 3.S-7g S-6b 4.S-4h S-4b 5.G-7h G-3b
+6.K-6i P-5d 7.P-5f K-4a 8.G-5h G-5b 9.P-3f S-3c 10.P-6f B-3a
+11.B-7i P-4d 12.P-1f P-7d 13.P-1e B-6d 14.S-3g P-8e 15.G5h-6g B-7c
+16.L-1g S-5c 17.R-1h G-2b 18.B-6h R-6b 19.K-7i P-6d 20.K-8h B-8d
+# p.13 Game 6
+1.P-7f P-8d 2.S-6h P-3d 3.S-7g S-6b 4.P-2f S-4b 5.S-4h G-3b
+6.G-7h K-4a 7.P-5f P-5d 8.K-6i G-5b 9.P-3f S-3c 10.G-5h B-3a
+11.B-7i P-7d 12.P-6f P-4d 13.G5h-6g G5b-4c 14.B-6h P-8e 15.K-7i B-6d
+16.N-3g K-3a 17.K-8h K-2b 18.R-3h P-9d 19.P-1f P-1d 20.S-5g B-7c
+# p.14 Double Ranging Rook
+1.P-7f P-3d 2.P-6f P-3e 3.S-7h R-3b 4.S-6g K-6b 5.B-7g K-7b
+6.R-8h P-3f 7.Px3f Rx3f 8.P*3g R-3d 9.G-4h G-6b 10.K-4i S-3b
+11.K-3h P-1d 12.P-1f P-2d 13.P-9f P-9d 14.G6i-5h G4a-5b 15.P-8f P-2e
+16.P-8e S-2c 17.P-6e N-3c 18.B-6f S-8b 19.N-7g S-2d 20.S-5f S-3e
+#
+# Source: SHOGI November 1986 Issue No. 64
+#
+# p.4
+1.P-7f P-3d 2.P-2f P-4d 3.P-2e B-3c 4.S-4h S-3b 5.P-5f P-5d
+6.P-3f R-4b 7.K-6h K-6b 8.K-7h K-7b 9.G4i-5h S-6b 10.P-9f P-9d
+11.N-3g P-4e 12.S-5g S-5c 13.P-1f P-1d 14.R-2f G-6b 15.P-2d Px2d
+16.P-3e Bx8h+ 17.Sx8h S-4d 18.Rx2d P*2c 19.R-2f Sx3e 20.R-2i B*3h
+# p.9
+1.P-7f P-8d 2.S-6h P-3d 3.S-7g S-6b 4.P-2f S-4b 5.S-4h G-3b
+6.G-7h K-4a 7.K-6i P-5d 8.P-5f G-5b 9.G-5h S-3c 10.P-6f P-4d
+11.B-7i B-3a 12.P-3f P-7d 13.G5h-6g G5b-4c 14.S-3g P-8e 15.P-2e B-6d
+16.B-4f S-7c 17.K-7i K-3a 18.K-8h K-2b 19.P-1f P-9d 20.P-9f P-1d
+# p.16
+1.P-7f P-3d 2.P-2f P-4d 3.S-4h S-3b 4.P-5f R-4b 5.K-6h K-6b
+6.K-7h S-7b 7.S-5g G4a-5b 8.B-7g K-7a 9.K-8h S-4c 10.L-9h S-5d
+11.P-6f K-8b 12.K-9i P-6d 13.S-8h P-7d 14.G-7i G-6c 15.G-5h N-7c
+16.P-2e B-3c 17.P-3f P-4e 18.G5h-6h P-9d 19.G6h-7h P-9e 20.B-5i P-8d
+# p.17 Game 4
+1.P-7f P-8d 2.S-6h P-3d 3.S-7g S-6b 4.P-2f S-4b 5.S-4h G-3b
+6.G-7h K-4a 7.K-6i P-5d 8.P-5f G-5b 9.P-3f P-4d 10.G-5h G5b-4c
+11.P-6f S-3c 12.B-7i B-3a 13.G5h-6g P-7d 14.S-3g B-6d 15.B-6h K-3a
+16.K-7i K-2b 17.K-8h P-8e 18.P-1f S-7c 19.S-4f P-7e 20.Px7e P-4e
+# p.17 Game 1
+1.P-7f P-8d 2.S-6h P-3d 3.S-7g S-6b 4.S-4h S-4b 5.P-5f P-5d
+6.G-7h G6a-5b 7.K-6i P-4d 8.P-3f G-4c 9.G-5h S-3c 10.P-6f B-3a
+11.B-7i P-8e 12.S-3g G-3b 13.P-3e Px3e 14.Bx3e B-6d 15.P-6e B-4b
+16.G5h-6g S-5c 17.K-7i K-4a 18.K-8h P-6d 19.Px6d Sx6d 20.S-3f P-5e
+# p.17 Game 2
+1.P-2f P-8d 2.P-2e P-8e  3.G-7h G-3b 4.P-2d Px2d 5.Rx2d P*2c
+6.R-2f S-6b 7.P-9f P-1d 8.S-3h P-6d 9.P-7f P-3d 10.P-7e S-6c
+11.K-4h K-4a 12.K-3i P-4d 13.S-6h S-4b 14.R-7f K-3a 15.P-6f B-3c
+16.S-6g G-7b 17.B-9g K-2b 18.N-7g P-4e 19.K-2h R-8d 20.S-5h P-9d
+# p.17. Game 3
+1.P-2f P-8d 2.P-2e P-8e 3.G-7h G-3b 4.P-2d Px2d 5.Rx2d P*2c
+6.R-2f S-6b 7.P-1f P-3d 8.S-3h P-6d 9.P-7f P-8f 10.Px8f Rx8f
+11.P*8g R-8b 12.P-1e S-6c 13.P-3f S-5d 14.N-3g G-5b 15.P*2d Px2d
+16.Rx2d P*2c 17.Rx3d Bx8h+ 18.Sx8h G-3c 19.R-3e B*2d 20.P*2b Sx2b
+#
+# Source: SHOGI, March 1987, Issue No.66, p.17
+#
+# p.4
+# Static v. Fourth
+P7f P3d P2f P4d P2e B3c S4h S3b P5f P5d 4i5h R4b
+K6h K6b K7h K7b P3f S6b P9f P9d P5e P5e B5e S4c
+# p.4
+P7f P8d S6h P3d S7g S6b P2f S4b S4h G3b G7h K4a
+P5f P5d K6i G5b P3f P4d G5h S3c B7i B3a P6f P7d
+# p.7 (game 1)
+P7f P3d P2f P4d S4h S4b K6h S6b 4i5h P7d P6f G3b
+K7h R7b G6g P7e P7e R7e P*7f R7a P5f K4a S6h P6d
+# p.7 (game 2)
+P7f P8d R7h P8e B7g P3d P6f S6b S6h K4b K4h K3b
+K3h 6a5b K2h P5d L1h B3c P5f K2b S5g S5c P3f L1b
+# p.7 (game 3)
+P7f P3d P2f P4d S4h R3b P2e B3c K6h S4b K7h K6b
+P5f K7b P3f K8b 4i5h P5d P4f 4a5b N3g R2b S6h S7b
+# p.7 (game 4)
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P1d R2f P3d
+P9f N3c S6h P*2e R5f S4b P3f S6b P7f G2c P7e K4a
+# p.7 (game 5)
+P7f P3d P2f P4d S4h S4b K6h P5d K7h R5b P5f K6b
+4i5h K7b P3f K8b P2e B3c P4f G3b S5g L9b R3h G4c
+# p.7 (game 6)
+P7f P8d P5f P8e B7g P5d R8h P3d S6h S6b P6f P6d
+K4h K4b K3h K3b K2h 6a5b L1h S5c K1i B3c S5g P4d S2h K2b
+# p.17 (game 1)
+P7f P8d S6h P3d S7g S6b P2f S4b S4h P5d P5f G3b 
+G7h K4a K6i G5b G5h S3c B7i B3a P6f P4d P3f P7d 
+5h6g 5b4c B6h P9d K7i P9e S3g S5c P2e B4b K8h B5a
+S2f B7c B4f P6d
+# p.17 (game 2)
+P7f P8d S6h P3d S7g S6b P2f S4b S4h G3b  P5f K4a 
+G7h P5d K6i G5b P3f S3c G5h B3a B7i P4d P6f P7d
+# p.17 (game 3)
+P7f P8d S6h P3d S7g S6b P2f S4b S4h G3b G7h P5d
+K6i K4a P5f P7d G5h G5b P3f S3c B7i B3a P6f P4d
+# p.17 (game 4)
+P7f P8d S6h P3d S7g S6b P2f S4b S4h G3b G7h K4a
+K6i P5d P5f G5b G5h S3c P3f P4d P6f B3a B7i P7d
+# p.17 (game 5)
+P2f P3d P7f P4d P2e B3c S4h S4b P5f S4c G4i5h R2b 
+P4f K6b P3f K7b K6h P4e 8h3c+ N3c B*8h G3b S5g R2a
+# p.17 (game 6)
+P7f P8d P5f P8e B7g P5d R5h K4b S6h P3d K4h S6b 
+P5e P5e R5e K3b R5i S4b G7h P6d K3h P4d S5g S4c
+#
+# Source: SHOGI May 1987 Issue No. 67
+#
+# p.4
+1.P-7f P-3d 2.P-2f P-4d 3.P-2e B-3c 4.S-4h S-3b 5.P-5f P-5d
+6.G4i-5h P-8d 7.S-7h P-8e 8.B-7g G6a-5b 9.B-6h K-4b 10.S-7g G-4c
+11.P-2d Px2d 12.Bx2d P*2c 13.Bx3c+ Kx3c 14.K-6h K-2b 15.P-6f S-6b
+16.G-6g S-5c 17.S-5g P-7d 18.K-7h P-4e 19.P-4f Px4f 20.Sx4f P*4d
+# p.15
+1.P-7f P-8d 2.S-6h P-3d 3.S-7g S-6b 4.S-4h S-4b 5.P-5f P-5d
+6.G4i-5h G-3b 7.G-7h K-4a 8.K-6i G-5b 9.B-7i P-4d 10.P-3f G5b-4c
+11.S-3g S-3c 12.P-6f B-3a 13.G5h-6g S-5c 14.B-6h B-4b 15.K-7i K-3a
+16.K-8h P-7d 17.P-3e Px3e 18.Bx3e P-4e 19.R-4h S5c-4d 20.B-6h S-3d
+# p.16 Game 2
+1.P-2f P-8d 2.P-2e P-8e 3.G-7h G-3b 4.P-2d Px2d 5.Rx2d P*2c
+6.R-2f S-6b 7.P-1f P-1d 8.S-3h P-6d 9.P-7f P-8f 10.Px8f Rx8f
+11.P*8g R-8b 12.P-3f P-3d 13.N-3g G-5b 14.P*2d Px2d 15.Rx2d K-4b
+16.Rx3d G-2c 17.Rx6d Bx8h+ 18.Sx8h B*2h 19.P*2d G-1c 20.B*4e P*6c
+# p.16 Game 3
+1.P-7f P-8d 2.S-6h P-3d 3.B-7g P-8e 4.S-4h S-6b 5.P-4f P-5d
+6.S-4g S-5c 7.S-5f G-3b 8.G-7h P-7d 9.P-2f K-4a 10.P-2e P-7e
+11.Px7e S-6d 12.S-4e P-5e 13.Sx3d P-5f 14.Px5f Bx7g+ 15.Sx7g B*5g
+16.P-2d Px2d 17.B*6f Bx6f+ 18.Sx6f B*4g 19.Rx2d P*2b 20.B*2e Bx2e+
+# p.16 Game 4
+1.P-7f P-8d 2.S-6h P-3d 3.S-7g S-6b 4.S-4h P-5d 5.P-5f G6a-5b
+6.G-7h S-3b 7.K-6i P-4d 8.G-5h G-4c 9.P-6f P-7d 10.B-7i B-3a
+11.P-3f P-8e 12.G5h-6g B-6d 13.S-3g B-7c 14.B-6h K-4b 15.K-7i K-3a
+16.K-8h S-5c 17.P-1f P-6d 18.R-3h R-6b 19.P-1e P-6e 20.Px6e Rx6e
+# p.16 Game 5
+1.P-7f P-8d 2.S-6h P-3d 3.S-7g S-6b 4.S-4h S-4b 5.P-5f P-5d
+6.G4i-5h G-3b 7.P-6f K-4a 8.G-6g G-5b 9.B-7i P-4d 10.P-3f G5b-4c
+11.K-6h S-3c 12.K-7h B-3a 13.S-3g S-5c 14.K-8h B-4b 15.G-7h K-3a
+16.P-2f P-7d 17.P-2e K-2b 18.P-1f B-5a 19.P-1e B-7c 20.L-1g P-8e
+# p.16 Game 6
+1.P-2f P-8d 2.P-2e P-8e 3.G-7h G-3b 4.P-2d Px2d 5.Rx2d P*2c
+6.R-2f S-6b 7.P-1f P-1d 8.S-3h P-6d 9.P-7f P-3d 10.R-3f G-3c
+11.B-7g P-4d 12.P-4f P-5d 13.S-6h S-5c 14.S-4g S-3b 15.R-2f S-4c
+16.K-6i G-3b 17.G-5h G-5b 18.P-3f K-6b 19.P-5f G-6c 20.N-3g N-3c
+# p.17 Game 3
+1.P-2f P-3d 2.P-7f P-4d 3.P-2e B-3c 4.S-4h S-4b 5.P-5f S-4c
+6.G4i-5h P-3e 7.K-6h R-4b 8.K-7h K-6b 9.S-5g K-7b 10.S7i-6h K-8b
+11.P-9f S-7b 12.P-9e G4a-5b 13.P-5e P-4e 14.S-5f S-4d 15.S-5g P-6d
+16.R-4h P-5d 17.Px5d G-6c 18.P-4f Gx5d 19.Px4e Sx4e 20.Sx4e Gx4e
+# p.17 Game 1
+1.P-7f P-8d 2.S-6h P-3d 3.S-7g S-6b 4.P-2f S-4b 5.S-4h G-3b
+6.G-7h K-4a 7.K-6i P-5d 8.P-5f G-5b 9.G-5h P-7d 10.P-6f S-3c
+11.B-7i B-3a 12.P-3f P-4d 13.B-4f N-7c 14.G5h-6g G5b-4c 15.P-2e B-4b
+16.K-7i K-3a 17.K-8h R-7b 18.S-3g S-5c 19.S-2f P-4e 20.B-6h S5c-4d
+# p.17 Game 2
+1.P-7f P-8d 2.P-2f P-8e 3.B-7g P-3d 4.S-8h G-3b 5.G-7h Bx7g+
+6.Sx7g S-4b 7.S-3h S-3c 8.P-3f S-7b 9.P-4f P-6d 10.S-4g S-6c
+11.G-5h G-5b 12.K-6h K-4b 13.K-7i K-3a 14.S-5f P-7d 15.N-3g N-7c
+16.P-6f G5b-4b 17.P-2e R-8a 18.K-8h R-6a 19.P-1f P-1d 20.P-9f P-9d
+# p.17 Game 3
+1.P-7f P-8d 2.S-6h P-3d 3.S-7g S-6b 4.S-4h S-4b 5.G-7h G-3b
+6.K-6i K-4a 7.P-5f P-5d 8.G-5h G-5b 9.P-6f P-4d 10.B-7i S-3c
+11.P-3f B-3a 12.S-3g G5b-4c 13.G5h-6g P-8e 14.P-3e Px3e 15.Bx3e P-4e
+16.B-6h S-5c 17.K-7i S5c-4d 18.K-8h B-6d 19.P*3f P-7d 20.R-4h K-3a
+# p.17 Game 4
+1.P-7f P-8d 2.P-2f P-8e 3.B-7g P-3d 4.S-8h G-3b 5.G-7h Bx7g+
+6.Sx7g S-4b 7.S-3h S-3c 8.P-3f S-7b 9.P-4f P-6d 10.S-4g S-6c
+11.G-5h G-5b 12.K-6h K-4b 13.K-7i P-7d 14.S-5f S-5d 15.N-3g K-3a
+16.P-6f P-9d 17.P-9f P-1d 18.P-1f K-2b 19.K-8h N-7c 20.P-4e R-6b
+#
+# Source: SHOGI July 1987 Issue No.68
+#
+# p.2 Game 5
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c
+R2f S6b S3h P6d P1f S6c P4f P3d S4g P1d
+S5f S5d P7f P8f P8f R8f P*8g R8b G4h G5b
+P3f P4d P9f P9d P3e 5b4c P3d G3d R3f P*3e
+# p.2 Game 6
+P7f P8d S6h P3d S7g S6b S4h S4b P5f P5d
+G7h G3b K6i K4a G5h P7d P6f P8e 5h6g G5b
+B7i P6d P3f 4b5c B4f N7c S5g R8a K7i G6c
+P3e P3e B3e P6e R3h P6f 5g6f P*6e S5g G4b
+# p.16 Game 1
+P7f P8d S6h P3d S7g S6b S4h S4b P5f P5d
+4i5h G3b P6f K4a G6g G5b P3f P4d B7i S3c
+K6h B3a K7h 5b4c K8h B4b G7h K3a S3g S5c
+P2f K2b P2e P7d P1f B5a P1e B7c L1g P8e
+# p.16 Game 2
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c 
+R2f S6b P1f P1d S3h P3d P7f P8f P8f R8f
+P*8g R8b P4f P6d S4g S6c S5f S5d G4h G5b
+S4e B8h+ S8h S4e P4e N3c N7g K4b P7e P2d
+# p.16 Game 3
+P7f P8d S6h P3d S7g S6b S4h S4b P5f P5d 
+4i5h G3b P6f K4a G6g G5b P3f P4d B7i 5b4c
+K6h S3c K7h B3a S3g S5c K8h B4b G7h K3a
+P2f K2b P2e P7d P1f B5a P1e B7c L1g P8e
+# p.16 Game 4
+P7f P8d S6h P3d S7g S6b S4h P5d P5f S4b
+G7h 6a5b K6i G3b G5h K4a P6f P7d P3f P5e
+S5g 6b5c P2f S5d P4f P5f S5f P6d P2e G6c
+7h6g N7c K7h S5c P2d P2d R2d P*2c R2e S4d
+# p.16 Game 5
+P2f P3d P7f P4d P2e B3c S4h S4b K6h S4c
+K7h R5b P4f K6b S6h K7b P5f K8b 4i5h S7b
+P3f S5d 4h5g R4b N3g 4a5b P5e S6e P7e P5d
+P6f S7f P5d G4c P7d S8e P9f G5d B9g P6d
+#
+# Source: SHOGI Sept.1987 Issue No.69
+#
+# p.2 Game 1
+P7f P8d S6h P3d S7g S6b S4h P5d P5f G3b
+G7h K4a K6i G5b G5h B3c P2f S2b P2e B5a
+P3f S5c P4f P7d N3g P4d S6f P8e P5e P8f
+P8f R8f P*8g R8d P4e P4e S6e P7e P2d P2d
+# p.2 Game 2
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c
+R2f S6b S3h P3d P1f P1d P7f P8f P8f R8f
+P*8g R8d P4f P6d S4g S6c S5f K4b K6h G5b
+G4h S5d P3f P9d P9f P7d N3g P6e G4g G6b
+# p.2 Game 3
+P7f P8d S6h P3d S7g S6b S4h S4b G7h G3b
+K6i K4a P5f P5d G5h G5b P6f S3c B7i B3a
+P3f P4d S3g 5b4c 5h6g P8e B6h P7d K7i S7c
+B4f B4b K8h K3a P1f K2b P2f P9d P2e P7e
+# p.4 Bishop exchange
+P7f P3d P2f P4d P2e B3c S4h S3b P5f P5d 
+4i5h 6a5b S7h G4c B7i K4b S7g K3a P2d P2d
+B2d B2d R2d P*2c R2h K2b K6h P8d K7h P9d
+P9f P7d P6f S6b G6g S7c S5g P8e 6i6h S8d
+# p.14
+P7f P3d P2f P4d S4h S4b P5f P5d K6h R5b
+K7h K6b 4i5h K7b P9f K8b S5g L9b B7g K9a
+K8h S8b S7h S5c P6f P4e P2e B3c G6g S4d
+P8f P6d P8e G7a S8g P5e P5e R4b P5d G5b
+# p.16
+P7f P8d S7h P3d P6f S6b R6h P5d K4h K4b
+K3h K3b 6i5h 6a5b K2h P7d S3h S4b P4f P8e
+B7g 4b5c P5f P1d P1f 
+# p.17 50th Kisey Title Match - Game 1 - 16th June 1987
+P7f P3d P2f P4d S4h S4b P5f S4c G4i5h R4b
+K6h K6b K7h S7b P9f P9d S5g P6d S7i6h K7a
+P5e G4a5b S5f P3e P2e B3c P6f R3b P6e Px6e
+Sx6e B4b R2f #rd S6g N3c B7i P4e P7e P*6d
+# p.17 50th Kisey Title Match - Game 2 - 30th June 1987
+P7f P8d S6h P3d P6f S6b R5h K4b K4h K3b
+K3h G6a5b S6g P5d K2h S4b S3h P7d P4f P6d
+P5f P8e B7g P6e P5e Px5e Px6e P8f Px8f N7c
+G7h G6c S6f G5d G6g Nx6e B5i S6c N7g S6d
+# p.17 50th Kisey Title Match - Game 3 - 7th July 1987
+P2f P3d P7f P4d S4h S3b P5f R4b K6h K6b
+K7h K7b G4i5h K8b S6h S4c P3f S7b S6h5g P6d
+P2e B3c P3e G3b Px3d Sx3d R3h G4c P1f P*3e
+B5e P6e G6i6h R3b P4f P9d S4g P9e P*3f P5d
+# p.17 9th Ladies' Osho Title Match - Game 1 - 11th March 1987
+P7f P3d P2f P4d S4h S3b P5f S4c G4i5h P3e
+P2e B3c K6h R3b P1f K6b K7h S7b P9f K7a
+S5g G4a5b P8f K8b K8g P5d S7h B4b R2f P1d 
+S4f P8d B7g P9d K8h S8c P6f G7b G6g G5b6b
+# p.17 9th Ladies' Osho Title Match - Game 2 -
+P7f P8d P5f P5d R5h S6b P5e Px5e Bx5e K4b
+B7g K3b S6h P3d P6f G6a5b S6g S5c K4h P8e
+K3h P1d K2h P1e S3h S3a4b S5f P4d P6e S4c
+P4f P*5d P3f G4a4b N3g N3c R6h B1c S3h4g P3e
+# p.17 28th Oi Title Match - Game 1 - 16th & 17th July 1987
+P2f P8d P2e P8e G7h G3b P2d Px2d Rx2d P*2c 
+R2f S7b P1f P1d S3h P3d P7f P8f Px8f Rx8f
+P*2d Px2d Rx2d Rx7f Bx2b+ Sx2b B*7g B*1c R2h P7d
+P4f N3c S4g N7c G5h R7e B6f R6e N7g R6d
+#
+#
+# Source: Shogi World Vol. 1 No. 1
+#
+# p.11
+# Third v. Static
+P7f P3d P6f P8d R7h P8e B7g S6b S6h P5d K4h K4b
+K3h K3b K2h P1d P1f P9d P9f 6a5b S3h P7d 6i5h S4b
+# p.13
+# Central v. Static
+P7f P8d P5f P8e B7g P5d S6h P3d P6f S6b R5h K4b
+K4h K3b K3h 6a5b K2h P1d P1f S5c S3h B3c P4f P4d
+#
+# Source: Shogi World Vol. 1 No. 2
+#
+# p.7
+# Static v. Static
+P7f P8d S6h P3d S7g S6b P2f S4b S4h G3b G7h P5d
+P5f K4a K6i G5b G5h S3c P3f P4d B7i B3a P6f P7d
+# p.12
+# Static v. Static
+P7f P8d P2f P8e B7g P3d S8h G3b G7h S4b B2b+ G2b
+S7g S7b S3h S8c P2e S3c P3f S8d S3g S9e B*5f B*7b
+#
+# Source: Shogi for beginners
+#
+# p.32
+# Static v. Centre-file
+P7f P8d S6h P3d P6f S6b S6g P5d P9f 6a5b
+R5h K4b K4h K3b K3h P1d P1f P9d K2h S4b 
+S3h P8e B7g S3c
+# p.74
+# Static v. Third-file
+P7f P3d P2f P4d S4h R3b P2e B3c K6h S4b
+K7h K6b 4i5h K7b P5f 4a5b P3f K8b P9f P9d
+P1f P1d P4f S7b N3g R2b P5e S4c
+# p.81
+# Static v. Static
+P7f P8d S6h P3d S7g S6b P2f S4b S4h G3b G7h P5d
+P5f K4a K6i G5b G5h S3c B7i B3a P6f P4d P1f P1d
+P3f P7d P2e P8e S3g B6d
+# p.146
+# Static v. Fourth-file
+P7f P3d S4h P4d P4f S4b S4g S4c P3f R4b R4h B3c
+P1f P1d P2f K6b K6h K7b K7h S6b 4i5h P5d P5f S5c
+# p.147
+# Centre Game, Bishops off
+P7f P3d P2f G3b P2e B8h+ S8h S2b S7g K4b S4h S3c
+G7h S6b K6h P9d P9f P6d P4f S6c S4g S5d S5f K3a
+# p.149
+# Right-side King
+P7f P3d P2f P4d S4h S3b P5f S4c S6h P5d P3f B3c
+6h5g R2b P4f K6b S4g K7b N3g S6b P8f R3b K4h B4b
+# p.150
+# Static v. Opposing
+P7f P3d P2f P4d P2e B3c S4h S3b P5f P5d 4i5h S4c 
+K6h R2b K7h K6b P3f K7b P9f P9d S6h K8b P4f S7b
+# p.150
+# Static v. Third-File
+P7f P3d P2f P4d S4h R3b K6h P3e K7h K6b P4f 4a5b
+P2e R3d S4g K7b S6h K8b P9f S7b G3h P1d G2g S4b
+# p.151
+# Static v. Opposing
+P2f P3d  P7f P4d P2e B3c S4h R2b K6h S4b K7h K6b
+4i5h K7b P5f K8b P3f S7b S6h S4c 6h5g G3b P4f P2d
+# p.152
+# Static v. Third-file
+P7f P3d P9f P4d P2f R3b P2e B3c S4h S4b K6h K6b
+K7h K7b P5f K8b P3f P5d 4i5h 4a5b P1f P1d S6h S4c
+# p.152
+# Double Ranging
+P7f P3d P6f P3e S7h R3b S6g K6b B7g K7b R8h P1d
+P1f 4a5b P8f P2d P8e R3d S2h P2e K4h S4b 6i5h S8b
+# p.153
+P7f P3d P2f P4d S4h S4b P5f R5b K6h K6b K7h K7b
+4i5h K8b P9f P9d P6f S4c G6g S5d S5g S7b B7g P6d
+# p.154
+# Bishop Exchange
+P7f P8d P2f P8e P2e G3b B7g P3d S8h B7g+ S7g S2b
+S3h S6b G7h S3c S2g P7d S2f S7c S1e B*5d G5h S6d
+# p.155
+# Rook-On-Pawn
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b
+P9f P1d P1f P3d R3f G3c K4h P6d B9g S6c P7f K4a
+#
+# Source: How to play shogi
+#
+# p.12                         
+P7f P8d S7h P8e S7g P3d P2f S4b P2e S3c G7h G3b
+K6i S6b G5h K4a P5f P5d B7i G5b S3h P4d S2g 5b4c 
+S2f P1d P1f P7d P1e P1e S1e L1e L1e P*1c P*1b 
+S7c R1h S6d 1b1a+ B1a
+# p.13
+P7f P8d P5f P8e B7g P5d R5h S6b S6h P3d
+K4h K4b K3h K3b P1f P1d K2h 6a5b S3h P9d
+P9f 2b7g+ S7g S4b P5e P5e R5e 6b5c R5i P*5d
+G7h P7d S6f P8f P8f R8f N7g R8b P*8e P6d
+# p.14
+P7f P8d S6h P3d P6f S6b S6g P5d P9f 6a5b
+R5h K4b K4h K3b K3h P1d P1f P9d K2h S4b
+S3h P8e B7g S3c P4f P3e S4g S3d P5f S5c 
+R8h P4d G3h P4e P4e S4e P*4f S3d G5h P6d
+# p.22
+# Stativ v. Fourth-file
+P7f P3d S4h P4d P4f S4b S4g S4c P3f R4b R4h B3c
+P1f P1d P2f K6b K6h K7b K7h S6b 4i5h P5d P5f S5c
+# p.22
+# Static v. Static
+P7f P3d P2f P4d P2e B3c S4h S3b P5f P5d 4i5h 6a5b
+S7h G4c B7i K4b P2d P2d B2d B2d R2d P*2c R2h K3a
+# p.23
+# Centre Game
+P7f P3d P2f P5d P5f S6b S4h P8d P2e G3b G7h P8e
+P2d P2d R2d P*2c R2h P8f P8f R8f P*8g R8b K6i K4a
+# p.23
+# Double Fortress
+P7f P8d S6h P3d S7g S6b P2f S4b S4h G3b G7h P5d
+P5f K4a K6i G5b P3f P7d G5h S3c B7i B3a P6f P4d
+# p.23
+# Central v. Static
+P7f P8d P5f P5d S6h P3d P6f S6b R5h K4b K4h K3b
+K3h 6a5b S6g P1d P1f S4b K2h P7d B7g P8e G7h 4b5c
+#
+# Source: Guide to Shogi Openings
+#
+# Primitive Climbing Silver 1
+1.P-2f P-8d 2.P-2e P-8e 3.P-2d? Px2d 4.Rx2d P-8f 5.P*2c? Px8g+
+# Primitive Climbing Silver 2
+1.P-2f P-8d 2.P-2e P-8e 3.P-2d? Px2d 4.Rx2d P-8f 5.Px8f P*8g
+6.P*2c Px8h+ 7.Sx8h B*3e 8.R-2h Bx5g+ 9.Px2b+ Rx2b 10.Rx2b+?
+# Primitive Climbing Silver 3
+1.P-2f P-8d 2.P-2e P-8e 3.P-2d? Px2d 4.Rx2d P-8f 5.Px8f P*8g
+6.P*2c Px8h+ 7.Sx8h B*3e 8.R-2h Bx5g+ 9.Px2b+ Rx2b 10.P*2c R-1b
+11.B*2b? G-3b? 12.Bx3a+ Gx3a 13.S*2b
+# Primitive Climbing Silver 4
+1.P-2f P-8d 2.P-2e P-8e 3.P-2d? Px2d 4.Rx2d P-8f 5.Px8f P*8g
+6.P*2c Px8h+ 7.Sx8h B*3e 8.R-2h Bx5g+ 9.Px2b+ Rx2b 10.P*2c R-1b
+11.B*2b? P*2d 12.B-1a+ Rx1a 13.L*2g B*4e 14.Lx2d P*2g
+# Primitive Climbing Silver 5
+1.P-2f P-8d 2.P-2e P-8e 3.P-2d? Px2d 4.Rx2d P-8f 5.Px8f P*8g
+6.P*2c Px8h+ 7.Sx8h B*3e 8.R-2e Bx5g+ 9.R-5e +Bx6g 10.Rx5c+ P*5b
+# Primitive Climbing Silver 6
+1.P-2f P-8d 2.P-2e P-8e 3.G-7h G-3b 4.P-2d Px2d 5.Rx2d P*2c
+6.R-2h P-8f 7.Px8f Rx8f 8.P*8g R-8d 9.S-3h S-6b 10.S-2g G-5b?
+11.S-3f K-4a 12.S-3e P-3d 13.P*2d Px2d 14.Sx2d B-4d 15.P-7f
+# Primitive Climbing Silver 7
+1.P-2f P-8d 2.P-2e P-8e 3.G-7h G-3b 4.P-2d Px2d 5.Rx2d P*2c
+6.R-2h P-8f 7.Px8f Rx8f 8.P*8g R-8d 9.S-3h S-6b 10.S-2g P-3d
+11.S-3f B-3c 12.S-2e? P-3e
+# Primitive Climbing Silver 8
+1.P-2f P-8d 2.P-2e P-8e 3.G-7h G-3b 4.P-2d Px2d 5.Rx2d P*2c
+6.R-2h P-8f 7.Px8f Rx8f 8.P*8g R-8d 9.S-3h S-6b 10.S-2g P-3d
+11.S-3f B-3c 12.P-7f S-2b 13.Bx3c+ Sx3c? 14.S-8h P-6d 15.S-2e
+# Primitive Climbing Silver 9
+1.P-2f P-8d 2.P-2e P-8e 3.G-7h G-3b 4.P-2d Px2d 5.Rx2d P*2c
+6.R-2h P-8f 7.Px8f Rx8f 8.P*8g R-8d 9.S-3h S-6b 10.S-2g P-3d
+11.S-3f B-3c 12.P-7f S-2b 13.Bx3c+ Nx3c 14.S-8h G-5b 15.P-4f
+#
+# Wing Attack, Reclining Silver 1
+1.P-2f P-8d 2.P-2e P-8e 3.G-7h G-3b 4.S-4h S-6b 5.P-2d Px2d 
+6.Rx2d P*2c 7.R-2f P-3d 8.P-7f P-8f 9.Px8f Rx8f 10.P*8g R-8d
+11.P-4f P-6d 12.S-4g S-6c 13.S-5f S-7d? 14.S-4e S-6e
+# Wing Attack, Reclining Silver 2
+1.P-2f P-8d 2.P-2e P-8e 3.G-7h G-3b 4.S-4h S-6b 5.P-2d Px2d 
+6.Rx2d P*2c 7.R-2f P-3d 8.P-7f P-8f 9.Px8f Rx8f 10.P*8g R-8d
+11.P-4f P-6d 12.S-4g S-6c 13.S-5f S-5d 14.K-6i? S-6e 15.Sx6e Bx8h+ 
+16.Sx8h B*4g
+# Wing Attack, Reclining Silver 3
+1.P-2f P-8d 2.P-2e P-8e 3.G-7h G-3b 4.S-4h S-6b 5.P-2d Px2d 
+6.Rx2d P*2c 7.R-2f P-3d 8.P-7f P-8f 9.Px8f Rx8f 10.P*8g R-8d
+11.P-4f P-6d 12.S-4g S-6c 13.S-5f S-5d 14.K-6h P-7d? 15.Bx2b+ Sx2b 
+16.B*9e P*8c 17.R-2h
+# Wing Attack, Reclining Silver 4
+1.P-2f P-8d 2.P-2e P-8e 3.G-7h G-3b 4.S-4h S-6b 5.P-2d Px2d 
+6.Rx2d P*2c 7.R-2f P-3d 8.P-7f P-8f 9.Px8f Rx8f 10.P*8g R-8d
+11.P-4f P-6d 12.S-4g S-6c 13.S-5f S-5d 14.K-6h K-4b 15.P-1f P-1d
+16.P-9f P-9d 17.G-4h G-5b 18.P-3f P-7d 19.N-3g
+# Wing Attack, Reclining Silver 5
+1.P-2f P-8d 2.P-2e P-8e 3.G-7h G-3b 4.S-4h S-6b 5.P-2d Px2d 
+6.Rx2d P*2c 7.R-2f P-3d 8.P-7f P-8f 9.Px8f Rx8f 10.P*8g R-8d
+11.P-4f P-6d 12.S-4g S-6c 13.S-5f S-5d 14.K-6h K-4b 15.P-1f P-1d
+16.P-9f P-9d 17.G-4h G-5b 18.P*2d Px2d 19.Rx2d P*2c 20.Rx3d? Bx8h+ 
+21.Sx8h P*3c 22.R-3f B*2h
+# Wing Attack, Reclining Silver 6
+1.P-2f P-8d 2.P-2e P-8e 3.G-7h G-3b 4.S-4h S-6b 5.P-2d Px2d 
+6.Rx2d P*2c 7.R-2f P-3d 8.P-7f P-8f 9.Px8f Rx8f 10.P*8g R-8d
+11.P-4f P-6d 12.S-4g S-6c 13.S-5f S-5d 14.K-6h K-4b 15.P-1f P-1d
+16.P-9f P-9d 17.G-5h G-5b 18.P*2d Px2d 19.Rx2d P*2c 20.Rx3d R-8e 
+21.R-3f R-2e 22.P*2f R-8e
+#
+# Side Pawn, B*4e Variation 1
+1.P-7f P-3d 2.P-2f P-8d 3.P-2e P-8e 4.G-7h G-3b 5.P-2d Px2d
+6.Rx2d P-8f 7.Px8f Rx8f 8.Rx3d Bx8h+ 9.Sx8h B*4e? 10.R-2d Bx6g+
+11.Gx6g Rx8h+ 12.Rx2a+ +Rx9i 13.+Rx3a Gx3a 14.B*3c
+# Side Pawn, B*4e Variation 2
+1.P-7f P-3d 2.P-2f P-8d 3.P-2e P-8e 4.G-7h G-3b 5.P-2d Px2d
+6.Rx2d P-8f 7.Px8f Rx8f 8.Rx3d Bx8h+ 9.Sx8h B*4e? 10.R-2d Bx6g+?
+11.Gx6g Rx8h+ 12.Rx2a+ +Rx8i 13.P*6i N*5e 14.G-6h S*6g 15.G6h-5h Sx5h+
+16.Gx5h G*6g 17.G-4h +R-7h 18.S*5f
+# Side Pawn, B*4e Variation 3
+1.P-7f P-3d 2.P-2f P-8d 3.P-2e P-8e 4.G-7h G-3b 5.P-2d Px2d
+6.Rx2d P-8f 7.Px8f Rx8f 8.Rx3d Bx8h+ 9.Sx8h B*4e? 10.R-2d P*2c
+11.R-2h
+# Side Pawn, B*4e Variation 4
+1.P-7f P-3d 2.P-2f P-8d 3.P-2e P-8e 4.G-7h G-3b 5.P-2d Px2d
+6.Rx2d P-8f 7.Px8f Rx8f 8.Rx3d Bx8h+ 9.Sx8h P*2h 10.Sx2h B*4e
+11.R-2d P*2c 12.B*7g Rx8h+ 13.Bx8h Px2d 14.Bx1a+
+# Side Pawn, B*4e Variation 5
+1.P-7f P-3d 2.P-2f P-8d 3.P-2e P-8e 4.G-7h G-3b 5.P-2d Px2d
+6.Rx2d P-8f 7.Px8f Rx8f 8.Rx3d Bx8h+ 9.Sx8h P*2h 10.Sx2h B*4e
+11.R-2d P*2c 12.P*8g? Rx7f 13.P*7g R-6f 14.K-6h Px2d 15.Px6f
+#
+# King's Head Vanguard Pawn vs. Ranging Rook 1
+1.P-7f P-3d 2.P-2f P-4d 3.P-5f S-3b 4.S-4h R-4b 5.K-6h K-6b
+6.G4i-5h K-7b 7.K-7h K-8b 8.S-6h S-7b 9.P-9f P-9d 10.S6h-5g S-4c
+11.P-7e? P-6d 12.G6i-6h S-6c 13.S-6f R-7b
+# King's Head Vanguard Pawn vs. Ranging Rook 2
+1.P-7f P-3d 2.P-2f P-4d 3.P-5f S-3b 4.S-4h R-4b 5.K-6h K-6b
+6.G4i-5h K-7b 7.K-7h K-8b 8.S-6h S-7b 9.P-9f P-9d 10.S4h-5g S-4c
+11.P-7e P-6d? 12.S-7g S-6c 13.S-7f R-7b 14.S-6f
+# King's Head Vanguard Pawn vs. Ranging Rook 3
+1.P-7f P-3d 2.P-2f P-4d 3.P-5f S-3b 4.S-4h R-4b 5.K-6h K-6b
+6.G4i-5h K-7b 7.K-7h K-8b 8.S-6h S-7b 9.P-9f P-9d 10.P-2e B-3c
+11.S4h-5g S-4c 12.P-7e? R-2b 13.S-7g G-3b 14.S-7f? P-2d 15.Px2d Rx2d
+# King's Head Vanguard Pawn vs. Ranging Rook 4
+1.P-7f P-3d 2.P-2f P-4d 3.P-5f S-3b 4.S-4h R-4b 5.K-6h K-6b
+6.G4i-5h K-7b 7.K-7h K-8b 8.S-6h S-7b 9.P-9f P-9d 10.S4h-5g S-4c
+11.P-7e G4a-5b 12.S-7g P-5d 13.S-7f P-3e 14.P-2e B-3c 15.P-1f P-1d
+16.B-7g R-3b 17.P-6f B-4b 18.R-2f R-3d 19.K-8h N-3c 20.G-7h
+#
+# Quick-Attack Line vs. Ranging Rook 1
+1.P-7f P-3d 2.P-2f P-4d 3.P-5f S-3b 4.S-4h R-4b 5.K-6h K-6b
+6.G4i-5h K-7b 7.K-7h K-8b 8.S-6h S-7b 9.P-9f P-9d 10.P-3f G4a-5b
+11.S6h-5g S-4c 12.P-2e B-3c 13.S-4f P-6d? 14.P-3e Px3e? 15.Sx3e P*3d
+16.P-2d Px3e 17.Px2c+
+# Quick-Attack Line vs. Ranging Rook 2
+1.P-7f P-3d 2.P-2f P-4d 3.P-5f S-3b 4.S-4h R-4b 5.K-6h K-6b
+6.G4i-5h K-7b 7.K-7h K-8b 8.S-6h S-7b 9.P-9f P-9d 10.P-3f G4a-5b
+11.S6h-5g S-4c 12.P-2e B-3c 13.S-4f P-6d? 14.P-3e P-4e? 15.Bx3c+ Nx3c
+16.S-5e Px3e 17.P-2d
+# Quick-Attack Line vs. Ranging Rook 3
+1.P-7f P-3d 2.P-2f P-4d 3.P-5f S-3b 4.S-4h R-4b 5.K-6h K-6b
+6.G4i-5h K-7b 7.K-7h K-8b 8.S-6h S-7b 9.P-9f P-9d 10.P-3f G4a-5b
+11.S6h-5g S-4c 12.P-2e B-3c 13.S-4f P-6d? 14.P-3e R-3b 15.Px3d Sx3d
+16.R-3h P-4e 17.Bx3c+ Rx3c 18.S-5e
+# Quick-Attack Line vs. Ranging Rook 4
+1.P-7f P-3d 2.P-2f P-4d 3.P-5f S-3b 4.S-4h R-4b 5.K-6h K-6b
+6.G4i-5h K-7b 7.K-7h K-8b 8.S-6h S-7b 9.P-9f P-9d 10.P-3f G4a-5b
+11.S6h-5g S-4c 12.P-2e B-3c 13.S-4f P-5d 14.P-3e R-3b 15.G6i-6h
+# Quick-Attack Line vs. Ranging Rook 5
+1.P-7f P-3d 2.P-2f P-4d 3.P-5f S-3b 4.S-4h R-4b 5.K-6h K-6b
+6.G4i-5h K-7b 7.K-7h K-8b 8.S-6h S-7b 9.P-9f P-9d 10.P-3f G4a-5b
+11.S6h-5g S-4c 12.P-2e B-3c 13.S-4f P-5d 14.P-3e R-3b 15.R-3h? P-4e
+16.Bx3c+ Rx3c
+#
+# Fortress Opening - the Basics 1
+1.P-7f P-8d 2.S-6h P-3d 3.S-7g
+# Fortress Opening - the Basics 2
+1.P-7f P-8d 2.S-7h P-3d 3.S-7g S-6b 4.S-4h S-4b 5.G-7h? G-3b
+6.G-5h K-4a 7.P-6f? P-6d 8.K-6i P-7d 9.G5h-6g S-6c 10.P-5f S-5d
+11.B-7i R-6b 12.B-6h N-7c 13.K-7i? N-8e 14.S-8h P-6e
+# Fortress Opening - the Basics 3
+1.P-7f P-8d 2.S-7h P-3d 3.S-7g S-6b 4.S-4h S-4b 5.P-2f P-6d?
+6.P-2e B-3c 7.P-5f
+# Fortress Opening - the Basics 4
+1.P-7f P-8d 2.S-7h P-3d 3.S-7g S-6b 4.S-4h S-4b 5.P-2f P-8e
+6.P-5f? P-8f 7.Px8f Rx8f 8.Sx8f Bx8h+
+# Fortress Opening - the Basics 5
+1.P-7f P-8d 2.S-7h P-3d 3.S-7g S-6b 4.S-4h S-4b 5.P-2f P-8e
+6.P-5f? P-8f 7.Px8f Rx8f 8.G-7h Bx7g+ Nx7g S*8g
+# Fortress Opening - the Basics 6
+1.P-7f P-8d 2.S-7h P-3d 3.S-7g S-6b 4.S-4h S-4b 5.P-2f S-3c
+6.G-7h G-3b 7.G-5h G-5b 8.P-5f P-5d 9.P-3f P-7d 10.B-7i B-3a
+11.K-6i K-4a 12.P-6f P-4d 13.P-1f P-1d 14.P-2e P-8e 15.S-3g G5b-4c
+16.G5h-6g P-6d? 17.P-3e Px3e 18.Bx3e S-6c 19.S-3f B-4b 20.P-4f P*3d
+21.B-2f
+# Fortress Opening - the Basics 7
+1.P-7f P-8d 2.S-7h P-3d 3.S-7g S-6b 4.S-4h S-4b 5.P-2f S-3c
+6.G-7h G-3b 7.G-5h G-5b 8.P-5f P-5d 9.P-3f P-7d 10.B-7i B-3a
+11.K-6i K-4a 12.P-6f P-4d 13.P-1f P-1d 14.P-2e P-8e 15.S-3g B-6d 
+16.L-1g B-7c 17.R-1h S-5c? 18.P-1e Px1e 19.Lx1e Lx1e 20.Rx1e P*1c
+21.R-1h G5b-4c 22.P*1b
+# Fortress Opening - the Basics 8
+1.P-7f P-8d 2.S-7h P-3d 3.S-7g S-6b 4.S-4h S-4b 5.P-2f S-3c
+6.G-7h G-3b 7.G-5h G-5b 8.P-5f P-5d 9.P-3f P-7d 10.B-7i B-3a
+11.K-6i K-4a 12.P-6f P-4d 13.P-1f P-1d 14.P-2e P-8e 15.S-3g B-6d 
+16.L-1g B-7c 17.R-1h S-5c? 18.P-1e Px1e 19.Lx1e P*1c 20.Lx1c+ Nx1c
+21.Bx1c+ Lx1c 22.Rx1c+ S-2b 23.+R-1h B-5a 24.P*1d
+# Fortress Opening - the Basics 9
+1.P-7f P-8d 2.S-7h P-3d 3.S-7g S-6b 4.S-4h S-4b 5.P-2f S-3c
+6.G-7h G-3b 7.G-5h G-5b 8.P-5f P-5d 9.P-3f P-7d 10.B-7i B-3a
+11.K-6i K-4a 12.P-6f P-4d 13.P-1f P-1d 14.P-2e P-8e 15.S-3g B-6d 
+16.L-1g K-3a? 17.R-1h K-2b 18.S-2f G5b-4c 19.P-1e Px1e 20.Sx1e
+# Fortress Opening - the Basics 10
+1.P-7f P-8d 2.S-7h P-3d 3.S-7g S-6b 4.S-4h S-4b 5.P-2f S-3c
+6.G-7h G-3b 7.G-5h G-5b 8.P-5f P-5d 9.P-3f P-7d 10.B-7i B-3a
+11.K-6i K-4a 12.P-6f P-4d 13.P-1f P-1d 14.P-2e P-8e 15.S-3g B-6d 
+16.L-1g B-7c 17.R-1h G-2b 18.G5h-6g S-5c 19.B-5g P-6d 20.S-2f B-8d
+21.K-7i N-7c 22.R-3h G-4c 23.P-3e Px3e 24.Sx3e P*3d 25.S-4f K-3a
+#
+# Fortress Opening, N-3g Variation 1
+1.P-7f P-8d 2.S-7h P-3d 3.S-7g S-6b 4.S-4h S-4b 5.P-2f S-3c
+6.G-7h G-3b 7.G-5h G-5b 8.P-5f P-5d 9.P-3f P-7d 10.B-7i B-3a
+11.K-6i K-4a 12.P-6f P-4d 13.P-1f P-8e 14.P-1e B-6d 15.N-3g G5b-4c
+16.L-1g K-3a 17.R-1h B-7c? 18.P-1d Px1d 19.Lx1d P*1c 20.Lx1c Nx1c
+21.Bx1c+ Lx1c Rx1c+
+# Fortress Opening, N-3g Variation 2
+1.P-7f P-8d 2.S-7h P-3d 3.S-7g S-6b 4.S-4h S-4b 5.P-2f S-3c
+6.G-7h G-3b 7.G-5h G-5b 8.P-5f P-5d 9.P-3f P-7d 10.B-7i B-3a
+11.K-6i K-4a 12.P-6f P-4d 13.P-1f P-8e 14.P-1e B-6d 15.N-3g G5b-4c
+16.L-1g K-3a 17.R-1h K-2b 18.B-6h S-7c? 19.P-6e B-4b 20. N-2e
+# Fortress Opening, N-3g Variation 3
+1.P-7f P-8d 2.S-7h P-3d 3.S-7g S-6b 4.S-4h S-4b 5.P-2f S-3c
+6.G-7h G-3b 7.G-5h G-5b 8.P-5f P-5d 9.P-3f P-7d 10.B-7i B-3a
+11.K-6i K-4a 12.P-6f P-4d 13.P-1f P-8e 14.P-1e B-6d 15.N-3g G5b-4c
+16.L-1g K-3a 17.R-1h K-2b 18.B-6h B-7c 19.G5h-6g S-5c? 20.K-7i P-6d
+21.K-8h B-8d 22.N-2e
+# Fortress Opening, N-3g Variation 4
+1.P-7f P-8d 2.S-7h P-3d 3.S-7g S-6b 4.S-4h S-4b 5.P-2f S-3c
+6.G-7h G-3b 7.G-5h G-5b 8.P-5f P-5d 9.P-3f P-7d 10.B-7i B-3a
+11.K-6i K-4a 12.P-6f P-4d 13.P-1f P-8e 14.P-1e B-6d 15.N-3g G5b-4c
+16.L-1g K-3a 17.R-1h K-2b 18.B-6h B-7c 19.G5h-6g S-2d 20.P-4f B-8d
+# Fortress Opening, N-3g Variation 5
+1.P-7f P-8d 2.S-7h P-3d 3.S-7g S-6b 4.S-4h S-4b 5.P-2f S-3c
+6.G-7h G-3b 7.G-5h G-5b 8.P-5f P-5d 9.P-3f P-7d 10.B-7i B-3a
+11.K-6i K-4a 12.P-6f P-4d 13.P-1f P-8e 14.P-1e S-7c 15.G5h-6g G5b-4c
+16.N-3g S-6d 17.B-5g P-7e 18.P-6e Sx6e 19.Px7e
+# Fortress Opening, N-3g Variation 6
+1.P-7f P-8d 2.S-7h P-3d 3.S-7g S-6b 4.S-4h S-4b 5.P-2f S-3c
+6.G-7h G-3b 7.G-5h G-5b 8.P-5f P-5d 9.P-3f P-7d 10.B-7i B-3a
+11.K-6i K-4a 12.P-6f P-4d 13.P-1f P-8e 14.P-1e S-7c 15.G5h-6g G5b-4c
+16.N-3g S-6d 17.B-5g P-7e 18.Px7e? Sx7e 19.P*7f P-8f 20.Px8f Sx8f
+21.Sx8f Bx8f 22.P*8g B-4b
+# Fortress Opening, N-3g Variation 7
+1.P-7f P-8d 2.S-7h P-3d 3.S-7g S-6b 4.S-4h S-4b 5.P-2f S-3c
+6.G-7h G-3b 7.G-5h G-5b 8.P-5f P-5d 9.P-3f P-7d 10.B-7i B-3a
+11.K-6i K-4a 12.P-6f P-4d 13.P-1f P-8e 14.P-1e S-7c 15.G5h-6g G5b-4c
+16.N-3g P-7e? 17.Px7e Bx7e 18.P-6e B-4b 19.B-4f P*7d 20.S-6f
+#
+#
+1.P7g-7f P3c-3d 2.P6g-6f P3d-3e 3.S7i-6h R8b-3b 4.S6h-6g P3e-3f 5.P3gx3f R3bx3f 
+6.P*3g R3f-3d 7.B8h-7g S3a-4b 8.R2h-8h K5a-6b 9.G4i-4h K6b-7b 10.K5i-4i G4a-5b 
+11.K4i-3h G6a-6b 12.P8g-8f P1c-1d 
+#
+1.P7g-7f P3c-3d 2.P7f-7e K5a-4b 3.P6g-6f S7a-6b 4.R2h-7h P6c-6d 5.K5i-4h P8c-8d 
+6.S7i-6h P8d-8e 7.R7h-7f P6d-6e 8.S6h-7g P6ex6f 9.S7gx6f P*6e 10.S6f-7g S6b-6c 
+11.G6i-7h K4b-3b 
+#
+1.P2g-2f P8c-8d 2.P2f-2e P8d-8e 3.G6i-7h G4a-3b 4.P2e-2d P2cx2d 5.R2hx2d P*2c 
+6.R2d-2f S7a-7b 7.P9g-9f P1c-1d 8.P1g-1f P6c-6d 9.S3i-3h S7b-6c 10.P9f-9e P3c-3d 
+11.P7g-7f S6c-5d 12.K5i-4h P4c-4d 13.P7f-7e G6a-7b 14.R2f-7f S3a-4b 
+# Tanaka p.20 Double Fortress
+1. 7g7f 8c8d 2. 7i6h 3c3d 3. 6h7g 7a6b 4. 2g2f 3a4b 5. 3i4h 4a3b
+6. 6i7h 5c5d 7. 5i6i 5a4a 8. 5g5f 7c7d 9. 3g3f 6b5c 10. 2f2e 4b3c
+# Tanaka, p.20
+ 1. 7g7f  8c8d  2. 7i6h 3c3d   3. 6h7g  7a6b  4. 2g2f  3a4b   5. 3i4h 4a3b
+ 6. 6i7h  5c5d  7. 5i6i 5a4a   8. 5g5f  7c7d  9. 3g3f  6b5c  10. 2f2e 4b3c
+11. 4i5h  2b3a 12. 6g6f 6a5b  13. 8h7i  4c4d 14. 5h6g  3a4b  15. 7i4f 5c6d
+# Tanaka, p.31
+2g2f 8c8d 2f2e 8d8e 6i7h 4a3b 2e2d 2c2d 2h2d P*2c 
+2d2f 7a7b 9g9f 1c1d 2f3f 6c6d 7g7f 8e8f 8g8f 8b8f 
+7f7e 8f8b 8i7g 7b6c 5i4h 3a4b 8h9g 6a7b P*8e 4c4d 
+3f7f 4d4e 7i6h 3c3d 6g6f 5a4a 5g5f 4a3a 4h3h 2b3c
+# Tanaka, p.40
+7g7f 8c8d 2g2f 8d8e 2f2e 4a3b 8h7g 3c3d 7i6h 2b7g+ 
+6h7g 3a2b 6i7h 2b3c 3i3h 7a6b 5i6h 5a4b 3h2g 7c7d 
+2g2f 6b7c 2f1e 3c2b 2e2d 2c2d 1e2d P*2c 2d1e 7c6d 
+7g8h 1c1d 1e2f 7d7e 7f7e 6d7e 2f2e 8e8f 8g8f 8b8f
+# Tanaka, p.50
+7g7f 8c8d 5g5f 3c3d 5f5e 7a6b 2h5h 5a4b 5i4h 4b3b
+4h3h 3a4b 8h7g 6c6d 7i6h 6b6c 6h5g 6c7d 5g5f 6a5b
+6g6f 8b6b 6i7h 6d6e 6f6e 7d6e 5f6e 6b6e 5h6h 6e6h+
+7h6h P*6g 6h6g R*7i 6g6h 7i8i+ S*7h N*4f 4g4f S*4g
+# Tanaka, p.70 
+7g7f 8c8d 7i6h 3c3d 6h7g 7a6b 3i4h 5c5d 5g5f 6a5b
+6i7h 5a4b 5i6i 4b3b 3g3f 3a4b 8h7i 4b3c 4h3g 2b3a
+3f3e 3d3e 7i3e 3a6d 2h3h P*3d 3e6h 4c4d 4i5h 5b4c
+# Tanaka, p.80
+7g7f 8c8d 7i6h 3c3d 6h7g 7a6b 3i4h 5c5d 5g5f 6a5b
+6i7h 5a4b 5i6i 4b3b 4i5h 3a4b 8h7i 7c7d 6g6f 4b3c
+3g3f 2b3a 1g1f 4c4d 1f1e 5b4c 5h6g 6b7c 1i1g 7c6d
+# Tanaka, p.92
+7g7f 8c8d 7i6h 3c3d 6h7g 7a6b 2g2f 3a4b 3i4h 4a3b
+6i7h 5a4a 5i6i 5c5d 5g5f 7c7d 4i5h 6a5b 8h7i 4b3c
+6g6f 2b3a 3g3f 4c4d 5h6g 5b4c 7i4f 3a6d 2f2e 4a3a
+6i7i 3a2b 7i8h 8d8e 4h3g 6b7c 1g1f 9c9d 4f6d 7c6d
+# Tanaka, p.102
+7g7f 3c3d 2g2f 4c4d 3i4h 3a3b 5g5f 8b4b 5i6h 5a6b
+6h7h 6b7b 4i5h 7b8b 3g3f 7a7b 9g9f 9c9d 2f2e 2b3c
+7i6h 3b4c 6h5g 4a5b 5g4f 4c3b 4f3g 5c5d 3g2f 3b4c
+3f3e 4b3b 2h3h 3c4b 4g4f 4b6d 4h5g 5b5c 6g6f 7c7d
+#
+1. 7g7f 8c8d 2. 7i6h 3c3d 3. 6h7g 7a6b 4. 2g2f 3a4b 5. 3i4h 4a3b 
+6. 6i7h 5a4a 7. 5i6i 5c5d 8. 5g5f 6a5b 9. 4i5h 4b3c 10. 8h7i 2b3a 
+11. 6g6f 4c4d 12. 3g3f 7c7d 13. 1g1f 6b7c 14. 5h6g 5b4c 15. 1f1e 8d8e 
+#
+1. 7g7f 8c8d 2. 7i6h 3c3d 3. 6h7g 3d3e 4. 5g5f 8b3b 5. 3i4h 5a6b 
+6. 5i6h 7a7b 7. 6h7h 6b7a 8. 4i5h 7c7d 9. 2g2f 4a5b 10. 2f2e 3b3d 
+11. 4h5g 2a3c 12. 2h2f 1c1d 13. 8h7i 2b1c 14. 1g1f 3a4b 15. 5g4f 8a7c 
+16. 6g6f 6c6d 17. 9g9f 4b5a 18. 7h8h 5a6b 19. 6i7h 6b6c 20. 5h6g 9c9d 
+#
+1. 2g2f 8c8d 2. 2f2e 8d8e 3. 6i7h 4a3b 4. 2e2d 2c2d 5. 2h2d P*2c 
+6. 2d2f 7a6b 7. 9g9f 3c3d 8. 2f3f 3b3c 9. 7g7f 5a4a 10. 3i3h 1c1d 
+11. 3f2f 3c3b 12. 4g4f 8e8f 13. 8g8f 8b8f 14. P*8g 8f8b 15. 3h4g 5c5d 
+16. 5i6i 6b5c 17. 4i5h 5d5e 18. 7i6h 5c5d 19. 3g3f 5d6e 20. 6h7g 5e5f 
+#
+1. 7g7f 8c8d 2. 7i6h 3c3d 3. 6h7g 7a6b 4. 3i4h 3a4b 5. 6i7h 4a3b 
+6. 5i6i 5a4a 7. 5g5f 5c5d 8. 2g2f 6a5b 9. 3g3f 4c4d 10. 4i5h 4b3c 
+11. 8h7i 2b3a 12. 6g6f 7c7d 13. 1g1f 6b7c 14. 5h6g 5b4c 15. 4h3g 7d7e 
+#
+1. 2g2f 8c8d 2. 2f2e 8d8e 3. 6i7h 4a3b 4. 2e2d 2c2d 5. 2h2d P*2c 
+6. 2d2f 7a6b 7. 9g9f 1c1d 8. 7g7f 3c3d 9. 8i7g 2b4d 10. 2f5f 3a4b 
+11. 3i3h 6c6d 12. 5i4h 6b6c 13. 7f7e 5a4a 14. 8h9g 6a7b 15. 8g8f 8e8f 
+#
+1. 7g7f 8c8d 2. 2h7h 3c3d 3. 6g6f 8d8e 4. 8h7g 5a4b 5. 7i6h 4b3b 
+6. 5i4h 7a6b 7. 4h3h 6a5b 8. 3h2h 7c7d 9. 3i3h 5c5d 10. 5g5f 1c1d 
+11. 1g1f 3a4b 12. 6i5h 4b5c 13. 4g4f 9c9d 14. 9g9f 4a4b 15. 3g3f 7d7e 
+#
+1. 2g2f 8c8d 2. 2f2e 8d8e 3. 6i7h 4a3b 4. 2e2d 2c2d 5. 2h2d P*2c 
+6. 2d2f 7a6b 7. 9g9f 1c1d 8. 3i3h 6c6d 9. 4g4f 6b6c 10. 3h4g 3c3d 
+11. 4g5f 6c5d 12. 5i6h 5a4b 13. 4i4h 8e8f 14. 8g8f 8b8f 15. P*8g 8f8d 
+#
+1. 7g7f 8c8d 2. 7i6h 3c3d 3. 6h7g 7a6b 4. 2g2f 3a4b 5. 3i4h 4a3b 
+6. 6i7h 5a4a 7. 5i6i 5c5d 8. 5g5f 6a5b 9. 3g3f 4c4d 10. 4g4f 5b4c 
+11. 4h4g 8d8e 12. 2i3g 1c1d 13. 9g9f 9c9d 14. 4i5h 7c7d 15. 2f2e 4b3c 
+#
+1. 2g2f 8c8d 2. 2f2e 8d8e 3. 6i7h 4a3b 4. 2e2d 2c2d 5. 2h2d P*2c 
+6. 2d2f 7a7b 7. 9g9f 1c1d 8. 7g7f 8e8f 9. 8g8f 8b8f 10. 8i7g 9c9d 
+11. 7g6e 8f8e 12. 6e5c+ P*8f 13. 2f5f 5a4a 14. 5f5e 8e5e 15. 8h5e 8f8g+ 
+#
+1. 7g7f 3c3d 2. 2g2f 4c4d 3. 3i4h 3a4b 4. 5i6h 8b5b 5. 6h7h 5a6b 
+6. 4i5h 6b7b 7. 5g5f 4b4c 8. 2f2e 2b3c 9. 3g3f 7b8b 10. 7i6h 7a7b 
+11. 6h5g 4a3b 12. 9g9f 9c9d 13. 6i6h 5c5d 14. 4g4f 6c6d 15. 4h3g 7c7d 
+#
+1. 2g2f 8c8d 2. 2f2e 8d8e 3. 6i7h 4a3b 4. 2e2d 2c2d 5. 2h2d P*2c 
+6. 2d2f 7a7b 7. 3i3h 6c6d 8. P*2d 2c2d 9. 2f2d 1c1d 10. 7g7f 8e8f 
+11. 8g8f 8b8f 12. 1g1f 6a7a 13. 1f1e 1d1e 14. P*1d P*2c 15. 2d2e 1e1f
+# 
+#
+1.P2g-2f P3c-3d 2.P2f-2e B2b-3c 3.P7g-7f P4c-4d 4.S3i-4h R8b-3b 5.P3g-3f S3a-4b 
+6.K5i-6h K5a-6b 7.K6h-7h K6b-7b 8.P5g-5f P5c-5d 9.G4i-5h G4a-5b 10.S7i-6h S4b-5c 
+11.P1g-1f P1c-1d 12.P4g-4f K7b-8b 13.N2i-3g S7a-7b 
+#
+1.P2g-2f P3c-3d 2.P2f-2e B2b-3c 3.P7g-7f P4c-4d 4.S3i-4h S3a-4b 5.P5g-5f S4b-4c 
+6.S4h-5g P5c-5d 7.B8h-7g G4a-3b 8.K5i-6h S7a-6b 9.S7i-7h S6b-5c 10.P6g-6f P7c-7d 
+11.S7h-6g K5a-4a 12.G6i-7h R8b-5b 13.P3g-3f N8a-7c 
+#
+1.P7g-7f P3c-3d 2.P2g-2f P4c-4d 3.S3i-4h S3a-3b 4.P5g-5f R8b-4b 5.K5i-6h K5a-6b 
+6.K6h-7h S7a-7b 7.S4h-5g G4a-5b 8.B8h-7g K6b-7a 9.K7h-8h S3b-4c 10.L9i-9h S4c-5d 
+11.P6g-6f K7a-8b 12.K8h-9i P6c-6d 13.S7i-8h P7c-7d 14.G6i-7i G5b-6c 
+#
+1.P7g-7f P3c-3d 2.P2g-2f P4c-4d 3.S3i-4h S3a-4b 4.P5g-5f S4b-4c 5.K5i-6h P3d-3e 
+6.K6h-7h R8b-3b 7.P2f-2e B2b-3c 8.G4i-3h K5a-6b 9.G3h-2g K6b-7b 10.P3g-3f B3c-4b 
+11.P3fx3e R3bx3e 12.G2g-2f R3e-3a 
+#
+1.P7g-7f P3c-3d 2.P2g-2f P4c-4d 3.S3i-4h S3a-3b 4.P5g-5f R8b-4b 5.K5i-6h K5a-6b 
+6.K6h-7h S7a-7b 7.G4i-5h K6b-7a 8.P9g-9f P9c-9d 9.S4h-5g G4a-5b 10.S7i-6h K7a-8b 
+11.P5f-5e S3b-4c 12.P2f-2e B2b-3c 
+#
+1.P2g-2f P3c-3d 2.P7g-7f P4c-4d 3.S3i-4h S3a-3b 4.P5g-5f R8b-4b 5.K5i-6h K5a-6b 
+6.K6h-7h S7a-7b 7.G4i-5h K6b-7a 8.P3g-3f G4a-5b 9.S7i-6h P9c-9d 10.P9g-9f K7a-8b 
+11.P2f-2e B2b-3c 12.P1g-1f P1c-1d 
+#
+1.P7g-7f P3c-3d 2.P2g-2f P4c-4d 3.S3i-4h S3a-3b 4.P5g-5f R8b-4b 5.K5i-6h K5a-6b 
+6.K6h-7h S7a-7b 7.G4i-5h K6b-7a 8.P9g-9f P9c-9d 9.P8g-8f S3b-4c 10.K7h-8g G4a-5b 
+11.S7i-7h P6c-6d 12.P2f-2e B2b-3c 13.S4h-5g K7a-8b 14.S5g-6f G5b-6c 
+#
+1.P2g-2f P3c-3d 2.P7g-7f P4c-4d 3.S3i-4h S3a-4b 4.G4i-5h S4b-4c 5.K5i-6h P5c-5d 
+6.P5g-5f P8c-8d 7.S7i-7h S7a-6b 8.P2f-2e G4a-3b 9.P2e-2d P2cx2d 10.R2hx2d P*2c 
+11.R2d-2h S6b-5c 12.S7h-7g P7c-7d 13.P6g-6f P6c-6d 14.K6h-7h G6a-5b 
+#
+1.P2g-2f P8c-8d 2.P2f-2e P8d-8e 3.G6i-7h G4a-3b 4.P2e-2d P2cx2d 5.R2hx2d P*2c 
+6.R2d-2f S7a-7b 7.P1g-1f P1c-1d 8.S3i-3h P9c-9d 9.P9g-9f P3c-3d 10.P7g-7f K5a-4b 
+11.K5i-6h P8e-8f 12.P8gx8f R8bx8f 13.P*8g R8f-8b 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.S6h-7g S7a-6b 4.S3i-4h S3a-4b 5.P5g-5f P5c-5d 
+6.G6i-7h G4a-3b 7.K5i-6i K5a-4a 8.G4i-5h G6a-5b 9.P6g-6f S4b-3c 10.B8h-7i B2b-3a 
+11.P3g-3f P4c-4d 12.G5h-6g G5b-4c 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.S6h-7g S7a-6b 4.S3i-4h P5c-5d 5.P5g-5f S3a-4b 
+6.G6i-7h G6a-5b 7.K5i-6i G4a-3b 8.G4i-5h K5a-4a 9.P6g-6f P7c-7d 10.P3g-3f P5d-5e 
+11.S4h-5g S6b-5c 12.P2g-2f S5c-5d 
+#
+1.P7g-7f P3c-3d 2.P2g-2f P4c-4d 3.S3i-4h S3a-3b 4.P5g-5f P5c-5d 5.G4i-5h S7a-6b 
+6.G6i-7h G6a-5b 7.S7i-6h P8c-8d 8.K5i-6i G5b-4c 9.P4g-4f S3b-3c 10.P3g-3f G4a-3b 
+11.S4h-4g K5a-4a 
+#
+1.P2g-2f P8c-8d 2.P2f-2e P8d-8e 3.G6i-7h G4a-3b 4.P2e-2d P2cx2d 5.R2hx2d P*2c 
+6.R2d-2f S7a-6b 7.P1g-1f P1c-1d 8.S3i-3h P3c-3d 9.P7g-7f P5c-5d 10.P4g-4f S6b-5c 
+11.B8hx2b+ S3ax2b 12.S7i-8h P8e-8f 13.P8gx8f R8bx8f 14.P*8g R8f-8b 15.P3g-3f G6a-5b 
+#
+1.P2g-2f P8c-8d 2.P2f-2e P8d-8e 3.G6i-7h G4a-3b 4.P2e-2d P2cx2d 5.R2hx2d P*2c 
+6.R2d-2f S7a-6b 7.P1g-1f P1c-1d 8.S3i-3h P3c-3d 9.P7g-7f P8e-8f 10.P8gx8f R8bx8f 
+#
+1.P2g-2f P8c-8d 2.P2f-2e P8d-8e 3.G6i-7h G4a-3b 4.P2e-2d P2cx2d 5.R2hx2d P*2c 
+6.R2d-2f S7a-6b 7.P1g-1f P1c-1d 8.S3i-3h P3c-3d 9.P7g-7f P6c-6d 10.R2f-3f B2bx8h+ 
+11.S7ix8h 
+#
+1.P2g-2f P8c-8d 2.P2f-2e P8d-8e 3.G6i-7h G4a-3b 4.P2e-2d P2cx2d 5.R2hx2d P*2c 
+6.R2d-2f S7a-6b 7.S3i-3h P6c-6d 8.P*2d P2cx2d 9.R2fx2d P1c-1d 10.P7g-7f P8e-8f 
+#
+1.P2g-2f P8c-8d 2.P2f-2e P8d-8e 3.G6i-7h G4a-3b 4.P2e-2d P2cx2d 5.R2hx2d P*2c 
+6.R2d-2f S7a-7b 7.S3i-3h P6c-6d 8.P1g-1f P1c-1d 9.P7g-7f P3c-3d 10.R2f-3f B2bx8h+ 
+11.S7ix8h B*2h 
+#
+1.P2g-2f P8c-8d 2.P2f-2e P8d-8e 3.G6i-7h G4a-3b 4.P2e-2d P2cx2d 5.R2hx2d P*2c 
+6.R2d-2f S7a-7b 7.S3i-3h P6c-6d 8.P1g-1f P1c-1d 9.P7g-7f P8e-8f 10.P8gx8f R8bx8f 
+11.P*2d P2cx2d 12.R2fx2d S7b-6c 13.P1f-1e P1dx1e 14.P*1d P*2c 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.S6h-7g S7a-6b 4.P2g-2f S3a-4b 5.S3i-4h G4a-3b 
+6.G6i-7h P5c-5d 7.P5g-5f K5a-4a 8.K5i-6i G6a-5b 9.P3g-3f P7c-7d 10.G4i-5h S4b-3c 
+11.B8h-7i B2b-3a 12.P6g-6f P4c-4d 
+#
+1.P7g-7f P8c-8d 2.P2g-2f P8d-8e 3.P2f-2e G4a-3b 4.G6i-7h P8e-8f 5.P8gx8f R8bx8f 
+6.P2e-2d P2cx2d 7.R2hx2d P*2c 8.R2d-2f S7a-6b 9.P1g-1f P1c-1d 10.S3i-3h R8f-8b 
+11.P*8g P6c-6d 12.P4g-4f S6b-6c 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.S6h-7g S7a-6b 4.S3i-4h S3a-4b 5.P5g-5f G4a-3b 
+6.G4i-5h K5a-4a 7.G6i-7h P5c-5d 8.K5i-6i G6a-5b 9.P6g-6f P6c-6d 10.G5h-6g S6b-5c 
+11.P2g-2f R8b-6b 12.S4h-5g P7c-7d 
+#
+1.P2g-2f P8c-8d 2.P2f-2e P8d-8e 3.G6i-7h G4a-3b 4.P2e-2d P2cx2d 5.R2hx2d P*2c 
+6.R2d-2f S7a-7b 7.S3i-3h P9c-9d 8.P1g-1f P1c-1d 9.P9g-9f P3c-3d 10.R2f-3f G3b-3c 
+11.S7i-6h P6c-6d 12.S3h-2g S3a-3b 
+#
+1.P7g-7f P8c-8d 2.P2g-2f P8d-8e 3.B8h-7g P3c-3d 4.S7i-8h G4a-3b 5.G6i-7h B2bx7g+ 
+6.S8hx7g S3a-4b 7.S3i-3h S7a-7b 8.P4g-4f P6c-6d 9.S3h-4g S7b-6c 10.G4i-5h P1c-1d 
+11.P1g-1f P9c-9d 12.P9g-9f G6a-5b 
+#
+1.P2g-2f P3c-3d 2.P7g-7f P8c-8d 3.P2f-2e P8d-8e 4.G6i-7h G4a-3b 5.P2e-2d P2cx2d 
+6.R2hx2d P8e-8f 7.P8gx8f R8bx8f 8.R2dx3d N2a-3c 9.R3d-3f R8f-8d 10.R3f-2f N3c-4e 
+11.R2f-5f P*2h 12.S3ix2h B2bx8h+ 13.S7ix8h B*9b 
+#
+1.P2g-2f P3c-3d 2.P7g-7f P8c-8d 3.P2f-2e P8d-8e 4.G6i-7h G4a-3b 5.P2e-2d P2cx2d 
+6.R2hx2d P8e-8f 7.P8gx8f R8bx8f 8.R2dx3d B2bx8h+ 9.S7ix8h P*2h 10.S3ix2h B*4e 
+#
+1.P2g-2f P3c-3d 2.P7g-7f P8c-8d 3.P2f-2e P8d-8e 4.G6i-7h G4a-3b 5.P2e-2d P2cx2d 
+6.R2hx2d P8e-8f 7.P8gx8f R8bx8f 8.R2dx3d B2b-3c 
+#
+1.P2g-2f P3c-3d 2.P7g-7f P8c-8d 3.P2f-2e P8d-8e 4.G6i-7h G4a-3b 5.P2e-2d P2cx2d 
+6.R2hx2d P8e-8f 7.P8gx8f R8bx8f 8.R2dx3d B2bx8h+ 9.S7ix8h R8fx7f 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.P6g-6f S7a-6b 4.P5g-5f P5c-5d 5.S3i-4h S3a-4b 
+6.G6i-7h G4a-3b 7.K5i-6i K5a-4a 8.G4i-5h P6c-6d 9.P2g-2f P8d-8e 10.S6h-7g P5d-5e 
+11.P5fx5e B2bx5e 12.P2f-2e B5e-2b 13.G5h-6g S6b-6c 14.B8h-7i P7c-7d 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.P6g-6f S7a-6b 4.P5g-5f P5c-5d 5.S3i-4h S3a-4b 
+6.G4i-5h G4a-3b 7.G5h-6g K5a-4a 8.S6h-7g P7c-7d 9.P2g-2f G6a-5b 10.P2f-2e S4b-3c 
+11.B8h-7i P8d-8e 12.P3g-3f B2b-3a 13.B7i-4f B3a-6d 14.S4h-3g P4c-4d 15.K5i-6h S6b-7c 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.P6g-6f S7a-6b 4.P5g-5f P5c-5d 5.S3i-4h S3a-4b 
+6.G4i-5h G4a-3b 7.G5h-6g K5a-4a 8.G6i-7h G6a-5b 9.K5i-6i S4b-3c 10.S6h-7g B2b-3a 
+11.B8h-7i P4c-4d 12.P3g-3f G5b-4c 13.B7i-6h P7c-7d 14.K6i-7i B3a-6d 15.N2i-3g K4a-3a 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.P6g-6f S7a-6b 4.P5g-5f P5c-5d 5.S3i-4h S3a-4b 
+6.G4i-5h G4a-3b 7.G5h-6g K5a-4a 8.G6i-7h G6a-5b 9.K5i-6i S4b-3c 10.S6h-7g B2b-3a 
+11.B8h-7i P4c-4d 12.P3g-3f P7c-7d 13.B7i-6h G5b-4c 14.K6i-7i B3a-6d 15.N2i-3g 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.P6g-6f S7a-6b 4.P5g-5f P5c-5d 5.S3i-4h S3a-4b 
+6.G4i-5h G4a-3b 7.G5h-6g K5a-4a 8.G6i-7h G6a-5b 9.K5i-6i S4b-3c 10.S6h-7g B2b-3a 
+11.B8h-7i P4c-4d 12.P3g-3f G5b-4c 13.B7i-6h P7c-7d 14.K6i-7i B3a-6d 15.S4h-3g K4a-3a 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.P6g-6f S7a-6b 4.P5g-5f P5c-5d 5.S3i-4h S3a-4b 
+6.G4i-5h G4a-3b 7.G5h-6g K5a-4a 8.S6h-7g P7c-7d 9.P2g-2f G6a-5b 10.B8h-7i S4b-3c 
+11.P3g-3f B2b-3a 12.K5i-6h P7d-7e 13.P7fx7e B3ax7e 14.K6h-7h B7e-6d 15.N2i-3g P4c-4d 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.S6h-7g S7a-6b 4.S3i-4h P5c-5d 5.P5g-5f S3a-4b 
+6.G4i-5h G4a-3b 7.P6g-6f K5a-4a 8.G5h-6g P7c-7d 9.B8h-7i S4b-3c 10.K5i-6h P6c-6d 
+11.K6h-7h S6b-6c 12.P3g-3f S3c-4d 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.P6g-6f S7a-6b 4.P5g-5f P5c-5d 5.S3i-4h S3a-4b 
+6.G4i-5h G4a-3b 7.G5h-6g K5a-4a 8.S6h-7g P7c-7d 9.B8h-7i P6c-6d 10.G6i-7h S6b-6c 
+11.K5i-6i 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.S6h-7g S7a-6b 4.P5g-5f P5c-5d 5.S3i-4h S3a-4b 
+6.G4i-5h G4a-3b 7.P6g-6f K5a-4a 8.G5h-6g P7c-7d 9.B8h-7i S4b-3c 10.P3g-3f B2b-3a 
+11.K5i-6h P7d-7e 12.P7fx7e B3ax7e 13.P6f-6e B7e-4b 14.K6h-7h S6b-7c 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.P6g-6f S7a-6b 4.P5g-5f P5c-5d 5.S3i-4h S3a-4b 
+6.G4i-5h G4a-3b 7.G5h-6g K5a-4a 8.G6i-7h G6a-5b 9.K5i-6i S4b-3c 10.S6h-7g B2b-3a 
+11.B8h-7i P4c-4d 12.P3g-3f G5b-4c 13.B7i-6h P7c-7d 
+#
+1.P7g-7f P8c-8d 2.P2g-2f G4a-3b 3.G6i-7h P8d-8e 4.B8h-7g P3c-3d 5.S7i-8h B2bx7g+ 
+6.S8hx7g S3a-4b 7.S3i-3h S7a-7b 8.P4g-4f P6c-6d 9.S3h-4g S7b-6c 10.P6g-6f P4c-4d 
+11.G4i-5h G6a-5b 12.K5i-6h K5a-4a 13.K6h-7i K4a-3a 
+#
+1.P7g-7f P8c-8d 2.B8h-7g P3c-3d 3.S7i-6h S7a-6b 4.S3i-3h P6c-6d 5.P4g-4f S6b-6c 
+6.S3h-4g G4a-3b 7.G6i-7h G6a-5b 8.S4g-5f S6c-5d 9.R2h-4h K5a-4a 10.P4f-4e B2bx7g+ 
+11.S6hx7g S3a-4b 12.K5i-6h K4a-3a 13.P3g-3f P7c-7d 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.P6g-6f S7a-6b 4.P5g-5f P5c-5d 5.S3i-4h K5a-4b 
+6.P2g-2f S3a-3b 7.G4i-5h G6a-5b 8.G5h-6g S3b-3c 9.S6h-7g K4b-3b 10.K5i-6h P4c-4d 
+11.K6h-7h G5b-4c 12.B8h-7i B2b-3a 13.P3g-3f P7c-7d 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.P6g-6f S7a-6b 4.P5g-5f P5c-5d 5.S3i-4h S3a-4b 
+6.G4i-5h G4a-3b 7.G5h-6g K5a-4a 8.G6i-7h G6a-5b 9.K5i-6i S4b-3c 10.S6h-7g P4c-4d 
+11.B8h-7i B2b-3a 12.P3g-3f G5b-4c 13.B7i-6h P7c-7d 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.P6g-6f S7a-6b 4.P5g-5f P5c-5d 5.S3i-4h S3a-4b 
+6.G4i-5h G4a-3b 7.G5h-6g K5a-4a 8.S6h-7g P7c-7d 9.B8h-7i P6c-6d 10.P2g-2f S6b-6c 
+11.P2f-2e R8b-5b 12.G6i-7h N8a-7c 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.S6h-7g S7a-6b 4.S3i-4h P5c-5d 5.P5g-5f S3a-4b 
+6.G6i-7h G4a-3b 7.K5i-6i K5a-4a 8.P2g-2f G6a-5b 9.P2f-2e S4b-3c 10.P3g-3f P4c-4d 
+11.S4h-3g G5b-4c 12.S3g-4f S6b-5c 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.S6h-7g S7a-6b 4.P5g-5f P5c-5d 5.S3i-4h S6b-5c 
+6.G6i-7h S5c-6d 7.P2g-2f S3a-4b 8.K5i-6i G4a-3b 9.P2f-2e S4b-3c 10.P3g-3f G6a-5b 
+11.G4i-5h K5a-4a 12.P6g-6f P4c-4d 13.G5h-6g G5b-4c 
+#
+1.P2g-2f P8c-8d 2.P2f-2e P8d-8e 3.G6i-7h G4a-3b 4.P2e-2d P2cx2d 5.R2hx2d P*2c 
+6.R2d-2f S7a-7b 7.P1g-1f P1c-1d 8.S3i-3h P6c-6d 9.P7g-7f P8e-8f 10.P8gx8f R8bx8f 
+11.P*8g R8f-8b 12.P3g-3f P3c-3d 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.S6h-7g S7a-6b 4.S3i-4h P5c-5d 5.P5g-5f S3a-4b 
+6.G4i-5h G4a-3b 7.P6g-6f K5a-4a 8.G5h-6g P7c-7d 9.P2g-2f S4b-3c 10.B8h-7i B2b-3a 
+11.K5i-6h S6b-7c 12.K6h-7h S7c-6d 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.P6g-6f S7a-6b 4.P5g-5f P5c-5d 5.S3i-4h S3a-4b 
+6.G4i-5h G4a-3b 7.G5h-6g K5a-4a 8.G6i-7h G6a-5b 9.K5i-6i S4b-3c 10.S6h-7g B2b-3a 
+11.B8h-7i P4c-4d 12.P3g-3f P7c-7d 13.B7i-6h P9c-9d 14.K6i-7i P9d-9e 15.K7i-8h L9a-9c 
+#
+1.P7g-7f P8c-8d 2.P2g-2f P8d-8e 3.B8h-7g P3c-3d 4.S7i-8h B2bx7g+ 5.S8hx7g S3a-2b 
+6.S3i-3h S2b-3c 7.P4g-4f S7a-7b 8.S3h-4g K5a-4b 9.G6i-7h G4a-3b 10.P6g-6f G6a-5b 
+11.P9g-9f P7c-7d 12.S4g-5f S7b-7c 
+#
+1.P7g-7f P3c-3d 2.P2g-2f P8c-8d 3.P2f-2e P8d-8e 4.G6i-7h G4a-3b 5.P2e-2d P2cx2d 
+6.R2hx2d P*2c 7.R2d-2h B2bx8h+ 8.S7ix8h 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.P6g-6f S7a-6b 4.P5g-5f P5c-5d 5.S3i-4h S3a-4b 
+6.G4i-5h G4a-3b 7.G5h-6g K5a-4a 8.G6i-7h G6a-5b 9.K5i-6i S4b-3c 10.S6h-7g B2b-3a 
+11.B8h-7i P4c-4d 12.P3g-3f G5b-4c 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.P6g-6f S7a-6b 4.P5g-5f P5c-5d 5.S3i-4h S3a-4b 
+6.G4i-5h G4a-3b 7.G5h-6g K5a-4a 8.G6i-7h P7c-7d 9.K5i-6i S6b-5c 10.P2g-2f P8d-8e 
+11.S6h-7g P5d-5e 12.P5fx5e B2bx5e 
+#
+1.P7g-7f P8c-8d 2.P2g-2f P8d-8e 3.B8h-7g P3c-3d 4.S7i-8h G4a-3b 5.G6i-7h B2bx7g+ 
+6.S8hx7g S3a-4b 7.S3i-3h S7a-7b 8.P4g-4f P6c-6d 9.S3h-4g S7b-6c 10.G4i-5h P4c-4d 
+11.K5i-6h G6a-5b 12.K6h-7i K5a-4a 13.P9g-9f P1c-1d 
+#
+1.P2g-2f P8c-8d 2.P2f-2e P8d-8e 3.G6i-7h G4a-3b 4.P2e-2d P2cx2d 5.R2hx2d P*2c 
+6.R2d-2f S7a-7b 7.S3i-3h P3c-3d 8.P9g-9f P1c-1d 9.P1g-1f P9c-9d 
+#
+1.P2g-2f P8c-8d 2.P2f-2e P8d-8e 3.G6i-7h G4a-3b 4.P2e-2d P2cx2d 5.R2hx2d P*2c 
+6.R2d-2f S7a-7b 7.P1g-1f P1c-1d 8.S3i-3h P3c-3d 9.P7g-7f P8e-8f 10.P8gx8f R8bx8f 
+11.P*8g R8f-8b 
+#
+1.P2g-2f P8c-8d 2.P2f-2e P8d-8e 3.G6i-7h G4a-3b 4.P2e-2d P2cx2d 5.R2hx2d P*2c 
+6.R2d-2f S7a-7b 7.P1g-1f P1c-1d 8.P9g-9f P3c-3d 9.S3i-3h P6c-6d 10.R2f-3f G3b-3c 
+11.S3h-2g S7b-6c 12.G4i-3h P4c-4d 13.R3f-2f G6a-5b 14.S2g-3f G5b-4c 
+#
+1.P2g-2f P8c-8d 2.P2f-2e P8d-8e 3.G6i-7h G4a-3b 4.P2e-2d P2cx2d 5.R2hx2d P*2c 
+6.R2d-2f S7a-7b 7.P1g-1f P1c-1d 8.S3i-3h P3c-3d 9.P7g-7f P8e-8f 10.P8gx8f R8bx8f 
+11.P*8g R8f-8b 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.S6h-7g S7a-6b 4.P5g-5f P5c-5d 5.S3i-4h S3a-4b 
+6.G4i-5h G4a-3b 7.P6g-6f K5a-4a 8.G5h-6g P7c-7d 9.G6i-7h G6a-5b 10.B8h-7i S4b-3c 
+11.K5i-6i B2b-3a 12.B7i-6h P4c-4d 
+#
+1.P7g-7f P3c-3d 2.P2g-2f P4c-4d 3.S3i-4h S3a-3b 4.P5g-5f P5c-5d 5.G4i-5h S7a-6b 
+6.S7i-7h G6a-5b 7.S7h-7g S3b-3c 8.B8h-7i G5b-4c 9.K5i-6h B2b-3a 10.K6h-7h K5a-4b 
+11.P6g-6f K4b-3b 12.G5h-6g P7c-7d 13.K7h-8h S6b-7c 14.S4h-5g K3b-2b 
+#
+1.P7g-7f P3c-3d 2.P2g-2f P8c-8d 3.P2f-2e P8d-8e 4.G6i-7h G4a-3b 5.P2e-2d P2cx2d 
+6.R2hx2d P8e-8f 7.P8gx8f R8bx8f 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.P6g-6f S7a-6b 4.P5g-5f P5c-5d 5.S3i-4h S3a-4b 
+6.G4i-5h G4a-3b 7.G5h-6g K5a-4a 8.G6i-7h G6a-5b 9.K5i-6i S4b-3c 10.S6h-7g P4c-4d 
+11.B8h-7i B2b-3a 12.P3g-3f P7c-7d 13.B7i-6h G5b-4c 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.S6h-7g S7a-6b 4.P5g-5f P5c-5d 5.S3i-4h S3a-4b 
+6.G4i-5h G4a-3b 7.P6g-6f K5a-4a 8.G5h-6g P7c-7d 9.G6i-7h G6a-5b 10.K5i-6i S4b-3c 
+11.B8h-7i B2b-3a 12.P3g-3f P4c-4d 13.S4h-3g B3a-6d 14.B7i-6h G5b-4c 
+#
+1.P7g-7f P8c-8d 2.P2g-2f P8d-8e 3.B8h-7g P3c-3d 4.S7i-8h G4a-3b 5.G6i-7h B2bx7g+ 
+6.S8hx7g S3a-4b 7.S3i-3h S7a-6b 8.P4g-4f P6c-6d 9.S3h-4g S6b-6c 10.P6g-6f P4c-4d 
+11.G4i-5h G6a-5b 12.K5i-6h K5a-4a 13.K6h-7i S6c-5d 14.S4g-5f P7c-7d 15.P3g-3f K4a-3a 
+#
+1.P2g-2f P8c-8d 2.P2f-2e P8d-8e 3.G6i-7h G4a-3b 4.P2e-2d P2cx2d 5.R2hx2d P*2c 
+6.R2d-2f S7a-7b 7.P1g-1f P1c-1d 8.P7g-7f P8e-8f 9.P8gx8f R8bx8f 10.S3i-3h R8f-8b 
+11.P*8g P6c-6d 12.P3g-3f P3c-3d 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.S6h-7g S7a-6b 4.P5g-5f P5c-5d 5.S3i-4h S3a-4b 
+6.G4i-5h G4a-3b 7.P6g-6f K5a-4a 8.G5h-6g G6a-5b 9.G6i-7h S4b-3c 10.K5i-6i B2b-3a 
+11.B8h-7i P4c-4d 12.P3g-3f G5b-4c 
+#
+1.P2g-2f P8c-8d 2.P2f-2e P8d-8e 3.G6i-7h G4a-3b 4.P2e-2d P2cx2d 5.R2hx2d P*2c 
+6.R2d-2f S7a-7b 7.P1g-1f P1c-1d 8.S3i-3h P9c-9d 9.P9g-9f P3c-3d 10.P7g-7f K5a-4b 
+#
+1.P7g-7f P8c-8d 2.P2g-2f P8d-8e 3.B8h-7g P3c-3d 4.S7i-8h G4a-3b 5.G6i-7h B2bx7g+ 
+6.S8hx7g S3a-4b 7.S3i-3h S7a-7b 8.P4g-4f S4b-3c 9.S3h-4g K5a-4b 10.G4i-5h S7b-8c 
+11.P6g-6f S8c-8d 12.P9g-9f P9c-9d 13.P3g-3f K4b-3a 14.N2i-3g P7c-7d 15.K5i-4h P4c-4d 
+#
+1.P2g-2f P8c-8d 2.P2f-2e P8d-8e 3.G6i-7h G4a-3b 4.P2e-2d P2cx2d 5.R2hx2d P*2c 
+6.R2d-2f S7a-7b 7.P1g-1f P1c-1d 8.S3i-3h P9c-9d 9.R2f-5f K5a-4b 10.P3g-3f P3c-3d 
+11.N2i-3g G6a-5b 12.P7g-7f P6c-6d 13.B8hx2b+ S3ax2b 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.P6g-6f S7a-6b 4.P5g-5f P5c-5d 5.S3i-4h S3a-4b 
+6.G6i-7h G4a-3b 7.K5i-6i K5a-4a 8.G4i-5h P6c-6d 9.P2g-2f P8d-8e 10.S6h-7g P5d-5e 
+11.P5fx5e B2bx5e 12.P2f-2e B5e-2b 
+#
+1.P2g-2f P8c-8d 2.P2f-2e P8d-8e 3.G6i-7h G4a-3b 4.P2e-2d P2cx2d 5.R2hx2d P*2c 
+6.R2d-2f S7a-7b 7.P1g-1f P1c-1d 8.S3i-3h P9c-9d 9.K5i-5h P9d-9e 10.R2f-5f S3a-4b 
+11.P3g-3f K5a-6b 
+#
+1.P7g-7f P8c-8d 2.P2g-2f P8d-8e 3.B8h-7g P3c-3d 4.S7i-8h G4a-3b 5.G6i-7h B2bx7g+ 
+6.S8hx7g S3a-4b 7.S3i-3h S7a-7b 8.P4g-4f S4b-3c 9.S3h-4g K5a-4b 10.G4i-5h S7b-8c 
+11.P6g-6f S8c-8d 12.P9g-9f P9c-9d 13.P3g-3f K4b-3a 14.N2i-3g G6a-5b 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.S6h-7g S7a-6b 4.S3i-4h S3a-4b 5.P5g-5f G4a-3b 
+6.G4i-5h K5a-4a 7.P6g-6f P5c-5d 8.G5h-6g G6a-5b 9.G6i-7h S4b-3c 10.K5i-6i B2b-3a 
+11.B8h-7i P4c-4d 12.P3g-3f P7c-7d 
+#
+1.P2g-2f P8c-8d 2.P7g-7f P8d-8e 3.B8h-7g P3c-3d 4.S7i-8h G4a-3b 5.G6i-7h B2bx7g+ 
+6.S8hx7g S3a-4b 7.S3i-3h S4b-3c 8.P4g-4f S7a-7b 9.S3h-4g K5a-4b 10.G4i-5h S7b-8c 
+11.P3g-3f S8c-8d 12.P9g-9f P9c-9d 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.S6h-7g S7a-6b 4.S3i-4h S3a-4b 5.P5g-5f G4a-3b 
+6.G4i-5h P5c-5d 7.P6g-6f P7c-7d 8.G5h-6g K5a-4a 9.G6i-7h P6c-6d 10.K5i-6i S6b-6c 
+11.P2g-2f N8a-7c 12.P2f-2e P8d-8e 13.B8h-7i S4b-3c 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.S6h-7g S7a-6b 4.S3i-4h S3a-4b 5.P5g-5f P5c-5d 
+6.G4i-5h G4a-3b 7.P6g-6f K5a-4a 8.G5h-6g G6a-5b 9.G6i-7h S4b-3c 10.K5i-6i B2b-3a 
+11.B8h-7i P4c-4d 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.P6g-6f S7a-6b 4.P5g-5f P5c-5d 5.S3i-4h S3a-4b 
+6.G6i-7h G4a-3b 7.K5i-6i K5a-4a 8.G4i-5h G6a-5b 9.S6h-7g P7c-7d 10.G5h-6g P6c-6d 
+11.B8h-7i P8d-8e 12.P3g-3f N8a-7c 13.B7i-4f S4b-5c 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.S6h-7g S7a-6b 4.P5g-5f P5c-5d 5.S3i-4h S3a-4b 
+6.G4i-5h G4a-3b 7.P6g-6f K5a-4a 8.G5h-6g P7c-7d 9.G6i-7h G6a-5b 10.K5i-6i S4b-3c 
+11.B8h-7i B2b-3a 12.P3g-3f P4c-4d 13.B7i-6h G5b-4c 14.K6i-7i B3a-4b 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.P6g-6f S7a-6b 4.P5g-5f P5c-5d 5.S3i-4h S3a-4b 
+6.G4i-5h G4a-3b 7.G5h-6g K5a-4a 8.G6i-7h G6a-5b 9.K5i-6i P4c-4d 10.S6h-7g S4b-3c 
+11.B8h-7i B2b-3a 12.P3g-3f G5b-4c 
+#
+1.P2g-2f P8c-8d 2.P2f-2e P8d-8e 3.G6i-7h G4a-3b 4.P2e-2d P2cx2d 5.R2hx2d P*2c 
+6.R2d-2f S7a-7b 7.P1g-1f P1c-1d 8.S3i-4h P6c-6d 9.K5i-6i S7b-6c 10.P3g-3f P3c-3d 
+11.P7g-7f S6c-5d 12.G4i-5i P8e-8f 13.P8gx8f R8bx8f 14.P3f-3e R8f-8b 15.N2i-3g P3dx3e 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.P6g-6f S7a-6b 4.P5g-5f P5c-5d 5.S3i-4h S3a-4b 
+6.G4i-5h G4a-3b 7.G5h-6g K5a-4a 8.G6i-7h G6a-5b 9.K5i-6i P4c-4d 10.S6h-7g S4b-3c 
+11.B8h-7i B2b-3a 12.P3g-3f P7c-7d 
+#
+1.P2g-2f P8c-8d 2.P2f-2e P8d-8e 3.G6i-7h G4a-3b 4.P2e-2d P2cx2d 5.R2h-2f S7a-7b 
+6.P1g-1f P1c-1d 7.P7g-7f P8e-8f 8.P8gx8f R8bx8f 9.P*8g R8f-8b 10.S3i-3h P6c-6d 
+11.P3g-3f P3c-3d 12.S3h-3g S7b-6c 
+#
+1.P7g-7f P3c-3d 2.P2g-2f P8c-8d 3.P2f-2e P8d-8e 4.G6i-7h G4a-3b 5.P2e-2d P2cx2d 
+6.R2hx2d P8e-8f 7.P8gx8f R8bx8f 8.R2dx3d B2b-3c 9.R3d-3f R8f-8d 10.R3f-2f S3a-2b 
+11.P*8g 
+#
+1.P7g-7f P3c-3d 2.P2g-2f P8c-8d 3.P2f-2e P8d-8e 4.G6i-7h G4a-3b 5.P2e-2d P2cx2d 
+6.R2hx2d P8e-8f 7.P8gx8f R8bx8f 8.R2dx3d B2b-3c 
+#
+1.P2g-2f P8c-8d 2.P2f-2e P8d-8e 3.G6i-7h G4a-3b 4.P2e-2d P2cx2d 5.R2hx2d P*2c 
+6.R2d-2f S7a-7b 7.P1g-1f P1c-1d 8.S3i-4h P6c-6d 9.K5i-6i P3c-3d 10.G4i-5i K5a-4b 
+11.P9g-9f P9c-9d 12.P7g-7f P8e-8f 13.P8gx8f R8bx8f 14.R2f-5f R8f-8b 15.P3g-3f P4c-4d 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.S6h-7g S7a-6b 4.P5g-5f P5c-5d 5.S3i-4h S3a-4b 
+6.G6i-7h G4a-3b 7.K5i-6i K5a-4a 8.G4i-5h G6a-5b 9.P6g-6f S4b-3c 10.P3g-3f P4c-4d 
+11.B8h-7i B2b-3a 12.G5h-6g G5b-4c 
+#
+1.P2g-2f P8c-8d 2.P2f-2e P8d-8e 3.G6i-7h G4a-3b 4.P2e-2d P2cx2d 5.R2hx2d P*2c 
+6.R2d-2f S7a-7b 7.P1g-1f P1c-1d 8.S3i-4h P6c-6d 9.K5i-6i P3c-3d 10.G4i-5i S3a-4b 
+11.P7g-7f P4c-4d 12.B8h-7g S4b-4c 
+#
+1.P7g-7f P8c-8d 2.S7i-6h P3c-3d 3.S6h-7g S7a-6b 4.P5g-5f P5c-5d 5.S3i-4h S3a-4b 
+6.G6i-7h G4a-3b 7.K5i-6i K5a-4a 8.G4i-5h G6a-5b 9.P6g-6f P4c-4d 10.P3g-3f S4b-3c 
+11.B8h-7i B2b-3a 12.G5h-6g G5b-4c 
+#
+1.P7g-7f P8c-8d 2.P2g-2f P8d-8e 3.B8h-7g P3c-3d 4.P6g-6f S7a-6b 5.S3i-4h G6a-5b 
+6.P2f-2e B2b-3c 7.G6i-7h G4a-3b 8.G4i-5h K5a-4a 9.K5i-6i S3a-2b 10.P3g-3f 
+#
+1.P7g-7f P8c-8d 2.P2g-2f G4a-3b 3.P2f-2e P3c-3d 4.G6i-7h P8d-8e 5.P2e-2d P2cx2d 
+#
+1.P7g-7f P8c-8d 2.P2g-2f P8d-8e 3.B8h-7g P3c-3d 4.S7i-8h G4a-3b 5.G6i-7h B2bx7g+ 
+6.S8hx7g S3a-4b 7.P2f-2e S4b-3c 8.S3i-4h 
+#
+1.P7g-7f P8c-8d 2.P2g-2f P8d-8e 3.B8h-7g P3c-3d 4.S7i-8h G4a-3b 5.G6i-7h B2bx7g+ 
+6.S8hx7g S3a-4b 7.P2f-2e S4b-3c 8.S3i-4h S7a-6b 9.P4g-4f P6c-6d 10.S4h-4g S6b-6c 
+11.G4i-5h G6a-5b 12.K5i-6h K5a-4b 
+#
+1.P7g-7f P8c-8d 2.P2g-2f P8d-8e 3.B8h-7g P3c-3d 4.S7i-8h G4a-3b 5.G6i-7h B2bx7g+ 
+6.S8hx7g S3a-4b 7.S3i-4h S4b-3c 8.P4g-4f S7a-6b 9.G4i-5h G6a-5b 10.S4h-4g K5a-4b 
+#
+1.P7g-7f P8c-8d 2.P2g-2f P8d-8e 3.B8h-7g P3c-3d 4.S7i-8h G4a-3b 5.G6i-7h B2bx7g+ 
+6.S8hx7g S3a-4b 7.P2f-2e S4b-3c 8.S3i-4h S7a-6b 9.P4g-4f P6c-6d 10.S4h-4g S6b-6c 
+11.G4i-5h G6a-5b 12.K5i-6h K5a-4b 13.P3g-3f K4b-3a 14.P1g-1f P7c-7d 15.K6h-7i K3a-2b 
+16.N2i-3g K2b-3a 17.K7i-8h K3a-2b 
+#
+1.P7g-7f P8c-8d 2.P2g-2f P8d-8e 3.B8h-7g P3c-3d 4.P6g-6f S7a-6b 5.S3i-4h G6a-5b 
+6.G4i-5h G4a-3b 7.G6i-7h B2b-3c 8.S7i-8h K5a-4a 9.G5h-6g S3a-2b 
+# 
+1.P2f P8d 2.P2e P8e 3.G7h G3b 4.P2d Px2d 5.Rx2d P'2c 6.R2f S7b 7.P1f P1d 8.S3h
+P6d 9.P7f P8f 10.Px8f Rx8f 11.P'8g R8b 12.P3f P3d 13.S3g S6c 14.P3e Px3e 15.S4f
+# 
+1.P7f P8d 2.S6h P3d 3.S7g S6b 4.P5f S4b 5.S4h P5d 6.G4i-5h G3b 7.P6f K4a 8.G6g
+G5b 9.B7i S3c 10.P3f B3a 11.K6h P4d 12.K7h G5b-4c 13.K8h B6d 14.S3g P8e 15.G7h
+# 
+1.P7f P8d 2.P2f P8e 3.B7g P3d 4.S8h G3b 5.G7h Bx7g+ 6.Sx7g S2b 7.S3h S7b 8.P4f
+S3c 9.S4g P6d 10.G5h S6c 11.P3f P1d 12.P1f P7d 13.K6h N7c 14.P6f G6b 15.P2e R8a
+# 
+1.P7f P8d 2.S6h P3d 3.S7g S6b 4.P5f S4b 5.S4h P5d 6.G4i-5h G3b 7.P6f K4a 8.G6g
+P6d 9.P2f S6c 10.P2e P5e 11.Px5e Bx5e 12.G7h P7d 13.K6i S5d 14.P2d Px2d 15.Rx2d
+# 
+1.P7f P8d 2.P2f P8e 3.B7g P3d 4.S8h G3b 5.G7h Bx7g+ 6.Sx7g S4b 7.S3h S7b
+8.P4f P6d 9.S4g S6c 10.G5h P1d 11.P1f P9d 12.P9f G5b 13.P3f K4a 14.S5f S5d
+# 
+1.P7f P8d 2.S6h P3d 3.S7g S6b 4.P5f S4b 5.S4h P5d 6.G4i-5h G3b 7.P6f K4a 8.G6g
+G5b 9.B7i S6b-5c 10.P2f P6d 11.P2e R6b 12.G7h P6e 13.Px6e Rx6e 14.P'6f R6a
+# 
+1.P7f P8d 2.S6h P3d 3.S7g S6b 4.P5f G3b 5.S4h K4a 6.G4i-5h P6d 7.G7h B3c 8.K6i
+S2b 9.P6f S6c 10.G5h-6g B5a 11.P3f P7d 12.B7i B7c 13.S3g S3c 14.S4f P4d 15.N3g
+# 
+1.P7f P8d 2.S6h(3) P3d 3.S7g S6b 4.S4h(1) S4b 5.P5f P5d 6.G4i-5h G3b(2)
+7.P6f(2) K4a 8.G6g P7d(5) 9.G7h(11) G5b(2) 10.K6i S3c(3) 11.B7i(5) B3a(1)
+12.B6h(7) P9d(26) 13.P3f(12) P9e(38) 14.K7i(55) N7c(9) 15.K8h(21) L9c(42)
+# 
+1.P7f P8d 2.S6h(1) P3d 3.S7g S6b(1) 4.S4h S4b 5.P5f P5d(3) 6.G4i-5h(1) G3b
+7.P6f(1) K4a(1) 8.G6g G5b(1) 9.B7i(8) S6b-5c(55) 10.G7h(26) P6d(5) 11.P2f(7)
+R6b(4) 12.P2e(1) P6e(1) 13.Px6e(1) Rx6e 14.P'6f R6a 15.K6i(16) S6d(14)
+# 
+1.P7f P8d(1) 2.P2f P8e(1) 3.B7g P3d 4.S8h G3b(1) 5.G7h Bx7g+(1) 6.Sx7g S4b
+7.S3h S7b 8.P4f P6d(11) 9.S4g S6c 10.P6f P4d(3) 11.G5h G5b 12.K6h(1) K4a(1)
+#
+1.P7f P8d(1) 2.S6h(1) P3d 3.S7g S6b 4.S4h S4b 5.P5f P5d 6.G4i-5h G3b 7.P6f K4a
+8.G6g P7d 9.G7h(5) G5b(5) 10.K6i(1) S3c(3) 11.B7i(2) B3a(1) 12.P3f P4d(18)
+# 
+1.P7f P8d(1) 2.P2f P8e 3.B7g P3d 4.S8h G3b(1) 5.G7h Bx7g+(1) 6.Sx7g S4b 7.S3h
+S7b 8.P4f P6d(3) 9.S4g(1) S6c 10.P6f(3) P4d(1) 11.G5h(2) G5b(1) 12.K6h(2)
+# 
+1.P7f P8d(1) 2.S6h P3d 3.S7g S6b(1) 4.S4h(1) S4b 5.P5f P5d 6.G4i-5h G3b(2)
+7.P6f K4a(1) 8.G6g P7d(7) 9.G7h(2) G5b(1) 10.K6i(1) S3c 11.B7i B3a(3) 12.P3f
+# 
+1.P7f P8d(1) 2.S6h(1) P3d 3.S7g(1) S6b 4.P5f(1) P5d 5.S4h S4b 6.G4i-5h G3b
+7.P6f(1) K4a 8.G6g(2) G5b(42) 9.P2f(15) P7d(6) 10.B7i(17) P6d(17) 11.G7h(3)
+S6b-5c(3) 12.P2e(4) G6c(80) 13.K6i(17) N7c(4) 14.P3f(65) P5e(50)
+# 
+1.P7f P3d(2) 2.P2f P4d 3.S4h(3) S3b(5) 4.P5f R4b 5.K6h K6b 6.K7h K7b
+7.G4i-5h K8b(1) 8.P9f P9d(28) 9.S6h S7b(2) 10.P2e(6) B3c 11.P3f G4a-5b(4)
+12.S3g(68) S4c(13) 13.P3e(2) Px3e(31) 14.S2f S3d(6) 15.R3h P4e(27)
+# 
+1.P7f P8d 2.P2f P8e(1) 3.B7g P3d 4.S8h G3b(2) 5.G7h Bx7g+(1) 6.Sx7g S4b
+7.S3h(2) S7b(2) 8.P4f(2) S8c(3) 9.S4g(10) S8d(1) 10.P9f P9d(7) 11.P6f(9)
+K4a 12.P6e(13) P9e(48) 13.Px9e(143) Sx9e 14.Lx9e Lx9e 15.P'9g P'9h(53)
+# 
+1.P7f P8d(1) 2.S6h P3d 3.S7g S6b 4.P5f P5d 5.S4h S4b 6.G7h(1) G3b 7.K6i(1)
+K4a 8.G5h P7d(13) 9.P6f(14) S6b-5c(7) 10.P2f(53) P5e(21) 11.Px5e(41) Bx5e
+12.P2e(3) S5d(5) 13.G5h-6g(14) R5b(24) 14.P2d(15) Px2d(1) 15.Rx2d P'2c(10)
+# 
+1.P7f P8d(1) 2.S6h(1) P3d 3.S7g S6b 4.P5f P5d 5.S4h S4b(1) 6.G4i-5h(2)
+G3b(2) 7.P6f(1) K4a 8.G6g S6b-5c(36) 9.G7h(9) P5e(28) 10.Px5e(7) Bx5e
+11.P2f S5d(67) 12.P2e(6) R5b(26) 13.K6i(14) K3a(23) 14.P'5f(27) B3c(15)
+# 
+1.P7f P8d(1) 2.S6h P3d 3.S7g S6b 4.P5f P5d 5.S4h S4b 6.G4i-5h G3b 7.P6f K4a
+8.G6g P7d(3) 9.G7h(8) G5b(3) 10.K6i S3c(1) 11.P3f B3a(1) 12.B7i P4d
+# 
+1.P7f P8d 2.P2f P8e 3.B7g P3d 4.S8h G3b 5.G7h Bx7g+ 6.Sx7g S2b 7.S3h S7b 8.P4f
+S3c 9.S4g K4b 10.G5h G5b 11.P3f S8c 12.N3g S8d 13.P9f P7d 14.P6f P7e 15.R2i P4d
+#
+1.P7f P8d 2.S6h P3d 3.P6f S6b 4.P5f P5d 5.S4h S4b 6.G4i-5h G3b 7.G6g P7d 8.P2f
+P6d 9.P2e S6c 10.P2d Px2d 11.Rx2d N7c 12.R2h P'2c 13.G7h P8e 14.B7g P4d 15.P4f
+# 
+1.P2f P8d 2.P2e P8e 3.G7h G3b 4.P2d Px2d 5.Rx2d P'2c 6.R2f S7b 7.P1f P1d 8.S3h
+P6d 9.P7f P8f 10.Px8f Rx8f 11.P'8g R8b 12.P4f S6c 13.S4g P3d 14.S5f S5d 15.P9f
+# 
+1.P7f P8d 2.S6h P3d 3.P6f S6b 4.P5f S4b 5.S4h P5d 6.G4i-5h G3b 7.G6g P7d 8.P2f
+P6d 9.P2e S6c 10.P2d Px2d 11.Rx2d N7c 12.R2h P'2c 13.G7h P8e 14.B7g P4d 15.K6i
+# 
+1.P7f P8d 2.P2f P8e 3.B7g P3d 4.S8h G3b 5.G7h Bx7g+ 6.Sx7g S2b 7.S3h S3c 8.P4f
+S7b 9.S4g K4b 10.G5h G5b 11.P6f S8c 12.P3f S8d 13.P9f P7d 14.N3g P4d 15.R2i S7c
+# 
+1.P7f P3d 2.P6f P3e 3.P5f R3b 4.S4h S4b 5.K6h K6b 6.K7h K7b 7.P9f P4d 8.G4i-5h
+S4c 9.G6g P1d 10.B7g K8b 11.K8h L9b 12.S7h K9a 13.P8f S8b 14.S8g R3d 15.G7h B1c
+# 
+1.P7f P3d(4) 2.P2f P4d 3.P2e B3c 4.S4h S3b(3) 5.P5f R4b(2) 6.K6h K6b 7.K7h
+K7b 8.G4i-5h(6) K8b(11) 9.P9f(2) S4c(20) 10.S5g(14) G4a-5b(16) 11.P8f(4)
+P6d(4) 12.K8g(9) L9b(51) 13.S7h K9a 14.P3f(69) S8b(1) 15.S4f G7a(42)
+# 
+1.P7f P8d 2.S6h P3d 3.S7g S6b 4.P5f P5d 5.S4h S4b 6.G4i-5h G3b 7.P6f K4a
+8.G6g P7d 9.G7h(4) G5b(2) 10.K6i S3c 11.B7i B3a 12.P3f(1) P4d 13.B6h(23)
+#
+1.P7f P3d(1) 2.P2f P8d(1) 3.P2e P8e 4.G7h G3b 5.P2d Px2d 6.Rx2d P8f(4) 7.Px8f
+Rx8f 8.Rx3d(3) Bx8h+(34) 9.Sx8h Rx7f 10.N7g(24) G3c(47) 11.R8d(11) P'8b(5)
+12.K5h(33) R2f(9) 13.P'2h K5b 14.G3h(3) G7b(2) 15.P2g R2b 16.R8f(1) P8c(5)
+# 
+1.P2f P8d(2) 2.P2e P8e 3.G7h(2) G3b 4.P2d Px2d 5.Rx2d P'2c(8) 6.R2f S7b
+7.P1f(6) P1d(1) 8.P9f(7) P6d(9) 9.S3h(39) S6c(6) 10.P7f(2) P8f(3) 11.Px8f
+Rx8f 12.N7g P9d(28) 13.K4h(5) S4b(21) 14.B9g(55) R8b(112) 15.P7e(1) P3d(1)
+# 
+1.P7f G3b(6) 2.P5f(8) P5d(9) 3.R5h(2) S6b(7) 4.P5e(1) Px5e(1) 5.Bx5e K4a
+6.B7g P3d(2) 7.P6f P'5e(20) 8.S6h S5c 9.S6g S5d 10.K4h S4b(3) 11.K3h R5b(13)
+12.R8h(16) P4d(22) 13.P8f P4e 14.P8e R8b 15.K2h(21) K3a 16.P7e(22) B4d(6)
+# 
+1.P7f P8d(1) 2.S6h P3d(1) 3.P6f S6b(2) 4.P5f P5d 5.S4h(2) S4b(2)
+6.G4i-5h G3b(2) 7.G6g(1) K4a(8) 8.G7h(3) G5b(5) 9.K6i(1) S3c(1)
+10.S7g(1) B3a(1) 11.B7i(2) P4d(2) 12.P3f(5) P7d(15) 13.B6h(14) P9d(32)
+# 
+1.P7f P8d 2.P2f(3) P8e(2) 3.B7g P3d 4.S8h G3b(1) 5.G7h(1) Bx7g+(8)
+6.Sx7g S4b 7.S3h S7b(1) 8.P4f(2) K4a(17) 9.S4g(1) S8c(3) 10.P3f(2)
+S8d(1) 11.P9f(6) P9d(5) 12.G5h(2) K3a(9) 13.N3g(2) G5b(8) 14.P4e(20)
+# 
+1.P7f P8d(2) 2.S6h P3d(1) 3.P6f S6b(2) 4.P5f P5d(1) 5.S4h S4b 6.G4i-5h
+G3b(1) 7.G6g(1) K4a(1) 8.G7h(3) G5b(1) 9.K6i S3c 10.S7g(1) B3a(1) 11.B7i
+P4d(5) 12.P3f(2) P7d(3) 13.B6h(26) G5b-4c(18) 14.K7i(4) P8e(3)
+# 
+1.P7f P8d 2.S6h(6) P3d 3.P6f(1) S6b 4.P5f(2) P5d 5.G4i-5h(1) S4b(1)
+6.S4h(2) G3b(2) 7.G6g(4) K4a 8.G7h(4) G5b(6) 9.K6i(3) S3c(4) 10.S7g(3)
+B3a(2) 11.B7i(6) P4d 12.P3f(3) G5b-4c(3) 13.B6h(1) P7d(26) 14.K7i(2)
+# 
+1.P2f P8d 2.P2e P8e 3.G7h G3b 4.P2d Px2d 5.Rx2d P'2c 6.R2f S7b 7.P1f P1d 8.S3h
+P3d 9.K5h P9d 10.P3f B4d 11.P3e Bx3e 12.R5f S4b 13.P7f B4d 14.Bx4d Px4d 15.N7g
+# 
+1.P7f P8d 2.S6h P3d 3.P6f S6b 4.P5f P6d 5.G7h S6c 6.G5h P6e 7.S7g Px6f 8.Sx6f
+P8e 9.G5h-6g P8f 10.Px8f Rx8f 11.S7e R8b 12.P'8d P'6d 13.Bx2b+ Sx2b 14.G7h-7g
+# 
+1.P2f P8d 2.P2e P8e 3.G7h G3b 4.P2d Px2d 5.Rx2d P'2c 6.R2h P8f 7.Px8f Rx8f
+8.P'8g R8d 9.S3h S7b 10.P7f P9d 11.P9f P1d 12.P4f R7d 13.G7g R2d 14.P'2e R8d
+# 
+1.P7f P8d 2.S6h P3d 3.S7g S6b 4.S4h S4b 5.P5f P5d 6.G4i-5h G3b 7.P6f P6d 8.G6g
+S6c 9.P2f P5e 10.Px5e Bx5e 11.P2e B2b 12.G7h K4a 13.K6i P7d 14.S5g S5d 15.P2d
+# 
+1.P7f(1) P8d(1) 2.P5f(3) P8e(5) 3.B7g P5d 4.R8h(1) P3d(2) 5.S6h S6b 6.K4h
+P7d(20) 7.P6f(9) K4b(2) 8.K3h K3b 9.K2h G6a-5b 10.G6i-5h(6) S5c 11.S5g(13)
+B3c(5) 12.L1h(3) K2b 13.K1i S3b 14.S2h P1d(3) 15.G3i(1) P2d 16.G6g(24)
+# 
+1.P7f P3d(1) 2.P2f P4d 3.P2e B3c 4.S4h S4b(5) 5.P5f(1) R5b(1) 6.K6h K6b
+7.K7h K7b(1) 8.G4i-5h K8b(2) 9.P3f(10) S4c(5) 10.P4f(4) G3b(4) 11.S5g(2)
+L9b(2) 12.N3g(44) R5a(12) 13.P9f(7) P5d(5) 14.P9e(12) K9a 15.B6f(3) S8b(1)
+# 
+1.P7f(1) P8d(1) 2.S6h(6) P3d(1) 3.P6f S6b 4.G4i-5h S4b(1) 5.S4h P5d 6.G6g(1)
+G3b(1) 7.P5f(2) K4a 8.S7g P7d 9.G7h(2) G5b 10.B7i S3c 11.K6i(3) B3a
+12.P3f(6) P4d(10) 13.B6h(12) G5b-4c(13) 14.K7i B6d 15.N3g(5) K3a(1) 16.K8h
+# 
+1.P7f P3d(1) 2.P2f P4d 3.S4h S4b(3) 4.P5f P5d 5.K6h(3) S6b(4) 6.K7h(2)
+P7d(1) 7.S6h(2) R7b(7) 8.G4i-5h(6) P7e(6) 9.Px7e(2) Rx7e 10.S7g N7c(5)
+11.P'7f(7) R7d 12.P6f N8e(4) 13.S8f(11) Rx7f(7) 14.K6g(8) R7b(1) 15.Sx8e
+# 
+1.P7f P8d(1) 2.P5f(2) P3d(8) 3.P6f(2) S6b 4.S6h P5d 5.R5h(1) K4b(2) 6.K4h
+K3b 7.K3h G6a-5b(6) 8.K2h(1) S5c(2) 9.L1h(2) B3c 10.K1i K2b 11.S5g P4d(1)
+12.S4f(29) G4c(2) 13.P5e(1) P4e(14) 14.Sx4e(1) Px5e 15.S3f(6) S3b(6)
+# 
+1.P7f P3d 2.P2f P4d 3.S4h S4b(5) 4.P5f P5d 5.G4i-5h G6a-5b(3) 6.S6h(2) S6b
+7.S7g S3c 8.K6h K4b 9.K7h K3b 10.P6f B3a 11.G6g P7d 12.B7i S7c 13.S5g(1) G4c
+# 
+1.P2f P8d(1) 2.P2e P8e 3.G7h G3b 4.P2d Px2d 5.Rx2d P'2c 6.R2f S7b 7.P1f(2)
+P3d(3) 8.P1e(3) P6d(1) 9.R3f(22) G3c(3) 10.S3h(25) S6c(5) 11.P7f(1) P8f(2)
+12.Px8f Rx8f 13.P'8g(2) R8b(10) 14.R2f S5d(3) 15.P3f G3b(1) 16.N3g B4d(3)
+# 
+1.P7f(1) P8d 2.S6h P3d 3.P6f S6b 4.G4i-5h(1) S4b 5.S4h G3b 6.G6g K4a 7.G7h
+P5d 8.K6i G5b 9.P5f(1) P4d(1) 10.S7g S3c 11.B7i B3a 12.P3f P7d(10)
+# 
+1.P2f P8d(1) 2.P2e(1) P8e 3.G7h(2) G3b 4.P2d Px2d 5.Rx2d P'2c 6.R2f S7b
+7.P9f(1) P1d(1) 8.P7f P8f(5) 9.Px8f Rx8f 10.N7g S4b(1) 11.K4h(1) P9d(3)
+12.S3h(1) K4a(2) 13.B9g(13) R8b(6) 14.P7e P3d(2) 15.R8f(5) P'8e(13)
+# 
+1.P7f P8d 2.P2f(1) P8e(1) 3.B7g P3d(1) 4.S8h G3b(3) 5.G7h Bx7g+ 6.Sx7g S4b
+7.S3h(1) S7b(2) 8.P4f(1) P6d(1) 9.S4g S6c 10.P6f(3) P4d(2) 11.G5h(3) G5b(3)
+12.K6h(1) K4a(3) 13.K7i(1) K3a(2) 14.P3f(1) P7d(5) 15.S5f(4) S5d(1) 16.P9f
+# 
+1.P7f P8d(1) 2.S6h(1) P3d 3.S7g S6b 4.P5f(1) P5d 5.S4h S4b 6.G4i-5h(2) G3b
+7.P6f K4a 8.G6g P7d(5) 9.G7h(10) G5b 10.K6i(1) S3c(3) 11.B7i(6) B3a(1)
+12.P3f(1) P4d(1) 13.B6h(26) G5b-4c(13) 14.K7i(3) B6d(8) 15.N3g(2) K3a
+# 
+1.P7f P8d(1) 2.S6h(2) P3d(1) 3.S7g S6b(1) 4.S4h P5d(1) 5.P5f S4b 6.G4i-5h(6)
+G3b(2) 7.P6f(2) K4a(3) 8.G6g P7d(2) 9.G7h(5) G5b(2) 10.K6i S3c 11.B7i(2)
+B3a(7) 12.P3f(10) P4d(4) 13.S3g(9) B6d(17) 14.B6h(10) G5b-4c(8) 15.K7i(4)
+# 
+1.P7f P8d 2.S6h(2) P3d(1) 3.S7g S6b 4.P5f(1) P5d 5.S4h(1) S4b 6.G4i-5h(1)
+G3b(2) 7.P6f(1) K4a 8.G6g P7d(5) 9.G7h(5) G5b 10.K6i(2) S3c(3) 11.B7i(3) B3a
+12.P3f(1) P4d(6) 13.B6h(5) G5b-4c(14) 14.K7i(1) S7c(7) 15.K8h(22) P9d(8)
+#
+1.P7f P8d(1) 2.P2f P8e(1) 3.B7g P3d(1) 4.S8h G3b 5.G7h Bx7g+(4) 6.Sx7g S4b
+7.S3h S7b(2) 8.P4f P6d(1) 9.S4g S6c 10.P6f P4d(2) 11.G5h(1) G5b 12.K6h K4a
+# 
+1.P7f P8d 2.S6h(2) P3d(1) 3.S7g S6b(1) 4.P5f(1) P5d 5.S4h S4b(1) 6.G4i-5h G3b
+7.P6f K4a 8.G6g P7d(2) 9.G7h(6) G5b(6) 10.K6i(2) S3c(6) 11.B7i(3) B3a(1)
+12.P3f(7) P4d(1) 13.B6h(11) P9d(13) 14.K7i(49) P9e(11) 15.K8h(11) L9c(21)
+# 
+1.P7f P8d 2.S6h(1) P3d 3.S7g S6b(1) 4.S4h P5d 5.P5f S4b(1) 6.G4i-5h G3b(1)
+7.P6f K4a(1) 8.G6g P7d(4) 9.G7h(20) G5b(8) 10.K6i S3c 11.B7i B3a(2) 12.P3f
+P4d(3) 13.B6h(4) G5b-4c(20) 14.K7i(2) B6d(4) 15.N3g(2) K3a(4) 16.K8h(9)
+# 
+1.P7f P8d 2.S6h P3d 3.S7g S6b 4.S4h P5d 5.P5f S4b 6.G4i-5h G3b
+7.P6f K4a 8.G6g P7d 9.G7h  S3c 10.K6i G5b 11.B7i B3a 12.P3f P4d 13.S3g B6d
+# 
+1.P7f P8d 2.S6h P3d 3.S7g S6b 4.P5f G3b 5.S4h K4a 6.G4i-5h G5b
+7.P6f P6d 8.P2f S4b 9.G6g P7d 10.G7h S6c 11.K6i N7c 12.P2e S3c
+13.B7i P8e 14.P3f P5d 15.S3g
+# 
+1.P7f P8d 2.P2f P8e 3.B7g P3d 4.S8h G3b 5.G7h Bx7g+ 6.Sx7g S4b
+7.S3h S7b 8.P4f P6d 9.S4g S6c 10.G5h G5b 11.K6h K4a 12.S5f S5d
+13.P6f P4d 14.P3f P7d 15.K7i K3a 16.N3g P1d 17.P1f G5b-4c
+# 
+1.P7f P8d 2.P2f P8e 3.B7g P3d 4.S8h G3b 5.G7h Bx7g+ 6.Sx7g S4b
+7.S3h S7b 8.P4f S3c 9.S4g K4b 10.G5h S8c 11.P6f S8d 12.P9f P7d
+# 
+1.P7f P3d 2.P2f P4d 3.P2e B3c 4.S4h S3b 5.P5f R4b
+6.K6h K6b 7.K7h K7b 8.G4i-5h G4a-5b 9.P9f P9d 10.S5g K8b
+11.P8f S4c 12.K8g S7b 13.S7h P6d 14.S6f G6c
+# 
+1.P2f(1) P8d 2.P2e(1) P8e 3.G7h G3b 4.P2d(1) Px2d 5.Rx2d P'2c 6.R2f S7b(3)
+7.S3h(2) P6d(12) 8.P1f(8) P1d(17) 9.P7f(3) P8f(7) 10.Px8f(2) Rx8f 11.P'8g(15)
+R8b(20) 12.P4f(5) S6c(3) 13.S4g(2) S5d(4) 14.S5f(3) P3d 15.G4h(21) G5b(2)
+#
+1.P7f P8d(1) 2.S6h(1) P3d 3.S7g S6b 4.P5f(1) P5d(1) 5.S4h S4b(1) 6.G4i-5h(1)
+G3b(2) 7.P6f(1) K4a(1) 8.G6g P7d(7) 9.G7h(10) S6b-5c(28) 10.P2f(13) P5e(3)
+11.Px5e(11) Bx5e(1) 12.P2e S5d(1) 13.P2d(7) Px2d(4) 14.Rx2d P'2c(1) 15.R2h
+# 
+1.P7f P8d(1) 2.S6h P3d 3.P6f(1) S6b(1) 4.P5f(2) P5d(1) 5.S4h(1) S4b(1)
+6.G4i-5h(2) G3b(5) 7.G6g(1) K4a(1) 8.G7h(5) G5b(15) 9.K6i(1) S3c 10.S7g(1) B3a
+11.B7i(1) P4d 12.P3f(2) P7d(5) 13.B6h(29) G5b-4c(12) 14.K7i(8) B6d(3)
+# 
+1.P7f P8d 2.S6h(1) P3d 3.P6f S6b(3) 4.P5f P5d(1) 5.S4h(1) S4b(1) 6.G4i-5h(2)
+G3b 7.G6g(1) K4a(1) 8.G7h G5b(4) 9.K6i(1) S3c(3) 10.S7g(1) B3a(1) 11.B7i(1)
+P4d(5) 12.P3f G5b-4c(3) 13.S3g(39) P8e(28) 14.P3e(97) Px3e(7) 15.Bx3e P4e(1)
+# 
+1.P7f(1) P8d(1) 2.S6h(3) P3d 3.P6f(1) S6b 4.P5f P5d 5.S4h(2) S4b 6.G4i-5h(2)
+G3b 7.G6g(3) K4a 8.G7h(4) G5b(3) 9.K6i(4) S3c(1) 10.S7g(1) B3a(2) 11.B7i(2)
+P4d 12.P3f(2) G5b-4c(9) 13.B6h(3) P7d(19) 14.K7i(2) B6d(6) 15.S3g(25) K3a(36)
+# 
+1.P7f P8d(2) 2.P2f G3b(2) 3.G7h(2) P8e(5) 4.B7g(2) P3d 5.S8h Bx7g+(3) 6.Sx7g
+S4b(1) 7.S3h S7b(2) 8.P4f(2) P6d(15) 9.S4g(8) S6c 10.P6f(9) P1d(26) 11.P1f(11)
+P9d(3) 12.P9f(5) S5d 13.S5f(1) P4d(4) 14.G5h(35) G5b(8) 15.K6h(10) K4a(2)
+# 
+1.P7f(1) P8d 2.S6h(2) P3d 3.P6f S6b(1) 4.P5f(1) P5d 5.S4h(2) S4b 6.G4i-5h(4)
+G3b 7.G6g(1) K4a(1) 8.G7h(3) G5b(1) 9.K6i(1) S3c(2) 10.S7g(2) B3a(2) 11.B7i(1)
+P4d 12.P3f(2) G5b-4c(9) 13.B6h(3) B6d(26) 14.S3g(11) P7d(3) 15.K7i(5) K3a(1)
+#
+1.P7f(2) P8d(1) 2.G7h(5) G3b(11) 3.B7g(15) P3d(5) 4.S6h(3) S6b(2) 5.S4h(4)
+P6d(4) 6.P4f(1) S6c(7) 7.S4g(1) S5d(10) 8.S5f(4) G5b(9) 9.G5h(9) K4a(2)
+10.K6i(5) Bx7g+(18) 11.Sx7g(1) S4b 12.P6f(10) P4d(4) 13.K7i(1) K3a(3)
+#
+# 31-st Oi Title Match, 1-st game, July 12-th and 13-th 1990.
+# Black: Tanigawa, Oi; White: Sato, 5-dan
+1.P2f P8d 2.P2e P8e 3.G7h G3b 4.P2d Px2d 5.Rx2d P'2c 6.R2f S7b 7.P1f P1d 8.S3h
+P6d 9.P7f P8f 10.Px8f Rx8f 11.P'8g R8b 12.P3f P3d 13.S3g S6c 14.P3e Px3e 15.S4f
+S5d 16.K5h Bx8h+ 17.Sx8h S2b 18.P'3d G5b 19.G3h P4d 20.P7e K4b 21.Sx3e S4c
+22.N7g P'3c 23.Px3c+ Sx3c 24.P7d Px7d 25.P'7b Rx7b 26.B'8c R7c 27.B6a+ G5a
+28.N8e Gx6a 29.Nx7c+ Nx7c 30.R'8a S5b 31.Rx9a+ N6e 32.G4h B'3i 33.G6h P'3d
+34.S4f N'7f 35.G6i Nx8h+ 36.L'6c +N7h 37.Gx7h S'6i 38.Kx6i Bx4h+ 39.R2h B'5h
+40.K7i +B5i 41.Lx6a+ +B6i 0-1
+# 
+# 31-st Oi Title Match, 2-nd game, July 23-rd and 24-th 1990.
+# Black: Sato, 5-dan; White: Tanigawa, Oi
+1.P7f P8d 2.S6h P3d 3.S7g S6b 4.P5f S4b 5.S4h P5d 6.G4i-5h G3b 7.P6f K4a 8.G6g
+G5b 9.B7i S3c 10.P3f B3a 11.K6h P4d 12.K7h G5b-4c 13.K8h B6d 14.S3g P8e 15.G7h
+P7d 16.S4f K3a 17.N3g S5c 18.P1f P1d 19.P2f K2b 20.R5h B7c 21.P5e Px5e 22.Sx5e
+P'5d 23.S4f S6d 24.R3h S2d 25.L1g S5e 26.S5g N3c 27.P4f P3e 28.P2e Nx2e 29.Nx2e
+Sx2e 30.Px3e S2f 31.P6e Sx1g+ 32.P'5f +S2g 33.R3i N'8f 34.Px5e Nx7h+ 35.Kx7h
+P'3f 36.Px5d P3g+ 37.R5i L'8c 38.S5g-6h +P4h 39.R5g P8f 40.Px8f Lx8f 41.Sx8f
+Rx8f 42.P'8g S'6i 43.K8h R8b 44.P5c+ G'4g 45.+Px4c Gx5g 46.+Px3b Kx3b 47.G'7g
++P5h 48.Sx5g R'3h 49.S6h +Px6h 50.Gx6h Bx4f 51.P'5h Sx5h+ 52.L'3d K4c 53.L3c+
+K5c 54.S'4g +Sx6h 55.Sx3h +Sx7i 56.R'5f S'5e 57.Rx4f Sx4f 58.B'7a K5d 59.Bx8b+
+G'7h 60.Gx7h +Sx7h 61.Kx7h B'5f 62.K7g B6g+   0-1
+# 
+# 31-st Oi Title Match, 3-rd game, August 9-th and 10-th 1990.
+# Black: Tanigawa, Oi; White: Sato, 5-dan
+1.P7f P8d 2.P2f P8e 3.B7g P3d 4.S8h G3b 5.G7h Bx7g+ 6.Sx7g S2b 7.S3h S7b 8.P4f
+S3c 9.S4g P6d 10.G5h S6c 11.P3f P1d 12.P1f P7d 13.K6h N7c 14.P6f G6b 15.P2e R8a
+16.N3g K4b 17.S5f K3a 18.K7i S5d 19.K8h P6e 20.P3e P4d 21.P4e B'6d 22.R2g Px6f
+23.P2d Px2d 24.Px3d Sx3d 25.Px4d P8f 26.Sx8f P'3f 27.Rx2d S2c 28.Rx2c+ Gx2c
+29.P4c+ Sx4c 30.B'4e R'2h 31.Bx8a+ Rx5h+ 32.+Bx3f +Rx5g 33.P'4d G'6h
+34.R'2h Gx7h 35.Kx7h +Rx5f 36.G'4b Kx4b 37.Px4c+ K5a 38.S'5b Gx5b 39.+Px5b Kx5b
+40.S'4c   1-0
+# 
+# 31-st Oi Title Match, 4-th game, August 23-rd and 24-th 1990.
+# Black: Sato, 5-dan; White: Tanigawa, Oi
+1.P7f P8d 2.S6h P3d 3.S7g S6b 4.P5f S4b 5.S4h P5d 6.G4i-5h G3b 7.P6f K4a 8.G6g
+P6d 9.P2f S6c 10.P2e P5e 11.Px5e Bx5e 12.G7h P7d 13.K6i S5d 14.P2d Px2d 15.Rx2d
+P'2c 16.R2h B2b 17.S5g S5c 18.S7g-6h G5b 19.K7i G6c 20.P3f P8e 21.B7g N7c
+22.P'5f P1d 23.P9f P9d 24.S4f S4d 25.P1f P'5e 26.Px5e S4dx5e 27.P'5f Sx4f
+28.Px4f P8f 29.Px8f P'8e 30.Px8e Nx8e 31.B8f P6e 32.P'8c R9b 33.S5g Px6f
+34.Gx6f P'6e 35.P'6d G6b 36.G5e Sx5e 37.Px5e Bx5e 38.P8b+ Rx8b 39.S'7a S'7g
+40.Nx7g Nx7g+ 41.Bx7g Bx7g+ 42.Gx7g G'8i 43.K6i R8h+ 44.Rx8h Gx8h 45.K5h R'2h
+46.N'4h P'5f 47.Sx6b+ Px5g+ 48.Kx5g K3a 49.S'4a B'6h 50.K5f Bx7g+ 51.Sx3b+
+Kx3b 52.S'4a Kx4a 53.G'4b   1-0
+# 
+# 31-st Oi Title Match, 5-th game, August 30-th and 31-st 1990.
+# Black: Tanigawa, Oi; White: Sato, 5-dan
+1.P7f P8d 2.P2f P8e 3.B7g P3d 4.S8h G3b 5.G7h Bx7g+ 6.Sx7g S4b 7.S3h S7b
+8.P4f P6d 9.S4g S6c 10.G5h P1d 11.P1f P9d 12.P9f G5b 13.P3f K4a 14.S5f S5d
+15.K6h P4d 16.P6f P7d 17.K7i K3a 18.N3g N7c 19.P2e P6e 20.Px6e P7e 21.P2d
+Px2d 22.P'2e Px2e 23.Px7e Nx6e 24.Sx6e Sx6e 25.Rx2e B'4c 26.P'2b P'2d
+27.Px2a+ Kx2a 28.Rx2d P'2c 29.R2h P'7f 30.S6h S6f 31.N'5f P8f 32.Px8f P'8h
+33.Nx4d Px8i+ 34.K6i S'7g 35.Nx3b+ Bx3b 36.N'4d Sx7h+ 37.K5i N'2d 38.Nx3b+
+Kx3b 39.K4i N'4d 40.S5i N4dx3f 41.R2e +S6i 42.P'3c Sx3c 43.N4e N'4a 44.P'3g
++Sx5i 45.Gx5i P'4d 46.Px3f Px4e 47.B'6e S'5d 48.Bx5d Px5d 49.B'6d B'4g
+50.G4h Bx3f+ 51.G'3a K2b 52.Gx4a N'5c 53.S'3a K2a 54.P'2b K3b 55.Bx8b+ +Bx2e
+56.N'4d Sx4d 57.R'4b K3c 58.Rx4d+ Kx4d 59.N'5f   1-0
+# 
+# 31-st Oi Title Match, 6-th game, September 10-th and 11-th 1990.
+# Black: Sato, 5-dan; White: Tanigawa, Oi
+1.P7f P8d 2.S6h P3d 3.S7g S6b 4.P5f S4b 5.S4h P5d 6.G4i-5h G3b 7.P6f K4a 8.G6g
+G5b 9.B7i S6b-5c 10.P2f P6d 11.P2e R6b 12.G7h P6e 13.Px6e Rx6e 14.P'6f R6a
+15.P3f S6d 16.P2d Px2d 17.Bx2d P'2c 18.B4f P4d 19.B3g P4e 20.K6i K3a 21.S5g S4c
+22.K7i P9d 23.P9f G5b-4b 24.P1f P5e 25.P4f Px5f 26.Sx5f Px4f 27.Bx4f P'5e 28.S4g
+P'4e 29.B6h P'6e 30.P'2d Px2d 31.P'2e Px2e 32.P'2d B4d 33.Px6e Sx6e 34.P'6f
+S6e-5d 35.Rx2e P'2b 36.N3g N9c 37.R2h N8e 38.P'4f Nx7g+ 39.G6gx7g Px4f 40.Sx4f
+S'5f 41.P'4e B5c 42.K8h P'6e 43.Px6e P'6f 44.Gx6f S5dx6e 45.Gx6e Rx6e 46.P'6f
+R6c 47.Sx5e G'6g 48.P'5d Gx7h 49.Kx7h G'6g 50.K8h Gx6h 51.Px5c+ Rx5c 52.P'5d
+Sx5d 53.S'4d Sx5e 54.Sx5c+ B'7i 55.K9h Gx5c 56.B'8f P'5b 57.R'6a P'4a 58.Bx6h
+Bx6h+ 59.Rx6h B'4f 60.G'5a K4b 61.Gx4a K3c 62.N'2e Kx2d 63.G'1e K2c 64.P'2d
+K1b 65.G4b Bx6h+ 66.Rx2a+   1-0
+# 
+# 31-st Oi Title Match, 7-th game, September 20-th and 21-st 1990.
+# Black: Sato, 5-dan; White: Tanigawa, Oi
+1.P7f P8d 2.S6h P3d 3.S7g S6b 4.P5f G3b 5.S4h K4a 6.G4i-5h P6d 7.G7h B3c 8.K6i
+S2b 9.P6f S6c 10.G5h-6g B5a 11.P3f P7d 12.B7i B7c 13.S3g S3c 14.S4f P4d 15.N3g
+P8e 16.P2f S5d 17.P5e S4c 18.B6h G5b 19.K7i B8d 20.R3h S2d 21.P1f P1d 22.K8h N7c
+23.N2e P6e 24.Px6e Nx6e 25.S6f P'6d 26.P9f P9d 27.L1g G5b-4b 28.R1h K3a 29.P3e
+Px3e 30.P1e Px1e 31.P'1c Lx1c 32.Sx3e Sx2e 33.Px2e P'3d 34.S4f P9e 35.Px9e P'9g
+36.Lx9g P4e 37.Sx4e Bx6f 38.Gx6f S'5g 39.G6f-6g Sx6h+ 40.Rx6h P'9f 41.Lx9f N'8d
+42.K9h Nx9f 43.B'7c R9b 44.S'9g P7e 45.Sx9f Px7f 46.Bx6d+ P7g+ 47.Nx7g Nx7g+
+48.G6gx7g P'7f 49.Gx7f N'8d 50.+B7c Rx9e 51.R6a+ P'4a 52.Sx9e Lx9e 53.K8i Nx7f
+54.+Bx9e S'9g 55.S'7g B'5g 56.P'9h L'8h 57.Sx8h Sx8h+ 58.Gx8h S'9g   0-1
+# 
+# 32-nd Oi Title Match, 1-st game, 11-th and 12-th July 1991.
+# Black: Tanigawa Koji, Oi; White: Nakada Hiyoki, challenger.
+1.P7f P8d 2.S6h(3) P3d 3.S7g S6b 4.S4h(1) S4b 5.P5f P5d 6.G4i-5h G3b(2)
+7.P6f(2) K4a 8.G6g P7d(5) 9.G7h(11) G5b(2) 10.K6i S3c(3) 11.B7i(5) B3a(1)
+12.B6h(7) P9d(26) 13.P3f(12) P9e(38) 14.K7i(55) N7c(9) 15.K8h(21) L9c(42)
+16.P3e(22) Px3e(27) 17.Bx3e S4d(35) 18.B4f(27) S4e(6) 19.B6h(6) R9b 20.S8f(8)
+N8e(8) 21.R3h(42) P'3c(6) 22.S5g(25) Nx9g+(21) 23.Sx9g(3) P9f 24.S8f(38)
+P8e(80) 25.N'8d(2) R9a 26.P'9b R7a 27.S9e(6) S7c(40) 28.R3e(17) Lx9e(5)
+29.Bx9e S'4d(1) 30.R3h(18) P9g+(4) 31.Lx9g P'9d 32.B5i Sx8d 33.L'4f Sx4f(9)
+34.Px4f P7e(2) 35.P4e(9) S5c(2) 36.B3g(9) P6d(5) 37.B2f Px7f(1) 38.P5e(1)
+P8f(15) 39.Px8f(3) P'8g 40.K7i R7c 41.Px5d(26) Sx5d(14) 42.P'5c(3) Bx5c
+43.P'7d R8c(1) 44.Bx5c+ Rx5c 45.B'2f R8c(4) 46.B7a+(4) N'5e 47.G6g-6h(3)
+N4g+(3) 48.R1h +Nx5g(5) 49.Gx5g L'7g 50.Nx7g(6) Px7g+ 51.Gx7g P'5f(14)
+52.Gx5f(3) B'4g 53.G5g S'8h 54.Resigns(2)
+# 
+# 32-nd Oi Title Match, 2-nd game, 22-nd and 23-rd July 1991.
+# Black: Nakada Hiyoki, challenger; White: Tanigawa Koji, Oi.
+1.P7f P8d 2.S6h(1) P3d 3.S7g S6b(1) 4.S4h S4b 5.P5f P5d(3) 6.G4i-5h(1) G3b
+7.P6f(1) K4a(1) 8.G6g G5b(1) 9.B7i(8) S6b-5c(55) 10.G7h(26) P6d(5) 11.P2f(7)
+R6b(4) 12.P2e(1) P6e(1) 13.Px6e(1) Rx6e 14.P'6f R6a 15.K6i(16) S6d(14)
+16.P2d(4) Px2d 17.Bx2d P'2c(3) 18.B4f P5e(39) 19.S5g(34) S4b-5c(15) 20.P3f(11)
+S5d(6) 21.N3g(50) P4d(38) 22.K7i(14) P1d(41) 23.K8h(58) P4e(31) 24.Bx5e(1)
+S6dx5e 25.Px5e Bx5e 26.P4f P'5c 27.P3e(84) P7d(66) 28.G5f(26) B7c(30)
+29.P'5e(7) Sx5e(16) 30.Gx5e Bx5e 31.P'5d(22) B'3i(23) 32.Nx4e(44) Px5d(8)
+33.P'5c(10) G5a 34.R2g(16) K3a(11) 35.Px3d(1) G'3f 36.S5f B3ix6f+ 37.Sx5e(11)
++Bx5e 38.P'2b(13) Gx2g(5) 39.Px2a+ Kx2a 40.S'3c(6) R'3h(2) 41.Sx3b+ K1b
+42.G'4h S'7i(13) 43.Kx7i(1) +Bx4f(4) 44.S'5g(1) +Bx5g(10) 45.Gx5g S'6i 46.N'5h
+Sx7h+(20) 47.Kx7h G'6g 48.Gx6g(1) Rx5h+ 49.K7i Resigns
+# 
+# 32-nd Oi Title Match, 3-rd game, 6-th and 7-th August 1991.
+# Black: Tanigawa Koji, Oi; White: Nakada Hiyoki, challenger.
+1.P7f P8d(1) 2.P2f P8e(1) 3.B7g P3d 4.S8h G3b(1) 5.G7h Bx7g+(1) 6.Sx7g S4b
+7.S3h S7b 8.P4f P6d(11) 9.S4g S6c 10.P6f P4d(3) 11.G5h G5b 12.K6h(1) K4a(1)
+13.K7i K3a 14.P3f(2) P7d(3) 15.S5f(1) S5d 16.P9f(17) P9d(19) 17.N3g(13)
+P1d(16) 18.P1f(4) S3c(68) 19.R4h(29) P3e(43) 20.Px3e(37) S2d 21.P3d S3e(16)
+22.G4g(10) Sx2f(35) 23.R2h(58) S3e(29) 24.N2e(36) G5b-4c(66) 25.P1e(7) P2d(3)
+26.P3c+(1) Nx3c 27.Nx3c+ G4cx3c 28.Px1d P'1b(4) 29.P'3d(25) Gx3d(62)
+30.B'7a(8) R5b 31.P'3f Sx4f 32.Gx4f B'3g 33.G3e(23) Gx3e 34.S'6a R9b(12)
+35.Rx2d P'2c(5) 36.R2i(19) G3d(3) 37.Bx5c+ N'4b 38.P'4c(13) Gx4c(3)
+39.+Bx4c(2) Sx4c 40.Rx2c+ G'3b(3) 41.G'2b Gx2b 42.+Rx4c G'3c(9) 43.+R8c(1)
+K3b(1) 44.P'4c(8) K2c(19) 45.Px4b+(1) Rx4b 46.S'3a(4) R3b(1) 47.Sx2b+ Rx2b
+48.P'2e(1) Gx2e(2) 49.N'3e(3) K2d(2) 50.+Rx3c Kx3c 51.G'4c Resigns
+# 
+# 32-nd Oi Title Match, 4-th game, 19-th and 20-th August 1991.
+# Black: Nakada Hiyoki, challenger; White: Tanigawa Koji, Oi.
+1.P7f P8d(1) 2.S6h(1) P3d 3.S7g S6b 4.S4h S4b 5.P5f P5d 6.G4i-5h G3b 7.P6f K4a
+8.G6g P7d 9.G7h(5) G5b(5) 10.K6i(1) S3c(3) 11.B7i(2) B3a(1) 12.P3f P4d(18)
+13.B6h(41) G5b-4c(3) 14.K7i B6d(7) 15.N3g(5) K3a(2) 16.K8h(1) P8e(7) 17.P2f(3)
+K2b(5) 18.R3h(2) S5c(7) 19.P1f(45) P1d(21) 20.P9f(44) P9d(13) 21.S5g B7c(18)
+22.S4f(1) S2d(17) 23.L1h(6) P9e(24) 24.Px9e(16) Lx9e 25.P'9g(16) S4b(25)
+26.N2e(8) N3c(17) 27.P5e(57) Px5e(40) 28.P3e(1) Px3e 29.P1e Px1e(1) 30.Sx3e
+Sx3e 31.Rx3e(24) P'3d(5) 32.R3i Nx2e(15) 33.Px2e P5f 34.Lx1e(29) Lx1e(18)
+35.N'1d(1) K3c 36.B1c+(1) S5c(1) 37.S'4a(81) B2h+(16) 38.R5i(2) L'5d(5)
+39.P'5b(25) G4c-4b(42) 40.P5a+(1) P5g+(11) 41.Gx5g(1) S'4h 42.Sx3b+(24) Gx3b
+43.R5h(3) Lx5g+(4) 44.P'5d Sx5d 45.Rx4h(1) +Lx4h 46.G'5c P3e(3) 47.+Bx3e(11)
+G'3d 48.+B1c(4) P'1b(13) 49.S'2b(4) Gx2b 50.Nx2b+ Px1c 51.G'3b Rx3b 52.+Nx3b
+Kx3b 53.R'5b K2a 54.Gx5d P'3b(3) 55.G4c(2) G'3c 56.S'4a(2) S'3a(1) 57.Gx3c(1)
+Gx3c 58.P'3d B'4e(7) 59.Px3c+(4) Bx7h+(1) 60.Kx7h G'7i 61.Resigns
+# 
+# 32-nd Oi Title Match, 5-th game, 28-th and 29-th August 1991.
+# Black: Tanigawa Koji, Oi; White: Nakada Hiyoki, challenger.
+1.P7f P8d(1) 2.P2f P8e 3.B7g P3d 4.S8h G3b(1) 5.G7h Bx7g+(1) 6.Sx7g S4b 7.S3h
+S7b 8.P4f P6d(3) 9.S4g(1) S6c 10.P6f(3) P4d(1) 11.G5h(2) G5b(1) 12.K6h(2)
+K4a(1) 13.K7i K3a(1) 14.P3f(1) P7d(10) 15.S5f(13) S5d(4) 16.P9f(11) P9d(7)
+17.P1f(18) P1d(1) 18.N3g(3) N7c(33) 19.P2e(19) S3c(5) 20.P4e(46) Px4e(2)
+21.P3e P6e(93) 22.Px6e(12) P7e(67) 23.P2d(90) Px2d(2) 24.B'6f B'4d(45)
+25.Nx4e(9) Bx6f(12) 26.Sx6f S4d(5) 27.P'2b(7) Kx2b(17) 28.Px3d(11) B'4f(12)
+29.R2i(64) P8f(26) 30.Px8f S5dx4e(17) 31.B'2f Sx5f(33) 32.Bx4d(1) P'3c
+33.P'4g(13) S'3h(1) 34.Px4f(10) Sx2i+ 35.Px5f R'3i(9) 36.K6h(3) Rx8f(12)
+37.P'2c(10) Gx2c(2) 38.P'8g P'6g(3) 39.Kx6g(1) R8d(1) 40.B5e(15) R8dx3d(6)
+41.B'4a(5) R3d-3g+(4) 42.S5g G4b(5) 43.S'3a Kx3a 44.Bx2c+ S'2b 45.+B4e
+Nx6e(3) 46.P'2c Nx5g+(8) 47.Gx5g(3) S'3d 48.N'3e(13) S2bx2c(5) 49.Nx2c+(22)
+Sx4e 50.Px4e R6i+(3) 51.G'6h(2) B'4i 52.K7g Bx7f+(5) 53.K8h +Bx8g 54.Gx8g(7)
++Rx6h 55.K9g +R3gx5g 56.S'2b K4a 57.B'8e P'6c(3) 58.S'7g(15) N'9c(1)
+59.Bx9d(3) P'8f(2) 60.Gx8f(1) G'7h(2) 61.G8g(8) P'8e(1) 62.P'8f(5) Gx7g
+63.Nx7g(1) S'7h 64.G'8h(2) Sx8g+ 65.Gx8g Px8f 66.Kx8f G'8d 67.S'4c(3) Gx4c
+68.S'3b(2) K5a 69.B7c+ Resigns
+# 
+# 32-nd Oi Title Match, 6-th game, 10-th and 11-th September 1991.
+# Black: Nakada Hiyoki, challenger; White: Tanigawa Koji, Oi.
+1.P7f P8d(1) 2.S6h P3d 3.S7g S6b(1) 4.S4h(1) S4b 5.P5f P5d 6.G4i-5h G3b(2)
+7.P6f K4a(1) 8.G6g P7d(7) 9.G7h(2) G5b(1) 10.K6i(1) S3c 11.B7i B3a(3) 12.P3f
+P4d 13.B6h(10) G5b-4c(10) 14.K7i(1) B6d(12) 15.N3g(7) K3a(5) 16.K8h(1) K2b(1)
+17.P2f(1) P8e(9) 18.R3h(11) S5c(12) 19.P1f(3) P1d(8) 20.L1g(12) P5e(28)
+21.S5g(69) Px5f(38) 22.Sx5f(4) S5d(11) 23.P'5e(30) Sx5e(72) 24.S6e B3a
+25.Sx7d(50) P'5f(31) 26.Sx6c+(75) P8f(26) 27.Sx8f(12) R8c(22) 28.+S5b P'6e(1)
+29.Px6e N7c(9) 30.P'5h(48) R8b(49) 31.+S4a(9) B5c 32.P1e Px1e(4) 33.P'1b(3)
+Lx1b 34.P'1c Lx1c 35.N2e(9) S2d 36.Nx1c+(8) Sx1c 37.R1h(1) P'6f(15)
+38.Bx1c+(10) Nx1c(7) 39.G6g-6h(3) P4e(7) 40.Lx1e(1) K3c(1) 41.Lx1c+ N'9d(4)
+42.L'4f(17) Nx8f(19) 43.Px8f(35) P'1g(11) 44.Lx4e(3) G4d(4) 45.Lx4d(1) Kx4d
+46.N'3g(14) Bx8f(8) 47.P'8g(3) Bx6h+ 48.Gx6h Rx8g+ 49.Kx8g P'8f 50.Kx8f B'9e
+51.K8g L'8f 52.Resigns
+# 
+# 33-rd Oi Title Match, 1-st game, 10-th and 11-th July 1992.
+# Black: Tanigawa Koji, Oi; White: Gouda Masataka, challenger.
+1.P7f P8d(1) 2.S6h(1) P3d 3.S7g(1) S6b 4.P5f(1) P5d 5.S4h S4b 6.G4i-5h G3b
+7.P6f(1) K4a 8.G6g(2) G5b(42) 9.P2f(15) P7d(6) 10.B7i(17) P6d(17) 11.G7h(3)
+S6b-5c(3) 12.P2e(4) G6c(80) 13.K6i(17) N7c(4) 14.P3f(65) P5e(50)
+15.Px5e(36) Bx5e 16.S3g S5d(52) 17.P2d(13) Px2d(3) 18.Bx2d P'2c 19.B1e
+N8e(22) 20.S6h(62) P6e(1) 21.S4f(7) B3c(72) 22.Bx3c+(1) Nx3c 23.Px6e R5b
+24.P8f(23) Sx6e(21) 25.Px8e(3) P'6f 26.G6g-7g B'5f(6) 27.B'5h(14) N4e(25)
+28.P'5g(8) Bx7h+ 29.Gx7h P'5f 30.Px5f Sx5f 31.N'5e(55) G6d(23) 32.B'7c(3)
+Gx5e(2) 33.Bx5e+ Rx5e(6) 34.Sx5e N5g+ 35.P'5c(21) P'5a 36.R'2a S3a(14)
+37.Sx5g(22) Sx5g= 38.S4f B'3i(3) 39.Sx5g(2) Bx2h+(2) 40.S'6c R'3i(3) 41.K6h
+G'4b 42.Sx6f(16) Rx8i+(2) 43.G'6b(12) G2b(2) 44.P5b+(2) Px5b 45.Sx5b+
+Gx5b(6) 46.Gx5b Kx5b 47.Rx3a+ S'5i(4) 48.K6g(2) S'5f 49.Resigns
+# 
+# 33-rd Oi Title Match, 2-nd game, 21-st and 22-nd July 1992.
+# Black: Gouda Masataka, challenger; White: Tanigawa Koji, Oi.
+1.P7f P3d(2) 2.P2f P4d 3.S4h(3) S3b(5) 4.P5f R4b 5.K6h K6b 6.K7h K7b
+7.G4i-5h K8b(1) 8.P9f P9d(28) 9.S6h S7b(2) 10.P2e(6) B3c 11.P3f G4a-5b(4)
+12.S3g(68) S4c(13) 13.P3e(2) Px3e(31) 14.S2f S3d(6) 15.R3h P4e(27)
+16.Bx3c+(5) Nx3c 17.Sx3e(1) Sx3e(1) 18.Rx3e B'4d(36) 19.R3f(128) P'3e(92)
+20.R2f(2) Bx9i+(29) 21.S'8h +B9h 22.P'3d(2) R4d 23.Px3c+(1) R8d
+24.S6h-7g(21) P9e(38) 25.Px9e(30) S'9f 26.N'8f(2) R8e 27.G7i(56) Rx9e(4)
+28.P'9i(46) Sx8g=(2) 29.Sx8g +Bx8g 30.Kx8g P'9h 31.K7h(1) Px9i+ 32.K6i(10)
+L'8g(10) 33.K5i(5) +Px8i(1) 34.G7i-6h +P7i(11) 35.B'3d(1) R9i+(2) 36.K4h
++P6i(10) 37.+P4c(4) G5b-6b(15) 38.B'4d(3) +Px6h(29) 39.Sx6h S'3i 40.K5g(4)
+N'6e 41.K6f +R9e 42.+Px5c(15) +R8d 43.B4c+(17) +Rx4d(28) 44.+Bx4d B'9i
+45.P'8h(14) Bx8h+(2) 46.S'7g Gx5c 47.+Bx5c Nx7g+ 48.Sx7g(7) G'6e 49.Kx6e(2)
++Bx7g 50.N'7d(4) Px7d(1) 51.Nx7d K7c 52.G'7e N'5b(6) 53.R'4c Resigns
+# 
+# 33-rd Oi Title Match, 3-rd game, 4-th and 5-th August 1992.
+# Black: Tanigawa Koji, Oi; White: Gouda Masataka, challenger.
+1.P7f P8d 2.P2f P8e(1) 3.B7g P3d 4.S8h G3b(2) 5.G7h Bx7g+(1) 6.Sx7g S4b
+7.S3h(2) S7b(2) 8.P4f(2) S8c(3) 9.S4g(10) S8d(1) 10.P9f P9d(7) 11.P6f(9)
+K4a 12.P6e(13) P9e(48) 13.Px9e(143) Sx9e 14.Lx9e Lx9e 15.P'9g P'9h(53)
+16.S'8h K3a(11) 17.P3f(1) L'9a(155) 18.K4h(45) G5a(64) 19.G5h(24) P9i+(2)
+20.Sx9i(12) Lx9g+ 21.Nx9g Lx9g+ 22.P'9h(6) +L9f(51) 23.L'8i(45) R9b(35)
+24.P6d(1) Px6d 25.B'6c P'9g 26.Bx8a+(1) R9e 27.+B7b(2) Px9h+ 28.Sx9h P'9g
+29.P'6c Px9h+(1) 30.P6b+(1) R9b 31.+Bx7c(20) Gx6b(5) 32.P'9c R7b(9)
+33.+Bx7b(4) Gx7b 34.R'6a(1) K2b(1) 35.P2e B'1e(14) 36.K3h(1) +Px8i(1)
+37.P1f(1) L'2f 38.Px1e S'4i(1) 39.Kx4i(3) Lx2h+ 40.K5i(1) R'3i(4) 41.N'4i
+B'2g(6) 42.G4h(5) +L3h 43.Sx3h(3) Bx3h+ 44.B'4a(3) N'4g(1) 45.K5h(1) S'6i
+46.Kx6i(7) +Bx4h 47.Bx3b+ Kx3b 48.S'4a K2b 49.Resigns
+# 
+# 33-rd Oi Title Match, 4-th game, 17-th and 18-th August 1992.
+# Black: Gouda Masataka, challenger; White: Tanigawa Koji, Oi.
+1.P7f P8d(1) 2.S6h P3d 3.S7g S6b 4.P5f P5d 5.S4h S4b 6.G7h(1) G3b 7.K6i(1)
+K4a 8.G5h P7d(13) 9.P6f(14) S6b-5c(7) 10.P2f(53) P5e(21) 11.Px5e(41) Bx5e
+12.P2e(3) S5d(5) 13.G5h-6g(14) R5b(24) 14.P2d(15) Px2d(1) 15.Rx2d P'2c(10)
+16.R2h B8b(7) 17.S6h(14) S3c(99) 18.P'5f(72) P'5e(12) 19.Px5e(9) Sx5e
+20.P6e K3a(20) 21.S4h-5g(53) G5a(21) 22.P'5f(7) S5e-4d 23.K7i G5a-4b
+24.P4f(27) P8e(8) 25.P3f(30) P9d(9) 26.P9f(12) P6d(34) 27.Px6d Bx6d
+28.P'6e(3) B7c(2) 29.N3g R6b(12) 30.B6f(16) Rx6e(8) 31.P7e(19) Px7e(7)
+32.N7g(4) R6a 33.Nx8e(8) B8d 34.P4e(5) P'6e(2) 35.B8h S5c 36.P3e N7c(18)
+37.Px3d(17) S2b(1) 38.P3c+ Sx3c(4) 39.N2e(15) Nx8e(3) 40.Nx3c+ Nx3c
+41.P'3d N'6f(2) 42.Sx6f Px6f(8) 43.Bx6f S'7g 44.Px3c+(5) Sx6f+(5)
+45.S'2b(8) Gx2b(3) 46.+Px2b Kx2b 47.N'3d(9) K3b 48.N'3e(4) +Sx6g(25)
+49.Gx6g P7f(1) 50.Rx2c+ K4a 51.Nx4b+ Sx4b 52.G'3b K5a 53.Gx4b K6b 54.G'7d
+S'8h(5) 55.Kx8h B'6f 56.P'7g Px7g+ 57.Sx7g Nx7g+ 58.Gx7g N'7f 59.Resigns
+# 
+# 33-rd Oi Title Match, 5-th game, 25-th and 26-th August 1992.
+# Black: Tanigawa Koji, Oi; White: Gouda Masataka, challenger.
+1.P7f P8d(1) 2.S6h(1) P3d 3.S7g S6b 4.P5f P5d 5.S4h S4b(1) 6.G4i-5h(2)
+G3b(2) 7.P6f(1) K4a 8.G6g S6b-5c(36) 9.G7h(9) P5e(28) 10.Px5e(7) Bx5e
+11.P2f S5d(67) 12.P2e(6) R5b(26) 13.K6i(14) K3a(23) 14.P'5f(27) B3c(15)
+15.S5g(18) P7d(22) 16.S7g-6h(9) S5c(28) 17.K7i(9) S4d 18.P4f(11) N7c(3)
+19.P3f(8) B4b(3) 20.P1f(9) P8e(5) 21.B7g(11) P9d(23) 22.P9f(19) R8b(25)
+23.P1e(35) G5b 24.L1h(16) S3c(17) 25.R3h(6) B6d(32) 26.P3e(1) Px3e 27.Rx3e
+P'3d 28.R3h P4d 29.R4h(49) K2b(8) 30.P5e(8) Bx5e 31.S5f(5) B6d 32.P'5e
+Sx5e(28) 33.Sx5e Bx5e 34.S'4a G3b-4b 35.Sx5b+ Rx5b 36.G'5f(6) S'3f(23)
+37.P2d(20) Px2d(2) 38.Gx5e Rx5e(1) 39.P4e G'5h(6) 40.R2h(3) S4g+(33)
+41.Px4d(3) R3e(1) 42.P'3g(11) P7e(2) 43.P6e(7) S'3b 44.B'5d(8) P8f(4)
+45.Px8f(7) P'8g 46.Gx8g P'5c(7) 47.Bx6c+(13) Gx6h(4) 48.Gx6h(2) P'6g(1)
+49.P'2c(6) Sx2c 50.G7h(3) S'6h 51.K8h Sx7g+ 52.Nx7g Px7f 53.P4c+(8) Gx4c
+54.+B4a S3b(2) 55.S'3a(17) K2c 56.P'4d Gx4d 57.+B5a Px7g+ 58.G8gx7g P'4b
+59.P'2b(23) Nx6e 60.Px2a+ Sx2a 61.Sx4b=(2) Sx4b 62.+Bx4b S'3c 63.+B3a Nx7g+
+64.Gx7g P'8g 65.Gx8g G'2b 66.P'2e(11) Px2e 67.N'1f N'7e 68.P'2d(1) Sx2d
+69.Nx2d Nx8g+ 70.Kx8g G4c 71.N'3f(2) Rx3f 72.Px3f B'5d 73.P'6e(1) Bx6e
+74.S'7f B5d 75.Rx2e Resigns
+# 
+# 33-rd Oi Title Match, 6-th game, 8-th and 9-th September 1992.
+# Black: Gouda Masataka, challenger; White: Tanigawa Koji, Oi.
+1.P7f P8d(1) 2.S6h P3d 3.S7g S6b 4.P5f P5d 5.S4h S4b 6.G4i-5h G3b 7.P6f K4a
+8.G6g P7d(3) 9.G7h(8) G5b(3) 10.K6i S3c(1) 11.P3f B3a(1) 12.B7i P4d
+13.S3g(51) B6d(12) 14.B6h G5b-4c(3) 15.K7i K3a 16.K8h P8e(13) 17.P1f(3)
+K2b(1) 18.P2f P7e(43) 19.P6e(84) B4b(4) 20.Px7e(44) Bx7e 21.S4h S7c(21)
+22.B4f(7) P4e(15) 23.B3g R9b 24.S5g(2) B5c(15) 25.S5g-6f(4) P3e(38)
+26.Px3e(1) P'3f(1) 27.B5i(52) P6d(13) 28.Px6d(33) Sx6d(6) 29.S7f(11)
+P'7e(35) 30.Sx8e(1) Bx3e 31.P'6e(14) Sx6e(10) 32.Sx6e P'6f 33.Gx6f(2)
+B5g+(9) 34.G7h-6g(38) +B3i(44) 35.R7h N7c 36.Rx7e(44) Nx8e(1) 37.B8f(1)
++Bx2i(36) 38.R7a+(29) +Bx1i(1) 39.P5e(18) +B3g(5) 40.S'4a(4) +Bx2f(27)
+41.P'6b(5) G4c-4b(6) 42.Sx3b+(4) Gx3b 43.G'3a(1) P2d(2) 44.P'3d(1) P'7h(27)
+45.Px3c+(6) Gx3c 46.P'3d K2c(8) 47.Px3c+ Nx3c 48.+R4a(1) +B3e(1) 49.+R4c(4)
++B7i(2) 50.K9h  Resigns
+# 
+# 40-th Osho Title Match, 1-st game, 17-th and 18-th January 1991.
+# Black: Yonenaga; White: Minami.
+1.P7f P8d 2.P2f P8e 3.B7g P3d 4.S8h G3b 5.G7h Bx7g+ 6.Sx7g S2b 7.S3h S7b 8.P4f
+S3c 9.S4g K4b 10.G5h G5b 11.P3f S8c 12.N3g S8d 13.P9f P7d 14.P6f P7e 15.R2i P4d
+16.K4h K3a 17.P6e Px7f 18.Sx7f R7b 19.S6g B'9b 20.P5f Bx6e 21.P2e S7e 22.P2d
+Sx2d 23.P4e S6d 24.Px4d P3e 25.N7g B5d 26.B'6a R6b 27.B8c+ Px3f 28.N2e G5b-4b
+29.P'6e P'7f 30.Px6d Px7g+ 31.Gx7g Px6d 32.P'7d N'6e 33.G6f N3c 34.Nx3c+ G4bx3c
+35.N'4f N'4e 36.P'3h N6e-5g+ 37.Gx5g Nx5g+ 38.Kx5g Bx8g+ 39.P7c+ R4b 40.N'4e
+G'3e 41.Nx5c+ Rx4d 42.G5e P'4e 43.N5d P4f 44.K6f Px4g+ 45.Gx4d Gx4d 46.K7e
+Resigns.
+# 
+# 40-th Osho Title Match, 2-nd game, 28-th and 29-th January 1991.
+# Black: Minami; White: Yonenaga.
+1.P7f P8d 2.S6h P3d 3.P6f S6b 4.P5f P5d 5.S4h S4b 6.G4i-5h G3b 7.G6g P7d 8.P2f
+P6d 9.P2e S6c 10.P2d Px2d 11.Rx2d N7c 12.R2h P'2c 13.G7h P8e 14.B7g P4d 15.P4f
+G5b 16.S4g R8a 17.P3f K6b 18.K6i P1d 19.S7i S5c 20.S8h R4a 21.B6h P4e 22.Px4e
+P6e 23.Px6e Rx4e 24.P'4f P'6f 25.G5g R4a 26.N7g P7e 27.Px7e P3e 28.Px3e P8f
+29.P3d R4d 30.R3h G3b-4c 31.R2h Rx3d 32.P'3e R3a 33.Rx2c+ B4d 34.P5e P'7f
+35.Gx6f Px7g+ 36.Sx7g Px8g+ 37.Gx8g P'2b 38.+R2h Px5e 39.N3g N'5f 40.B7i G5d
+41.S7f P'6g 42.Gx6g Gx6e 43.P'6f G6d 44.N4e S4b 45.P'5d Sx5d 46.P'5g P'6h 47.K7h
+N3c 48.Px5f Nx4e 49.Px4e Sx4e 50.P'4f P'8f 51.Gx8f N'9d 52.G9f Sx5f 53.Sx5f Px5f
+54.P7d P'7g 55.Gx7g P'7e 56.Px7c+ Kx7c 57.S8e P5g+ 58.N'6e Gx6e 59.S'7d K6b
+60.Sx6e N'7c 61.N'5d K5a 62.S6d Nx8e 63.Gx8e S'6e 64.P'5c P7f 65.Px5b+ Kx5b
+66.G'6c K4c 67.Nx4b+ Kx4b 68.S5c+ K3b 69.G'4b K2a 70.G3a Kx3a 71.N'4c K2a
+72.R'3a K1b 73.S'2c Resigns.
+# 
+# 40-th Osho Title Match, 3-rd game, 7-th and 8-th February 1991.
+# Black: Yonenaga; White: Minami.
+1.P2f P8d 2.P2e P8e 3.G7h G3b 4.P2d Px2d 5.Rx2d P'2c 6.R2f S7b 7.P1f P1d 8.S3h
+P6d 9.P7f P8f 10.Px8f Rx8f 11.P'8g R8b 12.P4f S6c 13.S4g P3d 14.S5f S5d 15.P9f
+G5b 16.G5h P4d 17.K6i S4b 18.P3f S4b-4c 19.B7g K4a 20.N3g K3a 21.S8h G5b-4b
+22.K7i P9d 23.P8f P7d 24.S8g N7c 25.B8h R8a 26.G5h-6h B3c 27.P1e Px1e 28.P3e
+Px3e 29.P'1c G2b 30.N2e B2d 31.S5e N6e 32.Sx5d Px5d 33.P6f Nx5g+ 34.Gx5g S'3g
+35.R2i P3f 36.B7g S3h= 37.R2h P3g+ 38.R1h Nx1c 39.Nx1c+ Lx1c 40.S'2e B3e 41.N'3d
+Sx3d 42.Sx3d P'3c 43.Sx3c+ G2bx3c 44.N'2e G3c-4c 45.P'3f B2d 46.Nx1c+ Bx1c
+47.Rx1e S'2d 48.Rx1c+ Sx1c 49.Lx1c+ R'1i 50.K8h Rx1c+ 51.P4e P7e 52.Px4d Gx4d
+53.P6e P5e 54.L'4f P'4e 55.Lx4e Gx4e 56.B'5d R8c 57.P'4c Gx4c 58.Bx4c+ Rx4c
+59.S'3d R4d 60.S'3c P'3b 61.G'4b Rx4b 62.Sx4b+ Kx4b 63.R'4c K3a 64.Rx4e+ L'5a
+65.P'5b Lx5b 66.G'4b K2b 67.Gx3b Kx3b 68.+R4c K2a 69.+Rx5b G'3a 70.P'2b K1b
+71.L'3c +Rx2b 72.P'2d Px2d 73.Lx3a+ +Rx5b 74.G'2c K1a 75.Bx5e +Rx5e 76.P'2b
+B'5d 77.P2a+ Bx2a 78.S3c+ Resigns.
+# 
+# 40-th Osho Title Match, 4-th game, 20-th and 21-st February 1991.
+# Black: Minami; White: Yonenaga.
+1.P7f P8d 2.S6h P3d 3.P6f S6b 4.P5f S4b 5.S4h P5d 6.G4i-5h G3b 7.G6g P7d 8.P2f
+P6d 9.P2e S6c 10.P2d Px2d 11.Rx2d N7c 12.R2h P'2c 13.G7h P8e 14.B7g P4d 15.K6i
+S5c 16.P3f P4e 17.S4h-5g S4d 18.N3g R4b 19.K7i K6b 20.K8h P9d 21.P4f Px4f
+22.Sx4f P'4e 23.S4f-5g G5b 24.L9h P1d 25.K9i P9e 26.S7i N3c 27.S8h B1c 28.B6h
+R4a 29.P1f B3a 30.S4h P8f 31.Px8f B5c 32.S4g P3e 33.Px3e Sx3e 34.P'3d P'3f
+35.Px3c+ Gx3c 36.P'4b Px3g+ 37.Px4a+ +Px2h 38.P5e Px5e 39.P'5d Sx5d 40.P7e R'3g
+41.R'8b K6c 42.P'3f S4d 43.Px7d S4c 44.P'4h Kx7d 45.N'3e G6b 46.+P4b P'8a
+47.Rx8a+ Bx4b 48.Nx4c+ Gx4c 49.S'5a Bx5a 50.+Rx5a S5c 51.B3e N'4d 52.+Rx6b Sx6b
+53.B'5b S'6c 54.P'7e Kx7e 55.Bx4c+ R3i+ 56.G'8c R'5i 57.G7f Resigns.
+# 
+# 40-th Osho Title Match, 5-th game, 28-th February and 1-st March 1991.
+# Black: Yonenaga; White: Minami.
+1.P7f P8d 2.P2f P8e 3.B7g P3d 4.S8h G3b 5.G7h Bx7g+ 6.Sx7g S2b 7.S3h S3c 8.P4f
+S7b 9.S4g K4b 10.G5h G5b 11.P6f S8c 12.P3f S8d 13.P9f P7d 14.N3g P4d 15.R2i S7c
+16.P1f P1d 17.P9e G3b-4c 18.P2e K3b 19.K6h S6d 20.K7i P7e 21.P4e Px4e 22.Nx4e
+S2b 23.S5f P8f 24.Px8f P'4d 25.P6e Px7f 26.Sx7f S7c 27.S8e Px4e 28.G5h-6g B'3g
+29.P'7d S6b 30.Sx4e P'4d 31.S5f P5d 32.G6g-7g B4f+ 33.K8h +Bx5g 34.S6g +B4g
+35.R5i +B3g 36.R4i G5b-4b 37.B'4f +Bx4f 38.Rx4f B'2h 39.R4i S3c 40.S6f P6d
+41.Px6d Bx6d+ 42.P'6e +B3g 43.B'6d +Bx6d 44.Px6d B'3h 45.R5i B4g+ 46.S7f P'6h
+47.Gx6h P'6c 48.P7c+ Nx7c 49.P'7d +Bx7d 50.S7f-7e +B4g 51.P'7d N6e 52.G7g-6g
+P'8e 53.P6c+ Sx6c 54.K9g N'8c 55.S8d Nx9e 56.S7c+ +B3g 57.R5h Px8f 58.P'8c +B6d
+59.B'7e P8g+ 60.K9f R8a 61.Bx6d Sx6d 62.Kx9e B'4i 63.K8d Bx5h+ 64.P8b+ +Bx6h
+65.Gx6h G'9b 66.+Px8a +P8f 67.P'8e R'8h 68.R'9e P'8c 69.+Sx8c +Px8e 70.Rx8e Gx8c
+71.Kx8c Rx8e+ 72.P'8d S'9b 73.Resigns
+# 
+# 40-th Osho Title Match, 6-th game, 11-th and 12-th March 1991.
+# Black: Minami; White: Yonenaga.
+1.P7f P3d 2.P6f P3e 3.P5f R3b 4.S4h S4b 5.K6h K6b 6.K7h K7b 7.P9f P4d 8.G4i-5h
+S4c 9.G6g P1d 10.B7g K8b 11.K8h L9b 12.S7h K9a 13.P8f S8b 14.S8g R3d 15.G7h B1c
+16.P2f N3c 17.P2e G4a-5b 18.R2f S5d 19.P8e P6d 20.B8f S6c 21.S5g G7b 22.P9e
+G5b-6b 23.P1f P4e 24.P5e P5d 25.P1e Px1e 26.Px5d Rx5d 27.P6e P3f 28.P'5e Rx5e
+29.S5f R5d 30.B7g Px3g+ 31.Nx3g R3d 32.P'3f Px6e 33.Sx6e B3a 34.P2d Px2d 35.P3e
+Rx3e 36.Rx2d P'6d 37.R2a+ B4b 38.+R2f R3d 39.P'3e R1d 40.S5f P'2e 41.+R3f P7d
+42.P'2d P6e 43.P3d P'3e 44.+Rx3e B5c 45.+R3f P'3e 46.+R2g P2f 47.+Rx2f P3f
+48.+Rx3f Rx2d 49.Px3c+ R2h+ 50.+P4c B2f 51.Nx4e B3g+ 52.+Rx3g +Rx3g 53.+P5c
+Resigns.
+# 
+# 41-st Osho Title Match, 1-st game, 16-th and 17-th January 1992.
+# Black: Minami Yoshikazu; White: Tanigawa Koji.
+1.P7f P3d(4) 2.P2f P4d 3.P2e B3c 4.S4h S3b(3) 5.P5f R4b(2) 6.K6h K6b 7.K7h
+K7b 8.G4i-5h(6) K8b(11) 9.P9f(2) S4c(20) 10.S5g(14) G4a-5b(16) 11.P8f(4)
+P6d(4) 12.K8g(9) L9b(51) 13.S7h K9a 14.P3f(69) S8b(1) 15.S4f G7a(42)
+16.P3e(4) R3b 17.Px3d(125) Sx3d(1) 18.S5e S4c(46) 19.P'3d(9) B5a(107)
+20.R3h(2) P7d 21.Sx4d(65) Sx4d 22.Bx4d S'4i(3) 23.R3i(19) Sx5h+(1) 24.Gx5h
+B8d 25.R3e(7) G'5g(42) 26.P8e(49) Gx5h 27.Px8d R4b 28.Bx1a+ Rx4g+ 29.S'7g(8)
+G'7i(28) 30.Px8c+(7) Sx8c 31.P'8d S7b(3) 32.L'8f(9) P'8b 33.+Bx2a Gx7h(12)
+34.Kx7h G5g 35.G'7i(10) Gx6g 36.K8h +R4f(14) 37.R3g(6) +Rx3g 38.Nx3g R'3i
+39.P'6i(2) Rx3g+ 40.R'4a N'6a(2) 41.B'5e(5) +R3h(5) 42.S'6h G5b-6b(3)
+43.+B4c(17) S'5d(7) 44.Bx6d Gx7g 45.Nx7g S'7c 46.N'8c(1) Px8c 47.Px8c+ Sx8c
+48.Lx8c+ Sx4c(1) 49.Rx6a+ G6bx6a 50.Bx7c+ Resigns
+# 
+# 41-st Osho Title Match, 2-nd game, 27-th and 28-th January 1992.
+# Black: Tanigawa Koji; White: Minami Yoshikazu.
+1.P7f P8d 2.S6h P3d 3.S7g S6b 4.P5f P5d 5.S4h S4b 6.G4i-5h G3b 7.P6f K4a
+8.G6g P7d 9.G7h(4) G5b(2) 10.K6i S3c 11.B7i B3a 12.P3f(1) P4d 13.B6h(23)
+G5b-4c(22) 14.K7i B6d 15.N3g(2) K3a 16.K8h(1) K2b(17) 17.P2f(8) P8e(29)
+18.R3h(4) S5c(12) 19.P4f(24) P5e(9) 20.Px5e(91) Bx5e 21.G5f B7c(33) 22.G6e
+R8d(10) 23.S4g S6d(34) 24.Gx6d Bx6d 25.R5h P'5d(4) 26.S5f(4) N7c(15)
+27.P9f(9) P9d(4) 28.P1f(8) P9e(54) 29.Px9e P7e(9) 30.Px7e Bx7e 31.S'7f(39)
+B4b(20) 32.P'7e(7) P8f(12) 33.Sx8f(12) P5e(4) 34.S4g(2) P6d(39) 35.Rx5e(42)
+P'5d 36.R5i P6e(3) 37.B5g(3) B6d(37) 38.P'5f(22) Px6f(2) 39.P'6e(12) B5c(7)
+40.Bx6f(13) P'6d 41.Px6d(20) Rx6d 42.B4h P4e(11) 43.Nx4e(3) B4d 44.P5e
+Bx5e(33) 45.P'6f(1) Rx6f(2) 46.Bx6f(32) Bx6f 47.S7g B4h+ 48.Nx3c+ Nx3c(4)
+49.R6i P'6e 50.S5f(1) +B5h 51.R6h(3) +Bx6h 52.Gx6h R'5i(10) 53.P'6i(1) Rx5f+
+54.R'6a(2) P'4a(1) 55.S'5b(10) G4c-4b(1) 56.Sx4a+ Gx4a 57.Rx4a+ G'3a 58.+Rx9a
+B'5e(14) 59.L'5g(16) N'8d 60.Lx5f(19) Nx7f 61.K7h Nx6h+ 62.Px6h Bx7g+ 63.Nx7g
+P'7f 64.B'4d G'4c(12) 65.R'8b(1) S'4b(1) 66.N'2e S'4a(4) 67.B6b+(8) S'6f
+68.K8h(1) Px7g+ 69.K9g Sx7e 70.+Bx7c N'8d 71.+Bx8d Sx8d 72.Rx8d+ Nx2e
+73.K8f(1) P'8c(1) 74.+R7d(2) B'5g(1) 75.K8e N'6b 76.+Rx8c S'7d 77.K9d Sx8c
+78.Kx8c N3g+(1) 79.P9d(1) R'8i(1) 80.P9c+ Rx9i+ 81.B'7c L'8a(1) 82.K7b Bx9c+
+83.Kx8a Resigns
+# 
+# 41-st Osho Title Match, 3-rd game, 5-th and 6-th February 1992.
+# Black: Minami Yoshikazu; White: Tanigawa Koji.
+1.P7f P3d(1) 2.P2f P8d(1) 3.P2e P8e 4.G7h G3b 5.P2d Px2d 6.Rx2d P8f(4) 7.Px8f
+Rx8f 8.Rx3d(3) Bx8h+(34) 9.Sx8h Rx7f 10.N7g(24) G3c(47) 11.R8d(11) P'8b(5)
+12.K5h(33) R2f(9) 13.P'2h K5b 14.G3h(3) G7b(2) 15.P2g R2b 16.R8f(1) P8c(5)
+17.P9f(17) P1d(9) 18.P9e(55) S8b(8) 19.R5f(39) S4b(21) 20.P3f(1) P7d(11)
+21.N3g(58) P4d(24) 22.P3e(15) P1e(148) 23.R2f(67) P'2d(2) 24.R5f(16) P2e(25)
+25.S8g(14) P6d(14) 26.P1f(25) P'3f 27.Rx3f B'6c 28.R6f(6) Px1f 29.Rx6d(14)
+P1g+(36) 30.N6e(12) N7c(10) 31.B'8a(12) P'6b(8) 32.P3d(10) G4c 33.Nx7c+(3)
+Gx7c 34.Bx6c+ Px6c 35.R6f B'5e(2) 36.R9f(3) +Px2g(4) 37.Lx1a+(5) +Px3h(4)
+38.Sx3h N'2f 39.L'5f(1) B6d 40.N'7f(5) B7e(3) 41.S2g P9d(2) 42.Px9d G'8e(2)
+43.R9h P'9f 44.R8h(3) Lx9d(5) 45.P'9h P9g+(3) 46.Px9g Lx9g+ 47.Lx9g Bx9g+
+48.R8i P'3f 49.+Lx2a(3) Rx2a(1) 50.N'5e Gx3d(3) 51.L'6f(5) Px3g+(8)
+52.P'9h(1) +B7e(2) 53.Sx2f(3) Px2f 54.Lx6c+(8) Gx6c 55.Nx6c+ Kx6c 56.N'5e
+K6b(1) 57.G'6c(1) K7a(2) 58.P'7c K8a 59.P7b+ K9b 60.+Px8b Kx8b 61.P'8d(2)
+N'6e(2) 62.P6f +Bx6f(1) 63.B'6d K9c 64.Px8c+ K9d(1) 65.S'9e Kx8c 66.P'8d K9b
+67.G6g +Bx6g 68.Kx6g P'6f 69.Kx6f G'7e 70.Resigns
+# 
+# 41-st Osho Title Match, 4-th game, 17-th and 18-th February 1992.
+# Black: Tanigawa Koji; White: Minami Yoshikazu.
+1.P2f P8d(2) 2.P2e P8e 3.G7h(2) G3b 4.P2d Px2d 5.Rx2d P'2c(8) 6.R2f S7b
+7.P1f(6) P1d(1) 8.P9f(7) P6d(9) 9.S3h(39) S6c(6) 10.P7f(2) P8f(3) 11.Px8f
+Rx8f 12.N7g P9d(28) 13.K4h(5) S4b(21) 14.B9g(55) R8b(112) 15.P7e(1) P3d(1)
+16.R8f(40) P'8d 17.P6f(16) K4a 18.S6h P4d(14) 19.S6g(6) G4c 20.S5f(40) K3b(6)
+21.R7f(4) P5d(16) 22.P6e(38) S5c 23.Px6d(1) S5cx6d 24.S6e Sx6e(7) 25.Nx6e(8)
+S'6d 26.P'6f P4e(2) 27.L9h(7) Sx6e(61) 28.Px6e(1) B9i+ 29.P'8c(21) R5b(66)
+30.S'8g(23) +B3c(6) 31.K3i P5e(1) 32.G6h(5) R6b(22) 33.G6h-5h(12) G5b(14)
+34.S'7a(16) R6a 35.P8b+ P5f(13) 36.Rx5f(16) S5d 37.S7f(1) S5e(6) 38.R3f(3)
++B4d(2) 39.+P7b(2) R6c(1) 40.P7d(2) Px7d(3) 41.P5f(11) S6f(1) 42.P6d(14) R9c
+43.+P6b Gx6b 44.Sx6b= +Bx6b 45.P6c+ +Bx6c(5) 46.G'3a(8) K2b 47.G6g Sx6g+(5)
+48.Sx6g G'4a(2) 49.P'2d(5) Px2d(1) 50.Gx2a(1) Kx2a 51.N'5e +B5b(7) 52.Nx4c+
+Rx4c 53.Rx3d(3) G'3b 54.G'4d(5) S'2c(2) 55.Rx3b+(4) Gx3b(1) 56.Gx4c +Bx4c
+57.R'4a P'3a 58.G'4b(6) +Bx4b(2) 59.Bx4b+(2) Gx4b(1) 60.Rx4b+ R'3b(2)
+61.P'2b(4) Rx2b 62.+Rx2b Kx2b 63.R'8b G'3b(1) 64.B'6f P'5e 65.Bx5e N'3c
+66.G'4c P'6b(3) 67.Gx3b(1) Px3b 68.Rx8a+ G'2a(3) 69.B6d(4) R'6h(10)
+70.N'4c(1) Resigns(2)
+# 
+# 41-st Osho Title Match, 5-th game, 27-th and 28-th February 1992.
+# Black: Minami Yoshikazu; White: Tanigawa Koji.
+1.P7f G3b(6) 2.P5f(8) P5d(9) 3.R5h(2) S6b(7) 4.P5e(1) Px5e(1) 5.Bx5e K4a
+6.B7g P3d(2) 7.P6f P'5e(20) 8.S6h S5c 9.S6g S5d 10.K4h S4b(3) 11.K3h R5b(13)
+12.R8h(16) P4d(22) 13.P8f P4e 14.P8e R8b 15.K2h(21) K3a 16.P7e(22) B4d(6)
+17.G3h(14) K2b(1) 18.P6e(31) S4b-4c(24) 19.S6f(1) B3c 20.R8f(13) G5b(13)
+21.G5h(18) G5c(38) 22.R7f(37) P6d(50) 23.P7d Px7d(1) 24.Rx7d P'7c 25.R7f
+Px6e(34) 26.S7e R7b(36) 27.P'5i(18) P7d(28) 28.Sx7d P'7e(4) 29.Rx7e G6d
+30.P'7c Gx7e(1) 31.Px7b+ Gx7d 32.+Px8a(9) R'6i(4) 33.R'7b(3) Gx8e(1)
+34.+Px9a(5) Rx8i+ 35.P4f(3) Px4f(59) 36.P'4b(2) N'3e(1) 37.L'4i(4) P4g+(7)
+38.Lx4g(3) Nx4g+(1) 39.G5hx4g L'4d(1) 40.N'2e B2d(5) 41.N'3f(4) Lx4g+(2)
+42.Gx4g +R7h(9) 43.L'4h(4) B7i+(6) 44.P4a+(10) P'4f(14) 45.Gx4f(7) +Bx4f(12)
+46.P'6h(16) P'4g(7) 47.P'4d(1) +Rx7g(3) 48.Rx7g+ G'3h 49.Kx3h Px4h+ 50.Sx4h
+B'5f 51.G'4g L'4e(2) 52.R'5g(2) +Bx4g(5) 53.Sx4g Lx4g+ 54.Rx4g S'4f 55.L'4i
+S'5g(4) 56.Resigns
+# 
+# 42-nd Osho Title Match, 1-st game, 13-th and 14-th January 1993.
+# Black: Tanigawa Koji; White: Murayama Satoshi.
+1.P7f P8d(1) 2.S6h P3d(1) 3.P6f S6b(2) 4.P5f P5d 5.S4h(2) S4b(2)
+6.G4i-5h G3b(2) 7.G6g(1) K4a(8) 8.G7h(3) G5b(5) 9.K6i(1) S3c(1)
+10.S7g(1) B3a(1) 11.B7i(2) P4d(2) 12.P3f(5) P7d(15) 13.B6h(14) P9d(32)
+14.K7i(34) P9e(7) 15.K8h N7c(9)16.P3e(26) L9c(17) 17.Px3d(23) Sx3d(1)
+18.R3h S4c(19) 19.B4f(2) R9b(4) 20.S8f(5) P6d(4) 21.S5g(10) S6c(15)
+22.P'3d(27) B5c(13) 23.P5e(9) Px5e(32) 24.Bx5e G5b-4b 25.S5f(9) K3a(6)
+26.P1f(12) K2b(12) 27.B4f(42) S6c-5d(14) 28.P'5e(14) S4e(10) 29.Sx4e(4)
+Px4e 30.B2h P'3e(16) 31.S'8c(28) R5b(36) 32.Sx7d=(19) B4d(10)
+33.Sx7c=(4) Bx5e(13) 34.Bx5e(2) Rx5e 35.P'5f(10) R5d(1) 36.S7g Rx3d(38)
+37.Sx6d=(35) B'4i(15) 38.R2h P3f(1) 39.N'2f(11) R3e(8) 40.S6h(1)
+P3g+(17) 41.Nx3g S'4d(4) 42.P'3f(16) Rx3f 43.P'3h B5h+(6) 44.G5g(14)
++Bx7f(10) 45.S6g +B8e 46.P4f(1) Px4f(4) 47.B'8b +Bx6g(26) 48.G7hx6g S'4h
+49.S5e(39) Sx3g+(9) 50.Px3g(1) Rx3g+ 51.R7h(6) P4g+(2) 52.Sx4d +Px5g
+53.Bx3g+ +Px6g 54.R7a+ G'7h(8) 55.+Rx7h +Px7h 56.Kx7h R'5g(3) 57.R'6g(4)
+P'7g(1) 58.Rx7g(2) Rx7g+(2) 59.Nx7g N'7e(5) 60.B'7f(1) G'6g(6)
+61.Bx6g(12) R'5g 62.S'7f Nx6g+ 63.Sx6g Rx3g+ 64.N'3d Sx3d 65.Nx3d +Rx3d
+66.S'3e +R4e 67.G'4f +Rx4d(3) 68.Sx4d P'7f 69.P'3c(1) Px7g+ 70.Kx7g B'5i
+71.K7f G4bx3c 72.Sx3c+ Nx3c 73.P'3d S'8e 74.K7e Resigns (1)
+# 
+# 42-nd Osho Title Match, 2-nd game, 27-th and 28-th January 1993.
+# Black: Murayama Satoshi; White: Tanigawa Koji.
+1.P7f P8d 2.P2f(3) P8e(2) 3.B7g P3d 4.S8h G3b(1) 5.G7h(1) Bx7g+(8)
+6.Sx7g S4b 7.S3h S7b(1) 8.P4f(2) K4a(17) 9.S4g(1) S8c(3) 10.P3f(2)
+S8d(1) 11.P9f(6) P9d(5) 12.G5h(2) K3a(9) 13.N3g(2) G5b(8) 14.P4e(20)
+S3c(57) 15.S6f(50) P7d(6) 16.K4h(20) S7c(3) 17.S5e(7) P8f(24) 18.Px8f(1)
+Rx8f 19.R2i(5) R8b(29) 20.N7g(31) P6d(26) 21.P4d(63) Px4d(6) 22.P'4e(1)
+P5d(36) 23.S5e-4f P'8g(20) 24.Px4d(15) P8h+(4) 25.P'8c(13) Rx8c 26.B'6a
+R8b 27.Gx8h Sx4d(9) 28.G7h(3) P'4c(17) 29.Bx5b+(17) Rx5b 30.R8i P'8d
+31.G'8c(1) S5e(45) 32.Gx7c(55) Nx7c(2) 33.Rx8d Sx4f(2) 34.R8a+ K2b
+35.Sx4f S'6i(18) 36.G7h-6h(15) B'2g(2) 37.S'4i(6) Sx5h+(19) 38.Gx5h(2)
+G'2h(1) 39.G5i(24) G'3i(19) 40.N2e(21) B'6i(39) 41.Gx6i(30) Bx4i+ 42.K4g
+S'5h(6) 43.K5f +B3h 44.K6f(2) P6e 45.Nx6e(1) +Bx6e 46.K7g N'8e(2)
+47.K8g(3) Sx6i= 48.Resigns (2)
+# Time black: 7.07; time white: 7.27.
+# 
+# ---------------------------------------------------------------------------
+# 
+# 42-nd Osho Title Match, 3-rd game, 9-th and 10-th February 1993.
+# 
+# Black: Tanigawa Koji; White: Murayama Satoshi.
+# 
+1.P7f P8d(2) 2.S6h P3d(1) 3.P6f S6b(2) 4.P5f P5d(1) 5.S4h S4b 6.G4i-5h
+G3b(1) 7.G6g(1) K4a(1) 8.G7h(3) G5b(1) 9.K6i S3c 10.S7g(1) B3a(1) 11.B7i
+P4d(5) 12.P3f(2) P7d(3) 13.B6h(26) G5b-4c(18) 14.K7i(4) P8e(3)
+15.K8h(19) B6d(6) 16.S3g(12) K3a(7) 17.P2f K2b(10) 18.P1f S7c(28)
+19.S4f(5) P7e(53) 20.Px7e(5) P4e(53) 21.S3g(1) Bx7e 22.P'7f(16) B6d(14)
+23.P2e(6) S6b(2) 24.P4f(37) Px4f(6) 25.Bx4f Bx4f(9) 26.Sx4f(2) P'4e
+27.S3g S5c(1) 28.P7e(77) P5e(2) 29.Px5e(37) S5c-4d(16) 30.P5d(38)
+Gx5d(2) 31.P7d G6d(7) 32.P2d(1) Px2d(1) 33.P'2e Px2e(4) 34.N1g(24)
+P'7f(14) 35.Sx7f(1) P'7e 36.Nx2e(1) P'2c(6) 37.Nx3c+(15) Sx3c 38.P'4d(8)
+Px7f(18) 39.S'4c P8f(1) 40.Sx3b+(23) Kx3b(1) 41.B'4c K2b(2) 42.Px8f
+P'8g(13) 43.Gx8g(12) N'7e(20) 44.Bx7f+(3) B'6i 45.P4c+(9) Nx8g+(63)
+46.+Bx8g Bx8g+ 47.Kx8g B'6i 48.K7g(5) S'3b 49.P'4d(5) Resigns (13)
+# Time black: 6.39; time white: 6.59.
+# 
+# ---------------------------------------------------------------------------
+# 
+# 42-nd Osho Title Match, 4-th game, 17-th and 18-th February 1993.
+# 
+# Black: Murayama Satoshi; White: Tanigawa Koji.
+# 
+1.P7f P8d 2.S6h(6) P3d 3.P6f(1) S6b 4.P5f(2) P5d 5.G4i-5h(1) S4b(1)
+6.S4h(2) G3b(2) 7.G6g(4) K4a 8.G7h(4) G5b(6) 9.K6i(3) S3c(4) 10.S7g(3)
+B3a(2) 11.B7i(6) P4d 12.P3f(3) G5b-4c(3) 13.B6h(1) P7d(26) 14.K7i(2)
+P8e(1) 15.K8h(5) B6d(23) 16.N3g(5) K3a 17.R3h(1) K2b(1) 18.P2f(3) S5c(6)
+19.P1f(14) P5e(27) 20.P6e(27) B7c 21.Px5e(2) P6d(13) 22.N2e(5) S2d(10)
+23.P3e(9) Sx3e(17) 24.P1e(4) Px6e(41) 25.Nx1c+(15) Lx1c(21) 26.P1d(15)
+Lx1d(10) 27.Lx1d(3) P'1c 28.Lx1c+(9) Kx1c(1) 29.P'3f(20) L'6f(17)
+30.Px3e(44) P8f(2) 31.Px3d(28) K2b(1) 32.Sx8f(2) Lx6g+(54) 33.Gx6g(2)
+G'6f 34.G7g(16) N'5f(9) 35.B7i(14) P'8e(36) 36.Sx8e(1) Nx4h+(3)
+37.Rx4h(8) Bx5e(3) 38.S'7h(3) P'5f(6) 39.L'5i(8) P7e(33) 40.R1h(73)
+N7c(4) 41.Gx6f(2) Bx6f 42.G'7g(2) P'1g(2) 43.Rx1g(15) B3i+ 44.N'1d(28)
+K3a(1) 45.S7d(1) N8e(6) 46.Sx8e(2) +Bx1g 47.Lx5f(14) R'5i(8) 48.Lx5c+(4)
+Gx5c 49.L'5g(9) Px7f(3) 50.S'6h(10) Px7g+(6) 51.Nx7g R5h+ 52.P'5i +R3h
+53.Lx5c+ +Rx3d 54.S6h-6g(5) P6f(4) 55.Sx6f(1) P'6h(3) 56.Bx6h(7) G'5f(1)
+57.N'1c(4) P'6g(3) 58.Nx2a+ Kx2a 59.B1c+ L'1a 60.P'3c(1) Lx1c(2)
+61.Px3b+ Rx3b 62.P'3c +Rx3c 63.N'2e S'7i(1) 64.Resigns
+# Time black: 7.59; time white: 7.03.
+# 
+# 38-th Oza Title Match 1990 (professional, no comment).
+# 
+# 
+# 38-th Oza Title Match, 1-st game, September 9-th 1990.
+# Black: Nakahara, Oza; White: Tanigawa, Oi
+# 
+1.P2f P8d 2.P2e P8e 3.G7h G3b 4.P2d Px2d 5.Rx2d P'2c 6.R2f S7b 7.P1f P1d 8.S3h
+P3d 9.K5h P9d 10.P3f B4d 11.P3e Bx3e 12.R5f S4b 13.P7f B4d 14.Bx4d Px4d 15.N7g
+P6d 16.P1e Px1e 17.P'1c Lx1c 18.R5e N3c 19.G3i S6c 20.Rx8e P'8d 21.R8f S5d
+22.P7e S4b-4c 23.P7d G7b 24.P'1d Lx1d 25.B'3f Px7d 26.Bx1d P3e 27.R2f S3d 28.S6h
+G6c 29.N3g P7e 30.P8f G2b 31.L'5f G1c 32.N2e Nx2e 33.Bx2e Sx2e 34.Rx2e N'4f
+35.K6i B'5h 36.K7i Nx3h+ 37.Gx3h S'6i 38.G8h G2d 39.R2i P7f 40.Rx6i Px7g+
+41.Sx7g N'6e 42.R6h Nx5g+ 43.N'7e +Nx6h 44.Kx6h B4i+ 45.Nx6c= Sx6c 46.P'5i N'6e
+47.S6f R7b 48.Lx5c= P'5b 49.P'7g P'7f 50.Px7f Rx7f 51.S'7g B'5g  0-1
+# 
+# ---------------------------------------------------------------------------
+# 
+# 38-th Oza Title Match, 2-nd game, September 13-th 1990.
+# Black: Tanigawa, Oi; White: Nakahara, Oza
+# 
+1.P7f P8d 2.S6h P3d 3.P6f S6b 4.P5f P6d 5.G7h S6c 6.G5h P6e 7.S7g Px6f 8.Sx6f
+P8e 9.G5h-6g P8f 10.Px8f Rx8f 11.S7e R8b 12.P'8d P'6d 13.Bx2b+ Sx2b 14.G7h-7g
+P7d 15.S6f N7c 16.R8h P'8e 17.G7h K4b 18.N7g Rx8d 19.B'9e R8c 20.P'8d R8a
+21.Nx8e Nx8e 22.Rx8e P9d 23.N'7c Px9e 24.Nx8a+ N'3e 25.S4h B'3h 26.+Nx9a Bx2i+
+27.R'9b S5b 28.P8c+ +B3h 29.G5g B'5d 30.G7h-6g N'4e 31.G5h Nx3g+ 32.Sx3g +Bx3g
+33.K6h Nx4g+ 34.Gx4g +Bx4g 35.K7g +B5h 36.P'6h S'7e 37.Sx7e Px7e 38.N'4f B6c
+39.Rx7e P'8e 40.L'8i G'6e 41.Rx8e Bx8e 42.Lx8e S'7e 43.Px7e R'7f   0-1
+# 
+# Time used = Black: 4.45, White:3.19
+# 
+# ---------------------------------------------------------------------------
+# 
+# 38-th Oza Title Match, 3-rd game, September 25-th 1990.
+# Black: Nakahara, Oza; White: Tanigawa, Oi
+# 
+1.P2f P8d 2.P2e P8e 3.G7h G3b 4.P2d Px2d 5.Rx2d P'2c 6.R2h P8f 7.Px8f Rx8f
+8.P'8g R8d 9.S3h S7b 10.P7f P9d 11.P9f P1d 12.P4f R7d 13.G7g R2d 14.P'2e R8d
+15.S4g P3d 16.P2d Px2d 17.Rx2d P'2c 18.R2h P6d 19.S3f P6e 20.K6h S6c 21.G5h G5b
+22.P1f B3c 23.S4e S2b 24.P6f Px6f 25.S7h P2d 26.K7i S2c 27.Gx6f R8b 28.G5h-6g
+K4a 29.P3f P9e 30.Px9e P'9g 31.Lx9g S7d 32.N7g N9c 33.P3e P'6e 34.G6f-5f Px3e
+35.P'3d B2b 36.P9d N8e 37.Nx8e B8h+ 38.Kx8h Rx8e 39.B'5e P'9f 40.Lx9f N'8d
+41.N'3c Nx3c 42.Px3c+ Nx9f 43.K7i B'8h 44.K6h Bx5e+ 45.+Px3b Sx3b 46.Gx5e L'6f
+47.P'3c Sx3c 48.B'2c K5a 49.S5f N'3f 50.R1h N8h+ 51.N'6d R9e 52.Nx5b+ Kx5b
+53.G'8i +Nx8i 54.Sx8i R9i+ 55.N'6d K6b 56.B4e+ B'9e 57.K5h Lx6g+ 58.Sx6g B5i+
+59.K4g N'6c 60.G'7b K5a 61.+B2c S4d 62.+Bx2d K4a 63.Gx4d N4h+ 64.Rx4h G'3f
+  0-1
+# 
+# ---------------------------------------------------------------------------
+# 
+# 38-th Oza Title Match, 4-th game, October 2-nd 1990.
+# Black: Tanigawa, Oi; White: Nakahara, Oza
+# 
+1.P7f P8d 2.S6h P3d 3.S7g S6b 4.S4h S4b 5.P5f P5d 6.G4i-5h G3b 7.P6f P6d 8.G6g
+S6c 9.P2f P5e 10.Px5e Bx5e 11.P2e B2b 12.G7h K4a 13.K6i P7d 14.S5g S5d 15.P2d
+Px2d 16.Rx2d P'2c 17.R2h R5b 18.P'5f G6b 19.K7i G6c 20.S7g-6h N7c 21.S4f P4d
+22.P5e Sx5e 23.P7e Sx4f 24.Px4f Px7e 25.P'7d N8e 26.P8f S'5h 27.Px8e Sx6g+
+28.Gx6g P'5a 29.S'7h Px8e 30.B7g P8f 31.Bx8f G'8e 32.B7g P7f 33.B8h P'8g 34.Sx8g
+P'8f 35.S7h G7e 36.N'1e P2d 37.P'2e R8b 38.P'8e B3c 39.Px2d P'2b 40.P2c+ Px2c
+41.Nx2c+ P'2b 42.+Nx3c Nx3c 43.P6e N'9e 44.Bx4d P8g+ 45.S'8d Gx8e 46.P'8c R5b
+47.Sx9e P'8f 48.B7a+ Gx9e 49.P'5g S'8h 50.K6i +Px7h 51.Kx7h Sx8i= 52.K6i S'3i
+53.R3h P8g+ 54.N'4d P7g+ 55.Sx7g N'5e 56.G6h N4g+ 57.Nx5b+ Px5b 58.R'6a N'5a
+59.Rx3i +Px7g 60.Gx7g +Nx5g 61.R3h P'4h 62.S'6h S'4g 63.Sx5g Sx3h= 64.P7c+ G8f
+65.+Px6c Gx7g 66.+Px5b K3a 67.+Px4b Gx4b 68.Rx5a+ G'4a 69.N'2c Px2c 70.N'4c K3b
+71.G'2b   1-0
+# 
+# Time used = Black: 4.50, White:4.57
+# 
+# Black: Fukuzaki Bungo, challenger; White: Tanigawa Koji, Oza
+# 
+1.P7f(1) P8d(1) 2.P5f(3) P8e(5) 3.B7g P5d 4.R8h(1) P3d(2) 5.S6h S6b 6.K4h
+P7d(20) 7.P6f(9) K4b(2) 8.K3h K3b 9.K2h G6a-5b 10.G6i-5h(6) S5c 11.S5g(13)
+B3c(5) 12.L1h(3) K2b 13.K1i S3b 14.S2h P1d(3) 15.G3i(1) P2d 16.G6g(24)
+S2c(5) 17.S4f(1) P4d(3) 18.P5e(8) Px5e(6) 19.Sx5e(3) P'5d 20.S4f G3b
+21.B6h(7) G5b-4c(4) 22.P3f(4) P6d(15) 23.N7g(3) P2e(1) 24.S4f-3g(10) P5e(26)
+25.P8f Px8f 26.P'8e P4e(1) 27.Rx8f P'8c 28.P9f(18) S4d(18) 29.R8i(1) B1e(9)
+30.R5i(1) P8d(2) 31.P1f Bx3g+(6) 32.Nx3g Px8e 33.P4f P8f(44) 34.Px4e S3c
+35.B'7a(57) R5b(10) 36.Nx2e(4) P8g+ 37.N8e +P8f(16) 38.Nx3c+(14) G4cx3c
+39.S'4a N'4g(7) 40.Sx5b=(4) Nx5i+ 41.Bx5i(1) R'6i 42.B7a-2f+(1) +Px8e(13)
+43.N'2e(24) N'4g 44.Nx3c+(1) Nx3c(1) 45.S4a=(4) Nx3i+(3) 46.Sx3b+ Sx3b
+47.Sx3i P'2e(4) 48.+B4h(7) Rx6g+(2) 49.G'2h(6) P2f(9) 50.P'5g(4) Px2g+(2)
+51.Gx2g P'4g 52.+Bx4g(20) S'5h(4) 53.+B4f(1) +Rx6f 54.P'2c(15) Resigns(1)
+# 
+# Time used black: 4.47; white: 4.10
+# 
+# ---------------------------------------------------------------------------
+# 
+# 39-th Oza Title Match, 2-nd game, 17-th September 1991.
+# 
+# Black: Tanigawa Koji, Oza; White: Fukuzaki Bungo, challenger
+# 
+1.P7f P3d(1) 2.P2f P4d 3.P2e B3c 4.S4h S4b(5) 5.P5f(1) R5b(1) 6.K6h K6b
+7.K7h K7b(1) 8.G4i-5h K8b(2) 9.P3f(10) S4c(5) 10.P4f(4) G3b(4) 11.S5g(2)
+L9b(2) 12.N3g(44) R5a(12) 13.P9f(7) P5d(5) 14.P9e(12) K9a 15.B6f(3) S8b(1)
+16.S8h(1) S5b(22) 17.R4h(36) G7a(5) 18.N7g S5c(7) 19.P4e (41) Px4e 20.Bx3c+
+Nx3c 21.Nx4e Nx4e 22.Rx4e B'2g(19) 23.B'4g(8) N'3e(1) 24.B2i(4) Bx3f+ 25.R8e
+P'4f(21) 26.P'4h(2) R4a 27.N'7e(41) G7b(11) 28.P5e(1) P4g+ 29.Gx4g Nx4g+
+30.Bx4g +Bx4g(7) 31.Px4g B'7d 32.S6h(8) G'7a(12) 33.G7i(7) Rx4g+(4) 34.P9d
+Px9d 35.N'8f Bx8e(6) 36.Nx8e +R5f 37.S8h-7g(4) S6d 38.Nx9d(14) P'9h(40)
+39.Lx9h(8) P'9g 40.Nx8b+ G7ax8b 41.P'9c Nx9c(2) 42.Nx9c+ Lx9c(6) 43.P'9d(11)
+Lx9d(6) 44.P'9b(5) Kx9b(11) 45.Nx6c+(1) N'8e(16) 46.+Nx7b Gx7b 47.S8f(5)
+N'6f(12) 48.Px6f P'6g 49.Sx8e(3) Px6h+ 50.Gx6h S'8i(27) 51.K7g R'7h(6)
+52.K8f(2) N'7d 53.Sx7d S7e 54.Kx7e Px7d 55.K6d +Rx5e 56.K5c S'6b 57.K5b(1)
+Rx6h+ 58.Resigns
+# 
+# Time used black: 4.45; white: 4.40
+# 
+# ---------------------------------------------------------------------------
+# 
+# 39-th Oza Title Match, 3-rd game, 24-th September 1991.
+# 
+# Black: Fukuzaki Bungo, challenger; White: Tanigawa Koji, Oza
+# 
+1.P7f(1) P8d(1) 2.S6h(6) P3d(1) 3.P6f S6b 4.G4i-5h S4b(1) 5.S4h P5d 6.G6g(1)
+G3b(1) 7.P5f(2) K4a 8.S7g P7d 9.G7h(2) G5b 10.B7i S3c 11.K6i(3) B3a
+12.P3f(6) P4d(10) 13.B6h(12) G5b-4c(13) 14.K7i B6d 15.N3g(5) K3a(1) 16.K8h
+K2b 17.P2f P8e(5) 18.R3h(2) S5c(4) 19.P1f(2) P1d(9) 20.P4f(15) P5e(16)
+21.S4g(1) S5d(3) 22.L1g(2) Px5f(20) 23.Sx5f N7c 24.R1h(18) P'5e(12) 25.S4g
+S2d 26.P2e(3) S3c(1) 27.P4e(20) Px4e(14) 28.P'4f P5f(83) 29.Gx5f(25)
+Px4f(2) 30.Sx4f(3) P'5e 31.G5g(25) P8f 32.Sx8f(1) P'4e  33.Nx4e(2) S4d
+34.R4h P7e 35.G5g-6g(19) Px7f(1) 36.P'7d(21) N8e 37.Gx7f(3) P'7g(23)
+38.Nx7g(2) Nx7g+ 39.Bx7g N'8d 40.S8e(23) Nx7f(4) 41.Sx7f N3c 42.P6e(7) G'7e
+43.P7c+ Gx7f(5) 44.+Px8b B7e 45.R2h(2) B3i+(1) 46.R2g +B4i(1) 47.R'7b
+Nx4e(3) 48.P2d(7) +Bx2g(9) 49.Px2c+ Kx2c 50.P'2d Kx2d(7) 51.Rx3b+(1) Gx7g
+52.Gx7g R'4h 53.Resigns
+# 
+# Time used black: 4.02; white: 4.11
+# 
+# ---------------------------------------------------------------------------
+# 
+# 39-th Oza Title Match, 4-th game, 1-st October 1991.
+# 
+# Black: Tanigawa Koji, Oza; White: Fukuzaki Bungo, challenger
+# 
+1.P7f P3d(1) 2.P2f P4d 3.S4h S4b(3) 4.P5f P5d 5.K6h(3) S6b(4) 6.K7h(2)
+P7d(1) 7.S6h(2) R7b(7) 8.G4i-5h(6) P7e(6) 9.Px7e(2) Rx7e 10.S7g N7c(5)
+11.P'7f(7) R7d 12.P6f N8e(4) 13.S8f(11) Rx7f(7) 14.K6g(8) R7b(1) 15.Sx8e
+P8d(1) 16.S9f(11) P4e(6) 17.P2e(53) B3c(11) 18.P2d(32) Px2d 19.S5g P6d(10)
+20.K6h S6c(2) 21.P3f(9) G3b(5) 22.N3g(6) S4c 23.G6g(3) S7d(1) 24.P8f(2)
+S7e(19) 25.Nx4e(9) B4d 26.P'7f(19) Sx7f(2) 27.Gx7f Rx7f 28.S8g R7c(25)
+29.S'5c(4) Bx5c(10) 30.Nx5c+ Rx5c 31.P6e P5e 32.Bx5e(2) Rx5e(22) 33.Px5e
+P'5f(5) 34.Sx5f G'6f(4) 35.N'5c(46) G5b(16) P5d(4) G3a(53) 37.P'2b(2) K4b(9)
+38.Px2a+(3) B'5g 39.K7h(1) Gx5f +Px3a(2) S'6g(3) 41.K8h N'7e 42.P'7g(13)
+Nx8g+(4) 43.Kx8g B6f+ 44.N'7i(2) +Bx6e(3) 45.K8h +Bx5d 46.N4a+ K5c(1)
+47.R'8c S'6c 48.N'7e P'7c(4) 49.Rx7c+(1) S'6b(4) 50.Nx6c+(1) +Bx6c
+51.+Rx6c(1) Sx6c(1) 52.B'7a N'6b 53.S'4b(1) Gx4b(1) 54.+Nx4b P'7f(1)
+55.+Nx4c(2) Kx4c 56.Bx6b+(1) Resigns
+# 
+# Time used black: 4.31; white: 4.23
+# 
+# ---------------------------------------------------------------------------
+# 
+# 39-th Oza Title Match, 5-th game, 14-th October 1991.
+# 
+# Black: Fukuzaki Bungo, challenger; White: Tanigawa Koji, Oza
+# 
+1.P7f P8d(1) 2.P5f(2) P3d(8) 3.P6f(2) S6b 4.S6h P5d 5.R5h(1) K4b(2) 6.K4h
+K3b 7.K3h G6a-5b(6) 8.K2h(1) S5c(2) 9.L1h(2) B3c 10.K1i K2b 11.S5g P4d(1)
+12.S4f(29) G4c(2) 13.P5e(1) P4e(14) 14.Sx4e(1) Px5e 15.S3f(6) S3b(6)
+16.G7h(1) P8e(2) 17.B7g S5d 18.G6g(1) P2d(7) 19.P4f(4) S2c(4) 20.S2h(1)
+G3b(2) 21.G3i P7d(10) 22.P9f(14) P1d(3) 23.P9e(4) P2e(7) 24.S4g(3) P3e(10)
+25.P3f(6) Px3f(1) 26.R3h(3) B4b(19) 27.G5g(10) P8f(15) 28.Px8f Bx8f
+29.R8h(1) P'8g(1) 30.Rx8g(12) P'8e 31.P'8h(11) B4b(18) 32.B5i(15) P8f(2)
+33.R6g P8g+ 34.Px8g P'8h 35.Sx3f(1) Px8i+(1) 36.P4e +Px9i(5) 37.G4f(1)
+B9g+(18) 38.B3g(9) R8e(2) 39.P'5f(1) +B7i(9) 40.Px5e(13) +Bx4f 41.Bx4f Sx5e
+42.B6h(2) G'4f(6) 43.P8f(7) R8b(10) 44.Bx4f(15) Sx4f 45.G'5f B'7c(7)
+46.P4d(7) G4c-3c(1) 47.Gx4f(43) Bx4f 48.P'3d Sx3d(2) 49.P'3e S2c 50.S'3d(5)
+B7c(9) 51.P'5e(6) P'4b(25) 52.Sx2c+(5) G3cx2c 53.S'3d S'3c(3) 54.Sx3c+(1)
+G2cx3c 55.S'3d(1) S'2c 56.Sx3c+ Gx3c 57.G'3d G'3b(2) 58.Gx3c Gx3c 59.G'3d
+G'3b 60.Gx3c Gx3c 61.G'3d G'3b 62.Gx3c Gx3c Sennichite
+# 
+# Time used black: 4.08; white: 4.03
+# 
+# ---------------------------------------------------------------------------
+# 
+# 39-th Oza Title Match, Replay 5-th game, 14-th October 1991.
+# 
+# Black: Tanigawa Koji, Oza; White: Fukuzaki Bungo, challenger
+# 
+1.P7f P3d 2.P2f P4d 3.S4h S4b(5) 4.P5f P5d 5.G4i-5h G6a-5b(3) 6.S6h(2) S6b
+7.S7g S3c 8.K6h K4b 9.K7h K3b 10.P6f B3a 11.G6g P7d 12.B7i S7c 13.S5g(1) G4c
+14.P3f K2b 15.K8h G3b 16.G7h P8d(1) 17.N3g(1) P8e 18.S4f(2) S2d(1) 19.B6h(3)
+S6d(2) 20.B5g(9) P9d(10) 21.P1f N7c 22.P1e(2) P7e 23.Px7e R8d 24.P3e(7)
+P8f(6) 25.Sx8f Sx7e 26.Sx7e(5) Bx7e 27.P'7f B4b(1) 28.S'7e R8a(8) 29.Px3d(7)
+P'3f(3) 30.N2e(2) K3a(2) 31.S7d(6) P4e(1) 32.Sx4e(3) P3g+ 33.R1h +Px4g(9)
+34.B6h(1) P'4d 35.S3f +P3g(3) 36.S3e S'2g(1) 37.Sx7c=(2) Sx3e 38.Bx3e
+Gx3d(2) 39.B6h(1) Sx1h= 40.P'4c Gx4c 41.S'8b(1) R4a(1) 42.Lx1h R'3h
+43.P'3c(1) Nx3c 44.Nx1c+ K3b 45.N'3e(4) Lx1c 46.P1d(2) Gx3e 47.Px1c+ P'8f
+48.Bx3e(1) N'9f 49.K7i B3a 50.S'2b(1) S'8h 51.K6i Bx2b 52.+Px2b Kx2b 53.L1c+
+K3b 54.Gx8h Nx8h+ 55.+Lx2c Kx2c 56.S'2d K3b 57.G'2c K4b 58.Sx3c+ Gx3c
+59.Gx3c Kx3c 60.G'2d K2b 61.N'3d K3b 62.P'3c K4c 63.Resigns
+# 
+# Time used black: 1.04; white: 0.59
+# 
+# 40-th Oza Title Match 1992 (professional, no comment).
+# Black: Habu Yoshiharu, challenger; White: Fukuzaki Bungo, Oza
+1.P2f P8d(1) 2.P2e P8e 3.G7h G3b 4.P2d Px2d 5.Rx2d P'2c 6.R2f S7b 7.P1f(2)
+P3d(3) 8.P1e(3) P6d(1) 9.R3f(22) G3c(3) 10.S3h(25) S6c(5) 11.P7f(1) P8f(2)
+12.Px8f Rx8f 13.P'8g(2) R8b(10) 14.R2f S5d(3) 15.P3f G3b(1) 16.N3g B4d(3)
+17.Bx4d(6) Px4d 18.S8h S6e(14) 19.P3e(31) Px3e(10) 20.B'5e(13) R4b(23)
+21.P1d(3) Px1d 22.P'1c Lx1c(6) 23.N2e(27) S2b(4) 24.N7g(1) S7d(3) 25.Bx6d
+K5b(7) 26.Nx1c+(14) Sx1c(2) 27.L'8b(2) S6c(11) 28.B2h(1) G7a(9) 29.Lx8a+
+Gx8a 30.Bx7c+ B'8b(13) 31.+Bx8b(2) Gx8b 32.P'2b(2) N3c(2) 33.P2a+(13)
+N'3d(27) 34.R6f(40) P'6e(35) 35.Rx6e(22) P'6d(15) 36.R7e(1) P'7d(6)
+37.R5e(1) P5d(4) 38.R5f(3) R4a(6) 39.P7e(7) Px7e(1) 40.P'7d(1) Sx7d(5)
+41.Rx5d(5) L'5c(3) 42.B'5f(1) G7c(10) 43.Bx3d G4c 44.Rx4d(5) Gx3d 45.Rx4a+
+Kx4a 46.R'7a K3b(7) 47.Rx7c+ P'5b 48.N'5e(4) N4e(4) 49.G'4c(2) Kx2a 50.+R7a
+K1b 51.G3b R'2b 52.Gx2b(1) Sx2b 53.N'2f(1) K1c(7) 54.Nx3d(2) B'2f
+55.P'3g(1) Nx3g= 56.R'1b(1) Resigns
+# Time used black: 4.28; white: 4.26
+# 
+# ---------------------------------------------------------------------------
+# 
+# 40-th Oza Title Match, 2-nd game, 14-th September 1992.
+# 
+# Black: Fukuzaki Bungo, Oza; White: Habu Yoshiharu, challenger
+1.P7f(1) P8d 2.S6h P3d 3.P6f S6b 4.G4i-5h(1) S4b 5.S4h G3b 6.G6g K4a 7.G7h
+P5d 8.K6i G5b 9.P5f(1) P4d(1) 10.S7g S3c 11.B7i B3a 12.P3f P7d(10)
+13.S3g(9) B6d(1) 14.B6h(2) G5b-4c(1) 15.K7i(1) K3a 16.K8h P8e(1) 17.P1f(1)
+K2b(1) 18.P2f(2) P9d(3) 19.P1e S7c(1) 20.S4f(1) P7e(1) 21.Px7e P4e
+22.S3g(1) Bx7e 23.P'7f(1) B6d(3) 24.P2e(9) P9e(6) 25.P4f(6) Px4f(2) 26.Bx4f
+P'4d(1) 27.R4h(4) S7d(12) 28.P3e(5) Px3e(1) 29.Bx6d(5) Px6d(10) 30.P'4e
+Px4e(1) 31.B'7a R8c(1) 32.P2d(1) Px2d(18) 33.Bx3e+(3) P8f 34.Sx8f(1) P6e
+35.P'2c(23) Gx2c(3) 36.+Bx4e Px6f(36) 37.Gx6f(48) B'5g(1) 38.G6f-6g
+Bx4h+(1) 39.Sx4h P'6f(6) 40.G6g-6h S6e(13) 41.B'7b(22) R8b(6) 42.B6a+(1)
+R4b(7) 43.+B5a(2) Sx7f(14) 44.P'4d(74) P6g+(1) 45.G6hx6g Sx6g+(8) 46.Gx6g
+R'5h 47.P'6h(2) Rx4h+(1) 48.Px4c+(2) Rx4c 49.P'4d(14) R6c(15) 50.G'3b(16)
+K1b 51.+Bx2c(1) Kx2c 52.Gx3c Nx3c(7) 53.+B4a(7) S'3b(19) 54.+Bx3b(10)
+Kx3b(4) 55.S'4c Rx4c 56.Px4c+ Kx4c(2) 57.S'3e(8) B'6f(42) 58.S'7g(2)
+S'7i(1) 59.Kx7i +R3i 60.G'6i(10) G'5h 61.S'7h(1) Gx6i(2) 62.Sx6i G'5h(2)
+63.R'6c(1) K3b(1) 64.G'4c K2a 65.P'2b K1b 66.Resigns
+# Time used black: 4.59; white: 4.27
+# 
+# ---------------------------------------------------------------------------
+# 
+# 40-th Oza Title Match, 3-rd game, 22-nd September 1992.
+# 
+# Black: Habu Yoshiharu, challenger; White: Fukuzaki Bungo, Oza
+1.P2f P8d(1) 2.P2e(1) P8e 3.G7h(2) G3b 4.P2d Px2d 5.Rx2d P'2c 6.R2f S7b
+7.P9f(1) P1d(1) 8.P7f P8f(5) 9.Px8f Rx8f 10.N7g S4b(1) 11.K4h(1) P9d(3)
+12.S3h(1) K4a(2) 13.B9g(13) R8b(6) 14.P7e P3d(2) 15.R8f(5) P'8e(13)
+16.R7f(6) G6b(2) 17.S6h(2) P6d 18.P6f(6) S6c(17) 19.S6g K3a(16) 20.S5f(1)
+R8d 21.S4e(13) P3e(1) 22.K3i(1) P1e(10) 23.G6h(29) G7b(17) 24.G6h-5h(30)
+P7d(9) 25.Px7d(41) Sx7d 26.P'8f(2) P'7e(25) 27.Px8e R8b 28.Bx7e(4) Sx7e
+29.Rx7e Bx6f(3) 30.R7f B5e(2) 31.S'8c(4) Gx8c(7) 32.R7a+(3) K2b 33.P8d
+B'6c(15) 34.S3d(5) S'3c(1) 35.Sx3c+(1) Sx3c 36.Px8c+(14) Rx8c 37.P'2d
+S'3d(7) 38.P'8d(14) R7c 39.+Rx7c Nx7c 40.R'6b B5d(14) 41.S'4a(1) G4b(10)
+42.G'3b(6) K1c 43.Gx4b(1) Bx7g+(3) 44.G3b(19) N'2f(17) 45.Gx2a(17) R'8i(15)
+46.N'5i(6) Nx3h+(10) 47.Kx3h S'2f 48.Gx1a(8) B2g+(6) 49.K3i(1) P3f(9)
+50.R1b+(4) Kx2d 51.L'2h +Bx2h(36) 52.Kx2h +B5e(4) 53.P4f(18) L'2g(3)
+54.K3h(1) Lx2i+(3) 55.Px3f S2b(2) 56.B'4b(2) S3c 57.Bx5c+(5) +L2h(1)
+58.Kx2h(3) +Bx4f 59.K2i +Bx3f 60.G'1d(3) +Bx1d 61.+Bx2f G'2e 62.N'3f Gx3f
+63.+Rx1d Kx1d 64.+Bx3f N'2e 65.P1f(1) N'3g 66.K3h Nx4i+ 67.Px1e Resigns
+# Time used black: 4.56; white: 4.59
+# 
+# Black: Tanigawa Koji; White: Morishita Taku.
+1.P7f P8d 2.P2f(1) P8e(1) 3.B7g P3d(1) 4.S8h G3b(3) 5.G7h Bx7g+ 6.Sx7g S4b
+7.S3h(1) S7b(2) 8.P4f(1) P6d(1) 9.S4g S6c 10.P6f(3) P4d(2) 11.G5h(3) G5b(3)
+12.K6h(1) K4a(3) 13.K7i(1) K3a(2) 14.P3f(1) P7d(5) 15.S5f(4) S5d(1) 16.P9f
+P1d(16) 17.P1f(7) P9d(10) 18.N3g(6) N7c(30) 19.P2e(21) S3c(9) 20.P4e(95)
+Px4e(30) 21.P3e S4d(22) 22.P7e(17) Px7e(10) 23.P2d(1) Px2d 24.Rx2d P'2c(1)
+25.R2h G6c(34) 26.B'6a(17) Px3e(12) 27.B3d+(25) S4c(5) 28.+B2e(4) B'5d(40)
+29.G5h-6g(5) N3c(4) 30.+B5h(31) S3d(21) 31.R2i(5) P9e(45) 32.Px9e(54) P7f(7)
+33.Gx7f(2) P'7e 34.Gx7e P8f 35.Px8f(25) P'9h(1) 36.Lx9h Bx9h+ 37.P'7d P3f(18)
+38.Px7c+(3) Gx7c 39.P'7d G6c 40.N'2f S3d-3e(13) 41.P'3d(2) Px3g+ 42.Px3c+
+Gx3c(1) 43.P'3d(18) G3b(1) 44.N'5e G5d(40) 45.G8h +B9i(3) 46.K7h R9b(3)
+47.P7c+(10) +P3h(26) 48.R6i(1) P'8g(6) 49.Gx8g(16) Rx9e(5) 50.+B7f(1)
+N'8d(15) 51.P'9f(8) Nx7f 52.Px9e B'2e 53.P'4g(2) Sx2f 54.K6g P'8h 55.Kx7f(3)
+Px8i+ 56.R'8b(2) Bx3d(2) 57.+P6c(3) P'7d(10) 58.Gx7d P'7c 59.+Px7c(8) K2b
+60.N6c+(1) K3c(4) 61.K7e P'3f(3) 62.+Nx6d(1) Gx6d 63.Gx6d N'5b 64.G7d(2) K2d
+65.R8a+ P3g+(3) 66.+Rx9a K3e 67.K8d(6) L'5d 68.+R4a G4c(1) 69.+Rx5b(2) Lx5f
+70.Px5f S'7h 71.S8h(1) +B9h 72.L'9i +Bx8g 73.Sx8g Sx6i+ 74.P9d +Px9i 75.K8c
+K3f 76.P9c+ Kx4g Jishogi.
+# Black: Morishita Taku; White: Tanigawa Koji.
+# 
+1.P7f P8d(1) 2.S6h(1) P3d 3.S7g S6b 4.P5f(1) P5d 5.S4h S4b 6.G4i-5h(2) G3b
+7.P6f K4a 8.G6g P7d(5) 9.G7h(10) G5b 10.K6i(1) S3c(3) 11.B7i(6) B3a(1)
+12.P3f(1) P4d(1) 13.B6h(26) G5b-4c(13) 14.K7i(3) B6d(8) 15.N3g(2) K3a
+16.K8h(7) K2b(7) 17.P2f(9) P8e(10) 18.R3h(5) S5c(10) 19.P1f(14) P1d(21)
+20.P4f(20) P5e(16) 21.Px5e(30) Bx5e 22.G5f B7c(5) 23.G6e R8d(1) 24.S4g(1)
+S6d(46) 25.Gx6d(17) Bx6d(2) 26.R5h(4) P'5d(10) 27.S5f(5) P7e(23) 28.Px7e(11)
+Bx7e(6) 29.P'7f(12) B3a(23) 30.N2e(45) S2d(1) 31.P4e(10) Px4e(32) 32.Sx4e(44)
+P'4d(10) 33.S5f P8f 34.Sx8f(22) B6d(1) 35.P'4f(1) R8b(27) 36.S'6g(4) N7c(10)
+37.S7e(11) B5c(23) 38.B9e(11) B6b(1) 39.S7d(6) P'7g(13) 40.Bx7g(16) G'6d(2)
+41.S7d-6e(2) Gx6e(21) 42.Px6e N8e 43.B6f(7) S'6i 44.R5i(6) Sx7h+ 45.Kx7h
+B7c(7) 46.S'5g(27) P6d(24) 47.Px6d(2) Bx6d(2) 48.G'6e(18) P'7g(9) 49.Nx7g(1)
+Nx9g+ 50.Gx6d Rx8g+ 51.K6i +R8h 52.S6h +N8g(1) 53.K5h(6) G'7h(1) 54.Sx7h(1)
++Nx7h 55.G'6g S'6i(15) 56.Rx6i +Nx6i 57.Kx6i +Rx9i 58.K5h(1) L'5e(4)
+59.Sx5e(4) Px5e 60.L'7i(1) Sx2e(1) 61.Px2e(2) N'5f 62.Gx5f(2) Px5f 63.S'4h(1)
+R'2g(3) 64.N'4g(6) S'5g(1) 65.S4hx5g(5) Px5g+ 66.Kx5g P'5e 67.B'7d(5) P'7c(1)
+68.Gx7c(4) G'6d 69.N'4h(3) Gx7d(2) 70.Gx7d B'2i(3) 71.S'5h S'3h 72.Resigns.
+# Black: Tanigawa Koji; White: Morishita Taku.
+# 
+1.P7f P8d(1) 2.S6h(2) P3d(1) 3.S7g S6b(1) 4.S4h P5d(1) 5.P5f S4b 6.G4i-5h(6)
+G3b(2) 7.P6f(2) K4a(3) 8.G6g P7d(2) 9.G7h(5) G5b(2) 10.K6i S3c 11.B7i(2)
+B3a(7) 12.P3f(10) P4d(4) 13.S3g(9) B6d(17) 14.B6h(10) G5b-4c(8) 15.K7i(4)
+K3a(1) 16.K8h P8e(11) 17.P1f(10) K2b(14) 18.P2f(7) S7c(25) 19.S4f(6) P7e
+20.Px7e(23) P4e(56) 21.S3g Bx7e 22.P'7f(15) B5c(30) 23.P4f(20) Px4f(1)
+24.Sx4f P'4e 25.S3g S7d(1) 26.R4h(23) P6d(44) 27.Rx4e(59) P6e(8) 28.R4g(30)
+P8f(26) 29.Px8f(6) N7c(16) 30.B4f(12) R8c(1) 31.S4h P'4e(12) 32.B2h(1)
+Px6f(15) 33.Gx6f(14) S6e(33) 34.S5g(43) P'8e(3) 35.G6f-6g(3) P5e(2) 36.Bx5e
+Bx2f(27) 37.P'4h(31) S5d(11) 38.B2h N6e(1) 39.S5g-6f(13) Nx7g+(5) 40.G6gx7g
+S'4f(2) 41.B1g(8) Sx4g=(5) 42.Bx2f Sx5f+(13) 43.B'7d(9) +Sx6f 44.Bx8c+ +Sx7g
+45.Kx7g R'6i(3) 46.P'2d(2) S'6f(16) 47.K8h P'7g 48.Px2c+ Kx2c 49.N'1e(12) K1b
+50.+B5f Px8f(6) 51.R'8b(1) Px7h+(2) 52.+Bx7h G'8g 53.Resigns.
+# Time black: 6.38; time white: 7.19.
+# 
+# ---------------------------------------------------------------------------
+# 
+# 4-th Ryu O Tournament, 4-th game, 26-th & 27-th November 1991.
+# 
+# Black: Morishita Taku; White: Tanigawa Koji.
+# 
+1.P7f P8d 2.S6h(2) P3d(1) 3.S7g S6b 4.P5f(1) P5d 5.S4h(1) S4b 6.G4i-5h(1)
+G3b(2) 7.P6f(1) K4a 8.G6g P7d(5) 9.G7h(5) G5b 10.K6i(2) S3c(3) 11.B7i(3) B3a
+12.P3f(1) P4d(6) 13.B6h(5) G5b-4c(14) 14.K7i(1) S7c(7) 15.K8h(22) P9d(8)
+16.P3e(27) Px3e(22) 17.Bx3e P7e 18.Px7e(9) Bx7e(1) 19.P6e(3) K3a(9)
+20.R3h(24) K2b(5) 21.B4f(4) R9b(10) 22.S5g(2) B4b(4) 23.S5g-6f(1) P9e(33)
+24.P1f(36) P1d(70) 25.P'7e(40) P8e(17) 26.P2f(39) S8d(14) 27.N1g(6) P4e(13)
+28.B5g(9) S4d(5) 29.P4f(34) Px4f(3) 30.Bx4f P'4e 31.B6h P'3e(8) 32.S7f(4)
+P2d(17) 33.P2e(12) Px2e(13) 34.P5e(11) Px5e(47) 35.B7g(5) P'7d(1) 36.Sx5e(2)
+Sx5e(2) 37.Bx5e S'4d 38.B6f(3) Px7e(3) 39.P'5c(13) Bx5c(19) 40.P'5d(19)
+Gx5d(1) 41.P'2d(23) K3c(22) 42.Rx3e(11) P'3d(1) 43.Rx2e P'2b(2) 44.P6d(10)
+Px6d(9) 45.S'6c(3) G4c 46.Sx5d+(10) Gx5d 47.G'6c(1) B3a(5) 48.P'4b(1) Bx4b(6)
+49.P'5c(5) N1c(13) 50.R2i(5) P6e(6) 51.Sx6e(14) Gx6e 52.P5b+ Gx6f(1)
+53.+Px4b(11) S'2h(7) 54.Rx2h(12) Gx6g 55.B'6d(3) B'3i(7) 56.P2c+(2) Px2c
+57.+P4c Kx4c 58.Rx2c+ G'3c 59.G5c Sx5c 60.Bx5c+ Kx5c 61.+Rx3c G'4c(3)
+62.S'4d(2) K6b 63.G'6c(3) K7a 64.+R3a(2) P'6a 65.Gx6g(1) P8f 66.S'7d(1)
+Px8g+(26) 67.Kx8g S'8c 68.Sx8c+(2) B'6e 69.K7h Bx8c 70.P'8e S'7f 71.Px8d(4)
+Sx6g+ 72.Kx6g B9d 73.K5f(1) G'7b(2) 74.Gx7b(3) Rx7b 75.S'6c(1) Gx4d(3)
+76.Sx7b+ Bx7b 77.S'8b(1) Resigns.
+# Time black: 7.58; time white: 7.56.
+# 
+# ---------------------------------------------------------------------------
+# 
+# 4-th Ryu O Tournament, 5-th game, 4-th & 5-th December 1991.
+# 
+# Black: Tanigawa Koji; White: Morishita Taku.
+# 
+1.P7f P8d(1) 2.P2f P8e(1) 3.B7g P3d(1) 4.S8h G3b 5.G7h Bx7g+(4) 6.Sx7g S4b
+7.S3h S7b(2) 8.P4f P6d(1) 9.S4g S6c 10.P6f P4d(2) 11.G5h(1) G5b 12.K6h K4a
+13.K7i K3a(1) 14.P3f(3) P7d(2) 15.S5f(1) S5d(1) 16.P9f(14) P1d(7) 17.P1f(11)
+P9d(6) 18.N3g(66) N7c(23) 19.P2e(33) S3c(13) 20.P4e(51) Px4e(11) 21.P3e
+S4d(48) 22.P2d(3) Px2d 23.Rx2d P'2c(3) 24.R2h P6e(83) 25.Px6e(26) Nx6e(1)
+26.S6f(35) B'6d(3) 27.B'5i(14) G5b-4c(10) 28.S5fx6e(13) Sx6e 29.Sx6e B5e
+30.S'7g P8f(13) 31.Px8f S'3f(2) 32.G4h(5) P4f(5) 33.S5f(4) B7c 34.P'4e(13)
+Sx3e(32) 35.P'6d(26) P'8g(31) 36.N'4d(9) B8d(21) 37.N2e(21) P2d(17) 38.P8e(8)
+B5a(1) 39.S8f(5) Px2e(6) 40.B7g B3c(10) 41.P6c+ P2f(23) 42.Gx8g(1) P'6g(14)
+43.P'2d(2) P2g+(3) 44.Nx3b+(19) Rx3b 45.P2c+ +Px2h 46.+Px3b(6) Kx3b 47.P'2d
+Sx2d(1) 48.R'6b Resigns(2).
+# Time black: 6.30; time white: 6.45.
+# 
+# ---------------------------------------------------------------------------
+# 
+# 4-th Ryu O Tournament, 6-th game, 17-th & 18-th December 1991.
+# 
+# Black: Morishita Taku; White: Tanigawa Koji.
+# 
+1.P7f P8d 2.S6h(2) P3d(1) 3.S7g S6b(1) 4.P5f(1) P5d 5.S4h S4b(1) 6.G4i-5h G3b
+7.P6f K4a 8.G6g P7d(2) 9.G7h(6) G5b(6) 10.K6i(2) S3c(6) 11.B7i(3) B3a(1)
+12.P3f(7) P4d(1) 13.B6h(11) P9d(13) 14.K7i(49) P9e(11) 15.K8h(11) L9c(21)
+16.P3e(15) Px3e(40) 17.Bx3e N7c 18.R3h(68) B6d(33) 19.B4f(3) Bx4f(27) 20.Px4f
+B'4i 21.R2h(1) B5h+ 22.G5g(1) +B2e(9) 23.S4g(2) P6d(1) 24.P2f(4) +B4c(2)
+25.G5g-6g(1) +B4b(45) 26.N3g(42) G5b-4c(2) 27.P1f(2) P8e(14) 28.R2i(18)
+K3a(17) 29.P2e(17) P6e(18) 30.Px6e(7) P8f(1) 31.Sx8f(3) Nx6e 32.B'6f(7)
+R8c(3) 33.P2d(10) Px2d(12) 34.P'2e(5) P5e(24) 35.Px2d(16) Sx2d 36.P4e
+P'2g(15) 37.Rx2g(38) P'8e(19) 38.Sx8e Rx8e 39.Bx9c+ P'8f(19) 40.Px8f(7)
+P'8g(1) 41.Gx8g(3) +Bx8f(1) 42.Gx8f(1) Rx8f 43.P'8g S'7i(1) 44.Kx7i(14) Rx8g+
+45.K6h +R8h(17) 46.L'7h(2) +Rx8i 47.Px4d(1) G5c(59) 48.Rx2d(27) P'2c
+49.S'4c(11) Px2d(7) 50.Sx3b+ Kx3b 51.S'4c Gx4c 52.Px4c+ Kx4c 53.P'4d Kx4d(1)
+54.P'4e K5c(2) 55.G'4d(1) K4b 56.G'4c K5a(1) 57.G5b Kx5b 58.B'4c K5a 59.Bx6e+
+P'6f(1) 60.Resigns.
+# Time black: 7.07; time white: 7.37.
+# 
+# ---------------------------------------------------------------------------
+# 
+# 4-th Ryu O Tournament, 7-th game, 26-th & 27-th December 1991.
+# 
+# Black: Tanigawa Koji; White: Morishita Taku.
+# 
+1.P7f P8d 2.S6h(1) P3d 3.S7g S6b(1) 4.S4h P5d 5.P5f S4b(1) 6.G4i-5h G3b(1)
+7.P6f K4a(1) 8.G6g P7d(4) 9.G7h(20) G5b(8) 10.K6i S3c 11.B7i B3a(2) 12.P3f
+P4d(3) 13.B6h(4) G5b-4c(20) 14.K7i(2) B6d(4) 15.N3g(2) K3a(4) 16.K8h(9)
+K2b(2) 17.R3h(7) P8e(16) 18.P1f(14) S7c(39) 19.S5g(39) S8d(3) 20.P6e(14)
+B4b(4) 21.S5g-6f N7c(17) 22.N2e(17) S2d 23.P2f P6d(30) 24.B4f(93) R6b(4)
+25.Bx6d(10) Bx6d(25) 26.Px6d Rx6d 27.P9f(2) P'6e(38) 28.S5g P7e(1) 29.Px7e(1)
+Sx7e 30.P'7f S8d(1) 31.B'7b(23) P8f(59) 32.Px8f(4) P'8e 33.B8c+(12) P4e(43)
+34.P7e(72) Px8f(37) 35.P7d S7e(1) 36.+Bx7c Sx2e(43) 37.Sx8f(43) Sx8f(21)
+38.+Bx6d S'7e 39.+Bx6e(1) P'8g(7) 40.K7i(7) Sx2f(20) 41.R'8b(2) P4f(10)
+42.N'5e(13) G4c-4b(3) 43.+Bx5d P'5b 44.+Bx3b Kx3b(1) 45.G'4c K2b 46.Gx4b
+P1d(2) 47.G3b(1) K1c 48.P1e Px4g+(1) 49.Px1d Resigns.
+# 
+# 
+   1.P7f P8d 2.S6h P3d 3.S7g S6b 4.S4h P5d 5.P5f S4b 6.G4i-5h G3b
+   7.P6f K4a 8.G6g P7d 9.G7h
+[ 9.K6h now is dangerous because white can build a formation with P6d,
+  S6c, N7c,S4d, P8e, G5b and attack with P5e and P6e. ]
+   9... S3c 10.K6i G5b 11.B7i B3a 12.P3f P4d 13.S3g B6d
+[ 13... G5b-4c is playable for white but dangerous because of 14.P3e ]
+   14.P6e B4b
+[ 14.B6h is more common than 14.P6e. If 14... B7c? instead of 14... B4b
+  then 15.P7e Px7e 16.S6f R7b 17.Sx7e! Bx3g+ 18.Nx3g Rx7e 19.B'8b is
+  better for black.]
+   15.P5e
+[ This position but with a black pawn on 2f and a white one on 8e is old-
+  fashioned and was played some 20 years ago. Black gained nothing from
+  this opening, but without the exchange of P2f and P8e it is better for
+  black of course. ]
+   15... S5c
+[ 15... Px5e? 16.S4f G5b-4c 17.Sx5e P'5d 18.S5e-6f gives black a clear
+  positional advantage. ]
+   16.R5h G3b-4c!?
+[ 16... G5b-4c and 16... Px5e are found in professional games. Two weeks
+  before this game Morishita played 16... G3b-4c against Yonenaga. The
+  game continued 17.S4f P8e 18.N3g N7g 19.P7e R8d 20.S7f P6d 21.B5g Nx6e,
+  resulting in an equal position. ]
+   17.Px5d Sx5d 18.S6f G4c-5c 19.S4f K3b
+[ 19... S4c is a typical positional mistake: 20.S4f-5g K3b 21.S5f and
+  22.B4f follow with a better position for black. ]
+   20.P'5e S4c 21.S4f-5g P6d 22.Px6d N7c! 23.N7g Gx6d 24.P'6e G6d-6c
+   (equal) 25.S5f P8e 26.N3g P9d 27.P2f P9e 28.G8h P8f 29.Px8f Rx8f
+   30.P'8g R8c 31.K7h L9d 32.B4f R9c 33.P5d Gx5d 34.S5f-5e Gx5e
+   35.Sx5e P9f 36.Px9f Lx9f 37.P'5c Bx5c 38.Lx9f Rx9f 39.L'5d R9i+
+   40.G8i S'6i 41.Kx6i +Rx8i 42.G'7i +R9i 43.Lx5c+ Gx5c 44.S6d Gx6d
+   45.Bx6d L'5d 46.S'5e
+[ 46.Rx5d? Sx5d 47.G'3a K2b 48.B'3b G'7h 49.Kx7h R'8h and 46.N2e? G'5i!
+  47.K7h S'6i 48.Gx6i +Rx6i 49.K8h +Rx5h 50.S'6h G'7h both lead to mate. ]
+   46... P'5g 47.Rx5g S'8h??
+[ 46... S'4i is another winning possibility. 47... L'7h instead of S'8h
+  leads to a certain win for white: 48.Kx7h S'8h and now a) 49.L'8i Sx7i+
+  50.Kx7i G'8h, b) 49.B'6h Lx5e 50.Rx5e P'5d or c) 49.G6i +R9h. ]
+   48.N2e +Rx7i 49.K5h G'4a 50.B'6c G'5b?
+[ According to "Shukan Shogi" Habu still had chances to keep fighting
+  after 47... S'8h??, but 50.G'5b seems the same as resigning. After
+  50... L'5b 51.Sx5d Sx5d 52.Rx5d S'4c! the situation is still unclear.
+  Moreover, Tanigawa's king is in a very bad position. ]
+   51.Sx5d Gx6c 52.Sx4c+ Kx4c 53.Nx3c+ Kx3c 54.S'4b Gx4b
+   55.Bx4b+ Kx4b 56.G'3b Resigns.
+# Time used: Black 7:31, White 7:58.
+# 
+# -----------------------------------------------------------------------
+# 
+# Ryu O Title Match 1990, Game 2: Habu Yoshiharu - Tanigawa Koji.
+# 31 October & 1 November 1990. Comment by Katsuhiko Murooka.
+# 
+   1.P7f P8d 2.S6h P3d 3.S7g S6b 4.P5f G3b 5.S4h K4a 6.G4i-5h G5b
+   7.P6f P6d 8.P2f S4b 9.G6g P7d 10.G7h S6c 11.K6i N7c 12.P2e S3c
+   13.B7i P8e 14.P3f P5d 15.S3g
+[ Alternatives are 15.P4f or 15.P3e Px3e 16.Bx3e S4d and now e.g.
+  a) 17.P2d? Sx3e! 18.Px2c+ B4d 19.+Px3b Kx3b 20.P'3c Nx3c 21.G'2b K4a!,
+  which is very good for white, Takahashi - Y. Sato 0-1, 1988 or
+  b) 17.B6h P5e 18.Px5e P6e 19.P2d Px2d 20.P'2c Gx2c 21.Bx2d K3b,
+  unclear, Y. Sato - H. Nakada 1-0, 1988. ]
+   15... S4d 16.P2d Px2d 17.Bx2d P'2c 18.B1e P6e
+[ 18... P5e? 19.Px5e P6e and a) 20.B2f P3e 21.S4f Sx5e 22.Sx5e Bx5e
+  23.S'4f B2b 24.Bx3e or b) 20.S4f Sx5e 21.Sx5e Bx5e 22.B3g Bx3g+
+  23.Nx3g. Both variations favour black. ]
+   19.Px6e Nx6e 20.S6f P'6d
+[ 20... S5c 21.P'2d Px2d 22.P'2c B4d 23.Bx2d P8f 24.B4f P'6d 25.Px8f P7e
+  gives black a small edge, Morishita - Moriuchi 1-0, 1988. ]
+   21.S4f P8f 22.Px8f Rx8f 23.P'8g R8a 24.B2f P1d 25.P1f
+[ 25.N3g P3e 26.Sx3e Sx3e 27.Bx3e B4d 28.Bx4d Px4d 29.Sx6e Px6e 30.P'6d
+  is good for black, Takahashi - Tanigawa 1-0, 1988 or 25.K7i P2d?!
+  26.P1f G2c 27.B5i P9d 28.P9f K3b 29.B6h gives black a slightly better
+  position, Y. Sato - Murayama 1-0, 1990. ]
+   25... P9d 26.P9f (adjourned)
+[ My opinion of the adjourned position is that black stands a bit better. ]
+   26... P2d 27.K7i G2c 28.B5i K3b 29.B6h B3c 30.K8h B5a 31.P3e Px3e
+   32.Sx3e Sx3e 33.Bx3e P'8f
+[ After 33... P'3d 36.B6h B3c 35.P5e P7e 36.P'2e Px2e 37.N3g  black
+  stands slightly better, Y. Sato - Murayama 1-0, 1990. ]
+   34.Px8f P'8e 35.R3h
+[ 35.Px8e?? Rx8e 36.P'8f N7g+ followed by 37... Rx3e and white wins. ]
+   35... B3c 36.Px8e S'2g 37.R3g S2h= 38.R3f Sx1i+ 39.B6h +Sx2i
+   40.P'2e N'5g! 41.S'3e?!
+[ After 40.N'5g the position is unclear, although black still has a
+  slight edge. 41.S'3e is inaccurate, however, and should have been 
+  41.P5e.]
+   41... N6i+ 42.B8f L'8c 43.Px2d G2b 44.N9g P9e 45.Px9e P7e
+   46.S3d Bx2d 47.P'2c?!
+[ 42.R2f P'2d 43.Rx2i is better. ]
+   47... G3c 48.P2b+ K2b 49.Sx3c Bx3c 50.P'2d P'9f 51.G'2c?
+[ I think 51.R2f Bx2d 52.Rx2d P'2c 53.Rx2i is better than what happened
+  in the game. ]
+   51... K3a 52.Gx3c Px9g+ 53.Lx9g
+[ According to "Shukan Shogi" and the TV program "Go & Shogi weekly"
+  Habu's 53.Lx9g was the losing move. Habu should have played 53.Kx9g
+  followed by 53... Nx3c 54.Rx3c+ P'3b 55.N'2c K4a 56.+R2b with chances
+  for both players. ]
+   53... Nx3c 54.P2c+ P'3b 55.B'2d G4b! 56.+Px3b Kx3b 57.P'3d P'3e
+   58.Rx3e S'4d 59.Px3c+ Sx3c 60.Bx3c+ Gx3c 61.P'3d G2c 62.P'2d P'8g
+   63.Kx8g Lx8e 64.Px2c+ K4a 65.Sx7e Lx8f 66.Sx8f Rx8f 67.Kx8f N'7d
+   68.Resigns.
+# Time used, black: 7:38, white 7:35.
+# 
+# -----------------------------------------------------------------------
+# 
+# Ryu O Title Match 1990, Game 3: Tanigawa Koji - Habu Yoshiharu.
+# 8 and 9 November 1990. Comment by Katsuhiko Murooka.
+# 
+   1.P7f P8d 2.P2f P8e 3.B7g P3d 4.S8h G3b 5.G7h Bx7g+ 6.Sx7g S4b
+   7.S3h S7b 8.P4f P6d 9.S4g S6c 10.G5h G5b 11.K6h K4a 12.S5f S5d
+   13.P6f P4d 14.P3f P7d 15.K7i K3a 16.N3g P1d 17.P1f G5b-4c
+   18.K8h P9d 19.P9f S3c 20.R4h K2b 21.P4e
+[ Alternatives:
+  --21.B'2h!? S4b 22.P6e Sx6e 23.Sx6e Px6e 24.P4e S'2g 25.Px4d G4c-3c
+  26.N2e Sx2h= 27.Nx3c+ Nx3c 28.S'4c P'4e 29.Sx3b+ Kx3b 30.P3e S3g+
+  31.R4i N'8f (slight advantage white), Maruta - Nakahara 0-1, 1986.
+  --21.L1h!? G4c-4b 22.B'1i!? B'2g 23.G4g P1e 24.N2e Px1f 25.P4e P1g+
+  26.Bx6d R9b 27.Nx3c+ Kx3c 28.Px4d Bx1h+ 29.P'1b Lx1b 30.Rx1h+ +Px1h
+  31.B'1a (slight advantage black, but what if 21... K3a!), Tanigawa -
+  Nakahara 1-0, 1986. ]
+   21... Px4e 22.B'4a S4d
+[ 22... B'9b? 23.Sx4e Sx4e 24.Nx4e S4d 25.B6c+ and black stands better,
+  after 22... R7b black would have the better position, too.
+  22... P1e!? 23.Px7e P6e 24.Px6e P4f 25.B1d+ R6b is unclear. Maybe white
+  stands a bit better, Tanigawa - T. Tanaka 1-0, exhibition game 1986.
+  22... P7e!? 23.B7d+ Px7f 24.Sx7f P6e 25.P1e Px1e 26.+B6d P'7c 27.P'1c
+  and black stands slightly better, Morishita - Oshima 1-0, 1990. ]
+   23.Bx7d+ P3e 24.+Bx6d B'7c 25.+Bx7c Nx7c 26.B'6d R8c
+   (26... R7b?!) 27.Sx4e
+[ If 27.Nx4e then 27... P'4f 28.Bx4f P4e 29.Px9e S5dx4e 30.Sx4e. White
+  stands slightly better, Maruyama - Senzaki 0-1, 1990. ]
+   27... S5dx4e 28.Nx4e P8f 29.Px8f (adjourned)
+[ My opinion of the adjourned position is that black stands a bit better,
+  but probably Habu has prepared something new for this game, because if
+  he picked out this system for white, the adjourned position could
+  hardly be avoided.] 
+   29... P'4g 30.Rx4g B'3h 31.R4h B7d+ 32.S'5e! S'5d! 33.Sx4d +Bx6d
+   34.Nx5c+ Gx4d 35.Rx4d +Bx5c 36.R4a+ S'6i 37.G5h-6h Sx7h+
+   38.Gx7h N'8e 39.G'8g?!
+[ With 39.G'8g black loses his advantage. 39.S'8g would have been better.
+  According to Kato Hifumi on the television program "Go & Shogi Weekly"
+  after 32.G'8g white stands a bit better.]
+   39...G'3a 40.+Rx9a Nx7g+ 41.G8gx7g S'6i 42.S'8g N6e! 43.Px6e Sx7h+
+   44.Kx7h
+[ If 44.Sx7h then 44...G'6h which is good for white, or if 44.Gx7h?? then
+  44... B'5e and white will win.]
+   44... +B4d (Sx6e!? is possible, too) 45.L'4i
+[ Allowing 45... R4c would be decisive. ]
+   45... +B5e 46.+Rx9d R6c 47.S'5f Rx6e 48.P'6g! P'6f 49.Px6f Rx6f
+   50.Sx5e G'6h 51.K8h B'7i 52.K9h P'9g 53.Nx9g Sx5e 54.S'8i R6g+??
+[ 54... G6g 55.Gx6f Sx6f 56.B'4d S'3c 57.Bx6f Gx6f. This position is
+  unclear, but I would prefer to play the white side after 54... G6g.]
+   55.Gx6g Gx6g 56.R'6a S'7h 57.Rx3a+ Kx3a
+[ 57... Gx3a 58.N'3d and now 58... K1c 59.N'2e K2d 60.N4b+ G'4d 61.+Rx4d
+  Sx4d 62.G'3d leads to mate, or 58... K1b 59.G'2b K1c 60.N'2e K2d
+  61.B'5a G'3c 62.Gx2c Kx2c 63.Nx3c+ Nx3c 64.Bx3c+ Kx3c 65.+R8c and mate
+  follows soon, too. ]
+   58.B'5c K2b 59.N'3d Resigns.
+[ 59... K1c 60.N'2e K1b 61.G'2b Gx2b 62.Nx2b+ Kx2b 63.+R9b and black
+  wins. ]
+# 
+# -----------------------------------------------------------------------
+# 
+# Ryu O Title Match 1990, Game 4: Habu Yoshiharu - Tanigawa Koji.
+# 15 and 16 November 1990. Comment by Katsuhiko Murooka.
+# 
+   1.P7f P8d 2.P2f P8e 3.B7g P3d 4.S8h G3b 5.G7h Bx7g+ 6.Sx7g S4b
+   7.S3h S7b 8.P4f S3c 9.S4g K4b 10.G5h S8c 11.P6f S8d 12.P9f (black
+   must not allow 12... S9e) P7d
+[ In professional play 12... P9d 13.P3f P7d occurred many times. Instead
+  of 13... P7d has also been played: 13... P9e 14.Px9e Sx9e 15.Lx9e Lx9e
+  16.P'9g P'9h 17.S8h L'9a 18.N3g P8f 19.Px8f Rx8f 20.N7g (slightly
+  better for black), Yonenaga - Minami 1-0, 1990 or 13... K3a 14.N3g G5b
+  15.K4h P6d!?/?!, Tanigawa - Nakahara 0-1, Meijin title game 6, 1990. ]
+   13.S5f P7e 14.P4e
+[ 14.S6e or 14.S6g are solid and give black the better position, but Habu
+  wanted more. ]
+   14... Px7f 15.Sx7f K3a 16.P'7e S7c 17.B'4f B'6d
+[ The only move: 17... S6d?? 18.P6e S7c 19.P7d or 17... P6d 18.P7d Sx7d
+  19.Bx6d. ]
+   18.S5e Bx5e 19.Bx5e S6d 20.B4f
+[ 20.Bx3c+?! Nx3c allows white to seize the initiative. ]
+   20... S'5e (adjourned)
+[ Time used: black 4:27, white 3:09. I think Habu made a wise decision to
+  seal here and not to play the obvious move 21.Bx5e. In the second
+  session Tanigawa must take the bishop anyway, so Habu has some extra
+  thinking time until the next morning. This decision cost him 36
+  minutes, however, since he had to wait so long before he could seal.
+  My opinion of the adjourned position is that black stands a bit better. ]
+   21.Bx5e Sx5e 22.S'7g P4d 23.Px4d S5ex4d 24.K6h P'7c
+[ Why not 24.P7d? After 24... P'7c the position is balanced. On 20-th
+  November, I met Mr. Habu and asked him: "Why didn't you play 24.P7d?".
+  He replied: "I wanted to play 25.P7d after 24.K6h and didn't think that
+  Mr. Tanigawa would play P'7c so soon". ]
+   25.G7h-6g K2b 26.K7h G5a 27.P2e S3e 28.G5f R4b 29.P'4e P'4d
+   30.Px4d S3ex4d 31.B'6e B'6a
+[ 31... S4e?? 32.P'4c. 31... R8b? 32.P'4e S3e 33.G4g favours black. ]
+   32.S6g S4e 33.Gx4e Rx4e 34.B3h R4b 35.P9e P3e 36.P'4g P1d
+   37.P1f B3d 38.P5f P5d 39.B2g P'4f 40.Px4f Rx4f 41.P3f
+[ 41.P'4g? R2f strongly favours white. ]
+   41... Bx2e 42.Px3e B3f! 
+[ now white stands slightly better ]
+   43.P3d S4d 44.P3c+ Sx3c 45.Bx3f Rx3f 46.P'3g R4f 47.P'4g R4b
+   48.B'5c R4a 49.B3e+ (49.B7a+? G5b) P'3h 50.Rx3h B'2g 51.R2h B4i+
+   52.N1g +B3i 53.R2f P'3d 54.+B5c G'3e 55.R2g +B3h 56.P'2h P'4f
+   57.Px4f Rx4f
+[ White stands clearly better now.] 
+   58.P'4g +Bx4g 59.+Bx6c G5a-4b (time 7:07 - 7:21)
+   60.+Bx8a +B3h?!/!?
+[ Tanigawa wants to play 62.P'5g. 60... +B3h induces black to play
+  62.+Bx5d, after which white can play 62... P'5g. ]
+   61.P'4g +Bx4g 62.+Bx5d
+[ 62.+Bx9a would meet 62... +B3h again, but now black does not have a
+  pawn in hand ! ]
+   62... P'5g 63.Gx4g Rx4g+ 64.B'7f +R4h 65.S'6h G'5c (7:19 - 7:40)
+   66.+B8a P'4f 67.P3f P4g+ 68.P'4i +R3h 69.Rx4g?
+[ Black should have fought for a draw and played the following line:
+  69.Px3e P5h+ 70.N2e +Px6h 71.Sx6h S'5g 72.Nx3c+ Nx3c 73.S'7i ]
+   69... +Rx4g 70.Px3e +Rx4i 71.+B2g +Rx1i 72.N'4e R'3i 73.P'4i L'2d
+   74.Px3d Sx3d 75.Nx5c+ Lx2g+ (7:37 - 7:46) 76.+Nx4b Gx4b
+   77.Px2g Rx4i+ 78.L'5i B'3g?
+[ After 78... +R2h white would have a won position. ]
+   79.P'3e S4c 80.G'6i N'8d? 81.B6e P'6d? 82.B8c+ P'4g 83.G'3f Bx5i+
+   84.Gx5i +Rx5i 85.Sx5i +Rx5i (7:46 - 7:56) 86.G'6i +R4h
+   87.R'6h L'8a 88.+Bx8d! Lx8d 
+[ the position is equal now ]
+   89.B'5e P'3c 90.Rx4h Px4h+ 91.N'3d Sx3d 92.Px3d B'5d (7:51 - 7:59)
+   93.Px3c+ Nx3c 94.S'3a Kx3a 95.R'5a P'4a 96.Rx5d+ +P5h 97.B'2b!!
+[ 97.P'3d?? +Px6i 98.B'2b K2a or 97.P'4c? G3b 98.Bx3c+ Gx3c 99.N2e R'4h
+  and in both cases white will win. ]
+   97... Kx2b (7:58 - 7:59) 98.P'3d R'4h
+[ 98... +Px6i?? 99.Px3c+ Gx3c 100.Bx3c+ Kx3c 101.N2e K3b 102.+R5b G'4b
+  103.G'3c K2a 104.N'1c Lx1c 105.Nx1c= K1a 106.L'1b Kx1b 107.+Rx4b Px4b
+  108.G'2b Kx1c 109.G2bx2c mate. ]
+   99.Px3c+ Gx3c 100.Bx3c+ Kx3c 101.N2e K3b 102.Sx5h! Resigns
+[ 102... Px5h+ 103.P'3c K2a 104.G'3b K1b 105.+Rx1d mate. ]
+#  (7:59 - 7:59)
+# What a tough game !
+# 
+# -----------------------------------------------------------------------
+# 
+# Ryu O Title Match 1990, Game 5: Tanigawa Koji - Habu Yoshiharu.
+# 26 and 27 November 1990. Comment by Katsuhiko Murooka.
+# 
+   1.P7f P3d 2.P2f P4d 3.P2e B3c 4.S4h S3b 5.P5f R4b
+[ A surprising opening. Four days before this game Habu played this
+  opening against Katsuura and he won. On the other hand, one might
+  suppose that Habu could not find a good way against the bishop exchange
+  opening. ]
+   6.K6h K6b 7.K7h K7b 8.G4i-5h G4a-5b 9.P9f P9d 10.S5g K8b
+   11.P8f S4c 12.K8g S7b 13.S7h P6d 14.S6f G6c
+[ This seems rather old-fashioned. 14... S5d is fashionable nowadays. ]
+   15.S6f-7g P6e 16.B7i R2b 17.P6f Px6f 18.G5g P7d 19.Gx6f N7c
+   20.P3f P'6e 21.G6g P5d
+[ For the variations 21... P4e and 21... P8d, refer to my book "4-th file
+  rook opening II" (pages 74-79; both his books on the 4-th file rook are
+  really good/PS). 21... P5d is the latest move and I think it is better
+  than both 21... P4e and 21... P8d. ]
+   22.B4f B4b 23.P'6f P4e
+[ 23... Px6f 24.Sx6f P'6d 25.N7g P8d? 26.P7e! S8c 27.Px7d Sx7d 28.P'7e
+  favours black, Murooka - Kikuchi 1-0, 1990. ]
+   24.B3g P3e!? 25.Px3e Px6f 26.Sx6f P'3f 27.B5i
+[ Adjourned. My opinion of the adjourned position is that it is slightly
+  better for black. ]
+   27... R3b 28.P2d Px2d 29.N7g P8d 30.P'6e S5b 31.P5e Rx3e
+   32.Px5d P3g+ 33.Bx3g P4f 34.Px4f N3c 35.P'3f
+[ 35.Rx2d R2e 36.Rx2e Nx2e 37.R'2b Nx3g= 38.Rx4b+ P'4a favours white. ]
+   35... Rx3f 36.Rx2d P'6h! 37.G6gx6h
+[ The position is equal now. 37.G7i and 37.G6ix6h will meet 37... N4e
+  38.R2b+ B3c 39.+Rx3c Rx3c 40.Px4e R'4i, which favours white. ]
+   37... N4e 38.R2b+ P'4a
+[ 38... B3c? 39.+Rx3c Rx3c 40.Px4e strongly favours black. ]
+   39.Px4e Rx6f 40.G6g Rx6g+
+[ 40... R3f 41.N'6d would favour black. ]
+   41.Sx6g P'5f 42.Sx5f P7e 43.N'6d
+[ If 42... G'6f?? instead of 42... P7e then 43.S5e and black will win. If
+  43.Px7e? instead of 43.N'6d then 43... Bx7e favours white. ]
+   43... G'6f 44.Nx7b+ Gx7b 45.S'6g S'5g 46.P6d!!
+[ A very strong, but double-edged move. Who dares to play this move in
+  such a big title match game ! I suppose Habu may have been surprised. ]
+   46... Px7f 47.Sx7f Gx6d 48.Bx6d
+[ 48.+Rx4b?? Px4b 49.Bx6d Gx7f 50.Kx7f R'6f and white will win. Tanigawa
+  played 48.Bx6d instantly. ]
+   48... Bx6d 49.+Rx5b B'2e?
+[ After 49.+Rx5b, Habu spent all his remaining time on his next move, but
+  he had only 18 minutes. 49.B'7d would have given him some chances:
+  50.+R6a? Gx7f 51.Kx7f S'7e 52.K6g S5g-6f+ 53.K5h P'7a is good for
+  white, but 50.S'7a Kx7a 51.R'6a K8b 52.+Rx7b (52.Rx6d+?? Bx5b and white
+  will win) Kx7b 53.Rx6d+ and now: A) 53... Gx7g 54.Kx7g N'6e 55.K8h S'7g
+  56.K9g and there is no mate or B)
+  53... N'9e 54.Px9e Gx7g 55.Kx7g N'6e 56.K8g R'7g 57.K8h and black will
+  win, too. ]
+   50.S'7a K9c
+[ 50... Kx7a 51.R'6a K8b 52.Rx9a+ Kx9a 53.G'9b and mate follows. ]
+   51.+Rx7b Gx7f 52.Kx7f S'7e 53.K6g S7e-6f 54.K7h Bx6i+
+   55.K8i Resigns
+# Black: Habu Yoshiharu, challenger; White: Tanigawa Koji, Ryu-O
+1.P2f(1) P8d 2.P2e(1) P8e 3.G7h G3b 4.P2d(1) Px2d 5.Rx2d P'2c 6.R2f S7b(3)
+7.S3h(2) P6d(12) 8.P1f(8) P1d(17) 9.P7f(3) P8f(7) 10.Px8f(2) Rx8f 11.P'8g(15)
+R8b(20) 12.P4f(5) S6c(3) 13.S4g(2) S5d(4) 14.S5f(3) P3d 15.G4h(21) G5b(2)
+16.P3f(6) P4d(14) 17.S6h(11) S4b(4) 18.K5h(9) S6e(12) 19.Sx6e(30) Px6e(2)
+20.N3g(1) S4c(20) 21.P5f(7) P'8f(18) 22.Px8f(7) Rx8f(3) 23.S7g(11) R8b 24.P'8g
+B1c(10) 25.P1e(32) Bx4f(18) 26.S'5g(2) B2d(28) 27.Px1d P'1e 28.P7e(12)
+Lx1d(20) 29.P7d(2) Px7d(28) 30.S7f S5d(2) 31.P'7b(18) Rx7b(11) 32.P5e(6)
+S6c(1) 33.Sx6e N3c(52) 34.P5d(27) Px5d(3) 35.Bx4d(2) S'5e(39) 36.P'5c(28)
+Sx4d(21) 37.Px5b+ Kx5b 38.S6e-5f(34) P'4f(3) 39.P6f(11) P5e(2) 40.S6g(1)
+G4c(1) 41.N7g(3) P'6d(11) 42.P6e(2) G5d(7) 43.Px6d(33) Sx6d 44.P'6c(1) K5c(8)
+45.K6i(27) P7e(4) 46.P'4e(2) Nx4e(10) 47.Nx4e(4) Sx4e 48.N'3g S5f
+49.S5gx5f(11) Px5f 50.S'4e(1) P4g+(1) 51.Gx4g(5) N'5g(9) 52.K7i(24) P7f
+53.Sx7f(1) Rx7f 54.Sx5d(2) Kx5d 55.P'5e Sx5e(8) 56.Rx2d(1) Px2d 57.B'6e K6d(2)
+58.Bx7f(7) S'6h 59.K8i(11) P'8h(1) 60.Gx8h R'7i 61.K9h S'8i 62.Gx8i Rx8i+
+63.Kx8i S'8h 64.Resigns
+# Time used black: 7.32; white: 7.22
+# 
+# ---------------------------------------------------------------------------
+# 
+# 5-th Ryu-O Title Match, 2-nd game, 29-th and 30-th October 1992
+# 
+# Black: Tanigawa Koji, Ryu-O; White: Habu Yoshiharu, challenger
+# 
+1.P7f P8d(1) 2.S6h(1) P3d 3.S7g S6b 4.P5f(1) P5d(1) 5.S4h S4b(1) 6.G4i-5h(1)
+G3b(2) 7.P6f(1) K4a(1) 8.G6g P7d(7) 9.G7h(10) S6b-5c(28) 10.P2f(13) P5e(3)
+11.Px5e(11) Bx5e(1) 12.P2e S5d(1) 13.P2d(7) Px2d(4) 14.Rx2d P'2c(1) 15.R2h
+R5b(3) 16.K6i(10) B8b(84) 17.S6h(13) S3c(22) 18.S6h-5g(17) G5a(7) 19.P4f(33)
+K3a(4) 20.S4g(3) G5a-4b(3) 21.P9f(3) P9d(3) 22.S4g-5f(59) K2b(64) 23.P1f(43)
+P4d(7) 24.P'5e(15) Sx5e(10) 25.Sx5e(1) Bx5e 26.P'5f B7c 27.S'8c(3) P9e(6)
+28.Sx7d+(10) Px9f(2) 29.P'9h(17) B8b(23) 30.+Sx6c(5) R5a(1) 31.P6e(33) P8e(7)
+32.P6d(11) B9c(38) 33.+S6b(11) R5d 34.P6c+ P4e 35.P5e(17) R9d(9) 36.P'6f(4)
+R4d(14) 37.Px4e(21) Rx4e 38.P'4f Rx5e 39.S5f R5d(1) 40.S4e S'5h(6) 41.K6h(9)
+Sx6g+(2) 42.Gx6g R8d 43.B7g(10) P'4d(24) 44.S5f P8f 45.Px8f(5) P'8h 46.P'5c
+G3a(6) 47.P5b+ G4b-3b 48.+P6c-5c(1) Px8i+(5) 49.S'4c B8b(3) 50.Sx3b+(19) Gx3b
+51.G'4c G'3a 52.Gx3b(1) Gx3b 53.G'4c G'3a 54.Gx3b Gx3b 55.G'4c G'3a 56.Gx3b
+Gx3b Sennichite
+# Time used black: 6.59; white: 6.45
+# 
+# ---------------------------------------------------------------------------
+# 
+# 5-th Ryu-O Title Match, 2-nd game replay, 10-th and 11-th November 1992
+# 
+# Black: Habu Yoshiharu, challenger; White: Tanigawa Koji, Ryu-O
+# 
+1.P7f P8d(1) 2.S6h P3d 3.P6f(1) S6b(1) 4.P5f(2) P5d(1) 5.S4h(1) S4b(1)
+6.G4i-5h(2) G3b(5) 7.G6g(1) K4a(1) 8.G7h(5) G5b(15) 9.K6i(1) S3c 10.S7g(1) B3a
+11.B7i(1) P4d 12.P3f(2) P7d(5) 13.B6h(29) G5b-4c(12) 14.K7i(8) B6d(3)
+15.N3g(3) K3a 16.R3h(7) P8e(9) 17.P2f(17) K2b(3) 18.P1f(3) S5c(31) 19.S5g(13)
+P1d(76) 20.P6e(9) B7c 21.S5g-6f(1) B8d(9) 22.B4f(13) B7c(5) 23.B5g(96) R6b(37)
+24.P7e Bx3g+(18) 25.Rx3g(66) N'4e 26.R3h(2) Nx5g+ 27.Gx5g(6) P6d(13) 28.Px7d
+Px6e(5) 29.S7e S6d(8) 30.Sx6d(12) Rx6d 31.B'8b(8) Rx7d(1) 32.Bx9a+ P'7f(32)
+33.S6h(1) S'7g(45) 34.Nx7g(14) Px7g+ 35.Sx7g N'6f(1) 36.P'7e(36) Nx7h+(31)
+37.Rx7h(27) R7a(10) 38.S'7f(1) G'6f(4) 39.Gx6f(5) Px6f 40.Sx6f(4) N7c(7)
+41.+B8b(4) R6a 42.S'7g(6) Rx6f(17) 43.Sx6f S'6e 44.S7fx6e(20) Nx6e 45.L'6i
+P'7g(10) 46.Sx7g Nx7g+ 47.Rx7g B'9e 48.S'7h(2) Bx7g+(5) 49.Sx7g P8f
+50.Sx8f(10) R'4h 51.G'7h(1) Rx4g+(12) 52.B'7f(11) P'6h(5) 53.Lx6h(1) +Rx5f
+54.S7g(2) +R5i 55.P'6i(1) S'5h 56.Bx5h +Rx5h 57.S'6g(5) +R4i 58.P1e(1) B'4g(7)
+59.P'5h S'5f(4) 60.Px1d(11) Sx6g+ 61.Lx6g Bx5h+ 62.G6h G'8i(8) 63.K7h(1)
+P'7f(1) 64.S'1c(1) Lx1c(2) 65.Px1c+ K3a(3) 66.R'6a(2) S'4a 67.Kx8i(1) +Bx6h(2)
+68.+B6d(1) G3b-4b(2) 69.+Bx4b(2) Kx4b 70.Rx4a= Kx4a 71.G'5b Kx5b 72.N'6d K4b
+73.Resigns
+# Time used black: 7.59; white: 7.48
+# 
+# ---------------------------------------------------------------------------
+# 
+# 5-th Ryu-O Title Match, 3-rd game, 19-th and 20-th November 1992
+# 
+# Black: Tanigawa Koji, Ryu-O; White: Habu Yoshiharu, challenger
+# 
+1.P7f P8d 2.S6h(1) P3d 3.P6f S6b(3) 4.P5f P5d(1) 5.S4h(1) S4b(1) 6.G4i-5h(2)
+G3b 7.G6g(1) K4a(1) 8.G7h G5b(4) 9.K6i(1) S3c(3) 10.S7g(1) B3a(1) 11.B7i(1)
+P4d(5) 12.P3f G5b-4c(3) 13.S3g(39) P8e(28) 14.P3e(97) Px3e(7) 15.Bx3e P4e(1)
+16.K7i S5c(7) 17.K8h S5c-4d(2) 18.B6h B5c(46) 19.R4h(7) S3d(2) 20.P'3f(2)
+K3a(3) 21.P4f(18) Px4f(4) 22.Sx4f P'4e 23.S3g K2b(23) 24.P1f(22) P9d(18)
+25.P1e(9) P9e(7) 26.S2f(13) P7d(63) 27.N3g(18) B6d 28.R1h(9) G4c-3c(4)
+29.P5e(86) Bx5e(6) 30.G5f B7c 31.P3e(1) S4c(1) 32.Nx4e G2d(1) 33.P'4f(1)
+P6d(26) 34.R3h(18) B8d(5) 35.S3g(7) Gx3e(1) 36.S3f(7) Gx3f(6) 37.Rx3f P'3c(13)
+38.R3g(5) S'6i(13) 39.G'6c(3) Sx7h+(24) 40.Kx7h P5e(17) 41.G5g P6e 42.N5c+(1)
+Sx5c(5) 43.Gx5c P5f(2) 44.Gx5f(28) Px6f 45.P'6g N'6d(8) 46.G6e(15) P'5g(10)
+47.Gx6d(24) P5h+ 48.S'4a +Px6h(32) 49.Sx6h Px6g+ 50.Rx6g P'6f(12) 51.R3g
+B'5f(2) 52.P'6g G'5g(2) 53.Sx5g(10) Px6g+ 54.K8h Bx5g+ 55.Gx4c +B7i 56.Resigns
+# Time used black: 7.30; white: 7.03
+# 
+# ---------------------------------------------------------------------------
+# 
+# 5-th Ryu-O Title Match, 4-th game, 2-nd and 3-rd December 1992
+# 
+# Black: Habu Yoshiharu, challenger; White: Tanigawa Koji, Ryu-O
+# 
+1.P7f(1) P8d(1) 2.S6h(3) P3d 3.P6f(1) S6b 4.P5f P5d 5.S4h(2) S4b 6.G4i-5h(2)
+G3b 7.G6g(3) K4a 8.G7h(4) G5b(3) 9.K6i(4) S3c(1) 10.S7g(1) B3a(2) 11.B7i(2)
+P4d 12.P3f(2) G5b-4c(9) 13.B6h(3) P7d(19) 14.K7i(2) B6d(6) 15.S3g(25) K3a(36)
+16.K8h(3) P8e 17.P2f(5) K2b(1) 18.P1f(2) S5c(32) 19.P1e(16) P9d(4) 20.L1h(29)
+P9e(40) 21.R3h(38) S5c-4b(26) 22.S4f(13) N7c(65) 23.N3g(4) S2d(13) 24.N2e(42)
+P4e 25.S3g(36) N3c(11) 26.P4f(19) Nx2e(34) 27.Px2e(1) Sx2e 28.R2h(23) Px4f(23)
+29.P6e(5) Nx6e(14) 30.Rx2e Nx7g+ 31.Bx7g N'3c 32.R6e(27) P4g+ 33.S2f(2)
+P'4d(10) 34.P3e(1) P9f 35.Px9f(12) P'9h 36.Lx9h(5) P'9g 37.Lx9g(1) Bx9g+(1)
+38.Nx9g(10) L'6d 39.Rx6d(2) Px6d 40.B'7c(36) R9b(1) 41.L'9e(2) R7b 42.Bx9a+(1)
++P5g(32) 43.Gx5g P7e 44.Px7e(1) R'2h(9) 45.S'7f(30) Rx1h+(4) 46.+Bx6d(5)
+L'6a(2) 47.P'6c S5c 48.+B4f Lx6c 49.P'6e +R2i(12) 50.Px3d(7) N4e(14)
+51.+Bx4e(2) Rx7e(2) 52.Sx7e(2) P'7f 53.N'2d(7) S'9i(8) 54.K9h Px7g+ 55.Nx3b+
+Kx3b 56.R'3c(1) Gx3c 57.Px3c+ Kx3c 58.L'3g Resigns
+# Time used black: 7.25; white: 7.22
+# 
+# ---------------------------------------------------------------------------
+# 
+# 5-th Ryu-O Title Match, 5-th game, 14-th and 15-th December 1992
+# 
+# Black: Tanigawa Koji, Ryu-O; White: Habu Yoshiharu, challenger
+# 
+1.P7f P8d(2) 2.P2f G3b(2) 3.G7h(2) P8e(5) 4.B7g(2) P3d 5.S8h Bx7g+(3) 6.Sx7g
+S4b(1) 7.S3h S7b(2) 8.P4f(2) P6d(15) 9.S4g(8) S6c 10.P6f(9) P1d(26) 11.P1f(11)
+P9d(3) 12.P9f(5) S5d 13.S5f(1) P4d(4) 14.G5h(35) G5b(8) 15.K6h(10) K4a(2)
+16.K7i(1) P7d(2) 17.P3f K3a(2) 18.N3g(22) N7c(19) 19.P2e(7) S3c(23) 20.P4e(28)
+Px4e(19) 21.P3e S4d(5) 22.P7e(16) Px7e(5) 23.P2d Px2d(1) 24.Rx2d P'2c(2)
+25.R2h G6c(16) 26.B'6a(54) B'4c(7) 27.Bx4c+(64) Sx4c(1) 28.P'7d Gx7d(2)
+29.Nx4e P6e(45) 30.Px3d(2) P8f(39) 31.Px8f(13) B'3g(3) 32.R2i B6d+(1)
+33.B'3c(59) P7f(5) 34.Sx7f(2) P'8h(35) 35.Bx1a+(8) Px8i+(1) 36.K6i +Bx8f(12)
+37.P'8c(2) P'7g(40) 38.G7h-6h(22) +P7i(17) 39.K5i(14) P7h+(7) 40.Px8b+(4)
++Px6h 41.Gx6h N'3f(2) 42.R'6a P'4a(3) 43.K5h(25) +Bx7f(4) 44.K4g S3e(2)
+45.+B5e(4) G'4h(1) 46.K3g +B4i 47.Resigns
+# Time used black: 7.12; white: 6.34
+# 
+# ---------------------------------------------------------------------------
+# 
+# 5-th Ryu-O Title Match, 6-th game, 24-th and 25-th December 1992
+# 
+# Black: Habu Yoshiharu, challenger; White: Tanigawa Koji, Ryu-O
+# 
+1.P7f(1) P8d 2.S6h(2) P3d 3.P6f S6b(1) 4.P5f(1) P5d 5.S4h(2) S4b 6.G4i-5h(4)
+G3b 7.G6g(1) K4a(1) 8.G7h(3) G5b(1) 9.K6i(1) S3c(2) 10.S7g(2) B3a(2) 11.B7i(1)
+P4d 12.P3f(2) G5b-4c(9) 13.B6h(3) B6d(26) 14.S3g(11) P7d(3) 15.K7i(5) K3a(1)
+16.K8h(1) P8e(20) 17.P1f(28) K2b(2) 18.P2f(55) P7e(27) 19.Px7e(10) Bx7e(2)
+20.S4f(14) P4e(53) 21.S3g B6d 22.P4f(83) Px4f(3) 23.Sx4f(1) P'4e(38) 24.S3g
+S5c 25.P1e(3) S5c-4d(25) 26.R1h(1) R7b(3) 27.S4h(10) P4f(26) 28.P6e(55) B8b(4)
+29.N1g(1) S2d(37) 30.N2e(9) P8f(2) 31.Px8f(16) P4g+(16) 32.Sx4g(16) B3g+
+33.B4f P'8g(18) 34.K9h(2) +Bx4g(37) 35.Bx9a+ Sx2e 36.+Bx8a R7e(1) 37.P'4e(32)
++B6i(20) 38.Px4d(17) S'5h 39.Rx5h(32) +Bx5h 40.Px4c+(2) +Bx6g(3) 41.G'7i(7)
+Rx7g+(4) 42.Nx7g(1) R'8h 43.G7ix8h Px8h+ 44.Kx8h G'8g 45.Resigns
+# Time used black: 7.32; white: 6.27
+# 
+# ---------------------------------------------------------------------------
+# 
+# 5-th Ryu-O Title Match, 7-th game, 5-th and 6-th January 1993
+# 
+# Black: Habu Yoshiharu, challenger; White: Tanigawa Koji, Ryu-O
+# 
+1.P7f(2) P8d(1) 2.G7h(5) G3b(11) 3.B7g(15) P3d(5) 4.S6h(3) S6b(2) 5.S4h(4)
+P6d(4) 6.P4f(1) S6c(7) 7.S4g(1) S5d(10) 8.S5f(4) G5b(9) 9.G5h(9) K4a(2)
+10.K6i(5) Bx7g+(18) 11.Sx7g(1) S4b 12.P6f(10) P4d(4) 13.K7i(1) K3a(3)
+14.P3f(8) P1d(8) 15.P1f(4) P9d(2) 16.P9f(1) P7d 17.N3g(35) N7c(70) 18.B'2f(11)
+G5b-4c 19.R4h P3e(39) 20.Bx3e(21) G3d(1) 21.B2f(3) P2d(2) 22.P4e(4) Px4e(32)
+23.Sx4e(36) Sx4e(4) 24.Nx4e P'4d 25.B3g(7) R6b(35) 26.P7e(72) N8e(2) 27.Px7d
+Nx7g+(6) 28.Nx7g(1) Px4e(4) 29.P7c+ R9b(2) 30.S'8c(37) S'4f(46) 31.Bx4f(10)
+Px4f 32.Sx9b+ S'4g(32) 33.Gx4g(12) Px4g+ 34.Rx4g B'5h(2) 35.R'7a(52) K2b(1)
+36.R4h(1) G'6g(4) 37.Rx5h(8) Gx5h 38.B'7f R'5i(6) 39.K8h N'5d 40.N'3e(4)
+G3d-3c(30) 41.B6g(3) Nx6f(12) 42.S'2c(1) G3cx2c 43.Nx2c+ Gx2c 44.Bx2c+ Kx2c
+45.Rx2a+ Resigns
+# Time used black: 6.40; white: 7.37
+#
+# KAKUGAWARI BOUGIN
+P7f P8d P2f G3b G7h P8e B7g P3d S8h B7g+ S7g S4b S3h S7b P2e S3c S2g P6d?
+#
+P7f P8d P2f G3b G7h P8e B7g P3d S8h B7g+ S7g S4b S3h S7b P2e S3c S2g P7d S2f S7c S1e? B*5d! P2d?? P2d S2d P*2g! #
+P7f P8d P2f G3b G7h P8e B7g P3d S8h B7g+ S7g S4b S3h S7b P2e S3c S2g P7d S2f S7c S1e? B*5d! B*3h! P4d! P2d P2d S2d P*2g? B2g S2d B5d P5d R2d
+#
+P7f P8d P2f G3b G7h P8e B7g P3d S8h B7g+ S7g S4b S3h S7b P2e S3c S2g P7d S2f S7c S1e? B*5d! B*3h! P4d! P2d P2d S2d P*2g? B2g B2g R2g
+#
+P7f P8d P2f G3b G7h P8e B7g P3d S8h B7g+ S7g S4b S3h S7b P2e S3c S2g P7d S2f S7c S1e? B*5d! B*3h! P4d! P2d P2d S2d P*2g? B2g #
+P7f P8d P2f G3b G7h P8e B7g P3d S8h B7g+ S7g S4b S3h S7b P2e S3c S2g P7d S2f S7c S1e? B*5d! B*3h! P4d! P4f #
+P7f P8d P2f G3b G7h P8e B7g P3d S8h B7g+ S7g S4b S3h S7b P2e S3c S2g P7d S2f S7c S1e? B*5d! B*3h! P4d!
+#
+P7f P8d P2f G3b G7h P8e B7g P3d S8h B7g+ S7g S4b S3h S7b P2e S3c S2g P7d S2f
+# KAKUGAWARI KOSHIKAKE-GIN
+
+# NAKAHARA's KYUSEN SHOGI
+
+# HINERI-BISHA
+
+# 1. 3-4FU GATA
+P2f P8d P2e P8e P2d?? P2d R2d P8f P8f P*8g P*2c P8h+ S8h B*3e #
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P9f P3d R3f R8d S3h S4b K4h K4a K3i K3a
+#
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P9f P3d R3f G3c P7f P6d B7g
+#
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P9f P3d R3f G3c P7f P8f P8f R8f P7e! R3f? P3f R*2g S3h R2h+ R*8f G7a?? P*8b #
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P9f P3d R3f G3c P7f P8f P8f R8f P7e! R3f? P3f R*2g S3h R2h+ R*8f +R1i R8a+ L*2d P7d L2h+? P7c+ S7c B5e
+#
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P9f P3d R3f G3c P7f P8f P8f R8f P7e! R3f? P3f R*2g S3h R2h+ R*8f +R1i R8a+ L*2d P7d P7d P*7c S7c?? B5e
+#
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P9f P3d R3f G3c P7f P8f P8f R8f P7e! R3f? P3f R*2g S3h R2h+ R*8f +R1i R8a+ L*2d P7d P7d P*7c G7a +R9a
+#
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P9f P3d R3f G3c P7f P8f P8f R8f P7e! R3f? P3f G7b S3h K5b P9e P1d K5h #
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P9f P3d R3f G3c P7f P8f P8f R8f P7e! R3f? P3f
+#
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P9f P3d R3f G3c P7f P8f P8f R8f P7e! R8b N7g P*8g B9g
+#
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P9f P3d R3f G3c P7f P8f P8f R8f P7e! R8b N7g P6d K4h S6c S3h P*8f? P*8e #
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P9f P3d R3f G3c P7f P8f P8f R8f P7e! R8b N7g P6d K4h S6c S3h K4a P*8e? K3b R8f G7b S6h S4b
+#
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P9f P3d R3f G3c P7f P8f P8f R8f P7e! R8b N7g P6d K4h S6c S3h K4a B9g! R8i+? R8f +R9i B8h +R9h R8a+ S7b +R9a P*8g N*8d P8h N7b+ #
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P9f P3d R3f G3c P7f P8f P8f R8f P7e! R8b N7g P6d K4h S6c S3h K4a B9g! R8i+? B8h G7b R8f P*8c G5i P7d G7h6h P7e S7h +R8h R8h P7f R*6a #
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P9f P3d R3f G3c P7f P8f P8f R8f P7e! R8b N7g P6d K4h S6c S3h K4a B9g! R8i+? #
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P9f P3d R3f G3c P7f P8f P8f R8f P7e! R8b N7g P6d K4h S6c S3h K4a B9g! G7b R8f R8f? B8f R*8i R*6a K5b R8a+
+#
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P9f P3d R3f G3c P7f P8f P8f R8f P7e! R8b N7g P6d K4h S6c S3h K4a B9g! G7b R8f G8c? P6f G8d P6e P6e P7d P7d N6e S4b N5c+ S5c R8d R8d B5c+ #
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P9f P3d R3f G3c P7f P8f P8f R8f P7e! R8b N7g P6d K4h S6c S3h K4a B9g! G7b R8f G8c? P6f G8d P6e P6e P7d P7d N6e S6d R8d R8d B6d #
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P9f P3d R3f G3c P7f P8f P8f R8f P7e! R8b N7g P6d K4h S6c S3h K4a B9g! G7b R8f G8c? P6f G8d P6e P6e P7d P7d N6e
+#
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P9f P3d R3f G3c P7f P8f P8f R8f P7e! R8b N7g P6d K4h S6c S3h K4a B9g! G7b R8f P*8d P6f S4b S6h K3b K3i P4d P4f G4c G6g P5d G5f S5c S6g P1d S5h P1e R7f P9d P6e B3a
+# 2. 1-4 FU 6-4 FU TYPE HINERI-BISHA
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P9f P1d S3h P6d P7f P8f P8f R8f N7g S6c B9g R8b P7e S4b R8f P*8d P6f #
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P9f P1d S3h P6d P7f P8f P8f R8f N7g P7d R6f S6c P7e R6f P6f G7b P7d P*7f N8e S7d P*7c G7a P*8b G8b R*7a R*6a R7b+ G7b P7b+ R6c G*7c N7c N7c+ #
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P9f P1d S3h P6d P7f P8f P8f R8f N7g P7d R6f G7b R6d S6c R6f S4b K4h P9d P7e R8b B9g P3d R8f P*8d P7d S7d R7f G7c P*7e S6c P6f #
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P9f P1d S3h P6d P7f P8f P8f R8f N7g P7d R6f
+#
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P9f P1d S3h P6d P7f P8f P8f R8f N7g
+# KUUCHU SENPOU
+
+# AI YOKOFU
+P7f P3d P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c? R3d B8h+ S8h B*2e R3b+ S3b S3h S3c B*4e? K6b B2c+ P8f P8f R8f P*8g R7f S7g R2f P*2g B4g+ S4g R2c
+#
+P7f P3d P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c? R3d B8h+ S8h B*2e R3b+ S3b S3h S3c S7g
+#
+P7f P3d P2f P8d P2e P8e G7h G3b P2d P2d R2d P8f P8f R8f R3d B8h+ S8h R7f S7g R7d R3f N3c R2f P*2e R8f P*8b P*8c G7b P8b+ S8b P*8c S7a B*8b P*8e R6f S8b P8b+ G8b R6c+
+# NAITO 3-3 KAKU
+P7f P3d P2f P8d P2e P8e G7h G3b P2d P2d R2d P8f P8f R8f R3d B3c R3f R8d R2f S2b P*8g K5b S4h P1d P4f P1e S4g B8h+ S8h N3c P3f P*2e R2h R2d P*2g G7b G3h S6b N3g S2c K6h P7d S7g P6d P9f P9d R2i S6c
+#
+P7f P3d P2f P8d P2e P8e G7h G3b P2d P2d R2d P8f P8f R8f R3d B3c R3f R8d R2f S2b P*8g K5b K6h P1d S3h P1e P9f P9d P3f P*8f P8f R8f P3e R8e P7e P*2e R2e R7e B7g P7d S8h N7c P*7f R8e P*8f R5e B5e B5e P4f P*3f R*5f B*6d
+#
+
+# SOME OPENINGS
+
+# OPENING 11 MISC
+
+# OPENING 12 FURI-BISHA, HINERI-BISHA
+
+# OPENING 13 AI-YAGURA
+
+# OPENING 14 YOKOFU-DORI
+
+# OPENING 15 AI-GAKARI
+
+# TUKADA.KIF TSUKADA SPECIAL
+
+# KAKUGAWARI.KIF KAKU-GAWARI (HABU'S ZUNOO) 
+
+###### MY OPENINGS
+
+# SOURCE: GUIDE TO SHOGI OPENINGS
+
+# 5. KIMURA JOUSEKI (NAKAHARA'S SHOGI JOUSEKI) P7f P8d P2f P8e P2e G3b B7g P3d S8h B7g+ S7g S2b G7h S3c S4h S6b P4f P6d S4g S6c P3f P7d K6h K4b G5h G5b P1f P1d P9f P9d S5f S5d P6f P4d K7i K3a K8h K2b N3g N7c P4e P4e P3e S4d P7e P7e P2d P2d R2d P*2c R2h B*6c P1e P1e P*1c L1c N2e L1d P3d P2d N3c+ N3c R2d G2c B*1a K3b P3c+ S3c N*4d S4d R2c+ K2c B4d+ G4c S4e G4d S4d #
+
+#6.KAKUKAWARI BOUGIN
+P7f P8d P2f P8e P2e G3b B7g P3d S8h B7g+ S7g S2b G7h S3c S3h S6b S2g P7d S2f S7c S1e B*5d B*3h P4d P2d P2d S2d S2d R2d G3c R2h P*2g R2g B2g+ B2g R2b P*2h G6b G3i K4b S6f G4c S5e S*5d S6f N3c P5f R2a
+#
+
+#GACCHAN-GIN (SUCCESS)
+P7f P8d P2f P8e P2e G3b P2d P2d R2d P*2c R2f P8f P8f R8f G7h R8d P*8g P3d S4h S6b P4f P6d S4g S6c S5f S5d P1f P1d G5h P9d P9f G5b K6h K4b P3f P7d N3g P6e G4h N7c? P3e P3e S4e S4e N4e P4d P*3c N3c S*6d G6b S7c G7c N*3d K5b N2b+ S2b B4d #
+
+#GACCHAN-GIN (FAILURE)
+P7f P8d P2f P8e P2e G3b P2d P2d R2d P*2c R2f P8f P8f R8f G7h R8d P*8g P3d S4h S6b P4f P6d S4g S6c S5f S5d P1f P1d G4h P9d P9f G5b K6h K4b P3f P7d N3g P6e P3e? P3e S4e S4e N4e P7e P*3c N3c N3c+ B3c B3c+ G3c N*4e G3b S*3c G3c N3c+ K3c B*4a K4b B2c+ S*3b P*3c S2c R2c+ P*2b P3b+ S3b +R2cx2b B*5e
+#
+
+#GACCHAN-GIN (YOKOFU)
+P7f P8d P2f P8e P2e G3b P2d P2d R2d P*2c R2f P8f P8f R8f G7h R8d P*8g P3d S4h S6b P4f P6d S4g S6c S5f S5d P1f P1d G4h P9d P9f G5b K6h K4b P3f P7d N3g P6e K5h G6b P*2d P2d R2d P*2c R3d B8h+ S8h G3c R3e B*2h N2e G3b P*2b
+#
+P7f P8d P2f P8e P2e G3b P2d P2d R2d P*2c R2f P8f P8f R8f G7h R8d P*8g P3d S4h S6b P4f P6d S4g S6c S5f S5d P1f P1d G4h P9d P9f G5b K6h K4b P3f P7d N3g P6e K5h G6b P*2d P2d R2d P*2c R3d G5b B2b+ S2b N4e B*4d N5c+ G5c B*5a K5a R3b+ G5b S4e S4e P4e B9i+ S*5c 
+
+#
+
+# F4dU KISHUU (KISHUU TAIZEN)
+P7f P4d? B4d? R4b B5c+ P3d S8h R4g+ S4h?? B8h+ #
+
+# ONI GOROSHI (GOTE SIPPAI)
+P7f P3d N7g P8d N6e S6b? P7e P6d B2b+ S2b B*5e S3c? B6d # ONI GOROSHI (SENTE SASIKIRI)
+P7f P3d N7g P8d N6e S6b? P7e P6d B2b+ S2b B*5e B*3c B6d B9i+ P7d R8c P7c+ N7c N5c+ P*5b
+# ONI GOROSHI (SENTE FURI)
+P7f P3d N7g P8d N6e G6b! P7e P6d B2b+ S2b B*5e G6c! #
+
+# GOTE NAKABISHA (HAMETE)
+P7f P5d P2f R5b P2e P3d P2d? P2d R2d B8h+ S8h B*3c R2h P*2f S7g? R2b S3h B7g+ N7g S*2g
+# GOTE F7dU (HAMETE)
+P7f P7d B8h5e? P3d B8b+ S8b S8h B*9e R*7g N7c P9f B8d # GOTE F7dU
+P7f P7d P2f R7b P2e P3d G7h G3b P2d P2d R2d P7e R3d P7f P*7c N7c B2b+ S2b P*7d N6e B*9e K4a P7c+ B*5a
+# KAMA-ITACHI (G4hIN) (GOTE F3dU)
+P7f P3d S4h P8d P5f P8e S5g P8f? P8f R8f B2b+ S2b B*7g R8b? P*8d N3c R8h
+#
+P7f P3d S4h P8d P5f P8e S5g P8f? P8f R8f B2b+ S2b B*7g R8i+ B2b+ B*3c 2b2a B9i+ P4f
+# KAMA-ITACHI (GOTE F8dU)
+P7f P8d S4h P8e P5f P8f? P8f R8f G7h R7f B6f R8f S8h R8b S5g P5d P5e P5e P*5d
+# OPENING MISC.
+
+# --> KAKU-GAWARI
+P7f P8d P2f P8e G7h G3b
+# --> YOKOFU-DORI
+
+#
+
+# FURI-BISHA, HINERI-BISHA OPENING
+
+#
+
+# NAKAHARA'S SHOGI BOOK
+
+# 1. 3-KEN BISHA
+P7f P3d P2f P4d S4h R3b P2e B3c P5f S4b K6h K6b K7h K7b 4i5h P5d P3f 4a5b P4f S5c N3g K8b P4e R4b P2d 2c2d 4e4d 5c4d P*4e S5c B3c+ N3c R2d N4e 3g4e 4b4e R2a+ S7b B*3c P*4g G4g P*4f G5g #
+
+# 2. 4-KEN BISHA
+P7f P3d P2f P4d S4h S3b P5f R4b P2e B3c K6h K6b K7h K7b 4i5h K8b P3f S7b S6h 4a5b 6h5g P5d 6i6h P6d P3e 3d3e S4f P3f S3e P4e B3c+ S3c P2d 2c2d S3ex2d S3cx2d R2d B*3c R2a+ R2b +R2ax2b B2b B*6f B6f P6f R*2h R*4a R2i+ B*4d S*6b
+#
+
+# 3. NAKA BISHA
+P7f P3d P2f P4d S4h S4b P5f P5d 4i5h S4c K6h R5b K7h K6b S6h K7b P2e B3c P3f K8b P4f S7b P4e
+# NAKAHARA'S KYUSEN SHOGI (1) HINERI-BISHA P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P9f P3d R3f G3c P7f P8f P8f R8f P7e R8b N7g P6d K4h S6c S3h K4a B9g G7b R8f P*8d P6f S4b S6h K3b K3i P4d P4f G4c G6g P5d G5f S5c S6g P1d S5h P1e R7f P9d P6e B3a P4e P4e P6d S5cx6d G6e S6e N6e P*6d B8h G*3c P*4d G3cx4d B4d G4d P*2b P6e P2a+ B5c R2f N*2d P*2e G3e R2h #
+
+# NAKAHARA'S KYUSEN SHOGI (1) HINERI-BISHA -2 (G6cIN) P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P9f P1d S3h P6d P7f P8f P8f R8f N7g S6c B9g R8b P7e S4b R8f P*8d P6f #
+
+# NAKAHARA'S KYUSEN SHOGI (1) HINERI-BISHA -2 (F7dU) P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P9f P1d S3h P6d P7f P8f P8f R8f N7g P7d R6f S6c P7e R6f P6f G7b P7d # ISHIDA-RYUU CHOU-KYUUSEN-1
+P7f P3d P7e P8d R7h P8e K4h S6b P7d P7d? B2b+ S2b B*5e S7c R7d B*6d R7c+ B5e 7c8b B8b R*8c G7b R8e+
+#
+
+# ISHIDA-RYUU CHOU-KYUUSEN-2
+P7f P3d P7e P8d R7h P8e K4h S6b P7d G7b P7c+ S7c B2b+ S2b B*5e B*3c B7c+ G7c P*7d G8c S*7c R9b
+#
+
+# ISHIDA-RYUU CHOU-KYUUSEN-3 (GOTE SIPPAI) P7f P3d P7e P8d R7h P8e K4h P8f? P8f R8f P7d P7d B2b+ S2b B*9e 
+
+#
+
+# MASUDA'S ISHIDA-RYUU-1
+P7f P3d P7e P8d R7h P8e K4h S6b K3h P6d K2h S6c S3h P8f P8f R8f B2b S2b R8h P*8g R9h B*8h G7h B7i+ G7i S*8h B*5e S7i B2b+ P8h+ S*7g R8b +B2bx1a +P8hx9h L*8f
+#
+
+# MASUDA'S ISHIDA-RYUU-2
+P7f P3d P7e P8d R7h P8e K4h S6b K3h P6d K2h S6c S3h K4b R7f B8h+ S8h S2b N7g K3b B*9f G7b B8e S3c R8f G4b B6c+ R8f +B6cx7b R8d S*9e
+# P7f.P8d.P7e
+P7f P8d P7e P8e
+# P7f P3d P2f P4d S4h S3b P2e B3c
+P7f P3d P2f P4d S4h S3b P2e B3c
+#
+
+# FURIBISHA OPENING
+P7f P8d B7g P3d P6f S6b R7h P5d K4h
+#
+P7f P8d B7g P3d P6f S6b R6h P5d K4h
+#
+P7f P8d B7g P3d P6f S6b S7h P5d R6h
+#
+P7f P8d B7g P3d P6f S6b
+#
+P7f P8d P6f P3d B7g
+##
+
+## HABU'S ZUNO NO.8 LATEST HINERI-BISHA
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S7b P9f? P3d R3f G3c P7f P8f P8f R8f N7g R8b P7e P9d K4h K4b S3h P6d B9g S6c R8f P*8d S6h K3b P6f S4b S6g G7b S5f G4d K3i G5d P4f ## K9gAKU->F9eU
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S7b P9f? P3d R3f G3c P7f P8f P8f R8f N7g R8b P7e P9d K4h K4b S3h P6d B9g P9e P7d R8i+
+#
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S7b P1f 
+
+#
+
+# YAGURA JOUSEKI
+
+#
+
+# 4. AI YAGURA (NAKAHARA'S SHOGI JOSEKI) P7f P8d S6h P3d S7g S6b P2f S4b S4h G3b G7h P5d P5f K4a K6i G5b P3f P4d G5h S3c B7i B3a P6f P7d
+#
+
+# YAGURA (2)
+P7f P8d S6h P3d S7g S6b P5f S4b S4h G3b G7h P5d P2f K4a K6i G5b P3f P4d G5h S3c B7i B3a P6f P7d
+#
+
+# YAGURA (3)
+P7f P8d S6h P3d S7g S6b P5f S4b S4h G3b 4i5h P5d K6h K4a K7h G5b P6f P4d B7i S3c G6g 5b4c K8h B3a G7h
+#
+
+# HABU'S YAGURA 1
+P7f P8d S6h P3d S7g S6b S4h?? P7d G7h S7c P6f S6d G5h P8e 5h6g P7e P7e S7e P*7f P8f P8f S8f
+#
+P7f P8d S6h P3d P6f S6b S4h?? P7d G7h S7c S7g S6d G5h P8e 5h6g P7e P7e S7e P*7f P8f P8f S8f
+#
+P7f P8d S6h P3d P6f S6b S4h?? P7d G7h S7c S7g S6d G5h P8e P5f P7e P7e S7e P*7f P8f P8f S8f
+#
+
+# HABU'S YAGURA 2
+P7f P8d S6h P3d S7g S6b P5f! P5d S4h S4b 4i5h 6a5b? P6f P4d B7i G4c K6h S3c K7h B3a P3f K4b S3g K3b P3e P3e B3e S5c G6g S6d B6h P5e P6e S6e P5e
+# HABU'S YAGURA 3
+P7f P8d S6h P3d S7g S6b P5f P5d S4h S4b 4i5h G3b P6f K4a G6g G5b? B7i S3c P3f P7d P3e P3e B3e S4d B4f P5e R3h # HABU'S YAGURA 4
+P7f P8d S6h P3d S7g S6b P5f P5d S4h S4b 4i5h G3b P6f K4a G6g S6b-5c? P2f P5e P5e B5e P2e S5d P2d P2d R2d P*2c R2h P7d S5g R5b K6h B8b K7h
+# HABU'S YAGURA 5
+P7f P8d S6h P3d S7g S6b P5f P5d S4h S4b 4i5h G3b P6f K4a G6g P7d G7h S6b-5c B7i P5e P5e B5e B4f B4f P4f S3c S4g G5b K6i P4d K7i 
+
+# HABU'S YAGURA 6
+P7f P8d S6h P3d S7g S6b P5f P5d S4h S4b 4i5h G3b P6f K4a G6g P7d G7h G5b K6i S6b-5c B7i P6d P2f R6b P2e N7c P3f P6e P6e N6e S6f S6d
+##
+
+# YOKOFU-DORI
+
+#
+
+# YOKOFU-DORI (4-5-KAKU)
+P7f P3d P2f P8d P2e P8e G7h G3b P2d P2d R2d P8f P8f R8f R3d B8h+ S8h P*2h S2h B*4e R2d P*2c
+#
+
+# AI YOKOFU-DORI-1 (NAKAHARA'S SHOGI JOSEKI) P7f P3d P2f P8d P2e P8e G7h G3b P2d P2d R2d P8f P8f R8f R3d B8h+ S8h R7f S7g R7d R3f N3c R2f P*2e R8f P*8b P*8c G7b P8b+ S8b P*8c S7a B*8b P*8e R6f S8b P8b+ G8b R6c+
+#
+
+# AI YOKOFU DORI -2
+P7f P3d P2f P8d P2e P8e G7h G3b P2d 2c2d R2d P8f 8g8f R8f R3d B8h+ S8h R7f S7g R7d 3d7d 7c7d P*8b S8b B*5e R*8e R*8f R8f S8f P*2h
+#
+
+# K3cAKU SENPOU - 1
+P7f P3d P2f P8d P2e P8e G7h G3b P2d P2d R2d P8f P8f R8f R3d B3c R3f R8d R2f S2b P*8g K5b B3c+? N3c B*2a G3a P*2c P*2e P2b+ G2a R3f G2b
+# K3cAKU SENPOU - 2 (SENTE G4hIN --> GOTE YAYA GOOD) P7f P3d P2f P8d P2e P8e G7h G3b P2d P2d R2d P8f P8f R8f R3d B3c R3f R8d R2f S2b P*8g K5b S4h P1d P4f P1e S4g B8h+ S8h N3c P3f P*2e R2h R2d P*2g G7b G3h S6b N3g S2c K6h P7d S7g P6d P9f P9d R2i S6c
+# K3cAKU SENPOU - 3 (SENTE G3hIN->SENTE FURI) P7f P3d P2f P8d P2e P8e G7h G3b P2d P2d R2d P8f P8f R8f R3d B3c R3f R8d R2f S2b P*8g K5b S3h B8h+ S8h B*3e R3f P*3d K6h P*2h # K3cAKU SENPOU - 4 (SENTE G6hYOKU->GOTE YAYA GOOD) P7f P3d P2f P8d P2e P8e G7h G3b P2d P2d R2d P8f P8f R8f R3d B3c R3f R8d R2f S2b P*8g K5b K6h P1d S3h P1e P9f P9d P3f P*8f P8f R8f P3e R8e P7e P*2e R2e R7e B7g P7d S8h N7c P*7f R8e P*8f R5e B5e B5e P4f P*3f R*5f B*6d
+##
+
+# YOKOFU-DORI (F2cU) YOKOFUDORI GUIDE
+P7f P3d P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R3d B8h+ S8h B*4e? R3e B2g+ B*1e K4a P3f P8f G3h 2g3h S3h G*2d B2d P2d K5h 
+
+# YOKOFU-DORI P2c-2
+P7f P3d P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R3d B8h+ S8h B*2e R3b+ S3b S3h S3c
+# YOKOFU-DORI F2cU-3
+P7f P3d P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R3d B8h+ S8h B*2e R3f B3f P3f R*2g S3h R2e+ S7g
+# YOKOFU-DORI F2cU-4
+P7f P3d P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R3d B8h+ S8h B*2e R3f B3f P3f P8f P8f R8f K6h R8b S3h S2b P4f S7b P3e K4b B*4g P6d N3g
+#
+
+# AI GAKARI
+
+# AIGAKARI HAMETE
+P2f P8d P2e P8e P2d?? P2d R2d P8f P8f P*8g! P*2c 8g8h+ S8h B*3e R2h 3e5g+ 2c2b+ R2b P*2c R1b B*2b P*2d 2b1a+ R1a L*2g B*4e L2d P*2g
+#
+
+# (AIGAKARI: TSUKADA SPECIAL)
+
+# TUKADA-1 (GOTE H8bISHA -> SENTE LITTLE SUCCESS) 
+
+#P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f 
+
+#S6b P1f P1d S3h
+
+#P6d P7f P8f P8f R8f P*2d P2d R2d R8b
+
+#P1e P1e P*1d
+
+#P*2c R6d R8h+ R6b+ G6b G8h P3d R*8c B*7b 
+
+#R8g+ P7d P*8c N7c
+
+# TUKADA-2 (GOTE G6cIN -> SENTE SUCCESS) 
+
+#P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f 
+
+#S6b P1f P1d S3h P6d P7f P8f P8f R8f P*2d P2d R2d 
+
+#S6c? P1e P*2c R2e P1e P*1d R8b R1e P3d P*8g 
+
+# TUKADA-3 (GOTE H8bISHA -> SENTE FURI)
+
+#P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f 
+
+#S6b P1f P1d S3h P6d P7f P8f P8f R8f P*2d P2d R2d 
+
+#R8b R6d? R8h+ R6b+ G6b S8h P*2g
+
+# TSUKADA SPECIAL MONOGATARI
+
+## TSUKADA SPECIAL
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S7b P1f P1d S3h P6d P7f P8f P8f R8f P*2d P2d R2d
+#
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S7b P1f P1d P9f P9d S3h P6d P7f P8f P8f R8f P*2d P2d R2d
+#
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P1f K4a? P1e #
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P1f P1d S3h P3d P7f P8f P8f R8f P*2d P2d R2d
+#
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P1f P1d S3h P6d P7f S6c? B7g
+#
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P1f P1d S3h P6d P7f P3d R3f G3c B7g
+#
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P1f P1d S3h P6d P7f P3d R3f B8h+ S8h B*2h R3d N3c L1g
+#
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P1f P1d S3h P6d P7f P8f P8f R8f P*2d P2d R2d P*2c? R6d
+#
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P1f P1d S3h P6d P7f P8f P8f R8f P*2d P2d R2d S6c? P1e P*2c R2e P1e P*1d R8b R1e P3d P*8g
+#
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P1f P1d S3h P6d P7f P8f P8f R8f P*2d P2d R2d R8b! R6d R8h+ R6b+ G6b S8h #
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P1f P1d S3h P6d P7f P8f P8f R8f P*2d P2d R2d R8b! P1e P*8f P*8d P8g+ G8g R8d P*8f P1e P*1d P*2c R2e L1d
+#
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P1f P1d S3h P6d P7f P8f P8f R8f P*2d P2d R2d R8b! P1e P1e P*1d P*8f P*2c P8g+ G8g
+#
+P2f P8d P2e P8e G7h G3b P2d P2d R2d P*2c R2f S6b P1f P1d S3h P6d P7f P8f P8f R8f P*2d P2d R2d R8b! P1e P1e P*1d P*2c R6d R8h+ R6b+ G6b S8h
+#
+

@@ -1,0 +1,18 @@
+Metadata-Version: 1.1
+Name: gshogi
+Version: 0.4.5
+Summary: A Shogi Program (Japanese Chess)
+Home-page: http://www.johncheetham.com/projects/gshogi/
+Author: John Cheetham
+Author-email: developer@johncheetham.com
+License: GPLv3+
+Description: A Shogi program for Linux written in Python, PyGTK, C.
+Platform: Linux
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: X11 Applications :: GTK
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: License :: OSI Approved :: GNU General Public License (GPL)
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: C
+Classifier: Topic :: Games/Entertainment :: Board Games

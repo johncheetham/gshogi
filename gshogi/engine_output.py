@@ -18,7 +18,6 @@
 #
 
 import gtk
-import gtk.glade
 import gobject
 import os
 import pango

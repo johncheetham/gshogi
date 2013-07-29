@@ -18,7 +18,6 @@
 #
 
 import gtk
-import gtk.glade
 import os
 
 import move_list

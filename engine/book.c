@@ -312,7 +312,7 @@ BVerifyMove(char *s, unsigned short *mv, int moveno)
             /* Illegal move in check */
 #if !defined QUIETBOOKGEN
             /* 077: "Illegal move (in check) %s" */
-            printf(CP[77]);
+            printf(CP[77], s);
             printf("\n");
             bkdisplay(s, cnt, moveno);
 #endif

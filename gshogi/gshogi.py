@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 #
 #   gshogi 0.4.5  August 2012
 #

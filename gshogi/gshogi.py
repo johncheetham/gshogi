@@ -239,13 +239,17 @@ class Game:
         move = self.src + dst
         # check for promotion
         if self.promotion_zone(src, dst, self.stm):
-            promote = self.board.promote(piece, src_x, src_y, dst_x, dst_y, self.stm)                           
-            if (promote == 2): 
-                # must promote                    
-                move = move + "+" 
-            elif (promote == 1):                    
-                # promotion is optional             
-                if self.ask_before_promoting:                        
+            promote = self.board.promote(piece, src_x, src_y, dst_x, dst_y, self.stm)
+            if (promote == 2):
+                # must promote
+                move = move + "+"
+            elif (promote == 1):
+                # promotion is optional
+                #
+                # But always prompt before promoting a silver since it
+                # can be valuable to have an unpromoted silver on the
+                # opposite side of the board.
+                if self.ask_before_promoting or piece == " s" or piece == " S":
                     response = self.gui.promote_popup()
                     if (response == gtk.RESPONSE_CANCEL):
                         return None

@@ -239,9 +239,9 @@ class Board:
         return ''
  
 
-    def display_board(self):        
+    def display_board(self, w=None, h=None):        
 
-        sf = self.get_scale_factor()        
+        sf = self.get_scale_factor(w, h)        
         self.pieces.set_scale_factor(sf)        
 
         #
@@ -404,8 +404,8 @@ class Board:
 
     # work out a factor to scale the pieces by
     # this changes when the user resizes the board
-    def get_scale_factor(self):        
-        square_size = self.gui.get_square_size()
+    def get_scale_factor(self, w=None, h=None):        
+        square_size = self.gui.get_square_size(w, h)
         width = square_size        
         if width < 15:
             factor = 1.0
@@ -423,9 +423,9 @@ class Board:
             self.refresh_screen()       
 
 
-    def refresh_screen(self):
+    def refresh_screen(self, w=None, h=None):
         #print "refresh"                
-        self.display_board()
+        self.display_board(w, h)
         self.display_capturedw(self.wcap)        
         self.display_capturedb(self.bcap)        
 

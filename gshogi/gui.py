@@ -754,14 +754,18 @@ class Gui:
 
         
     # return the size of a square on the board
-    def get_square_size(self):
+    def get_square_size(self, w=None, h=None):
 
         # work out the board square size from the size of the main window
         
         # allocation contains:
         #   x, y, width, height
-        window_width = self.window.get_allocation().width
-        window_height = self.window.get_allocation().height
+        if w is not None and h is not None:
+            window_width = w
+            window_height = h
+        else:
+            window_width = self.window.get_allocation().width
+            window_height = self.window.get_allocation().height
 
         sq_width = window_width / 15
         sq_height = window_height / 15 
@@ -860,20 +864,13 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
 
 
     # user is resizing the window
-    # call board.update to resize the pieces
+    # call board.refresh_screen to resize the pieces
     #
-    # This must be called after the window has been realised
-    # so it will get the latest correct window size.
-    # Connecting to the window configure event achieves this
-    #
-
     def configure_event(self, widget, event):
-        #print "event=",event.height, event.width, widget.get_allocation().width,widget.get_allocation().height      
-        GObject.idle_add(self.resize_pieces) 
-        #self.resize_pieces()
+        self.resize_pieces(event.width, event.height)
 
-    def resize_pieces(self):        
-        self.board.refresh_screen()       
+    def resize_pieces(self, w, h):        
+        self.board.refresh_screen(w, h)
         return False
             
 

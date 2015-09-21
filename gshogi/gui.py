@@ -439,7 +439,6 @@ class Gui:
         self.context_id = self.status_bar.get_context_id("gshogi statusbar") 
 
         self.actiongroup.get_action('MoveNow').set_sensitive(False)
-        self.actiongroup.get_action('SetBoardColours').set_sensitive(False)                
 
         self.window.show_all() 
         self.side_to_move[WHITE].hide()
@@ -1078,7 +1077,7 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
         self.window.resize(w, h)
 
 
-    def set_colours(self, bg_colour, komadai_colour, square_colour, text_colour, piece_fill_colour, piece_outline_colour, piece_kanji_colour, border_colour, grid_colour):
+    def set_colours(self, bg_colour, komadai_colour, square_colour, text_colour, border_colour, grid_colour):
         #stack = inspect.stack()
         #for item in stack:
         #    print item
@@ -1089,9 +1088,9 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
             print "  komadai_colour=",komadai_colour
             print "  square_colour=",square_colour
             print "  text_colour=",text_colour
-            print "  piece_fill_colour=",piece_fill_colour
-            print "  piece_outline_colour=",piece_outline_colour
-            print "  piece_kanji_colour=",piece_kanji_colour
+            #print "  piece_fill_colour=",piece_fill_colour
+            #print "  piece_outline_colour=",piece_outline_colour
+            #print "  piece_kanji_colour=",piece_kanji_colour
             print "  border_colour=",border_colour
             print "  grid_colour=",grid_colour
         
@@ -1116,7 +1115,7 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
 
         self.grid_eb.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(grid_colour))
 
-        self.pieces.change_piece_colours2(piece_fill_colour, piece_outline_colour, piece_kanji_colour)        
+        #self.pieces.change_piece_colours2(piece_fill_colour, piece_outline_colour, piece_kanji_colour)        
 
         self.board.refresh_screen()
       

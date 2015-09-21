@@ -126,7 +126,7 @@
                   <object class="GtkTable" id="custom_colours_table">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="n_rows">9</property>
+                    <property name="n_rows">6</property>
                     <property name="n_columns">2</property>
                     <child>
                       <object class="GtkLabel" id="bgcolour_button_lbl">
@@ -235,87 +235,14 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="label7">
+                      <object class="GtkLabel" id="label2">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Piece Fill Colour</property>
+                        <property name="label" translatable="yes">Border Colour</property>
                       </object>
                       <packing>
                         <property name="top_attach">4</property>
                         <property name="bottom_attach">5</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkColorButton" id="Piecefillcolorbutton">
-                        <property name="use_action_appearance">False</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
-                        <property name="title" translatable="yes">Select Piece Fill Colour</property>
-                        <property name="color">#ffffffffd7d7</property>
-                        <signal name="color-set" handler="custom_colour_changed" swapped="no"/>
-                      </object>
-                      <packing>
-                        <property name="left_attach">1</property>
-                        <property name="right_attach">2</property>
-                        <property name="top_attach">4</property>
-                        <property name="bottom_attach">5</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label8">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Piece Outline Colour</property>
-                      </object>
-                      <packing>
-                        <property name="top_attach">5</property>
-                        <property name="bottom_attach">6</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkColorButton" id="Pieceoutlinecolorbutton">
-                        <property name="use_action_appearance">False</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
-                        <property name="title" translatable="yes">Select Piece Outline Colour</property>
-                        <property name="color">#000000000000</property>
-                        <signal name="color-set" handler="custom_colour_changed" swapped="no"/>
-                      </object>
-                      <packing>
-                        <property name="left_attach">1</property>
-                        <property name="right_attach">2</property>
-                        <property name="top_attach">5</property>
-                        <property name="bottom_attach">6</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label9">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Piece Kanji Colour</property>
-                      </object>
-                      <packing>
-                        <property name="top_attach">6</property>
-                        <property name="bottom_attach">7</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkColorButton" id="Piecekanjicolorbutton">
-                        <property name="use_action_appearance">False</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
-                        <property name="title" translatable="yes">Select Kanji Colour</property>
-                        <property name="color">#000000000101</property>
-                        <signal name="color-set" handler="custom_colour_changed" swapped="no"/>
-                      </object>
-                      <packing>
-                        <property name="left_attach">1</property>
-                        <property name="right_attach">2</property>
-                        <property name="top_attach">6</property>
-                        <property name="bottom_attach">7</property>
                       </packing>
                     </child>
                     <child>
@@ -330,8 +257,19 @@
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="right_attach">2</property>
-                        <property name="top_attach">7</property>
-                        <property name="bottom_attach">8</property>
+                        <property name="top_attach">4</property>
+                        <property name="bottom_attach">5</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label3">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Grid Colour</property>
+                      </object>
+                      <packing>
+                        <property name="top_attach">5</property>
+                        <property name="bottom_attach">6</property>
                       </packing>
                     </child>
                     <child>
@@ -346,30 +284,8 @@
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="right_attach">2</property>
-                        <property name="top_attach">8</property>
-                        <property name="bottom_attach">9</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label2">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Border Colour</property>
-                      </object>
-                      <packing>
-                        <property name="top_attach">7</property>
-                        <property name="bottom_attach">8</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label3">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Grid Colour</property>
-                      </object>
-                      <packing>
-                        <property name="top_attach">8</property>
-                        <property name="bottom_attach">9</property>
+                        <property name="top_attach">5</property>
+                        <property name="bottom_attach">6</property>
                       </packing>
                     </child>
                   </object>

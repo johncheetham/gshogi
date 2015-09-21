@@ -175,7 +175,6 @@ class Set_Board_Colours:
        
         # make it equivalent of a 'new_text' combobox 
         liststore = Gtk.ListStore(GObject.TYPE_STRING)
-        print("self.combobox=",self.combobox)
         self.combobox.set_model(liststore)
         cell = Gtk.CellRendererText()
         self.combobox.pack_start(cell, True)
@@ -197,9 +196,9 @@ class Set_Board_Colours:
         self.komadai_colour_button.set_color(Gdk.color_parse(self.komadai_colour))
         self.square_colour_button.set_color(Gdk.color_parse(self.square_colour))
         self.text_colour_button.set_color(Gdk.color_parse(self.text_colour))
-        self.piece_fill_colour_button.set_color(Gdk.color_parse(self.piece_fill_colour))
-        self.piece_outline_colour_button.set_color(Gdk.color_parse(self.piece_outline_colour))
-        self.piece_kanji_colour_button.set_color(Gdk.color_parse(self.piece_kanji_colour))
+        #self.piece_fill_colour_button.set_color(Gdk.color_parse(self.piece_fill_colour))
+        #self.piece_outline_colour_button.set_color(Gdk.color_parse(self.piece_outline_colour))
+        #self.piece_kanji_colour_button.set_color(Gdk.color_parse(self.piece_kanji_colour))
         self.border_colour_button.set_color(Gdk.color_parse(self.border_colour)) 
         self.grid_colour_button.set_color(Gdk.color_parse(self.grid_colour))    
            
@@ -250,9 +249,9 @@ class Set_Board_Colours:
         self.komadai_colour = self.get_button_colour(self.komadai_colour_button)
         self.square_colour = self.get_button_colour(self.square_colour_button)
         self.text_colour = self.get_button_colour(self.text_colour_button)
-        self.piece_fill_colour = self.get_button_colour(self.piece_fill_colour_button)
-        self.piece_outline_colour = self.get_button_colour(self.piece_outline_colour_button)
-        self.piece_kanji_colour = self.get_button_colour(self.piece_kanji_colour_button)        
+        #self.piece_fill_colour = self.get_button_colour(self.piece_fill_colour_button)
+        #self.piece_outline_colour = self.get_button_colour(self.piece_outline_colour_button)
+        #self.piece_kanji_colour = self.get_button_colour(self.piece_kanji_colour_button)        
         self.border_colour = self.get_button_colour(self.border_colour_button)
         self.grid_colour = self.get_button_colour(self.grid_colour_button) 
  
@@ -276,7 +275,8 @@ class Set_Board_Colours:
                    self.piece_outline_colour, self.piece_kanji_colour, self.border_colour, self.grid_colour)
                 
         try:            
-            self.gui.set_colours(bg_colour, komadai_colour, square_colour, text_colour, piece_fill_colour, piece_outline_colour, piece_kanji_colour, border_colour, grid_colour)
+            #self.gui.set_colours(bg_colour, komadai_colour, square_colour, text_colour, piece_fill_colour, piece_outline_colour, piece_kanji_colour, border_colour, grid_colour)
+            self.gui.set_colours(bg_colour, komadai_colour, square_colour, text_colour, border_colour, grid_colour)
         except Exception, e:
             print "set_board_colours.py - call to gui set_colours failed: ", e
         
@@ -293,14 +293,15 @@ class Set_Board_Colours:
         komadai_colour = self.get_button_colour(self.komadai_colour_button)
         square_colour = self.get_button_colour(self.square_colour_button)
         text_colour = self.get_button_colour(self.text_colour_button)
-        piece_fill_colour = self.get_button_colour(self.piece_fill_colour_button)
-        piece_outline_colour = self.get_button_colour(self.piece_outline_colour_button)
-        piece_kanji_colour = self.get_button_colour(self.piece_kanji_colour_button)
+        #piece_fill_colour = self.get_button_colour(self.piece_fill_colour_button)
+        #piece_outline_colour = self.get_button_colour(self.piece_outline_colour_button)
+        #piece_kanji_colour = self.get_button_colour(self.piece_kanji_colour_button)
         border_colour = self.get_button_colour(self.border_colour_button)
         grid_colour = self.get_button_colour(self.grid_colour_button)
          
         self.text_colour_temp = text_colour
-        self.gui.set_colours(bg_colour, komadai_colour, square_colour, text_colour, piece_fill_colour, piece_outline_colour, piece_kanji_colour, border_colour, grid_colour)       
+        #self.gui.set_colours(bg_colour, komadai_colour, square_colour, text_colour, piece_fill_colour, piece_outline_colour, piece_kanji_colour, border_colour, grid_colour)
+        self.gui.set_colours(bg_colour, komadai_colour, square_colour, text_colour, border_colour, grid_colour)       
         
 
     def get_button_colour(self, colour_button):
@@ -329,7 +330,8 @@ class Set_Board_Colours:
         (bg_colour, komadai_colour, square_colour, text_colour, piece_fill_colour, piece_outline_colour, piece_kanji_colour, border_colour, grid_colour) = theme[1]
         
         self.text_colour_temp = text_colour
-        self.gui.set_colours(bg_colour, komadai_colour, square_colour, text_colour, piece_fill_colour, piece_outline_colour, piece_kanji_colour, border_colour, grid_colour)
+        #self.gui.set_colours(bg_colour, komadai_colour, square_colour, text_colour, piece_fill_colour, piece_outline_colour, piece_kanji_colour, border_colour, grid_colour)
+        self.gui.set_colours(bg_colour, komadai_colour, square_colour, text_colour, border_colour, grid_colour)
 
 
     # use presets radio button has been toggled
@@ -374,7 +376,7 @@ class Set_Board_Colours:
          self.use_presets, \
          self.combo_idx) = colour_settings
        
-        #self.apply_colour_settings()        
+        self.apply_colour_settings()        
 
 
     #

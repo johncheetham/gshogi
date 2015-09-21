@@ -78,11 +78,9 @@
               </packing>
             </child>
             <child>
-              <object class="GtkComboBox" id="sc_combobox">
+              <object class="GtkComboBoxText" id="sc_comboboxtext">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="model">liststore1</property>
-                <signal name="changed" handler="preset_changed" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">True</property>

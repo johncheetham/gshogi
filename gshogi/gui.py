@@ -939,7 +939,7 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
         self.actiongroup.get_action('TimeControl').set_sensitive(True)
         self.actiongroup.get_action('MoveNow').set_sensitive(False)
         self.actiongroup.get_action('CommonEngineSettings').set_sensitive(True)
-        #self.actiongroup.get_action('SetBoardColours').set_sensitive(True)
+        self.actiongroup.get_action('SetBoardColours').set_sensitive(True)
 
         self.actiongroup.get_action('Edit').set_sensitive(True)
         # edit menu

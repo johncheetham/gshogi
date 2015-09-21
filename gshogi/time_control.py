@@ -504,9 +504,9 @@ class Time_Control:
             self.type = combobox.get_active()
             # byoyomi
             if self.type == 0:
-                byo_hours = int(byo_adj_hours.value)
-                byo_minutes = int(byo_adj_mins.value)
-                byo_byoyomi = int(byo_adj_byoyomi.value) 
+                byo_hours = int(byo_adj_hours.get_value())
+                byo_minutes = int(byo_adj_mins.get_value())
+                byo_byoyomi = int(byo_adj_byoyomi.get_value()) 
                 if byo_hours == 0 and byo_minutes == 0 and byo_byoyomi == 0:                
                     self.gui.info_box("Time fields cannot all be zero!")
                 else:
@@ -526,14 +526,14 @@ class Time_Control:
                 rep_zero = True
                 for i in range(0, self.cls_max_sessions):
                     moves_to_go, mins, rep = adj_cls_settings[i]
-                    if rep.value != 0:
+                    if rep.get_value() != 0:
                         rep_zero = False
                 if rep_zero:
                     self.gui.info_box("Count fields cannot all be zero!")
                 else:
                     for i in range(0, self.cls_max_sessions):
                         moves_to_go, mins, rep = adj_cls_settings[i]                        
-                        self.cls_settings.append((moves_to_go.value, mins.value, rep.value))
+                        self.cls_settings.append((moves_to_go.get_value(), mins.get_value(), rep.get_value()))
                   
                     # fields for go command
                     self.reset_clock()                              
@@ -543,9 +543,9 @@ class Time_Control:
                     break
              # incremental
             if self.type == 2:
-                inc_hours = int(inc_adj_hours.value)
-                inc_minutes = int(inc_adj_mins.value)
-                inc_bonus = int(inc_adj_bonus.value) 
+                inc_hours = int(inc_adj_hours.get_value())
+                inc_minutes = int(inc_adj_mins.get_value())
+                inc_bonus = int(inc_adj_bonus.get_value()) 
                 if inc_hours == 0 and inc_minutes == 0 and inc_bonus == 0:                
                     self.gui.info_box("Incremental Time fields cannot all be zero!")
                 else:
@@ -571,7 +571,7 @@ class Time_Control:
                 break
             # fixed search depth               
             elif self.type == 4:
-                self.dpth_depth = int(adj_dpth_depth.value)
+                self.dpth_depth = int(adj_dpth_depth.get_value())
 
                 # fields for go command
                 self.reset_clock()                              
@@ -584,7 +584,7 @@ class Time_Control:
                 break            
             # fixed number of nodes search               
             elif self.type == 6:
-                self.nodes_nodes = int(adj_nodes_nodes.value)
+                self.nodes_nodes = int(adj_nodes_nodes.get_value())
 
                 # fields for go command
                 self.reset_clock()                              

@@ -17,7 +17,7 @@
 #   along with gshogi.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import gtk
+from gi.repository import Gtk
 import os
 
 import move_list
@@ -33,7 +33,7 @@ class Comments:
         self.move_list = move_list.get_ref()
 
         # create comments window
-        self.builder = gtk.Builder()
+        self.builder = Gtk.Builder()
         self.builder.add_from_file(self.glade_file)
         self.builder.connect_signals(self)
 
@@ -44,7 +44,7 @@ class Comments:
 
         tv = self.builder.get_object('comments_textview')
         tv.set_editable(True)
-        tv.set_wrap_mode(gtk.WRAP_WORD)
+        tv.set_wrap_mode(Gtk.WrapMode.WORD)
         self.tb = tv.get_buffer()
         self.tb.connect("changed", self.text_changed)
         self.comment_list = []  

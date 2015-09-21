@@ -17,7 +17,9 @@
 #   along with gshogi.  If not, see <http://www.gnu.org/licenses/>.
 #   
 
-import gtk
+from gi.repository import Gtk
+from gi.repository import Gdk
+from gi.repository import GdkPixbuf
 import os
 import traceback
 from constants import *
@@ -34,7 +36,7 @@ class Pieces:
         self.custom_piece_path = None
 
         # create pixbuf for empty square
-        self.pb_empty = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, 64, 64)       
+        self.pb_empty = GdkPixbuf.Pixbuf.new(GdkPixbuf.Colorspace.RGB, True, 8, 64, 64)       
         self.pb_empty.fill(0xffffff00) # fill with transparent white
         
 
@@ -94,6 +96,7 @@ class Pieces:
         self.piece_pixbuf, errmsg = self.load_pixbufs('eastern', prefix)
         self.western_piece_pixbuf, errmsg = self.load_pixbufs('western', prefix)
         self.piece_fill_colour, self.piece_outline_colour, self.piece_kanji_colour = self.get_piece_default_colours()
+
         if self.custom_piece_path is not None:
             self.custom_piece_pixbuf, errmsg = self.load_custom_pixbufs(self.custom_piece_path)
             # if pieces set to custom and they cannot be loaded then switch to eastern
@@ -126,7 +129,7 @@ class Pieces:
 
         for image in images:           
             image = 'images/' + piece_set + '/' + image + '.png'            
-            piece_pixbuf.append(gtk.gdk.pixbuf_new_from_file(os.path.join(prefix, image)))
+            piece_pixbuf.append(GdkPixbuf.Pixbuf.new_from_file(os.path.join(prefix, image)))
 
         return piece_pixbuf, None
 
@@ -163,9 +166,9 @@ class Pieces:
             if not os.path.isfile(path):                    
                 errmsg = "Error loading custom pieces\nFile not found:" + image                   
                 return None, errmsg                  
-            pb = gtk.gdk.pixbuf_new_from_file(path)                
+            pb = GdkPixbuf.Pixbuf.new_from_file(path)                
             piece_pixbuf.append(pb)                 
-            #piece_pixbuf.append(gtk.gdk.pixbuf_new_from_file(os.path.join(custom_path, image))) 
+            #piece_pixbuf.append(GdkPixbuf.Pixbuf.new_from_file(os.path.join(custom_path, image))) 
 
         # Load white pieces
         for image in images:            
@@ -175,7 +178,7 @@ class Pieces:
             image_white = image_white + extension
             path =  os.path.join(custom_path, image_white)
             if os.path.isfile(path):
-                pb = gtk.gdk.pixbuf_new_from_file(path)                
+                pb = GdkPixbuf.Pixbuf.new_from_file(path)                
                 piece_pixbuf.append(pb)
                 continue
 
@@ -183,8 +186,8 @@ class Pieces:
             image = image + extension
             path =  os.path.join(custom_path, image)
                              
-            pb = gtk.gdk.pixbuf_new_from_file(path)
-            pb = pb.rotate_simple(gtk.gdk.PIXBUF_ROTATE_UPSIDEDOWN)
+            pb = GdkPixbuf.Pixbuf.new_from_file(path)
+            pb = pb.rotate_simple(GdkPixbuf.PixbufRotation.UPSIDEDOWN)
             piece_pixbuf.append(pb)            
 
         return piece_pixbuf, None
@@ -244,7 +247,7 @@ class Pieces:
             # Check the pixbuf is OK before changing the colours
             # should be no problem unless user has changed the image files
             colorspace = pb.get_colorspace()  
-            if (colorspace != gtk.gdk.COLORSPACE_RGB):
+            if (colorspace != GdkPixbuf.Colorspace.RGB):
                 print "Warning - colorspace is not RGB in piece image. Setting piece colour may fail (in pieces.py)"
            
             nchannels = pb.get_n_channels()
@@ -307,7 +310,7 @@ class Pieces:
             if pixels_changed == 0:
                 print "Unable to change piece colour in pieces.py - maybe piece images have been corrupted"
 
-            pixbuf[i] = gtk.gdk.pixbuf_new_from_data(newstr, pb.get_colorspace(), pb.get_has_alpha(), pb.get_bits_per_sample(), pb.get_width(), pb.get_height(), pb.get_rowstride())
+            pixbuf[i] = GdkPixbuf.Pixbuf.new_from_data(newstr, pb.get_colorspace(), pb.get_has_alpha(), pb.get_bits_per_sample(), pb.get_width(), pb.get_height(), pb.get_rowstride(), None, None)
         return pixbuf
 
 
@@ -326,14 +329,19 @@ class Pieces:
         elif self.pieceset == 'western':
             pixbuf = self.western_piece_pixbuf[idx]
         elif self.pieceset == 'custom':
-            pixbuf = self.custom_piece_pixbuf[idx]
+            try:
+                pixbuf = self.custom_piece_pixbuf[idx]
+            except TypeError, te:
+                print "error loading custom pieces",te
+                pixbuf = self.piece_pixbuf[idx]
+                self.pieceset = 'eastern'
         else:
             print "invalid pieceset in getpixbuf in pieces.py:",self.pieceset
             pixbuf = self.piece_pixbuf[idx]   # eastern        
 
         width = int(self.scale_factor * 64)
         height = int(self.scale_factor * 64)
-        spb = pixbuf.scale_simple(width, height, gtk.gdk.INTERP_HYPER)        
+        spb = pixbuf.scale_simple(width, height, GdkPixbuf.InterpType.HYPER)        
         return spb                
 
 

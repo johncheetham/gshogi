@@ -17,8 +17,8 @@
 #   along with gshogi.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import gtk
-import gobject
+from gi.repository import Gtk
+from gi.repository import GObject
 
 import utils
 from constants import *
@@ -115,8 +115,9 @@ class Drag_And_Drop:
             pb = self.board.get_piece_pixbuf(x, y)
 
             hot_x = pb.get_width() / 2
-            hot_y = pb.get_height() / 2       
-            drag_context.set_icon_pixbuf(self.board.get_piece_pixbuf(x, y), hot_x, hot_y)        
+            hot_y = pb.get_height() / 2
+
+            Gtk.drag_set_icon_pixbuf(drag_context, self.board.get_piece_pixbuf(x, y), hot_x, hot_y)
 
             # save the pixbuf for use in the drop (receivecallback) routines
             self.dnd_pixbuf = pb
@@ -128,8 +129,7 @@ class Drag_And_Drop:
     def sendCallback(self, widget, context, selection, targetType, eventTime):
         if targetType == TARGET_TYPE_TEXT:           
             sel = "gShogi"
-            selection.set(selection.target, 8, sel)        
-
+            selection.set_text(sel, 8)
 
     def receiveCallback(self, widget, context, x, y, selection, targetType,
                         time, data):
@@ -137,7 +137,7 @@ class Drag_And_Drop:
             print "in receive callback"
             print "x=", x
             print "y=", y        
-            print "selection.data=",selection.data
+            print "selection.data=",selection.get_text()
             print "targetType=", targetType
             print "time=", time
             print "data=",data        
@@ -169,7 +169,7 @@ class Drag_And_Drop:
         self.board.set_image(x, y, self.dnd_pixbuf)        
 
         # display the move                
-        gobject.idle_add(self.game.human_move, move)
+        GObject.idle_add(self.game.human_move, move)
 
 
     # if drag and drop failed then reinstate the piece where it

@@ -8,7 +8,7 @@ Description
 gshogi is a program to play Shogi (Japanese Chess). It has a builtin
 engine and can also use USI engines.
 
-It is written in python/PyGTK/C and licensed under the GPL v3+
+It is written in python/PyGI/C and licensed under the GPL v3+
 (see the file named LICENSE).
 
 It is aimed mainly at Linux users.
@@ -18,14 +18,14 @@ the built in engine and also uses GNU Shogi board pieces.
 
 The front end is new and written in Python/PyGTK.
 
-This version was tested on Fedora 17 64 bit using Python 2.7.3,
-pygtk 2.24.0 and gcc 4.7.0.
+This version was tested on on CentOS 7 64 bit using Python 2.7.5,
+pygobject 3.8.2, gtk 3.8.8 and gcc 4.8.3.
 
 See the project homepage for more information on gshogi and USI engines.
 
 Requirements
 ------------
-Python, PyGTK, GTK+, C.
+Python, pygobject, GTK3, C.
 
 
 Installation

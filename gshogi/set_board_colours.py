@@ -17,8 +17,9 @@
 #   along with gshogi.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import gtk
-import gobject
+from gi.repository import Gtk
+from gi.repository import Gdk
+from gi.repository import GObject
 import os
 
 import utils
@@ -161,7 +162,7 @@ class Set_Board_Colours:
 
         self.text_colour_temp = None
  
-        self.builder = gtk.Builder()
+        self.builder = Gtk.Builder()
         self.builder.add_from_file(self.glade_file)
         self.builder.connect_signals(self)
 
@@ -173,9 +174,9 @@ class Set_Board_Colours:
         self.custom_colours_table = self.builder.get_object('custom_colours_table')
        
         # make it equivalent of a 'new_text' combobox 
-        liststore = gtk.ListStore(gobject.TYPE_STRING)
+        liststore = Gtk.ListStore(GObject.TYPE_STRING)
         self.combobox.set_model(liststore)
-        cell = gtk.CellRendererText()
+        cell = Gtk.CellRendererText()
         self.combobox.pack_start(cell, True)
         self.combobox.add_attribute(cell, 'text', 0)
         
@@ -191,15 +192,15 @@ class Set_Board_Colours:
         self.grid_colour_button = self.builder.get_object('Gridcolorbutton')
  
        # set the colours in the buttons
-        self.bg_colour_button.set_color(gtk.gdk.color_parse(self.bg_colour))
-        self.komadai_colour_button.set_color(gtk.gdk.color_parse(self.komadai_colour))
-        self.square_colour_button.set_color(gtk.gdk.color_parse(self.square_colour))
-        self.text_colour_button.set_color(gtk.gdk.color_parse(self.text_colour))
-        self.piece_fill_colour_button.set_color(gtk.gdk.color_parse(self.piece_fill_colour))
-        self.piece_outline_colour_button.set_color(gtk.gdk.color_parse(self.piece_outline_colour))
-        self.piece_kanji_colour_button.set_color(gtk.gdk.color_parse(self.piece_kanji_colour))
-        self.border_colour_button.set_color(gtk.gdk.color_parse(self.border_colour)) 
-        self.grid_colour_button.set_color(gtk.gdk.color_parse(self.grid_colour))    
+        self.bg_colour_button.set_color(Gdk.color_parse(self.bg_colour))
+        self.komadai_colour_button.set_color(Gdk.color_parse(self.komadai_colour))
+        self.square_colour_button.set_color(Gdk.color_parse(self.square_colour))
+        self.text_colour_button.set_color(Gdk.color_parse(self.text_colour))
+        self.piece_fill_colour_button.set_color(Gdk.color_parse(self.piece_fill_colour))
+        self.piece_outline_colour_button.set_color(Gdk.color_parse(self.piece_outline_colour))
+        self.piece_kanji_colour_button.set_color(Gdk.color_parse(self.piece_kanji_colour))
+        self.border_colour_button.set_color(Gdk.color_parse(self.border_colour)) 
+        self.grid_colour_button.set_color(Gdk.color_parse(self.grid_colour))    
            
 
         presets = self.get_presets() 
@@ -372,14 +373,14 @@ class Set_Board_Colours:
          self.use_presets, \
          self.combo_idx) = colour_settings
        
-        self.apply_colour_settings()        
+        #self.apply_colour_settings()        
 
 
     #
     # The following functions are for the set pieces dialog (not set board colours)
     #
     def show_pieces_dialog(self, gtkaction):
-        self.builder = gtk.Builder()
+        self.builder = Gtk.Builder()
         self.builder.add_from_file(self.pieces_glade_file)
         self.builder.connect_signals(self)        
         self.pieces_dialog = self.builder.get_object('pieces_dialog')
@@ -428,16 +429,16 @@ class Set_Board_Colours:
 
     # called when user clicks the load custom pieces button
     def load_custom_pieces_button_clicked_cb(self, gtk_button):       
-        dialog = gtk.FileChooserDialog("Load Custom Pieces",
+        dialog = Gtk.FileChooserDialog("Load Custom Pieces",
                                None,
-                               gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER,
-                               (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-                                gtk.STOCK_OPEN, gtk.RESPONSE_OK))
-        dialog.set_default_response(gtk.RESPONSE_OK)
+                               Gtk.FileChooserAction.SELECT_FOLDER,
+                               (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+                                Gtk.STOCK_OPEN, Gtk.ResponseType.OK))
+        dialog.set_default_response(Gtk.ResponseType.OK)
         dialog.set_current_folder(os.path.expanduser("~"))
 
         response = dialog.run()
-        if response != gtk.RESPONSE_OK:
+        if response != Gtk.ResponseType.OK:
             dialog.destroy()
             return
 

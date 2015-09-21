@@ -17,7 +17,8 @@
 #   along with gshogi.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import gtk
+from gi.repository import Gtk
+from gi.repository import Gdk
 import os
 import gui, board, pieces
 import load_save
@@ -183,14 +184,14 @@ def paste_game_from_clipboard(action):
 
 
 def copy_text_to_clipboard(text):    
-    clipboard = gtk.clipboard_get()       # get the clipboard    
-    clipboard.set_text(text)              # put the FEN data on the clipboard    
-    clipboard.store()                     # make our data available to other applications
+    clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD) # get the clipboard    
+    clipboard.set_text(text, -1)                           # put the FEN data on the clipboard    
+    clipboard.store()                                      # make our data available to other applications
 
 
 def get_text_from_clipboard():    
-    clipboard = gtk.clipboard_get()       # get the clipboard     
-    text = clipboard.wait_for_text()      # read the text from the clipboard
+    clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD) # get the clipboard     
+    text = clipboard.wait_for_text()                       # read the text from the clipboard
     return text
 
 

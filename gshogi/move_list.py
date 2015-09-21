@@ -17,8 +17,8 @@
 #   along with gshogi.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import gtk
-import gobject
+from gi.repository import Gtk
+from gi.repository import GObject
 import os
 import engine
 
@@ -39,7 +39,7 @@ class Move_List:
         self.saved_move_list = []       
         
         # create move list window
-        self.builder = gtk.Builder()
+        self.builder = Gtk.Builder()
         self.builder.add_from_file(self.glade_file)
         self.builder.connect_signals(self)
 
@@ -48,25 +48,25 @@ class Move_List:
         self.liststore = self.builder.get_object('liststore1')
         self.scrolled_window = self.builder.get_object('move_list_scrolled_window') 
 
-        cell0 = gtk.CellRendererText()       
-        #cell0.set_property('cell-background', gtk.gdk.color_parse("#F8F8FF"))
-        tvcolumn0 = gtk.TreeViewColumn('#')       
+        cell0 = Gtk.CellRendererText()       
+        #cell0.set_property('cell-background', Gdk.color_parse("#F8F8FF"))
+        tvcolumn0 = Gtk.TreeViewColumn('#')       
         self.treeview.append_column(tvcolumn0)         
         tvcolumn0.pack_start(cell0, True)
         tvcolumn0.set_min_width(50)        
         tvcolumn0.set_attributes(cell0, text=0)        
 
-        cell1 = gtk.CellRendererText()       
-        #cell1.set_property('cell-background', gtk.gdk.color_parse("#F8F8FF"))      
-        tvcolumn1 = gtk.TreeViewColumn('Move')       
+        cell1 = Gtk.CellRendererText()       
+        #cell1.set_property('cell-background', Gdk.color_parse("#F8F8FF"))      
+        tvcolumn1 = Gtk.TreeViewColumn('Move')       
         self.treeview.append_column(tvcolumn1)   
         tvcolumn1.pack_start(cell1, True)
         tvcolumn1.set_min_width(100)        
         tvcolumn1.set_attributes(cell1, text=1)
 
-        cell2 = gtk.CellRendererText()       
-        #cell1.set_property('cell-background', gtk.gdk.color_parse("#F8F8FF"))      
-        tvcolumn2 = gtk.TreeViewColumn('Cmt')       
+        cell2 = Gtk.CellRendererText()       
+        #cell1.set_property('cell-background', Gdk.color_parse("#F8F8FF"))      
+        tvcolumn2 = Gtk.TreeViewColumn('Cmt')       
         self.treeview.append_column(tvcolumn2)   
         tvcolumn2.pack_start(cell2, True)
         tvcolumn2.set_min_width(20)        
@@ -123,7 +123,7 @@ class Move_List:
                 self.liststore.append(e)
                 moveno += 1       
         
-        gobject.idle_add(self.scroll_to_end)
+        GObject.idle_add(self.scroll_to_end)
 
 
     # sets the move at move_idx as the selected line
@@ -137,26 +137,26 @@ class Move_List:
 
     def scroll_to_end(self):
         adj = self.scrolled_window.get_vadjustment()
-        adj.set_value( adj.upper - adj.page_size )
+        adj.set_value( adj.get_upper() - adj.get_page_size() )
         return False
 
 
     def treeview_key_press(self, treeview, event):
 
         # to print list of key values do:
-        #     print dir(gtk.keysyms)
+        #     print dir(Gtk.keysyms)
 
         # if up or down pressed then position the board at the move
-        if event.keyval == gtk.keysyms.Up or event.keyval == gtk.keysyms.Down:
+        if event.keyval == Gdk.KEY_Up or event.keyval == Gdk.KEY_Down:
             self.treeview_button_press(None, None)
 
 
     # user clicked on the move list
     def treeview_button_press(self, treeview, event):
         if self.game.get_stopped():
-            gobject.idle_add(self.process_tree_selection)
+            GObject.idle_add(self.process_tree_selection)
         else:
-            gobject.idle_add(self.tree_selection.unselect_all)
+            GObject.idle_add(self.tree_selection.unselect_all)
  
 
     # set the board position at the move the user clicked on

@@ -17,8 +17,8 @@
 #   along with gshogi.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import gtk
-import gobject
+from gi.repository import Gtk
+from gi.repository import GObject
 import os
 
 import utils
@@ -47,7 +47,7 @@ class Engine_Debug:
 
         player = self.game.get_player(WHITE)
         if player == 'Human' or player == 'gshogi':
-            gobject.idle_add(self.add_to_log, "# command not sent - player 1 (white) is not a USI engine")
+            GObject.idle_add(self.add_to_log, "# command not sent - player 1 (white) is not a USI engine")
             return
         
         cmd = self.cmd_entry.get_text() + '\n'       
@@ -60,7 +60,7 @@ class Engine_Debug:
 
         player = self.game.get_player(BLACK)
         if player == 'Human' or player == 'gshogi':
-            gobject.idle_add(self.add_to_log, "# command not sent - player 2 (black) is not a USI engine")
+            GObject.idle_add(self.add_to_log, "# command not sent - player 2 (black) is not a USI engine")
             return
 
         cmd = self.cmd_entry.get_text() + '\n'       
@@ -82,7 +82,7 @@ class Engine_Debug:
             end_iter = self.tb.get_end_iter()
             self.tb.insert(end_iter, msg)
             # scroll to end
-            gobject.idle_add(self.scroll_to_end)
+            GObject.idle_add(self.scroll_to_end)
         except AttributeError:
             # engine debug window has not been opened. Append the debug
             # messages until it is opened 
@@ -100,7 +100,7 @@ class Engine_Debug:
         
         # This is the first time the user has opened the engine debug
         # window so need to create it.
-        self.builder = gtk.Builder()
+        self.builder = Gtk.Builder()
         self.builder.add_from_file(self.glade_file)
         self.builder.connect_signals(self)
 
@@ -117,7 +117,7 @@ class Engine_Debug:
         self.window.show_all()
 
         # scroll to end
-        gobject.idle_add(self.scroll_to_end)
+        GObject.idle_add(self.scroll_to_end)
 
 
     def scroll_to_end(self):

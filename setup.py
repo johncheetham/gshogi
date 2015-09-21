@@ -43,7 +43,7 @@ setup (name = 'gshogi',
     author='John Cheetham',
     author_email='developer@johncheetham.com',  
     url='http://www.johncheetham.com/projects/gshogi/', 
-    long_description='A Shogi program for Linux written in Python, PyGTK, C.',
+    long_description='A Shogi program for Linux written in Python, PyGI (GTK3), C.',
     platforms = ['Linux'],
 
     license = "GPLv3+",

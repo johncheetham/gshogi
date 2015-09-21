@@ -17,9 +17,13 @@
 #   along with gshogi.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import gtk, os
-import gobject, time
-import pango
+from gi.repository import Gtk
+from gi.repository import Gdk
+from gi.repository import GObject
+from gi.repository import GdkPixbuf
+import os
+import time
+from gi.repository import Pango
 import cairo
 
 import engine_debug, engine_output
@@ -75,36 +79,36 @@ class Gui:
         glade_dir = self.game.get_glade_dir()        
         self.glade_file = os.path.join(glade_dir, "main_window.glade")
         self.glade_file_preferences = os.path.join(glade_dir, "preferences.glade")
-        self.builder = gtk.Builder()
+        self.builder = Gtk.Builder()
         self.builder.add_from_file(self.glade_file)
         self.builder.connect_signals(self)
 
         self.window = self.builder.get_object('main_window')
 
-        #self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)               
+        #self.window = Gtk.Window(Gtk.WindowType.TOPLEVEL)               
         self.window.set_title(NAME + " " + VERSION)        
-        self.window.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.board_bg_colour))
+        self.window.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(self.board_bg_colour))
         
         # 1 eventbox per board square
         self.eb = [ \
-            [gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox()], \
-            [gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox()], \
-            [gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox()], \
-            [gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox()], \
-            [gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox()], \
-            [gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox()], \
-            [gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox()], \
-            [gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox()], \
-            [gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox()]  \
+            [Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox()], \
+            [Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox()], \
+            [Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox()], \
+            [Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox()], \
+            [Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox()], \
+            [Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox()], \
+            [Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox()], \
+            [Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox()], \
+            [Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox()]  \
             ]
 
         # 1 eventbox per white komadai board square
-        self.web = [gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox()]        
-        self.wcap_label = [gtk.Label(), gtk.Label(), gtk.Label(), gtk.Label(), gtk.Label(), gtk.Label(), gtk.Label()]
+        self.web = [Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox()]        
+        self.wcap_label = [Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label()]
 
         # 1 eventbox per black komadai board square
-        self.beb = [gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox(), gtk.EventBox()]        
-        self.bcap_label = [gtk.Label(), gtk.Label(), gtk.Label(), gtk.Label(), gtk.Label(), gtk.Label(), gtk.Label()]
+        self.beb = [Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox()]        
+        self.bcap_label = [Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label()]
 
         # Set a handler for delete_event that immediately exits GTK.
         self.window.connect("delete_event", self.game.delete_event) 
@@ -113,24 +117,24 @@ class Gui:
         self.window.connect("configure_event", self.configure_event)        
 
         main_vbox = self.builder.get_object('main_vbox')
-        #main_vbox = gtk.VBox(False, 0)                
+        #main_vbox = Gtk.VBox(False, 0)                
         #self.window.add(main_vbox)
         main_vbox.show()
 
         # menu
         # Create a UIManager instance
-        uimanager = gtk.UIManager()
+        uimanager = Gtk.UIManager()
 
         # Add the accelerator group to the toplevel window
         accelgroup = uimanager.get_accel_group()
         self.window.add_accel_group(accelgroup)
 
         # main action group
-        actiongroup = gtk.ActionGroup('UIManagerAG')        
+        actiongroup = Gtk.ActionGroup('UIManagerAG')        
         self.actiongroup = actiongroup
 
         # action group for toggleactions
-        ta_action_group = gtk.ActionGroup('AGPromoteMode')     
+        ta_action_group = Gtk.ActionGroup('AGPromoteMode')     
         ta_action_group.add_toggle_actions([('promotemode', None, '_Ask Before Promoting', None, None,
                                                self.promote_mode)])
         #ta_action_group.add_toggle_actions([('enableDND', None, '_Enable Drag and Drop', None, None,
@@ -140,7 +144,7 @@ class Gui:
         # Create actions
         actiongroup.add_actions([
                                  # NewGame and the handicap names are used in gshogi.py NewGame routine. Don't change them.
-                                 ('NewGame', gtk.STOCK_NEW, '_New Game', None, 'New Game', self.game.new_game_cb),                                 
+                                 ('NewGame', Gtk.STOCK_NEW, '_New Game', None, 'New Game', self.game.new_game_cb),                                 
                                  ('LanceHandicap', None, '_Lance', None, 'Lance Handicap', self.game.new_game_cb),  
                                  ('BishopHandicap', None, '_Bishop', None, 'Bishop Handicap', self.game.new_game_cb),
                                  ('RookHandicap', None, '_Rook', None, 'Rook Handicap', self.game.new_game_cb), 
@@ -152,13 +156,13 @@ class Gui:
                                  ('TenPieceHandicap', None, '_10 Pieces', None, 'Ten Piece Handicap', self.game.new_game_cb),      
                                  ('NewHandicapGame', None, '_New Handicap Game'),
                                  # 
-                                 ('Quit', gtk.STOCK_QUIT, '_Quit', None, 'Quit the Program', self.game.quit_game),                                                                 
-                                 ('LoadGame', gtk.STOCK_OPEN, '_Load Game', None, 'Load Game', self.load_save.load_game),
-                                 ('SaveGame', gtk.STOCK_SAVE, '_Save Game', None, 'Save Game', self.load_save.save_game),                                 
+                                 ('Quit', Gtk.STOCK_QUIT, '_Quit', None, 'Quit the Program', self.game.quit_game),                                                                 
+                                 ('LoadGame', Gtk.STOCK_OPEN, '_Load Game', None, 'Load Game', self.load_save.load_game),
+                                 ('SaveGame', Gtk.STOCK_SAVE, '_Save Game', None, 'Save Game', self.load_save.save_game),                                 
                                  ('File', None, '_File'),                                             
                                  ('Edit', None, '_Edit'),                                                             
-                                 ('Undo', gtk.STOCK_UNDO, '_Undo Move', "<Control>U", 'Undo Move', self.game.undo_single_move),
-                                 ('Redo', gtk.STOCK_REDO, '_Redo Move', "<Control>R", 'Redo Move', self.game.redo_single_move), 
+                                 ('Undo', Gtk.STOCK_UNDO, '_Undo Move', "<Control>U", 'Undo Move', self.game.undo_single_move),
+                                 ('Redo', Gtk.STOCK_REDO, '_Redo Move', "<Control>R", 'Redo Move', self.game.redo_single_move), 
                                  ('MoveNow', None, '_Move Now', "<Control>M", 'Move Now', self.game.move_now),
                                  ('SetBoardColours', None, '_Set Board Colours', None, 'Set Board Colours', self.set_board_colours.show_dialog), 
                                  ('SetPieces', None, '_Set Pieces', None, 'Set Pieces', self.set_board_colours.show_pieces_dialog), 
@@ -175,7 +179,7 @@ class Gui:
                                  ('EngineDebug', None, '_Engine Debug', None, 'Engine Debug', self.engine_debug.show_debug_window),                                                       
                                  ('Options', None, '_Options'),
                                  ('View', None, '_View'),                                                             
-                                 ('About', gtk.STOCK_ABOUT, '_About', None, 'Show About Box', self.about_box),                                 
+                                 ('About', Gtk.STOCK_ABOUT, '_About', None, 'Show About Box', self.about_box),                                 
                                  ('Help', None, '_Help'),
                                  ('CopyPosition', None, '_Copy Position', None, 'Copy Position', utils.copy_SFEN_to_clipboard),
                                  ('PastePosition', None, '_Paste Position', None, 'Paste Position', utils.paste_clipboard_to_SFEN),
@@ -258,48 +262,48 @@ class Gui:
         # correct.
         # Don't need this on Fedora though.
         eb_1 = self.builder.get_object('eb_1')
-        #eb_1 = gtk.EventBox()
-        vbox2 = gtk.VBox(False, 0)
+        #eb_1 = Gtk.EventBox()
+        vbox2 = Gtk.VBox(False, 0)
         #main_vbox.pack_start(vbox2, False)
         #main_vbox.pack_start(eb_1, False)
         eb_1.add(vbox2)
-        eb_1.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('#EDECEB')) 
+        eb_1.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse('#EDECEB')) 
   
         # Create a MenuBar
         menubar = uimanager.get_widget('/MenuBar')                
-        vbox2.pack_start(menubar, False)
+        vbox2.pack_start(menubar, False, True, 0)
 
         # create a toolbar
-        toolbar = gtk.Toolbar()
-        vbox2.pack_start(toolbar, False)         
+        toolbar = Gtk.Toolbar()
+        vbox2.pack_start(toolbar, False, True, 0)         
 
         # populate toolbar
-        toolitem = gtk.ToolItem()        
+        toolitem = Gtk.ToolItem()        
 
         # 2 rows, 4 columns, not homogeneous
-        tb = gtk.Table(2,5, False)
+        tb = Gtk.Table(2,5, False)
         
-        # gtk.SHADOW_NONE, SHADOW_IN, SHADOW_OUT, SHADOW_ETCHED_IN, SHADOW_ETCHED_OUT
+        # Gtk.ShadowType.NONE, SHADOW_IN, SHADOW_OUT, SHADOW_ETCHED_IN, SHADOW_ETCHED_OUT
 
-        self.side_to_move = [gtk.Arrow(gtk.ARROW_RIGHT, gtk.SHADOW_ETCHED_IN), gtk.Arrow(gtk.ARROW_RIGHT, gtk.SHADOW_ETCHED_IN)]
+        self.side_to_move = [Gtk.Arrow(Gtk.ArrowType.RIGHT, Gtk.ShadowType.ETCHED_IN), Gtk.Arrow(Gtk.ArrowType.RIGHT, Gtk.ShadowType.ETCHED_IN)]
         self.side_to_move[BLACK].set_alignment(0.5, 0.4)
         self.side_to_move[WHITE].set_alignment(0.5, 0.4)        
         
         tb.attach(self.side_to_move[WHITE], 0, 1, 0, 1) 
         tb.attach(self.side_to_move[BLACK], 0, 1, 1, 2)    
 
-        lw = gtk.Label("White: ")
-        lb = gtk.Label("Black: ")
+        lw = Gtk.Label(label="White: ")
+        lb = Gtk.Label(label="Black: ")
         lw.set_alignment(0, 0.5)
         lb.set_alignment(0, 0.5)    
         tb.attach(lw, 1, 2, 0, 1) 
         tb.attach(lb, 1, 2, 1, 2)
 
-        self.engines_lblw = gtk.Label("gshogi")        
+        self.engines_lblw = Gtk.Label(label="gshogi")        
         self.engines_lblw.set_use_markup(True)
         self.engines_lblw.set_alignment(0, 0.5)
 
-        self.engines_lblb = gtk.Label("human")        
+        self.engines_lblb = Gtk.Label(label="human")        
         self.engines_lblb.set_use_markup(True)
         self.engines_lblb.set_alignment(0, 0.5)        
 
@@ -307,7 +311,7 @@ class Gui:
         tb.attach(self.engines_lblb, 2, 3, 1, 2)
 
         # time control    
-        self.tc_lbl = [gtk.Label("00:45:00 00/10"), gtk.Label("00:45:00 00/10")] 
+        self.tc_lbl = [Gtk.Label(label="00:45:00 00/10"), Gtk.Label(label="00:45:00 00/10")] 
         self.tc_lbl[BLACK].set_alignment(0, 0.5)
         self.tc_lbl[WHITE].set_alignment(0, 0.5)      
     
@@ -318,19 +322,19 @@ class Gui:
         toolbar.insert(toolitem, -1)
 
         # add a vertical separator
-        hb = gtk.HBox(False, 0)
-        toolitem = gtk.ToolItem()
-        vsep = gtk.VSeparator()
+        hb = Gtk.HBox(False, 0)
+        toolitem = Gtk.ToolItem()
+        vsep = Gtk.VSeparator()
         hb.pack_start(vsep, True, True, 10)
         toolitem.add(hb)
         toolbar.insert(toolitem, -1)
 
         # stop/go buttons
-        hb = gtk.HBox(False, 0)
-        self.gobutton = gtk.ToolButton(gtk.STOCK_YES)        
+        hb = Gtk.HBox(False, 0)
+        self.gobutton = Gtk.ToolButton(Gtk.STOCK_YES)        
         self.gobutton.connect('clicked', self.game.go_clicked)
         
-        self.stopbutton = gtk.ToolButton(gtk.STOCK_NO)        
+        self.stopbutton = Gtk.ToolButton(Gtk.STOCK_NO)        
         self.stopbutton.connect('clicked', self.game.stop_clicked)        
 
         # set_tooltip_text needs PyGTK 2.12 and above.
@@ -340,78 +344,81 @@ class Gui:
         except AttributeError, ae:
             pass
 
-        hb.pack_start(self.stopbutton, False)
-        hb.pack_start(self.gobutton, False)        
+        hb.pack_start(self.stopbutton, False, True, 0)
+        hb.pack_start(self.gobutton, False, True, 0)        
         
-        toolitem = gtk.ToolItem()
+        toolitem = Gtk.ToolItem()
         toolitem.add(hb)
         toolbar.insert(toolitem, -1)
 
         # add a vertical separator
-        hb = gtk.HBox(False, 0)
-        toolitem = gtk.ToolItem()
-        vsep = gtk.VSeparator()
+        hb = Gtk.HBox(False, 0)
+        toolitem = Gtk.ToolItem()
+        vsep = Gtk.VSeparator()
         hb.pack_start(vsep, True, True, 10)
         toolitem.add(hb)
         toolbar.insert(toolitem, -1)
 
         # game review buttons
-        hb = gtk.HBox(False, 0)
-        self.go_first = gtk.ToolButton(gtk.STOCK_GOTO_FIRST)
+        hb = Gtk.HBox(False, 0)
+        self.go_first = Gtk.ToolButton(Gtk.STOCK_GOTO_FIRST)
         self.go_first.connect('clicked', self.game.undo_all)
 
-        self.go_back = gtk.ToolButton(gtk.STOCK_GO_BACK)
+        self.go_back = Gtk.ToolButton(Gtk.STOCK_GO_BACK)
         self.go_back.connect('clicked', self.game.undo_single_move)
 
-        self.go_forward = gtk.ToolButton(gtk.STOCK_GO_FORWARD)
+        self.go_forward = Gtk.ToolButton(Gtk.STOCK_GO_FORWARD)
         self.go_forward.connect('clicked', self.game.redo_single_move)
         
-        self.go_last = gtk.ToolButton(gtk.STOCK_GOTO_LAST)
+        self.go_last = Gtk.ToolButton(Gtk.STOCK_GOTO_LAST)
         self.go_last.connect('clicked', self.game.redo_all)
 
-        hb.pack_start(self.go_first, False)
-        hb.pack_start(self.go_back, False)
-        hb.pack_start(self.go_forward, False)
-        hb.pack_start(self.go_last, False)        
+        hb.pack_start(self.go_first, False, True, 0)
+        hb.pack_start(self.go_back, False, True, 0)
+        hb.pack_start(self.go_forward, False, True, 0)
+        hb.pack_start(self.go_last, False, True, 0)        
 
-        toolitem = gtk.ToolItem()
+        toolitem = Gtk.ToolItem()
         toolitem.add(hb)
         toolbar.insert(toolitem, -1)
 
         # add a vertical separator
-        hb = gtk.HBox(False, 0)
-        toolitem = gtk.ToolItem()
-        vsep = gtk.VSeparator()
+        hb = Gtk.HBox(False, 0)
+        toolitem = Gtk.ToolItem()
+        vsep = Gtk.VSeparator()
         hb.pack_start(vsep, True, True, 10)
         toolitem.add(hb)
         toolbar.insert(toolitem, -1)
 
         ###        
         main_hbox = self.builder.get_object('main_hbox')
-        #main_hbox = gtk.HBox(False, 0)               
+        #main_hbox = Gtk.HBox(False, 0)               
         
         # Create a 7x1 table for pieces captured by the white side
         self.setup_white_komadai(main_hbox)
 
         # Create a 9x9 table for the main board
-        self.table = gtk.Table(9, 9, True)
+        self.table = Gtk.Table(9, 9, True)
         self.table.set_border_width(1)
-        eb2 = gtk.EventBox()        
-        eb2.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("black"))        
+        eb2 = Gtk.EventBox()
+                
+        eb2.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse("black"))        
         eb2.add(self.table)       
-        eb = gtk.EventBox()        
+        eb = Gtk.EventBox()        
         eb.add(eb2)         
         eb.show()        
-        eb.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.board_square_colour))            
+        eb.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(self.board_square_colour))            
 
-        aspect_frame = gtk.AspectFrame(label=None, xalign=0.5, yalign=0.5, ratio=1.0, obey_child=False)
+        aspect_frame = Gtk.AspectFrame(label=None, xalign=0.5, yalign=0.5, ratio=1.0, obey_child=False)
+
         aspect_frame.add(eb)
         eb2.set_border_width(20)
         self.grid_eb = eb2
+        #self.grid_eb.connect("draw", self.configure_event)
         main_hbox.pack_start(aspect_frame, True, True, 0) 
-        aspect_frame.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("black"))
+        aspect_frame.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse("black"))
         
-        eb.connect("expose_event", self.draw_coords)
+        eb.connect("draw", self.draw_coords)
         self.border_eb = eb       
 
         # Create a 7x1 table for pieces captured by the black side
@@ -426,19 +433,35 @@ class Gui:
         # Otherwise it uses the window bg colour which is not
         # correct. This was not needed on F17.       
         eb_2 = self.builder.get_object('eb_2')
-        eb_2.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('#EDECEB'))  
-        #self.status_bar = gtk.Statusbar() 
+        eb_2.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse('#EDECEB'))  
+        #self.status_bar = Gtk.Statusbar() 
         #main_vbox.pack_start(self.status_bar, False, False, 0)        
         self.context_id = self.status_bar.get_context_id("gshogi statusbar") 
 
-        self.actiongroup.get_action('MoveNow').set_sensitive(False)                
+        self.actiongroup.get_action('MoveNow').set_sensitive(False)
+        self.actiongroup.get_action('SetBoardColours').set_sensitive(False)                
 
         self.window.show_all() 
         self.side_to_move[WHITE].hide()
         self.gobutton.set_sensitive(False)
         self.stopbutton.set_sensitive(False)       
 
-        self.window.set_geometry_hints(self.window, min_width=378, min_height=378, max_width=-1, max_height=-1, base_width=-1, base_height=-1, width_inc=-1, height_inc=-1, min_aspect=-1.0, max_aspect=-1.0) 
+
+        #mask = Gdk.WindowHints.BASE_SIZE|Gdk.WindowHints.MIN_SIZE|Gdk.WindowHints.MAX_SIZE|Gdk.WindowHints.RESIZE_INC|Gdk.WindowHints.ASPECT
+        mask = Gdk.WindowHints.MIN_SIZE|Gdk.WindowHints.MAX_SIZE
+        geometry = Gdk.Geometry()
+        #geometry.base_width = -1
+        #geometry.base_height = -1
+        #geometry.max_width = -1
+        #geometry.max_height = -1
+        geometry.min_width = 378
+        geometry.min_height = 378
+        #geometry.width_inc = -1
+        #geometry.height_inc = -1
+        #geometry.min_aspect = -1.0
+        #geometry.max_aspect = -1.0
+        #self.window.set_geometry_hints(self.window, geometry, mask)
+        #self.window.set_geometry_hints(self.window, min_width=378, min_height=378, max_width=-1, max_height=-1, base_width=-1, base_height=-1, width_inc=-1, height_inc=-1, min_aspect=-1.0, max_aspect=-1.0) 
 
         self.build_edit_popup()
 
@@ -452,40 +475,41 @@ class Gui:
 
 
     def init_board_square(self, image, x, y):
-        event_box = gtk.EventBox()
+        event_box = Gtk.EventBox()
         event_box.add(image) 
         self.table.attach(event_box, x, x+1, y, y+1)
         event_box.show()
-        event_box.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.board_square_colour))
+        event_box.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(self.board_square_colour))
         event_box.set_border_width(1)              
-        event_box.add_events(gtk.gdk.BUTTON_PRESS_MASK)
+        event_box.add_events(Gdk.EventMask.BUTTON_PRESS_MASK)
         data = (x, y)
         event_box.connect('button_press_event', self.game.square_clicked, data)
         image.show()
 
         # set up square as a source square for sending out drag data
         # from a drag & drop action        
-        #self.targets =  [( "text/plain", gtk.TARGET_SAME_APP, TARGET_TYPE_TEXT ) ] 
+        #self.targets =  [( "text/plain", Gtk.TargetFlags.SAME_APP, TARGET_TYPE_TEXT ) ] 
 
         event_box.connect("drag_data_get", self.drag_and_drop.sendCallback)
         event_box.connect_after("drag_begin", self.drag_and_drop.drag_begin, (x, y))
         #event_box.emit_stop_by_name("drag_begin")
         event_box.connect_after("drag_end", self.drag_and_drop.drag_end)
-        #event_box.drag_source_set(gtk.gdk.BUTTON1_MASK, self.targets, gtk.gdk.ACTION_COPY)
+        #event_box.drag_source_set(Gdk.ModifierType.BUTTON1_MASK, self.targets, Gdk.DragAction.COPY)
 
         # set up square as a destination square to receive drag data
         # from a drag & drop action
 
         event_box.connect("drag_data_received", self.drag_and_drop.receiveCallback, (x, y))
-        #event_box.drag_dest_set(gtk.DEST_DEFAULT_MOTION |
-        #                          gtk.DEST_DEFAULT_HIGHLIGHT |
-        #                          gtk.DEST_DEFAULT_DROP, self.targets, gtk.gdk.ACTION_COPY)             
+        #event_box.drag_dest_set(Gtk.DestDefaults.MOTION |
+        #                          Gtk.DestDefaults.HIGHLIGHT |
+        #                          Gtk.DestDefaults.DROP, self.targets, Gdk.DragAction.COPY)             
         self.eb[x][y] = event_box
 
 
     def dnd_set_source_square(self, x, y):
-        self.targets =  [( "text/plain", gtk.TARGET_SAME_APP, TARGET_TYPE_TEXT ) ] 
-        self.eb[x][y].drag_source_set(gtk.gdk.BUTTON1_MASK, self.targets, gtk.gdk.ACTION_COPY)       
+        #self.targets =  [( "text/plain", Gtk.TargetFlags.SAME_APP, TARGET_TYPE_TEXT ) ]
+        self.targets = [Gtk.TargetEntry.new("text/plain", Gtk.TargetFlags.SAME_APP, TARGET_TYPE_TEXT)]
+        self.eb[x][y].drag_source_set(Gdk.ModifierType.BUTTON1_MASK, self.targets, Gdk.DragAction.COPY)       
 
 
     def dnd_unset_source_square(self, x, y):
@@ -493,10 +517,11 @@ class Gui:
 
 
     def dnd_set_dest_square(self, x, y):
-        self.targets =  [( "text/plain", gtk.TARGET_SAME_APP, TARGET_TYPE_TEXT ) ] 
-        self.eb[x][y].drag_dest_set(gtk.DEST_DEFAULT_MOTION |
-                                  gtk.DEST_DEFAULT_HIGHLIGHT |
-                                  gtk.DEST_DEFAULT_DROP, self.targets, gtk.gdk.ACTION_COPY) 
+        #self.targets =  [( "text/plain", Gtk.TargetFlags.SAME_APP, TARGET_TYPE_TEXT ) ]
+        self.targets = [Gtk.TargetEntry.new("text/plain", Gtk.TargetFlags.SAME_APP, TARGET_TYPE_TEXT)]
+        self.eb[x][y].drag_dest_set(Gtk.DestDefaults.MOTION |
+                                  Gtk.DestDefaults.HIGHLIGHT |
+                                  Gtk.DestDefaults.DROP, self.targets, Gdk.DragAction.COPY) 
 
 
     def dnd_unset_dest_square(self, x, y):
@@ -512,13 +537,15 @@ class Gui:
 
 
     def dnd_set_source_bcap_square(self, y):
-        self.targets =  [( "text/plain", gtk.TARGET_SAME_APP, TARGET_TYPE_TEXT ) ] 
-        self.beb[y].drag_source_set(gtk.gdk.BUTTON1_MASK, self.targets, gtk.gdk.ACTION_COPY)       
+        #self.targets =  [( "text/plain", Gtk.TargetFlags.SAME_APP, TARGET_TYPE_TEXT ) ]
+        self.targets = [Gtk.TargetEntry.new("text/plain", Gtk.TargetFlags.SAME_APP, TARGET_TYPE_TEXT)]
+        self.beb[y].drag_source_set(Gdk.ModifierType.BUTTON1_MASK, self.targets, Gdk.DragAction.COPY)       
 
 
     def dnd_set_source_wcap_square(self, y):
-        self.targets =  [( "text/plain", gtk.TARGET_SAME_APP, TARGET_TYPE_TEXT ) ] 
-        self.web[y].drag_source_set(gtk.gdk.BUTTON1_MASK, self.targets, gtk.gdk.ACTION_COPY)        
+        #self.targets =  [( "text/plain", Gtk.TargetFlags.SAME_APP, TARGET_TYPE_TEXT ) ] 
+        self.targets = [Gtk.TargetEntry.new("text/plain", Gtk.TargetFlags.SAME_APP, TARGET_TYPE_TEXT)]
+        self.web[y].drag_source_set(Gdk.ModifierType.BUTTON1_MASK, self.targets, Gdk.DragAction.COPY)        
 
     
     # set all squares so they cannot be used for drag and drop
@@ -599,20 +626,20 @@ class Gui:
     # this is a column on the left of the board to hold pieces captured by white
     #
     def setup_white_komadai(self, hbox):       
-        self.wcaptable = gtk.Table(7, 1, True)
+        self.wcaptable = Gtk.Table(7, 1, True)
 
-        eb2 = gtk.EventBox()
-        eb2.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('#000000'))
+        eb2 = Gtk.EventBox()
+        eb2.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse('#000000'))
 
-        eb = gtk.EventBox()   
-        eb.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.board_komadai_colour))            
+        eb = Gtk.EventBox()   
+        eb.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(self.board_komadai_colour))            
         eb.add(self.wcaptable)         
         eb.show()
         self.komadaiw_eb = eb
         eb.set_border_width(3)
         eb2.add(eb)               
 
-        al = gtk.Alignment(xalign=0.0, yalign=0.0, xscale=0.0, yscale=0.0)        
+        al = Gtk.Alignment.new(xalign=0.0, yalign=0.0, xscale=0.0, yscale=0.0)        
         al.add(eb2)
         hbox.pack_start(al, True, True, 0)
         self.wcaptable.show()   
@@ -623,20 +650,20 @@ class Gui:
     # this is a column on the right of the board to hold pieces captured by black
     #   
     def setup_black_komadai(self, hbox): 
-        self.bcaptable = gtk.Table(7, 1, True)
+        self.bcaptable = Gtk.Table(7, 1, True)
 
-        eb2 = gtk.EventBox()
-        eb2.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('#000000'))
+        eb2 = Gtk.EventBox()
+        eb2.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse('#000000'))
        
-        eb = gtk.EventBox()       
-        eb.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.board_komadai_colour)) 
+        eb = Gtk.EventBox()       
+        eb.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(self.board_komadai_colour)) 
         eb.add(self.bcaptable)
         eb.show()
         self.komadaib_eb = eb
         eb.set_border_width(3)
         eb2.add(eb)        
         
-        al = gtk.Alignment(xalign=1.0, yalign=1.0, xscale=0.0, yscale=0.0)       
+        al = Gtk.Alignment.new(xalign=1.0, yalign=1.0, xscale=0.0, yscale=0.0)       
         al.add(eb2)
         hbox.pack_start(al, True, True, 0)       
         self.bcaptable.show()
@@ -644,19 +671,19 @@ class Gui:
 
     def init_wcap_square(self, image, y, label):        
 
-        hb = gtk.HBox(False, 0)
+        hb = Gtk.HBox(False, 0)
         hb.show()
 
-        label.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.board_text_colour))        
+        label.modify_fg(Gtk.StateType.NORMAL, Gdk.color_parse(self.board_text_colour))        
 
-        fontdesc = pango.FontDescription("Monospace 15")
+        fontdesc = Pango.FontDescription("Monospace 15")
         label.modify_font(fontdesc)
         
         label.show()       
         hb.pack_start(label, True, True, 0)       
         self.wcap_label[y] = label
        
-        event_box = gtk.EventBox()
+        event_box = Gtk.EventBox()
         event_box.add(image)       
         
         hb.pack_start(event_box, True, True, 0) 
@@ -666,10 +693,10 @@ class Gui:
         hb.show()        
    
         event_box.show()        
-        event_box.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.board_komadai_colour))
+        event_box.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(self.board_komadai_colour))
         event_box.set_border_width(5) 
 
-        event_box.add_events(gtk.gdk.BUTTON_PRESS_MASK)       
+        event_box.add_events(Gdk.EventMask.BUTTON_PRESS_MASK)       
         data = (x, y, WHITE)
         event_box.connect('button_press_event', self.game.cap_square_clicked, data)        
         image.show()
@@ -677,7 +704,7 @@ class Gui:
 
         event_box.set_name("wcap_eb")
 
-        self.targets =  [( "text/plain", gtk.TARGET_SAME_APP, TARGET_TYPE_TEXT ) ] 
+        self.targets =  [( "text/plain", Gtk.TargetFlags.SAME_APP, TARGET_TYPE_TEXT ) ] 
 
         event_box.connect("drag_data_get", self.drag_and_drop.sendCallback)
         event_box.connect_after("drag_begin", self.drag_and_drop.drag_begin, (x, y))
@@ -686,18 +713,18 @@ class Gui:
 
     def init_bcap_square(self, image, y, label):
 
-        hb = gtk.HBox(False, 0)
+        hb = Gtk.HBox(False, 0)
         hb.show() 
 
-        label.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.board_text_colour))        
-        fontdesc = pango.FontDescription("Monospace 15")
+        label.modify_fg(Gtk.StateType.NORMAL, Gdk.color_parse(self.board_text_colour))        
+        fontdesc = Pango.FontDescription("Monospace 15")
         label.modify_font(fontdesc)
                 
         label.show()       
         hb.pack_end(label, True, True, 0)       
         self.bcap_label[y] = label
         
-        event_box = gtk.EventBox()
+        event_box = Gtk.EventBox()
         event_box.add(image)
        
         hb.pack_end(event_box, True, True, 0) 
@@ -708,10 +735,10 @@ class Gui:
         hb.show()        
    
         event_box.show()       
-        event_box.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.board_komadai_colour))
+        event_box.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(self.board_komadai_colour))
         event_box.set_border_width(5)        
 
-        event_box.add_events(gtk.gdk.BUTTON_PRESS_MASK)
+        event_box.add_events(Gdk.EventMask.BUTTON_PRESS_MASK)
         data = (x, y, BLACK)
         event_box.connect('button_press_event', self.game.cap_square_clicked, data)
        
@@ -720,7 +747,7 @@ class Gui:
 
         event_box.set_name("bcap_eb")
 
-        self.targets =  [( "text/plain", gtk.TARGET_SAME_APP, TARGET_TYPE_TEXT ) ] 
+        self.targets =  [( "text/plain", Gtk.TargetFlags.SAME_APP, TARGET_TYPE_TEXT ) ] 
 
         event_box.connect("drag_data_get", self.drag_and_drop.sendCallback)
         event_box.connect_after("drag_begin", self.drag_and_drop.drag_begin, (x, y))
@@ -734,8 +761,8 @@ class Gui:
         
         # allocation contains:
         #   x, y, width, height
-        window_width = self.window.allocation[2]
-        window_height = self.window.allocation[3]
+        window_width = self.window.get_allocation().width
+        window_height = self.window.get_allocation().height
 
         sq_width = window_width / 15
         sq_height = window_height / 15 
@@ -773,7 +800,7 @@ class Gui:
 
     # about box
     def about_box(self, widget):
-        about = gtk.AboutDialog()
+        about = Gtk.AboutDialog()
         #
         # set_program_name method is available in PyGTK 2.12 and above
         #
@@ -786,7 +813,7 @@ class Gui:
         about.set_comments("gshogi is a program to play shogi (Japanese Chess).")
         about.set_authors(["John Cheetham"])
         about.set_website("http://www.johncheetham.com/projects/gshogi/index.shtml")
-        about.set_logo(gtk.gdk.pixbuf_new_from_file(os.path.join(self.game.prefix, "images/logo.png")))
+        about.set_logo(GdkPixbuf.Pixbuf.new_from_file(os.path.join(self.game.prefix, "images/logo.png")))
 
         license = '''gshogi is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -841,9 +868,10 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
     # Connecting to the window configure event achieves this
     #
 
-    def configure_event(self, widget, event):              
-        gobject.idle_add(self.resize_pieces)      
-
+    def configure_event(self, widget, event):
+        #print "event=",event.height, event.width, widget.get_allocation().width,widget.get_allocation().height      
+        GObject.idle_add(self.resize_pieces) 
+        #self.resize_pieces()
 
     def resize_pieces(self):        
         self.board.refresh_screen()       
@@ -911,7 +939,7 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
         self.actiongroup.get_action('TimeControl').set_sensitive(True)
         self.actiongroup.get_action('MoveNow').set_sensitive(False)
         self.actiongroup.get_action('CommonEngineSettings').set_sensitive(True)
-        self.actiongroup.get_action('SetBoardColours').set_sensitive(True)
+        #self.actiongroup.get_action('SetBoardColours').set_sensitive(True)
 
         self.actiongroup.get_action('Edit').set_sensitive(True)
         # edit menu
@@ -946,14 +974,14 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
 
     def promote_popup(self):   
         
-        dialog = gtk.Dialog("Promotion",
+        dialog = Gtk.Dialog("Promotion",
             None,  
-            gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,              
-            ("Yes", gtk.RESPONSE_YES,
-             "No", gtk.RESPONSE_NO,
-             "Cancel", gtk.RESPONSE_CANCEL))         
+            Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,              
+            ("Yes", Gtk.ResponseType.YES,
+             "No", Gtk.ResponseType.NO,
+             "Cancel", Gtk.ResponseType.CANCEL))         
        
-        dialog.vbox.pack_start(gtk.Label('\nPromote piece?\n'))
+        dialog.vbox.pack_start(Gtk.Label('\nPromote piece?\n', True, True, 0))
 
         dialog.show_all()  
         
@@ -979,11 +1007,11 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
 
 
     def info_box(self, msg):
-        dialog = gtk.MessageDialog(
+        dialog = Gtk.MessageDialog(
             None,  
-            gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,  
-            gtk.MESSAGE_INFO,  
-            gtk.BUTTONS_OK,  
+            Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,  
+            Gtk.MessageType.INFO,  
+            Gtk.ButtonsType.OK,  
             None)
 
         #markup = "<b>" + msg + "</b>"
@@ -1002,11 +1030,11 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
 
 
     def ok_cancel_box(self, msg):
-        dialog = gtk.MessageDialog(
+        dialog = Gtk.MessageDialog(
             None,  
-            gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,  
-            gtk.MESSAGE_INFO,  
-            gtk.BUTTONS_OK_CANCEL,  
+            Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,  
+            Gtk.MessageType.INFO,  
+            Gtk.ButtonsType.OK_CANCEL,  
             None)
 
         #markup = "<b>" + msg + "</b>"
@@ -1066,27 +1094,27 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
             print "  piece_kanji_colour=",piece_kanji_colour
             print "  border_colour=",border_colour
             print "  grid_colour=",grid_colour
-
-        self.window.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(bg_colour))
-        self.komadaiw_eb.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(komadai_colour))
-        self.komadaib_eb.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(komadai_colour))
+        
+        self.window.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(bg_colour))
+        self.komadaiw_eb.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(komadai_colour))
+        self.komadaib_eb.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(komadai_colour))
 
         for i in range(0, 7):
-            self.web[i].modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(komadai_colour))
-            self.beb[i].modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(komadai_colour))
+            self.web[i].modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(komadai_colour))
+            self.beb[i].modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(komadai_colour))
             
-            self.wcap_label[i].modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse(text_colour))
-            self.bcap_label[i].modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse(text_colour))            
+            self.wcap_label[i].modify_fg(Gtk.StateType.NORMAL, Gdk.color_parse(text_colour))
+            self.bcap_label[i].modify_fg(Gtk.StateType.NORMAL, Gdk.color_parse(text_colour))            
 
         for i in range(0, 9):
             for j in range(0, 9):
-                self.eb[i][j].modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(square_colour))            
+                self.eb[i][j].modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(square_colour))            
                 
         # border surrounds the board and contains the co-ordinates
-        #self.border_eb.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(square_colour))
-        self.border_eb.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(border_colour))        
+        #self.border_eb.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(square_colour))
+        self.border_eb.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(border_colour))        
 
-        self.grid_eb.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(grid_colour))
+        self.grid_eb.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(grid_colour))
 
         self.pieces.change_piece_colours2(piece_fill_colour, piece_outline_colour, piece_kanji_colour)        
 
@@ -1130,7 +1158,7 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
         for sq in square_list:      
             # highlight the square
             x ,y = sq
-            self.eb[x][y].modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(hilite_colour))
+            self.eb[x][y].modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(hilite_colour))
        
             # add to list of highlighted squares
             self.highlighted.append(sq)
@@ -1143,7 +1171,7 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
         for sq in self.highlighted:            
             # unhighlight the square
             x ,y = sq
-            self.eb[x][y].modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(square_colour))
+            self.eb[x][y].modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(square_colour))
         self.highlighted = []
 
 
@@ -1177,31 +1205,31 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
                        "End" ]       
 
         # set up menu for black
-        self.bmenu = gtk.Menu()
-        menuitem = gtk.MenuItem("Black")
+        self.bmenu = Gtk.Menu()
+        menuitem = Gtk.MenuItem("Black")
         menuitem.set_sensitive(False)
         self.bmenu.append(menuitem)
-        #self.bmenu.append(gtk.SeparatorMenuItem())
+        #self.bmenu.append(Gtk.SeparatorMenuItem())
         for item_name in popup_items:
             if item_name == "Separator":
-                self.bmenu.append(gtk.SeparatorMenuItem())
+                self.bmenu.append(Gtk.SeparatorMenuItem())
                 continue
-            menuitem = gtk.MenuItem(item_name)
+            menuitem = Gtk.MenuItem(item_name)
             self.bmenu.append(menuitem)
             menuitem.connect("activate", self.edit_popup_callback, BLACK)
 
         
         # set up menu for white
-        self.wmenu = gtk.Menu()  
-        menuitem = gtk.MenuItem("White")
+        self.wmenu = Gtk.Menu()  
+        menuitem = Gtk.MenuItem("White")
         menuitem.set_sensitive(False)
         self.wmenu.append(menuitem)
-        #self.wmenu.append(gtk.SeparatorMenuItem())
+        #self.wmenu.append(Gtk.SeparatorMenuItem())
         for item_name in popup_items:
             if item_name == "Separator":
-                self.wmenu.append(gtk.SeparatorMenuItem())
+                self.wmenu.append(Gtk.SeparatorMenuItem())
                 continue
-            menuitem = gtk.MenuItem(item_name)
+            menuitem = Gtk.MenuItem(item_name)
             self.wmenu.append(menuitem)
             menuitem.connect("activate", self.edit_popup_callback, WHITE)
 
@@ -1285,21 +1313,21 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
         self.ed_x = x
         self.ed_y = y        
         if event.button == 1:      # left mouse button - display popup menu for black           
-            self.bmenu.popup(None, None, None, event.button, event.time, None)
+            self.bmenu.popup(None, None, None, None, event.button, event.time)
             self.bmenu.show_all()
         elif event.button == 3:    # right mouse button - display popup menu for white
-            self.wmenu.popup(None, None, None, event.button, event.time, None)
+            self.wmenu.popup(None, None, None, None, event.button, event.time)
             self.wmenu.show_all()
 
 
     # need to connect this routine to the expose event of what the co-ords are
     # drawn on (i.e. the event box). 
-    def draw_coords(self, widget, event):        
+    def draw_coords(self, widget, context):        
        
         if not self.show_coords:
             return
  
-        cr = widget.window.cairo_create()
+        cr = widget.get_window().cairo_create()
 
         #cr.set_source_rgb(0.0, 0.0, 0.0)  # black
         col = self.set_board_colours.get_text_colour()
@@ -1314,10 +1342,10 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
          
         cr.select_font_face("Monospace", cairo.FONT_SLANT_OBLIQUE, cairo.FONT_WEIGHT_NORMAL)
 
-        tb_x = self.table.allocation[0]
-        tb_y = self.table.allocation[1] 
-        tb_width = self.table.allocation[2]
-        tb_height = self.table.allocation[3]
+        tb_x = self.table.get_allocation().x
+        tb_y = self.table.get_allocation().y 
+        tb_width = self.table.get_allocation().width
+        tb_height = self.table.get_allocation().height
 
         sq_size = tb_width / 9
 
@@ -1334,8 +1362,12 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
 
         cr.set_font_size(font_size)       
 
-        xpos = event.area.x + (event.area.width - tb_width) / 2 + sq_size / 2
-        ypos = event.area.y + 14        
+        #xpos = event.area.x + (event.area.width - tb_width) / 2 + sq_size / 2
+        xpos = widget.get_allocation().x + (widget.get_allocation().width - tb_width) / 2 + sq_size / 2
+        xpos = (widget.get_allocation().width - tb_width) / 2 + sq_size / 2
+        #ypos = event.area.y + 14        
+        #ypos = widget.get_allocation().y + 14  
+        ypos = 14
         # show co-ordinate numbers above the board
         for num in range(1, 10):           
             cr.move_to(xpos, ypos)            
@@ -1343,8 +1375,12 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
             xpos = xpos + sq_size    
 
         # show co-ordinate letters to right of board
-        xpos = event.area.x + event.area.width - 14
-        ypos = event.area.y + (event.area.height - tb_height) / 2 + sq_size / 2       
+        #xpos = event.area.x + event.area.width - 14
+        #xpos = widget.get_allocation().x = widget.get_allocation().width -14
+        xpos = widget.get_allocation().width -14
+        #ypos = event.area.y + (event.area.height - tb_height) / 2 + sq_size / 2       
+        #ypos = widget.get_allocation().y + (widget.get_allocation().height - tb_height) / 2 + sq_size / 2
+        ypos = (widget.get_allocation().height - tb_height) / 2 + sq_size / 2
         let = "abcdefghi"
         for num in range(1, 10):          
             cr.move_to(xpos, ypos)
@@ -1355,7 +1391,7 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
 
 
     def preferences(self, action):        
-        self.builder = gtk.Builder()
+        self.builder = Gtk.Builder()
         self.builder.add_from_file(self.glade_file_preferences)
         self.builder.connect_signals(self)
         dialog = self.builder.get_object('preferences')

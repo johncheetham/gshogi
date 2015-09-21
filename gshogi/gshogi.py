@@ -22,14 +22,15 @@
 #   along with gshogi.  If not, see <http://www.gnu.org/licenses/>.
 #   
 
-import pygtk
-pygtk.require('2.0')
-import gtk
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk
+from gi.repository import Gdk
+from gi.repository import GObject
 
 import thread, traceback
 import sys
 import os
-import gobject
 import pickle
 import time
 
@@ -251,9 +252,9 @@ class Game:
                 # opposite side of the board.
                 if self.ask_before_promoting or piece == " s" or piece == " S":
                     response = self.gui.promote_popup()
-                    if (response == gtk.RESPONSE_CANCEL):
+                    if (response == Gtk.ResponseType.CANCEL):
                         return None
-                    if (response == gtk.RESPONSE_YES):                            
+                    if (response == Gtk.ResponseType.YES):                            
                         move = move + "+"
                 else:                        
                     move = move + "+"           
@@ -315,7 +316,7 @@ class Game:
             self.tc.start_clock(self.stm)            
 
             if not self.timer_active:
-                gobject.timeout_add(1000, self.tc.show_time)            
+                GObject.timeout_add(1000, self.tc.show_time)            
 
             return
             
@@ -363,7 +364,7 @@ class Game:
         self.tc.start_clock(self.stm)           
         
         if not self.timer_active:       
-            gobject.timeout_add(1000, self.tc.show_time)
+            GObject.timeout_add(1000, self.tc.show_time)
 
         self.gui.disable_menu_items()
         self.gui.disable_go_button()
@@ -443,12 +444,12 @@ class Game:
                 self.stm = self.get_side_to_move()                                
 
                 # update time for last move
-                gtk.gdk.threads_enter()
+                Gdk.threads_enter()
                 #self.tc.update_clock()                
                 self.gui.set_side_to_move(self.stm)
                 # set clock ready for move to come                
                 #self.tc.start_clock(self.stm)
-                gtk.gdk.threads_leave()
+                Gdk.threads_leave()
 
                 if self.verbose:
                     print "#"
@@ -456,9 +457,9 @@ class Game:
                     print "#"                
 
                 if self.player[self.stm] == "Human":
-                    gtk.gdk.threads_enter()
+                    Gdk.threads_enter()
                     self.gui.apply_drag_and_drop_settings(self.player[self.stm], self.stm)
-                    gtk.gdk.threads_leave()
+                    Gdk.threads_leave()
                     self.thinking = False
                     self.tc.start_clock(self.stm)                              
                     return
@@ -510,10 +511,10 @@ class Game:
                         self.thinking = False
                         colour = self.get_side_to_move_string(self.stm)                        
                         msg = "game over - " + colour + " resigned"
-                        gtk.gdk.threads_enter()
+                        Gdk.threads_enter()
                         self.stop()
                         self.gui.set_status_bar_msg(msg)                        
-                        gtk.gdk.threads_leave()                        
+                        Gdk.threads_leave()                        
                         self.thinking = False 
                         return
                     
@@ -521,10 +522,10 @@ class Game:
                     engine.setplayer(self.stm)            
                     validmove = engine.hmove(self.cmove)             
                     if (not validmove):
-                        gtk.gdk.threads_enter()
+                        Gdk.threads_enter()
                         self.stop()
                         self.gui.set_status_bar_msg(self.cmove + " - computer made illegal Move!")                        
-                        gtk.gdk.threads_leave()
+                        Gdk.threads_leave()
                         self.gameover = True                        
                         self.thinking = False                 
                         return                    
@@ -537,18 +538,18 @@ class Game:
                     #
 
                     if self.player[self.stm ^ 1] == "Human":
-                        gtk.gdk.threads_enter()                    
+                        Gdk.threads_enter()                    
                         self.gui.set_status_bar_msg('Thinking ...')
-                        gtk.gdk.threads_leave() 
+                        Gdk.threads_leave() 
 
                     # set the computer to black or white                                       
                     engine.setplayer(self.stm ^ 1)                    
-                    
+
                     # start the clock
                     #print "starting clock from gshogi.py"
-                    gtk.gdk.threads_enter()                 
+                    Gdk.threads_enter()                 
                     self.tc.start_clock(self.stm)
-                    gtk.gdk.threads_leave()                    
+                    Gdk.threads_leave()                    
 
                     # set time limit/level for move in gshogi engine
                     self.tc.set_gshogi_time_limit(self.stm)                   
@@ -557,30 +558,30 @@ class Game:
                     self.cmove = engine.cmove()                   
 
                     # update time for last move
-                    gtk.gdk.threads_enter()
+                    Gdk.threads_enter()
                     #print "updating clock from gshogi.py"                    
                     self.tc.update_clock()                
                     self.gui.set_side_to_move(self.stm)        
-                    gtk.gdk.threads_leave()                                                                             
+                    Gdk.threads_leave()                                                                             
 
                     if self.quitting:
                         return                  
 
                     if self.stopped:                        
                         self.thinking = False
-                        gtk.gdk.threads_enter()
+                        Gdk.threads_enter()
                         self.gui.set_status_bar_msg("stopped")                        
-                        gtk.gdk.threads_leave()
+                        Gdk.threads_leave()
                         engine.command('undo')                        
                         return                                                    
-                           
+
                 if self.cmove != '':
                     self.movelist.append(self.cmove)
                     self.redolist = []
                     # highlight the move by changing square colours
-                    gtk.gdk.threads_enter()
+                    Gdk.threads_enter()
                     self.hilite_move(self.cmove)
-                    gtk.gdk.threads_leave() 
+                    Gdk.threads_leave() 
                 else:
                     # empty move is returned by gshogi engine when it is in checkmate
                     if self.verbose: print "empty move returned by engine"
@@ -600,10 +601,10 @@ class Game:
 
                 #self.board.save_board(len(self.movelist))
                 # show computer move              
-                gtk.gdk.threads_enter()
+                Gdk.threads_enter()
                 self.board.update()
                 self.move_list.update()
-                gtk.gdk.threads_leave()    
+                Gdk.threads_leave()    
     
 
                 #if self.player[self.stm] != 'gshogi' and self.engine_manager.get_ponder():                    
@@ -624,17 +625,17 @@ class Game:
                         msg = msg + ". " + gmsg                                   
                     self.thinking = False
                     self.stm = self.get_side_to_move()
-                    gtk.gdk.threads_enter()
+                    Gdk.threads_enter()
                     self.stop()                
                     self.gui.set_side_to_move(self.stm)                    
                     self.gui.set_status_bar_msg(msg)                    
-                    gtk.gdk.threads_leave()                 
+                    Gdk.threads_leave()                 
                     return    
 
                 msg = self.get_side_to_move_string(self.stm) + ": " + msg
-                gtk.gdk.threads_enter()
+                Gdk.threads_enter()
                 self.gui.set_status_bar_msg(msg)
-                gtk.gdk.threads_leave()                
+                Gdk.threads_leave()                
 
             self.thinking = False 
         except:            
@@ -719,7 +720,7 @@ class Game:
         self.save_settings()         
         self.usib.stop_engine() 
         self.usiw.stop_engine()      
-        gtk.main_quit()
+        Gtk.main_quit()
         return False
 
 
@@ -975,8 +976,8 @@ class Game:
 
 
     #
-    # called from gui.py when undo button click on toolbar (passed widget is gtk.ToolButton object)
-    # and when undo move is selected from menu (or ctrl-u is pressed) (passed widget is gtk.Action object) 
+    # called from gui.py when undo button click on toolbar (passed widget is Gtk.ToolButton object)
+    # and when undo move is selected from menu (or ctrl-u is pressed) (passed widget is Gtk.Action object) 
     #
     def undo_single_move(self, b):        
         engine.command('undo')
@@ -1038,8 +1039,8 @@ class Game:
 
 
     #
-    # called from gui.py when redo button click on toolbar (passed widget is gtk.ToolButton object)
-    # and when redo move is selected from menu (or ctrl-r is pressed) (passed widget is gtk.Action object) 
+    # called from gui.py when redo button click on toolbar (passed widget is Gtk.ToolButton object)
+    # and when redo move is selected from menu (or ctrl-r is pressed) (passed widget is Gtk.Action object) 
     #
     def redo_single_move(self, widget):               
         move = None        
@@ -1220,19 +1221,19 @@ class Game:
 
 
     def set_players(self, b):
-        dialog = gtk.Dialog("Players", None, 0, (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OK, gtk.RESPONSE_OK)) 
+        dialog = Gtk.Dialog("Players", None, 0, (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK)) 
         dialog.set_title('Set Players')
     
         elist = self.engine_manager.get_engine_list()       
         
         # White Player 
-        fr = gtk.Frame("White")
+        fr = Gtk.Frame.new("White")
         dialog.vbox.pack_start(fr, True, True, 15)
         #dialog.vbox.set_spacing(20)
-        vb = gtk.VBox(False, 0)
+        vb = Gtk.VBox(False, 0)
         fr.add(vb)
                
-        comboboxw = gtk.combo_box_new_text()        
+        comboboxw = Gtk.ComboBoxText()        
         comboboxw.append_text("Human")
         
         if self.player[WHITE] == "Human":
@@ -1249,12 +1250,12 @@ class Game:
 
 
         # Black Player 
-        fr = gtk.Frame("Black")
+        fr = Gtk.Frame.new("Black")
         dialog.vbox.pack_start(fr, True, True, 15)
-        vb = gtk.VBox(False, 0)
+        vb = Gtk.VBox(False, 0)
         fr.add(vb)
                        
-        comboboxb = gtk.combo_box_new_text()
+        comboboxb = Gtk.ComboBoxText()
         comboboxb.append_text("Human")
         if self.player[BLACK] == "Human":
             comboboxb.set_active(0)
@@ -1271,7 +1272,7 @@ class Game:
 
 
         # If user hasn't clicked on OK then exit now
-        if dialog.run() != gtk.RESPONSE_OK:
+        if dialog.run() != Gtk.ResponseType.OK:
             dialog.destroy()
             return                
         
@@ -1290,25 +1291,25 @@ class Game:
     """
     def set_level(self, b):        
         
-        dialog = gtk.MessageDialog(
+        dialog = Gtk.MessageDialog(
             None,  
-            gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,  
-            gtk.MESSAGE_QUESTION,  
-            gtk.BUTTONS_OK_CANCEL,  
+            Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,  
+            Gtk.MessageType.QUESTION,  
+            Gtk.ButtonsType.OK_CANCEL,  
             None)
         dialog.set_title('Configure Engine')    
         markup = "<b>gShogi</b>"
         dialog.set_markup(markup)       
 
-        adj = gtk.Adjustment(float(self.search_depth), float(0), float(39), 1, 5, 0)               
-        spinner = gtk.SpinButton(adj, 1.0, 0)        
-        al = gtk.Alignment(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
+        adj = Gtk.Adjustment(float(self.search_depth), float(0), float(39), 1, 5, 0)               
+        spinner = Gtk.SpinButton(adj, 1.0, 0)        
+        al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
         al.add(spinner)
         al.show()
         spinner.show()        
 
-        tbl = gtk.Table(1, 2, True)
-        tbl.attach(gtk.Label("Search Depth:"), 0, 1, 0, 1)
+        tbl = Gtk.Table(1, 2, True)
+        tbl.attach(Gtk.Label(label="Search Depth:"), 0, 1, 0, 1)
         tbl.attach(al, 1, 2, 0, 1)       
 
         #some secondary text        
@@ -1321,7 +1322,7 @@ class Game:
         dialog.show_all()        
 
         # If user hasn't clicked on OK then exit now
-        if dialog.run() != gtk.RESPONSE_OK:
+        if dialog.run() != Gtk.ResponseType.OK:
             dialog.destroy()
             return
 
@@ -1357,12 +1358,12 @@ class Settings:
 
 
 def run():
-    Game()        
-    #gobject.threads_init()
-    gtk.gdk.threads_init() 
-    gtk.gdk.threads_enter()   
-    gtk.main()
-    gtk.gdk.threads_leave()
+    Game()    
+    Gdk.threads_init()
+    GObject.threads_init()
+    Gdk.threads_enter()   
+    Gtk.main()
+    Gdk.threads_leave()
     return 0     
 
 if __name__ == "__main__":        

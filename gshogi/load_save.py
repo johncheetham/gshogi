@@ -17,7 +17,7 @@
 #   along with gshogi.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import gtk
+from gi.repository import Gtk
 import os
 import codecs
 from datetime import date
@@ -50,31 +50,31 @@ class Load_Save:
     # Load game from a previously saved game    
     def load_game(self, b):        
         
-        dialog = gtk.FileChooserDialog("Load..",
+        dialog = Gtk.FileChooserDialog("Load..",
                                None,
-                               gtk.FILE_CHOOSER_ACTION_OPEN,
-                               (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-                                gtk.STOCK_OPEN, gtk.RESPONSE_OK))
-        dialog.set_default_response(gtk.RESPONSE_OK)
+                               Gtk.FileChooserAction.OPEN,
+                               (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+                                Gtk.STOCK_OPEN, Gtk.ResponseType.OK))
+        dialog.set_default_response(Gtk.ResponseType.OK)
         dialog.set_current_folder(os.path.expanduser("~"))
 
-        filter = gtk.FileFilter()  
+        filter = Gtk.FileFilter()  
         filter.set_name("psn files") 
         filter.add_pattern("*.psn")              
         dialog.add_filter(filter)    
 
-        filter = gtk.FileFilter()  
+        filter = Gtk.FileFilter()  
         filter.set_name("gshog files")         
         filter.add_pattern("*.gshog")        
         dialog.add_filter(filter)     
 
-        filter = gtk.FileFilter()
+        filter = Gtk.FileFilter()
         filter.set_name("All files")
         filter.add_pattern("*")
         dialog.add_filter(filter)        
 
         response = dialog.run()
-        if response != gtk.RESPONSE_OK:
+        if response != Gtk.ResponseType.OK:
             dialog.destroy()
             return
 
@@ -258,31 +258,31 @@ class Load_Save:
     # Save game to a file   
     def save_game(self, b):        
 
-        dialog = gtk.FileChooserDialog("Save..",
+        dialog = Gtk.FileChooserDialog("Save..",
                                None,
-                               gtk.FILE_CHOOSER_ACTION_SAVE,
-                               (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-                                gtk.STOCK_SAVE, gtk.RESPONSE_OK))
-        dialog.set_default_response(gtk.RESPONSE_OK)
+                               Gtk.FileChooserAction.SAVE,
+                               (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+                                Gtk.STOCK_SAVE, Gtk.ResponseType.OK))
+        dialog.set_default_response(Gtk.ResponseType.OK)
         dialog.set_current_folder(os.path.expanduser("~"))
 
-        filter = gtk.FileFilter()  
+        filter = Gtk.FileFilter()  
         filter.set_name("psn files") 
         filter.add_pattern("*.psn")              
         dialog.add_filter(filter)  
 
-        filter = gtk.FileFilter()  
+        filter = Gtk.FileFilter()  
         filter.set_name("gshog files")      
         filter.add_pattern("*.gshog")        
         dialog.add_filter(filter)              
 
-        filter = gtk.FileFilter()
+        filter = Gtk.FileFilter()
         filter.set_name("All files")
         filter.add_pattern("*")
         dialog.add_filter(filter)        
 
         response = dialog.run()
-        if response == gtk.RESPONSE_OK:                        
+        if response == Gtk.ResponseType.OK:                        
 
             startpos = self.game.get_startpos()
 
@@ -299,7 +299,7 @@ class Load_Save:
             # If file already exists then ask before overwriting
             if os.path.isfile(filename):
                 resp = self.gui.ok_cancel_box("Warning - file already exists and will be replaced.\nPress Cancel if you do not want to overwrite it.")                
-                if resp == gtk.RESPONSE_CANCEL:
+                if resp == Gtk.ResponseType.CANCEL:
                     dialog.destroy()                    
                     return               
 

@@ -17,10 +17,10 @@
 #   along with gshogi.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import gtk
-import gobject
+from gi.repository import Gtk
+from gi.repository import GObject
 import os
-import pango
+from gi.repository import Pango
 
 import utils
 from constants import *
@@ -35,45 +35,45 @@ class Engine_Output:
         self.glade_file = os.path.join(glade_dir, "engine_output.glade")       
         Engine_Output.engine_output_ref = self       
        
-        self.builder = gtk.Builder()
+        self.builder = Gtk.Builder()
         self.builder.add_from_file(self.glade_file)
         self.builder.connect_signals(self)
 
         self.window = self.builder.get_object('engine_output_window')
-        self.tv = [gtk.TextView(), gtk.TextView()]
+        self.tv = [Gtk.TextView(), Gtk.TextView()]
         self.tv[0] = self.builder.get_object('engine_output_textview1')
         self.tv[1] = self.builder.get_object('engine_output_textview2')
         self.tv[0].set_editable(False)
         self.tv[1].set_editable(False)
 
-        tabs =  pango.TabArray(4, True)
-        tabs.set_tab(0, pango.TAB_LEFT, 40)
-        tabs.set_tab(1, pango.TAB_LEFT, 160)
-        tabs.set_tab(2, pango.TAB_LEFT, 230)
-        tabs.set_tab(3, pango.TAB_LEFT, 280)
+        tabs =  Pango.TabArray.new(4, True)
+        tabs.set_tab(0, Pango.TabAlign.LEFT, 40)
+        tabs.set_tab(1, Pango.TabAlign.LEFT, 160)
+        tabs.set_tab(2, Pango.TabAlign.LEFT, 230)
+        tabs.set_tab(3, Pango.TabAlign.LEFT, 280)
 
         self.tv[0].set_tabs(tabs)
         self.tv[1].set_tabs(tabs)
 
-        self.tb = [gtk.TextBuffer(), gtk.TextBuffer()] 
+        self.tb = [Gtk.TextBuffer(), Gtk.TextBuffer()] 
         self.tb[0] = self.tv[0].get_buffer()
         self.tb[1] = self.tv[1].get_buffer() 
         #self.tb[0].set_text('')
         #self.tb[1].set_text('')               
 
-        self.nps_lbl = [gtk.Label(), gtk.Label()]
+        self.nps_lbl = [Gtk.Label(), Gtk.Label()]
         self.nps_lbl[0] = self.builder.get_object('engine_output_nodes_lbl1')
         self.nps_lbl[1] = self.builder.get_object('engine_output_nodes_lbl2')
         
-        self.engine_name_lbl = [gtk.Label(), gtk.Label()]
+        self.engine_name_lbl = [Gtk.Label(), Gtk.Label()]
         self.engine_name_lbl[0] = self.builder.get_object('engine_output_engine_name_lbl1')
         self.engine_name_lbl[1] = self.builder.get_object('engine_output_engine_name_lbl2')
        
-        self.ponder_move_lbl = [gtk.Label(), gtk.Label()]
+        self.ponder_move_lbl = [Gtk.Label(), Gtk.Label()]
         self.ponder_move_lbl[0] = self.builder.get_object('engine_output_ponder_move_lbl1')
         self.ponder_move_lbl[1] = self.builder.get_object('engine_output_ponder_move_lbl2')       
 
-        self.currmove_lbl = [gtk.Label(), gtk.Label()]
+        self.currmove_lbl = [Gtk.Label(), Gtk.Label()]
         self.currmove_lbl[0] = self.builder.get_object('engine_output_currmove_lbl1')
         self.currmove_lbl[1] = self.builder.get_object('engine_output_currmove_lbl2')
  

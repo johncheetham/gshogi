@@ -17,8 +17,8 @@
 #   along with gshogi.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import gtk
-import gobject
+from gi.repository import Gtk
+from gi.repository import GObject
 import os
 import usi
 import time
@@ -149,12 +149,12 @@ class Time_Control:
     # gui for changing time control settings
     #
     def time_control(self, b):
-        dialog = gtk.Dialog("Time Control", None, 0, (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OK, gtk.RESPONSE_OK))  
+        dialog = Gtk.Dialog("Time Control", None, 0, (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK))  
         dialog.set_title('Time Control')        
         dialog.vbox.set_spacing(20)
 
         # list of time control types               
-        combobox = gtk.combo_box_new_text()
+        combobox = Gtk.ComboBoxText()
         combobox.append_text("Byoyomi")
         combobox.append_text("Classical")
         combobox.append_text("Incremental")
@@ -164,14 +164,14 @@ class Time_Control:
         combobox.append_text("Nodes")        
         combobox.set_active(self.type)              
         
-        al = gtk.Alignment(xalign=0.0, yalign=1.0, xscale=0.0, yscale=0.5)
+        al = Gtk.Alignment.new(xalign=0.0, yalign=1.0, xscale=0.0, yscale=0.5)
         # top, bottom, left, right
         al.set_padding(9, 0, 9, 9)
         al.add(combobox)
         dialog.vbox.pack_start(al, False, True, 5)
         self.combobox = combobox
 
-        dialog.connect("expose_event", self.dialog_expose_event)          
+        dialog.connect("draw", self.dialog_expose_event)          
 
         #
         # settings for the byoyomi time control type
@@ -182,23 +182,23 @@ class Time_Control:
         #
 
         # list of time control vboxes. 1 per time control type
-        self.tcvb = [gtk.VBox(False, 0), gtk.VBox(False, 0), gtk.VBox(False, 0), gtk.VBox(False, 0), gtk.VBox(False, 0), gtk.VBox(False, 0), gtk.VBox(False, 0), gtk.VBox(False, 0) ]
+        self.tcvb = [Gtk.VBox(False, 0), Gtk.VBox(False, 0), Gtk.VBox(False, 0), Gtk.VBox(False, 0), Gtk.VBox(False, 0), Gtk.VBox(False, 0), Gtk.VBox(False, 0), Gtk.VBox(False, 0) ]
 
         
-        byo_frame1 = gtk.Frame("Available Time")
-        vb = gtk.VBox(False, 0)
+        byo_frame1 = Gtk.Frame.new("Available Time")
+        vb = Gtk.VBox(False, 0)
         byo_frame1.add(vb)       
 
         # available time - hours
         minimum = 0
         maximum = 10
         default = self.byo_hours        
-        byo_adj_hours = gtk.Adjustment(float(default), float(minimum), float(maximum), 1, 5, 0)               
-        spinner = gtk.SpinButton(byo_adj_hours, 1.0, 0)        
-        al = gtk.Alignment(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
+        byo_adj_hours = Gtk.Adjustment(float(default), float(minimum), float(maximum), 1, 5, 0)               
+        spinner = Gtk.SpinButton.new(byo_adj_hours, 1.0, 0)        
+        al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
         al.add(spinner)
-        hb = gtk.HBox(False, 0)
-        hb.pack_start(gtk.Label("Hours:"), False, False, 0)        
+        hb = Gtk.HBox(False, 0)
+        hb.pack_start(Gtk.Label("Hours:"), False, False, 0)        
         hb.pack_start(al, True, True, 10)
         vb.pack_start(hb, False, True, 0)
         
@@ -206,27 +206,27 @@ class Time_Control:
         minimum = 0
         maximum = 59
         default = self.byo_minutes             
-        byo_adj_mins = gtk.Adjustment(float(default), float(minimum), float(maximum), 1, 5, 0)               
-        spinner = gtk.SpinButton(byo_adj_mins, 1.0, 0)        
-        al = gtk.Alignment(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
+        byo_adj_mins = Gtk.Adjustment(float(default), float(minimum), float(maximum), 1, 5, 0)               
+        spinner = Gtk.SpinButton.new(byo_adj_mins, 1.0, 0)        
+        al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
         al.add(spinner)        
-        lbl = gtk.Label("Minutes :")
-        hb = gtk.HBox(False, 0)
+        lbl = Gtk.Label(label="Minutes :")
+        hb = Gtk.HBox(False, 0)
         hb.pack_start(lbl, False, False, 0)
         hb.pack_start(al, True, True, 10)
         vb.pack_start(hb, False, True, 0)       
 
         # byoyomi - seconds
-        byo_frame2 = gtk.Frame("Byoyomi")        
+        byo_frame2 = Gtk.Frame.new("Byoyomi")        
         minimum = 0
         maximum = 60
         default = self.byo_byoyomi        
-        byo_adj_byoyomi = gtk.Adjustment(float(default), float(minimum), float(maximum), 1, 5, 0)               
-        spinner = gtk.SpinButton(byo_adj_byoyomi, 1.0, 0)        
-        al = gtk.Alignment(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
+        byo_adj_byoyomi = Gtk.Adjustment(float(default), float(minimum), float(maximum), 1, 5, 0)               
+        spinner = Gtk.SpinButton.new(byo_adj_byoyomi, 1.0, 0)        
+        al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
         al.add(spinner)
-        hb = gtk.HBox(False, 0)
-        hb.pack_start(gtk.Label("Seconds:"), False, False, 0)        
+        hb = Gtk.HBox(False, 0)
+        hb.pack_start(Gtk.Label("Seconds:"), False, False, 0)        
         hb.pack_start(al, True, True, 10)
         byo_frame2.add(hb)
         
@@ -242,8 +242,8 @@ class Time_Control:
         #       go wtime 300000 btime 300000 movestogo 40
         #
         
-        cls_frame1 = gtk.Frame()
-        vb = gtk.VBox(False, 0)
+        cls_frame1 = Gtk.Frame()
+        vb = Gtk.VBox(False, 0)
         cls_frame1.add(vb)       
 
         adj_cls_settings = []                     
@@ -253,12 +253,12 @@ class Time_Control:
             (moves_to_go, minutes, repeat_times) = self.cls_settings[i]
 
             # session
-            hb = gtk.HBox(False, 0)
+            hb = Gtk.HBox(False, 0)
             if i != 0:
-                vb.pack_start(gtk.HSeparator(), False, True, 0)
-            hb.pack_start(gtk.Label('#' + str(i + 1)), False, False, 0)
+                vb.pack_start(Gtk.HSeparator(), False, True, 0)
+            hb.pack_start(Gtk.Label('#' + str(i + 1)), False, False, 0)
             #if i != 0:
-            #    hb.pack_start(gtk.CheckButton(), True, True, 10)
+            #    hb.pack_start(Gtk.CheckButton(, True, True, 0), True, True, 10)
             vb.pack_start(hb, False, True, 0)
 
             # moves
@@ -270,12 +270,12 @@ class Time_Control:
             #    default = 40  
             #else:              
             #    default = 0        
-            adj_moves_to_go = gtk.Adjustment(float(default), float(minimum), float(maximum), 1, 5, 0)               
-            spinner = gtk.SpinButton(adj_moves_to_go, 1.0, 0)            
-            al = gtk.Alignment(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
+            adj_moves_to_go = Gtk.Adjustment(float(default), float(minimum), float(maximum), 1, 5, 0)               
+            spinner = Gtk.SpinButton.new(adj_moves_to_go, 1.0, 0)            
+            al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
             al.add(spinner)
-            hb = gtk.HBox(False, 0)
-            hb.pack_start(gtk.Label("Moves:"), False, False, 0)        
+            hb = Gtk.HBox(False, 0)
+            hb.pack_start(Gtk.Label("Moves:"), False, False, 0)        
             hb.pack_start(al, True, True, 10)                        
             vb.pack_start(hb, False, True, 0)
 
@@ -288,12 +288,12 @@ class Time_Control:
             #    default = 5
             #else:
             #    default = 0             
-            adj_cls_mins = gtk.Adjustment(float(default), float(minimum), float(maximum), 1, 5, 0)               
-            spinner = gtk.SpinButton(adj_cls_mins, 1.0, 0)        
-            al = gtk.Alignment(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
+            adj_cls_mins = Gtk.Adjustment(float(default), float(minimum), float(maximum), 1, 5, 0)               
+            spinner = Gtk.SpinButton.new(adj_cls_mins, 1.0, 0)        
+            al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
             al.add(spinner)        
-            lbl = gtk.Label("Minutes :")
-            hb = gtk.HBox(False, 0)
+            lbl = Gtk.Label(label="Minutes :")
+            hb = Gtk.HBox(False, 0)
             hb.pack_start(lbl, False, False, 0)
             hb.pack_start(al, True, True, 10)
             vb.pack_start(hb, False, True, 0)
@@ -306,21 +306,21 @@ class Time_Control:
             #    default = 1
             #else:
             #    default = 0             
-            adj_cls_repeat = gtk.Adjustment(float(default), float(minimum), float(maximum), 1, 5, 0)               
-            spinner = gtk.SpinButton(adj_cls_repeat, 1.0, 0)        
-            al = gtk.Alignment(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
+            adj_cls_repeat = Gtk.Adjustment(float(default), float(minimum), float(maximum), 1, 5, 0)               
+            spinner = Gtk.SpinButton.new(adj_cls_repeat, 1.0, 0)        
+            al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
             al.add(spinner)        
-            lbl = gtk.Label("Count :")
-            hb = gtk.HBox(False, 0)
+            lbl = Gtk.Label(label="Count :")
+            hb = Gtk.HBox(False, 0)
             hb.pack_start(lbl, False, False, 0)
             hb.pack_start(al, True, True, 10)
             vb.pack_start(hb, False, True, 0)
 
             # enabled
-            #lbl = gtk.Label("Enabled :")
-            #hb = gtk.HBox(False, 0)
+            #lbl = Gtk.Label(label="Enabled :")
+            #hb = Gtk.HBox(False, 0)
             #hb.pack_start(lbl, False, False, 0)      
-            #hb.pack_start(gtk.CheckButton(), True, True, 10)
+            #hb.pack_start(Gtk.CheckButton(, True, True, 0), True, True, 10)
             #vb.pack_start(hb, False, True, 0)
 
             adj_cls_settings.append((adj_moves_to_go, adj_cls_mins, adj_cls_repeat))
@@ -335,20 +335,20 @@ class Time_Control:
         # go wtime 130591 btime 118314 winc 6000 binc 6000
         # go wtime 135329 btime 118947 winc 6000 binc 6000        
 
-        inc_frame1 = gtk.Frame("Time")
-        vb = gtk.VBox(False, 0)
+        inc_frame1 = Gtk.Frame.new("Time")
+        vb = Gtk.VBox(False, 0)
         inc_frame1.add(vb)       
 
         # available time - hours
         minimum = 0
         maximum = 10
         default = self.inc_hours        
-        inc_adj_hours = gtk.Adjustment(float(default), float(minimum), float(maximum), 1, 5, 0)               
-        spinner = gtk.SpinButton(inc_adj_hours, 1.0, 0)        
-        al = gtk.Alignment(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
+        inc_adj_hours = Gtk.Adjustment(float(default), float(minimum), float(maximum), 1, 5, 0)               
+        spinner = Gtk.SpinButton.new(inc_adj_hours, 1.0, 0)        
+        al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
         al.add(spinner)
-        hb = gtk.HBox(False, 0)
-        hb.pack_start(gtk.Label("Hours:"), False, False, 0)        
+        hb = Gtk.HBox(False, 0)
+        hb.pack_start(Gtk.Label("Hours:"), False, False, 0)        
         hb.pack_start(al, True, True, 10)
         vb.pack_start(hb, False, True, 0)
         
@@ -356,27 +356,27 @@ class Time_Control:
         minimum = 0
         maximum = 59
         default = self.inc_minutes             
-        inc_adj_mins = gtk.Adjustment(float(default), float(minimum), float(maximum), 1, 5, 0)               
-        spinner = gtk.SpinButton(inc_adj_mins, 1.0, 0)        
-        al = gtk.Alignment(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
+        inc_adj_mins = Gtk.Adjustment(float(default), float(minimum), float(maximum), 1, 5, 0)               
+        spinner = Gtk.SpinButton.new(inc_adj_mins, 1.0, 0)        
+        al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
         al.add(spinner)        
-        lbl = gtk.Label("Minutes :")
-        hb = gtk.HBox(False, 0)
+        lbl = Gtk.Label(label="Minutes :")
+        hb = Gtk.HBox(False, 0)
         hb.pack_start(lbl, False, False, 0)
         hb.pack_start(al, True, True, 10)
         vb.pack_start(hb, False, True, 0)       
 
         # bonus time per move - seconds
-        inc_frame2 = gtk.Frame("Bonus Time per Move")        
+        inc_frame2 = Gtk.Frame.new("Bonus Time per Move")        
         minimum = 0
         maximum = 60
         default = self.inc_bonus        
-        inc_adj_bonus = gtk.Adjustment(float(default), float(minimum), float(maximum), 1, 5, 0)               
-        spinner = gtk.SpinButton(inc_adj_bonus, 1.0, 0)        
-        al = gtk.Alignment(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
+        inc_adj_bonus = Gtk.Adjustment(float(default), float(minimum), float(maximum), 1, 5, 0)               
+        spinner = Gtk.SpinButton.new(inc_adj_bonus, 1.0, 0)        
+        al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
         al.add(spinner)
-        hb = gtk.HBox(False, 0)
-        hb.pack_start(gtk.Label("Seconds:"), False, False, 0)        
+        hb = Gtk.HBox(False, 0)
+        hb.pack_start(Gtk.Label("Seconds:"), False, False, 0)        
         hb.pack_start(al, True, True, 10)
         inc_frame2.add(hb)
         
@@ -391,22 +391,22 @@ class Time_Control:
         #       e.g. 6 seconds per move
         #       go movetime 6000
               
-        #ftpm_frame1 = gtk.Frame("Fixed Time Per Move")
-        ftpm_frame1 = gtk.Frame()
-        ftpm_frame1.set_shadow_type(gtk.SHADOW_NONE)
-        vb = gtk.VBox(False, 0)
+        #ftpm_frame1 = Gtk.Frame("Fixed Time Per Move")
+        ftpm_frame1 = Gtk.Frame()
+        ftpm_frame1.set_shadow_type(Gtk.ShadowType.NONE)
+        vb = Gtk.VBox(False, 0)
         ftpm_frame1.add(vb)       
 
         # seconds per move
         minimum = 0
         maximum = 10000
         default = self.ftpm_seconds             
-        adj_ftpm_secs = gtk.Adjustment(float(default), float(minimum), float(maximum), 1, 5, 0)               
-        spinner = gtk.SpinButton(adj_ftpm_secs, 1.0, 0)        
-        al = gtk.Alignment(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
+        adj_ftpm_secs = Gtk.Adjustment(float(default), float(minimum), float(maximum), 1, 5, 0)               
+        spinner = Gtk.SpinButton.new(adj_ftpm_secs, 1.0, 0)        
+        al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
         al.add(spinner)        
-        lbl = gtk.Label("Seconds :")
-        hb = gtk.HBox(False, 0)
+        lbl = Gtk.Label(label="Seconds :")
+        hb = Gtk.HBox(False, 0)
         hb.pack_start(lbl, False, False, 0)
         hb.pack_start(al, True, True, 10)
         vb.pack_start(hb, False, True, 0)
@@ -420,21 +420,21 @@ class Time_Control:
         #   fixed search depth
         #       e.g.
         #       go depth 8        
-        dpth_frame1 = gtk.Frame()
-        dpth_frame1.set_shadow_type(gtk.SHADOW_NONE)
-        vb = gtk.VBox(False, 0)
+        dpth_frame1 = Gtk.Frame()
+        dpth_frame1.set_shadow_type(Gtk.ShadowType.NONE)
+        vb = Gtk.VBox(False, 0)
         dpth_frame1.add(vb)       
 
         # depth
         minimum = 0
         maximum = 999
         default = self.dpth_depth             
-        adj_dpth_depth = gtk.Adjustment(float(default), float(minimum), float(maximum), 1, 5, 0)               
-        spinner = gtk.SpinButton(adj_dpth_depth, 1.0, 0)        
-        al = gtk.Alignment(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
+        adj_dpth_depth = Gtk.Adjustment(float(default), float(minimum), float(maximum), 1, 5, 0)               
+        spinner = Gtk.SpinButton.new(adj_dpth_depth, 1.0, 0)        
+        al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
         al.add(spinner)        
-        lbl = gtk.Label("Search Depth :")
-        hb = gtk.HBox(False, 0)
+        lbl = Gtk.Label(label="Search Depth :")
+        hb = Gtk.HBox(False, 0)
         hb.pack_start(lbl, False, False, 0)
         hb.pack_start(al, True, True, 10)
         vb.pack_start(hb, False, True, 0)
@@ -447,8 +447,7 @@ class Time_Control:
         # go infinite
 
         # there are no cutomisable options for go infinite
-        self.tcvb[5].pack_start(gtk.Label("No customisable options"))         
-
+        self.tcvb[5].pack_start(Gtk.Label("No customisable options"), True, True, 0)
         
         #
         # settings for the fixed no. of nodes time control type
@@ -456,21 +455,21 @@ class Time_Control:
         #   fixed no. of nodes
         #       e.g. search for 1 million nodes
         #       go nodes 1000000 
-        nodes_frame1 = gtk.Frame()
-        nodes_frame1.set_shadow_type(gtk.SHADOW_NONE)
-        vb = gtk.VBox(False, 0)
+        nodes_frame1 = Gtk.Frame()
+        nodes_frame1.set_shadow_type(Gtk.ShadowType.NONE)
+        vb = Gtk.VBox(False, 0)
         nodes_frame1.add(vb)       
 
         # nodes
         minimum = 1
         maximum = 2000000000                 
         default = self.nodes_nodes             
-        adj_nodes_nodes = gtk.Adjustment(float(default), float(minimum), float(maximum), 1, 5, 0)               
-        spinner = gtk.SpinButton(adj_nodes_nodes, 1.0, 0)        
-        al = gtk.Alignment(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
+        adj_nodes_nodes = Gtk.Adjustment(float(default), float(minimum), float(maximum), 1, 5, 0)               
+        spinner = Gtk.SpinButton.new(adj_nodes_nodes, 1.0, 0)        
+        al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
         al.add(spinner)        
-        lbl = gtk.Label("No. of Nodes to Search :")
-        hb = gtk.HBox(False, 0)
+        lbl = Gtk.Label(label="No. of Nodes to Search :")
+        hb = Gtk.HBox(False, 0)
         hb.pack_start(lbl, False, False, 0)
         hb.pack_start(al, True, True, 10)
         vb.pack_start(hb, False, True, 0)      
@@ -481,7 +480,7 @@ class Time_Control:
         # e.g. look for mate in 5 moves
         # go mate 5        
 
-        self.al = gtk.Alignment(xalign=0.5, yalign=0.5, xscale=1.0, yscale=0.0)
+        self.al = Gtk.Alignment.new(xalign=0.5, yalign=0.5, xscale=1.0, yscale=0.0)
         # top, bottom, left, right
         self.al.set_padding(0, 0, 9, 9)
         self.al.add(self.tcvb[self.type])
@@ -489,14 +488,14 @@ class Time_Control:
 
         combobox.connect("changed", self.tc_method_changed, dialog) 
 
-        dialog.set_default_response(gtk.RESPONSE_OK)
+        dialog.set_default_response(Gtk.ResponseType.OK)
         dialog.show_all()       
         
         self.set_frame_visibility(self.type)        
 
         while True:
             response = dialog.run()
-            if response != gtk.RESPONSE_OK:
+            if response != Gtk.ResponseType.OK:
                 # cancelled - exit loop
                 break
             # OK pressed - validate input"
@@ -562,7 +561,7 @@ class Time_Control:
                     break                                     
             # fixed time per move               
             elif self.type == 3:
-                self.ftpm_seconds = int(adj_ftpm_secs.value)
+                self.ftpm_seconds = int(adj_ftpm_secs.get_value())
 
                 # fields for go command
                 self.reset_clock()                              
@@ -619,9 +618,12 @@ class Time_Control:
         self.tcvb[tc_type].show()
         
 
-    def dialog_expose_event(self, widget, event):
-        self.area = event.area       
-
+    def dialog_expose_event(self, widget, context):
+        #self.area = event.area
+        a = widget.get_allocation()
+        self.area = a
+        #self.area = a.x, a.y, a.width, a.height
+        #print self.area
 
     def set_refs(self, game, gui):
         self.game = game

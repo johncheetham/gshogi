@@ -17,13 +17,14 @@
 #   along with gshogi.  If not, see <http://www.gnu.org/licenses/>.
 #   
 
-import gtk
+from gi.repository import Gtk
+from gi.repository import GObject
 import os.path
 import move_list
 import utils
 
 import engine
-import gobject, time
+import time
 import sys, gc
 from constants import *
 
@@ -45,21 +46,21 @@ class Board:
 
     def build_board(self):
         self.myimage = [ \
-            [gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image()], \
-            [gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image()], \
-            [gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image()], \
-            [gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image()], \
-            [gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image()], \
-            [gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image()], \
-            [gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image()], \
-            [gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image()], \
-            [gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image()]  \
+            [Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image()], \
+            [Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image()], \
+            [Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image()], \
+            [Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image()], \
+            [Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image()], \
+            [Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image()], \
+            [Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image()], \
+            [Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image()], \
+            [Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image()]  \
             ]        
 
-        self.wcap_image = [gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image()]
-        self.wcap_label = [gtk.Label(), gtk.Label(), gtk.Label(), gtk.Label(), gtk.Label(), gtk.Label(), gtk.Label(), gtk.Label(), gtk.Label()]
-        self.bcap_image = [gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image(), gtk.Image()]
-        self.bcap_label = [gtk.Label(), gtk.Label(), gtk.Label(), gtk.Label(), gtk.Label(), gtk.Label(), gtk.Label(), gtk.Label(), gtk.Label()]        
+        self.wcap_image = [Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image()]
+        self.wcap_label = [Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label()]
+        self.bcap_image = [Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image()]
+        self.bcap_label = [Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label()]        
 
         self.piece_pixbuf = []        
 
@@ -118,8 +119,8 @@ class Board:
             # call gui to show this square
             self.gui.init_bcap_square(self.bcap_image[y], y, self.bcap_label[y])        
         
-        gobject.idle_add(self.gui.set_window_size)        
-        gobject.idle_add(self.update)
+        GObject.idle_add(self.gui.set_window_size)        
+        GObject.idle_add(self.update)
 
     def get_gs_loc(self, x, y):        
         l = x + (8 - y) * 9

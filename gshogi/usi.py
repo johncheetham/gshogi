@@ -17,10 +17,12 @@
 #   along with gshogi.  If not, see <http://www.gnu.org/licenses/>.
 #   
 
-import gtk
+from gi.repository import Gtk
+from gi.repository import Gdk
+from gi.repository import GObject
 import os, subprocess, thread
 import time
-import engine_debug, engine_output, gobject
+import engine_debug, engine_output
 
 class Usi:
 
@@ -153,13 +155,13 @@ class Usi:
     def command(self, cmd):        
         e = self.side + '(' + self.get_running_engine().strip() + '):'
         if self.verbose or self.verbose_usi: print "->" + e + cmd.strip()
-        gobject.idle_add(self.engine_debug.add_to_log, "->" + e + cmd.strip())        
+        GObject.idle_add(self.engine_debug.add_to_log, "->" + e + cmd.strip())        
         try:
             self.p.stdin.write(cmd)
         except AttributeError:           
-            gobject.idle_add(self.engine_debug.add_to_log, "# engine process is not running")
+            GObject.idle_add(self.engine_debug.add_to_log, "# engine process is not running")
         except IOError:            
-            gobject.idle_add(self.engine_debug.add_to_log, "# engine process is not running")
+            GObject.idle_add(self.engine_debug.add_to_log, "# engine process is not running")
 
 
     def stop_engine(self):        
@@ -235,9 +237,9 @@ class Usi:
                 line = line.strip()
                 e = '<-' + self.side + '(' + self.get_running_engine().strip() + '):'
                 if self.verbose or self.verbose_usi: print e + line
-                gobject.idle_add(self.engine_debug.add_to_log, e+line)
+                GObject.idle_add(self.engine_debug.add_to_log, e+line)
                 if line.startswith('info'):
-                    gobject.idle_add(self.engine_output.add_to_log, self.side, self.get_running_engine().strip(), line)
+                    GObject.idle_add(self.engine_output.add_to_log, self.side, self.get_running_engine().strip(), line)
                 if line == '':
                     if self.verbose: print e + 'eof reached'
                     if self.verbose: print e + "stderr:",self.p.stderr.read()
@@ -302,7 +304,7 @@ class Usi:
         #byoyomi = time_left[2]     
     
         # clear the engine output window ready for next move
-        gobject.idle_add(self.engine_output.clear, self.side, self.get_running_engine().strip())
+        GObject.idle_add(self.engine_output.clear, self.side, self.get_running_engine().strip())
 
         #print "calling time control module from usi module to get go command"
         gocmnd = self.tc.get_go_command(side_to_move)
@@ -345,7 +347,7 @@ class Usi:
                     s = bestmove.find('ponder')
                     if s != -1:
                         self.ponder_move = bestmove[s + 7:].strip()
-                        gobject.idle_add(self.engine_output.set_ponder_move, self.ponder_move, self.side)  # set ponder move in engine output window
+                        GObject.idle_add(self.engine_output.set_ponder_move, self.ponder_move, self.side)  # set ponder move in engine output window
 
                     # get bestmove
                     s = bestmove.find(' ')
@@ -354,11 +356,8 @@ class Usi:
                     self.op = []
         
                     # update time for last move
-                    gtk.gdk.threads_enter()
-                    #print "updating clock from usi.py"                    
-                    self.tc.update_clock()                
-                    self.gui.set_side_to_move(side_to_move)        
-                    gtk.gdk.threads_leave()      
+                    GObject.idle_add(self.tc.update_clock)
+                    GObject.idle_add(self.gui.set_side_to_move, side_to_move)      
 
                     return bestmove, self.ponder_move            
             self.op = []
@@ -437,7 +436,7 @@ class Usi:
                     s = bestmove.find('ponder')
                     if s != -1:
                         self.ponder_move = bestmove[s + 7:].strip()                     
-                        gobject.idle_add(self.engine_output.set_ponder_move, self.ponder_move, self.side)  # set ponder move in engine output window
+                        GObject.idle_add(self.engine_output.set_ponder_move, self.ponder_move, self.side)  # set ponder move in engine output window
 
                     # get bestmove
                     s = bestmove.find(' ')
@@ -446,11 +445,11 @@ class Usi:
                     self.op = []
         
                     # update time for last move
-                    gtk.gdk.threads_enter()
+                    Gdk.threads_enter()
                     #print "updating clock from usi.py"                    
                     self.tc.update_clock()                
                     self.gui.set_side_to_move(side_to_move)        
-                    gtk.gdk.threads_leave()      
+                    Gdk.threads_leave()      
 
                     return bestmove, self.ponder_move            
             self.op = []            
@@ -485,7 +484,7 @@ class Usi:
         self.command(pondercmd + '\n')
 
         # clear the engine output window ready for next move
-        gobject.idle_add(self.engine_output.clear, self.side, self.get_running_engine().strip())
+        GObject.idle_add(self.engine_output.clear, self.side, self.get_running_engine().strip())
 
         return
 
@@ -659,7 +658,7 @@ class Usi:
        
 
         diagtitle = self.get_engine()
-        dialog = gtk.Dialog(diagtitle, None, 0, (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OK, gtk.RESPONSE_OK))  
+        dialog = Gtk.Dialog(diagtitle, None, 0, (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK))  
         wlist = []
         for w in wdgts:            
             opt_i, name, otype, default, minimum, maximum, uvars, userval = w
@@ -672,15 +671,15 @@ class Usi:
                     default = minimum
                 if userval != '':
                     default = userval
-                adj = gtk.Adjustment(float(default), float(minimum), float(maximum), 1, 5, 0)               
-                spinner = gtk.SpinButton(adj, 1.0, 0)
+                adj = Gtk.Adjustment(float(default), float(minimum), float(maximum), 1, 5, 0)               
+                spinner = Gtk.SpinButton(adj, 1.0, 0)
                 #spinner.set_width_chars(14)
-                al = gtk.Alignment(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
+                al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
                 al.add(spinner)                    
     
-                lbl = gtk.Label(name + ':')
+                lbl = Gtk.Label(label=name + ':')
 
-                hb = gtk.HBox(False, 0)
+                hb = Gtk.HBox(False, 0)
                 hb.pack_start(lbl, False, False, 0)
                 hb.pack_start(al, True, True, 10)
 
@@ -694,17 +693,17 @@ class Usi:
                 al.show()
                 hb.show()
             elif otype == 'string':               
-                ent = gtk.Entry()
+                ent = Gtk.Entry()
                 if userval != '':
                     default = userval
                 ent.set_text(default)
 
-                al = gtk.Alignment(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
+                al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
                 al.add(ent)
 
-                lbl = gtk.Label(name + ':')
+                lbl = Gtk.Label(label=name + ':')
 
-                hb = gtk.HBox(False, 0)
+                hb = Gtk.HBox(False, 0)
                 hb.pack_start(lbl, False, False, 0)
                 hb.pack_start(al, True, True, 10)
 
@@ -718,18 +717,18 @@ class Usi:
                 al.show()
                 hb.show()
             elif otype == 'check':              
-                cb = gtk.CheckButton(label=None, use_underline=True)
+                cb = Gtk.CheckButton(label=None, use_underline=True)
                 if userval != '':
                     default = userval
                 if default == 'true':                
                     cb.set_active(True)
                 else:
                     cb.set_active(False)
-                al = gtk.Alignment(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
+                al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
                 al.add(cb)
 
-                lbl = gtk.Label(name + ':')
-                hb = gtk.HBox(False, 0)
+                lbl = Gtk.Label(label=name + ':')
+                hb = Gtk.HBox(False, 0)
                 hb.pack_start(lbl, False, False, 0)
                 hb.pack_start(al, True, True, 10)
 
@@ -745,7 +744,7 @@ class Usi:
             elif otype == 'combo':
                 if userval != '':
                     default = userval                
-                combobox = gtk.combo_box_new_text()
+                combobox = Gtk.ComboBoxText()
                 i = 0
                 for v in uvars: 
                     combobox.append_text(v)
@@ -753,13 +752,13 @@ class Usi:
                         combobox.set_active(i)
                     i += 1
 
-                al = gtk.Alignment(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
+                al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
                 al.add(combobox)
                 al.show() 
                 combobox.show()
 
-                lbl = gtk.Label(name + ':')
-                hb = gtk.HBox(False, 0)
+                lbl = Gtk.Label(label=name + ':')
+                hb = Gtk.HBox(False, 0)
                 hb.pack_start(lbl, False, False, 0)
                 hb.pack_start(al, True, True, 10)
 
@@ -773,9 +772,9 @@ class Usi:
             else:
                 if self.verbose: print "type ignored - ",otype 
         
-        dialog.set_default_response(gtk.RESPONSE_OK)
+        dialog.set_default_response(Gtk.ResponseType.OK)
         response = dialog.run()
-        if response == gtk.RESPONSE_OK:
+        if response == Gtk.ResponseType.OK:
             for w in wlist:               
                 opt_i, widge, name, otype = w                
                 if otype == 'spin':    

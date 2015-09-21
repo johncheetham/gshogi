@@ -17,7 +17,7 @@
 #   along with gshogi.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import gtk
+from gi.repository import Gtk
 import os
 
 import utils
@@ -31,7 +31,7 @@ class Gamelist:
         self.glade_file = os.path.join(glade_dir, "gamelist.glade")        
         
         # create gamelist window
-        self.builder = gtk.Builder()
+        self.builder = Gtk.Builder()
         self.builder.add_from_file(self.glade_file)
         self.builder.connect_signals(self)
 
@@ -39,9 +39,9 @@ class Gamelist:
         self.treeview = self.builder.get_object('gamelist_treeview')
         self.liststore = self.builder.get_object('liststore1')
 
-        cell0 = gtk.CellRendererText()       
-        #cell0.set_property('cell-background', gtk.gdk.color_parse("#F8F8FF"))
-        tvcolumn0 = gtk.TreeViewColumn()       
+        cell0 = Gtk.CellRendererText()       
+        #cell0.set_property('cell-background', Gdk.color_parse("#F8F8FF"))
+        tvcolumn0 = Gtk.TreeViewColumn()       
         self.treeview.append_column(tvcolumn0)         
         tvcolumn0.pack_start(cell0, True)
         tvcolumn0.set_min_width(50)        

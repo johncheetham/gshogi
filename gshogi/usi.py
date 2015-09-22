@@ -673,7 +673,7 @@ class Usi:
                 if userval != '':
                     default = userval
                 adj = Gtk.Adjustment(float(default), float(minimum), float(maximum), 1, 5, 0)               
-                spinner = Gtk.SpinButton(adj, 1.0, 0)
+                spinner = Gtk.SpinButton.new(adj, 1.0, 0)
                 #spinner.set_width_chars(14)
                 al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
                 al.add(spinner)                    
@@ -779,7 +779,7 @@ class Usi:
             for w in wlist:               
                 opt_i, widge, name, otype = w                
                 if otype == 'spin':    
-                    av = int(widge.value)
+                    av = int(widge.get_value())
                 elif otype == 'string':
                     av = widge.get_text()
                 elif otype == 'check':

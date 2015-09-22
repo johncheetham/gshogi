@@ -234,16 +234,16 @@ class Usi:
             try:                
                 self.p.stdout.flush()
                 line = self.p.stdout.readline()
+                if line == '':
+                    if self.verbose: print e + 'eof reached'
+                    if self.verbose: print e + "stderr:",self.p.stderr.read()
+                    break                
                 line = line.strip()
                 e = '<-' + self.side + '(' + self.get_running_engine().strip() + '):'
                 if self.verbose or self.verbose_usi: print e + line
                 GObject.idle_add(self.engine_debug.add_to_log, e+line)
                 if line.startswith('info'):
                     GObject.idle_add(self.engine_output.add_to_log, self.side, self.get_running_engine().strip(), line)
-                if line == '':
-                    if self.verbose: print e + 'eof reached'
-                    if self.verbose: print e + "stderr:",self.p.stderr.read()
-                    break                
                 self.op.append(line)
             except Exception, e:
                 #line = e + 'error'
@@ -517,8 +517,9 @@ class Usi:
             self.stop_engine()
 
         # Attempt to start the engine as a subprocess
+        engine_wdir = os.path.dirname(path)
         try:
-            p = subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE) 
+            p = subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=engine_wdir) 
         except OSError, oe:            
             msg = "error starting engine: " + "OSError" + str(oe)
             return msg, name

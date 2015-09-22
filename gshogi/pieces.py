@@ -59,7 +59,7 @@ class Pieces:
 
     # called from this module and from board.py init_board function
     def load_pieces(self, prefix):
-        
+
         #  0 - unoccupied        
         #  1 - black pawn        
         #  2 - black lance        
@@ -89,12 +89,14 @@ class Pieces:
         # 26 - promoted white silver general       
         # 27 - promoted white bishop       
         # 28 - promoted white rook        
-        
+
         if self.prefix is None:
             self.prefix = prefix
- 
+
         self.piece_pixbuf, errmsg = self.load_pixbufs('eastern', prefix)
+
         self.western_piece_pixbuf, errmsg = self.load_pixbufs('western', prefix)
+
         self.piece_fill_colour, self.piece_outline_colour, self.piece_kanji_colour = self.get_piece_default_colours()
 
         if self.custom_piece_path is not None:
@@ -199,7 +201,7 @@ class Pieces:
         # if no errors then set custom pixbufs to the new set
         if errmsg is None:
             self.custom_piece_pixbuf = custom_piece_pixbufs
-            self.custom_piece_path = path 
+            self.custom_piece_path = path
         return errmsg
 
 

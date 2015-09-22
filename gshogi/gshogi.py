@@ -804,7 +804,7 @@ class Game:
         s.version = VERSION
         s.engine_list = self.engine_manager.get_engine_list()        
         s.pieceset = self.pieces.get_pieceset()
-        s.custom_pieceset_path = self.pieces.get_custom_pieceset_path() 
+        s.custom_pieceset_path = self.pieces.get_custom_pieceset_path()
         s.player_white = self.player[WHITE]
         s.player_black = self.player[BLACK]
         s.clock_settings = self.tc.get_clock_settings()
@@ -866,6 +866,8 @@ class Game:
             # custom pieceset path
             try:
                self.pieces.set_custom_pieceset_path(x.custom_pieceset_path)
+               if x.custom_pieceset_path is not None:
+                   self.pieces.load_pieces(self.get_prefix())
             except Exception, e:                        
                 if self.verbose: print e, ". custom pieceset path setting not restored" 
 

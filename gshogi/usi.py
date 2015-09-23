@@ -718,7 +718,7 @@ class Usi:
                 al.show()
                 hb.show()
             elif otype == 'check':              
-                cb = Gtk.CheckButton(label=None, use_underline=True)
+                cb = Gtk.CheckButton(label=None)
                 if userval != '':
                     default = userval
                 if default == 'true':                
@@ -769,6 +769,22 @@ class Usi:
                 wlist.append(v)
  
                 lbl.show()                                
+                hb.show()
+            elif otype == 'button':
+                b = Gtk.Button(label=name)
+                al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
+                al.add(b)
+
+                b.connect("clicked", lambda widget: self.command("setoption name " + widget.get_label() + "\n"))
+
+                lbl = Gtk.Label(label=name + ':')
+                hb = Gtk.HBox(False, 0)
+                hb.pack_start(lbl, False, False, 0)
+                hb.pack_start(al, True, True, 10)
+                dialog.vbox.pack_start(hb, False, True, 0)
+                lbl.show()
+                b.show()
+                al.show()
                 hb.show()
             else:
                 if self.verbose: print "type ignored - ",otype 

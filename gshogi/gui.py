@@ -418,7 +418,7 @@ class Gui:
         main_hbox.pack_start(aspect_frame, True, True, 0) 
         aspect_frame.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse("black"))
         
-        eb.connect("draw", self.draw_coords)
+        #eb.connect("draw", self.draw_coords)
         self.border_eb = eb       
 
         # Create a 7x1 table for pieces captured by the black side

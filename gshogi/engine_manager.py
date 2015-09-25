@@ -55,19 +55,9 @@ class Engine_Manager:
 
         # hash value
         adj = self.builder.get_object('adjustment1')
-
-        # These 3 lines have been replaced by the set_all command because
-        # set_all works on older systems including ubuntu 9.04
-        #adj.set_lower(0)
-        #adj.set_upper(10000)       
-        #adj.set_value(self.hash_value)
-
-        # set_all
-        # parms:value, lower, upper, step_increment, page_increment, page_size
-        #adj.set_all(self.hash_value, 0, 10000, 1, 10, 0)
         adj.set_value(self.hash_value)
         adj.set_lower(0.00)
-        adj.set_upper(0.00)
+        adj.set_upper(10000.00)
         adj.set_step_increment(1)
         adj.set_page_increment(10)
         adj.set_page_size(0)

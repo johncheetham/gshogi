@@ -418,7 +418,7 @@ class Gui:
         main_hbox.pack_start(aspect_frame, True, True, 0) 
         aspect_frame.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse("black"))
         
-        #eb.connect("draw", self.draw_coords)
+        eb.connect_after("draw", self.draw_coords)
         self.border_eb = eb       
 
         # Create a 7x1 table for pieces captured by the black side
@@ -1381,9 +1381,7 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
         for num in range(1, 10):          
             cr.move_to(xpos, ypos)
             cr.show_text(let[num - 1])                
-            ypos = ypos + sq_size    
-
-        return True # Need to return true for this to work - do not propagate to other handlers 
+            ypos = ypos + sq_size
 
 
     def preferences(self, action):        

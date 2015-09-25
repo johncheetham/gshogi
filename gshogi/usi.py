@@ -57,22 +57,19 @@ class Usi:
             return False
  
         #
-        # change the working directory to that of the engine before starting it
+        # get engine working directory
         #
         orig_cwd = os.getcwd()
-        if self.verbose: print "current working directory is", orig_cwd        
+        if self.verbose: print "current working directory is", orig_cwd
+
         engine_wdir = os.path.dirname(path)
-        os.chdir(engine_wdir)
-        if self.verbose: print "working directory changed to" ,os.getcwd()
+        if self.verbose: print "engine working directory is" ,engine_wdir
 
         # Attempt to start the engine as a subprocess
         if self.verbose: print "starting engine with path:",path
-        p = subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE) 
-        self.p = p    
-        
-        os.chdir(orig_cwd)
-        if self.verbose: print "current working directory restored back to", os.getcwd()
-        
+        p = subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=engine_wdir) 
+        self.p = p
+
         # check process is running
         i = 0
         while (p.poll() is not None):            
@@ -232,6 +229,7 @@ class Usi:
     def read_stdout(self):                
         while True:                  
             try:                
+                e = '<-' + self.side + '(' + self.get_running_engine().strip() + '):'
                 self.p.stdout.flush()
                 line = self.p.stdout.readline()
                 if line == '':
@@ -239,7 +237,6 @@ class Usi:
                     if self.verbose: print e + "stderr:",self.p.stderr.read()
                     break                
                 line = line.strip()
-                e = '<-' + self.side + '(' + self.get_running_engine().strip() + '):'
                 if self.verbose or self.verbose_usi: print e + line
                 GObject.idle_add(self.engine_debug.add_to_log, e+line)
                 if line.startswith('info'):

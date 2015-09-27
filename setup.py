@@ -47,10 +47,12 @@ setup (name = 'gshogi',
     url='http://www.johncheetham.com/projects/gshogi/', 
     long_description='A Shogi program for Linux written in Python, PyGI (GTK3), C.',
     platforms = ['Linux'],
-
     license = "GPLv3+",
-
-    packages=['gshogi'],    
+   
+    packages=['gshogi'],
+    package_data = {
+        'gshogi': ['data/opening.bbk'],
+    },
 
     entry_points={
         'gui_scripts': [

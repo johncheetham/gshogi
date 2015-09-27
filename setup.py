@@ -48,12 +48,13 @@ setup (name = 'gshogi',
     long_description='A Shogi program for Linux written in Python, PyGI (GTK3), C.',
     platforms = ['Linux'],
     license = "GPLv3+",
+    zip_safe=False,
    
     packages=['gshogi'],
     package_data = {
         'gshogi': ['data/opening.bbk'],
     },
-
+    
     entry_points={
         'gui_scripts': [
             'gshogi = gshogi.gshogi:run',

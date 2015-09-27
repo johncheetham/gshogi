@@ -1,5 +1,0 @@
-#!/usr/bin/python
-
-import gshogi.gshogi
-gshogi.gshogi.run()
-

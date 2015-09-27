@@ -135,35 +135,11 @@ class Game:
     def set_data_paths(self):
         
         # Find the absolute path that this python program is running in 
-        progpath = os.path.abspath(os.path.dirname(__file__))        
-
-        # work out if we are running from an installed version
-        # or from the source directory
-        if progpath.startswith(sys.prefix):
-            # we are installed
-            self.prefix = os.path.join (sys.prefix, "share/gshogi")
-            
-            if os.path.isdir(self.prefix):
-                if self.verbose: print "images/data path=", self.prefix
-            else:
-                if self.verbose: print "setting images/data path"
-
-                for dir in ("share", "games", "share/games",
-                    "local/share", "local/games", "local/share/games"):
-                    self.prefix = os.path.join (sys.prefix, dir, "gshogi")
-                    if os.path.isdir(self.prefix):
-                        if self.verbose: print "found images/data path=", self.prefix                        
-                        break
-                else:
-                    raise Exception("can't find data directory")
-       
-        else:
-            # we are NOT installed
-            # get data files (images, opening book, endgame databases) from same directory as this program 
-            self.prefix = os.path.abspath(os.path.dirname(__file__))
-            self.prefix = os.path.dirname(self.prefix)            
-            if self.verbose: print "using images/data path=", self.prefix 
-
+        progpath = os.path.abspath(os.path.dirname(__file__))
+ 
+        # prefix to find package files/folders        
+        self.prefix = os.path.abspath(os.path.dirname(__file__))
+        if self.verbose: print "prefix to find package files/folders=", self.prefix
 
         # set up gshogi directory under home directory
         self.gshogipath = os.path.expanduser("~") + "/.gshogi"        

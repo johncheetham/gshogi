@@ -1,10 +1,11 @@
-from distutils.core import setup, Extension
-from glob import glob
+import ez_setup
+ez_setup.use_setuptools()
+from  setuptools import setup, Extension
 
 import os, sys, string
 
 if (sys.argv[1] == 'install'):
-    if (not os.path.exists('data/opening.bbk')):
+    if (not os.path.exists('gshogi/data/opening.bbk')):
         print "warning - opening book not found"
         print "you must run 'python setup.py build' first to build the opening book" 
         sys.exit()
@@ -40,6 +41,7 @@ setup (name = 'gshogi',
     version = '0.4.5',
     description = 'A Shogi Program (Japanese Chess)',
     ext_modules = [module1],
+    include_package_data = True,
     author='John Cheetham',
     author_email='developer@johncheetham.com',  
     url='http://www.johncheetham.com/projects/gshogi/', 
@@ -49,6 +51,12 @@ setup (name = 'gshogi',
     license = "GPLv3+",
 
     packages=['gshogi'],    
+
+    entry_points={
+        'gui_scripts': [
+            'gshogi = gshogi.gshogi:run',
+        ]
+    },
 
     classifiers=[
           'Development Status :: 4 - Beta',
@@ -60,18 +68,6 @@ setup (name = 'gshogi',
           'Programming Language :: C',
           'Topic :: Games/Entertainment :: Board Games',
           ],
-    data_files = [("share/gshogi/images", glob('images/*.png')),
-            ("share/gshogi/images/eastern", glob('images/eastern/*.png')),
-            ("share/gshogi/images/western", glob('images/western/*.png')),
-            ("share/gshogi/glade", glob('glade/*.glade')),
-            ("share/gshogi/data", ['data/opening.bbk']),
-            ("share/doc/gshogi-0.4.5", ["README", "LICENSE", "ChangeLog"]), 
-            ('share/applications',['gshogi.desktop']),
-            ('share/pixmaps', ['gshogi.png']),           
-    ],    
-    scripts = [
-        'scripts/gshogi'
-    ]
                
     )
 
@@ -97,7 +93,7 @@ sys.path.append(pypath)
 import engine
 
 text_opening_book = 'data/gnushogi.tbk'
-bin_opening_book = 'data/opening.bbk'
+bin_opening_book = 'gshogi/data/opening.bbk'
 booksize = 8000
 bookmaxply = 40
 

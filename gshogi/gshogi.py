@@ -1,5 +1,5 @@
 #
-#   gshogi 0.4.5  August 2012
+#   gshogi 0.4.6.dev1
 #
 #   Copyright (C) 2010-2012 John Cheetham    
 #   

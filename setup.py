@@ -3,6 +3,9 @@ ez_setup.use_setuptools()
 from  setuptools import setup, Extension
 
 import os, sys, string
+import gshogi.constants
+
+VERSION = gshogi.constants.VERSION
 
 if (sys.argv[1] == 'install'):
     if (not os.path.exists('gshogi/data/opening.bbk')):
@@ -41,7 +44,7 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup (name = 'gshogi',
-    version = '0.4.5',
+    version = VERSION,
     description = 'A Shogi Program (Japanese Chess)',
     ext_modules = [module1],
     include_package_data = True,

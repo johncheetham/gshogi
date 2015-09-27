@@ -1,3 +1,13 @@
+Changes for 0.4.6.dev1
+----------------------
+
+    * Port to PyGI
+
+    * Use setuptools instead of distutils
+
+    * Bugfixes
+
+
 Changes for 0.4.5
 -----------------
 2012-08-28  John Cheetham  developer@johncheetham.com

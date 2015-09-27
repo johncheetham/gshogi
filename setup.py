@@ -102,6 +102,15 @@ if (not os.path.exists(text_opening_book)):
     print "Input file", text_opening_book, "not found"
     sys.exit()
 
+# create data folder for bin book
+data_folder =  os.path.dirname(bin_opening_book)
+if not os.path.exists(data_folder):
+    try:
+        os.makedirs(data_folder)
+    except OSError, exc:
+        print "Unable to create data folder", data_folder
+        sys.exit()
+
 # delete the output file if it exists
 try:
     os.remove(bin_opening_book)

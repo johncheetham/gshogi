@@ -16,7 +16,7 @@ It is aimed mainly at Linux users.
 It is derived from GNU Shogi version 1.3.2. It uses GNU Shogi code for 
 the built in engine and also uses GNU Shogi board pieces. 
 
-The front end is new and written in Python/PyGTK.
+The front end is new and written in Python/PyGI.
 
 This version was tested on on CentOS 7 64 bit using Python 2.7.5,
 pygobject 3.8.2, gtk 3.8.8 and gcc 4.8.3.
@@ -25,7 +25,7 @@ See the project homepage for more information on gshogi and USI engines.
 
 Requirements
 ------------
-Python, pygobject, GTK3, C.
+Python2, pygobject, GTK3, C.
 
 
 Installation
@@ -33,9 +33,11 @@ Installation
 To build it you will need python-devel and gcc packages installed.
 
 You can install these on Fedora 17 with:
+
     yum install python-devel gcc
 
 For Ubuntu 12.04 do:
+
     sudo apt-get install build-essential python-dev python-glade2    
            
 
@@ -58,7 +60,7 @@ Installing on the system
 
     Note:
 
-        You must run 'python setup.py build' since this creates
+        You must run 'python setup.py build' first since this creates
         the opening book (don't just run 'python setup.py install' 
         on it's own)
 
@@ -68,7 +70,7 @@ Installing on the system
         gshogi should now be installed on your system. You can launch it from
         the gnome menu (under games) or type 'gshogi' in any terminal window.
 
-        There is no uninstall (distutils doesn't have one). If you need to     
+        There is no uninstall (setuptools doesn't have one). If you need to     
         uninstall you have to make a note of the file names and then delete
         them manually.
 
@@ -117,6 +119,7 @@ Edit Board Function
 When edting the board position you can increase the count of a piece in
 the komadai by right-clicking on it. Left-click on it to decrease the
 count.
+
 To add a white piece to the main board right-click on the square you
 want to add the piece to then select the piece from the pop-up menu.
 To add a black piece left-click on the square.
@@ -200,8 +203,9 @@ from svg to png.
 
     Black Pieces:
 
+        =======================   ============
         Piece                     Filename
-        -----                     -------- 
+        =======================   ============
         King                      kingB.svg
         Rook                      rookB.svg
         Bishop                    bishopB.svg
@@ -216,6 +220,7 @@ from svg to png.
         Promoted Knight           knightPB.svg
         Promoted Lance            lancePB.svg
         Promoted Pawn             pawnPB.svg
+        =======================   ============
 
 The black piece images are mandatory. You can optionally provide images
 for the white pieces as well. If you provide white piece images gshogi
@@ -224,8 +229,9 @@ rotate them through 180 degress.
 
     White Pieces:
 
+        =======================   ============
         Piece                     Filename
-        -----                     -------- 
+        =======================   ============
         King                      kingW.svg
         Rook                      rookW.svg
         Bishop                    bishopW.svg
@@ -240,6 +246,7 @@ rotate them through 180 degress.
         Promoted Knight           knightPW.svg
         Promoted Lance            lancePW.svg
         Promoted Pawn             pawnPW.svg
+        =======================   ============
 
 See the project homepage to download an example.
 

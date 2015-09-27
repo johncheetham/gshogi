@@ -37,6 +37,9 @@ module1 = Extension('gshogi.engine',
                 ],
      )
 
+def read(fname):
+    return open(os.path.join(os.path.dirname(__file__), fname)).read()
+
 setup (name = 'gshogi',
     version = '0.4.5',
     description = 'A Shogi Program (Japanese Chess)',
@@ -45,7 +48,7 @@ setup (name = 'gshogi',
     author='John Cheetham',
     author_email='developer@johncheetham.com',  
     url='http://www.johncheetham.com/projects/gshogi/', 
-    long_description='A Shogi program for Linux written in Python, PyGI (GTK3), C.',
+    long_description=read('README.rst'),
     platforms = ['Linux'],
     license = "GPLv3+",
     zip_safe=False,

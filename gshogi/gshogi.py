@@ -46,13 +46,11 @@ class Game:
 
     def __init__(self):
 
-        gv.verbose = False
-        gv.verbose_usi = False
-        for arg in sys.argv:
-            if arg == '-v' or arg == '--verbose':
-                gv.verbose = True
-            if arg == '-vusi':
-                gv.verbose_usi = True
+        gv.verbose, gv.verbose_usi = utils.get_verbose() # set global variables for debug messages
+        self.prefix = utils.get_prefix()                 # prefix to find package files/folders
+        self.gshogipath = utils.create_settings_dir()    # set up .gshogi directory in the home directory
+        self.glade_dir = os.path.join(self.prefix, 'glade')
+        settings = utils.get_settings_from_file(self.gshogipath)
 
         self.ask_before_promoting = False
         self.gameover = False       
@@ -73,12 +71,8 @@ class Game:
         self.player = ["Human", "gshogi"]
         self.pondermove = [None, None]
 
-       # set paths to images. opening book etc        
-        self.set_data_paths() 
         opening_book_path = os.path.join(self.prefix, "data/opening.bbk")              
         engine.init(opening_book_path, gv.verbose)
-
-        self.glade_dir = os.path.join(self.prefix, 'glade')             
         
         utils.set_game_ref(self)            
 
@@ -115,7 +109,7 @@ class Game:
             engine.command('beep')
 
         # restore users settings to values from previous game
-        self.restore_settings()
+        self.restore_settings(settings)
 
         self.usib.set_engine(self.player[BLACK], None)
         self.usiw.set_engine(self.player[WHITE], None)        
@@ -130,25 +124,7 @@ class Game:
 
         self.stm = self.get_side_to_move()
         
-        self.timer_active = False       
-
-
-    def set_data_paths(self):
-        
-        # Find the absolute path that this python program is running in 
-        progpath = os.path.abspath(os.path.dirname(__file__))
- 
-        # prefix to find package files/folders        
-        self.prefix = os.path.abspath(os.path.dirname(__file__))
-        if gv.verbose: print "prefix to find package files/folders=", self.prefix
-
-        # set up gshogi directory under home directory
-        self.gshogipath = os.path.expanduser("~") + "/.gshogi"        
-        if not os.path.exists(self.gshogipath):
-            try:
-                os.makedirs(self.gshogipath)
-            except OSError, exc:                
-                raise
+        self.timer_active = False
 
 
     #
@@ -811,22 +787,7 @@ class Game:
     #
     # restore users settings at program start-up
     #    
-    def restore_settings(self):       
-        x = ''               
-        try:            
-            settings_file = os.path.join (self.gshogipath, "settings")            
-            f = open(settings_file, 'rb')            
-            x = pickle.load(f)           
-            f.close()        
-        except EOFError, eofe:
-            print "eof error:",eofe        
-        except pickle.PickleError, pe:
-            print "pickle error:", pe
-        except IOError, ioe:
-            pass    # Normally this error means it is the 1st run and the settings file does not exist        
-        except Exception, exc:
-            print "Cannot restore settings:", exc             
-        
+    def restore_settings(self, x):        
         if x:
             # engine list
             try:                

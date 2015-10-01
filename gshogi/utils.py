@@ -20,11 +20,15 @@
 from gi.repository import Gtk
 from gi.repository import Gdk
 import os
+import sys
+import pickle
+
 import gui, board, pieces
 import load_save
 import comments
 import psn
 import gamelist
+import gv
 
 game_ref = None
 gui_ref = None
@@ -194,5 +198,46 @@ def get_text_from_clipboard():
     text = clipboard.wait_for_text()                       # read the text from the clipboard
     return text
 
+def get_settings_from_file(filepath):
+    s = ''
+    try:
+        settings_file = os.path.join (filepath, "settings")
+        f = open(settings_file, 'rb')
+        s = pickle.load(f)
+        f.close()
+    except EOFError, eofe:
+        print "eof error:",eofe
+    except pickle.PickleError, pe:
+        print "pickle error:", pe
+    except IOError, ioe:
+        pass    # Normally this error means it is the 1st run and the settings file does not exist
+    except Exception, exc:
+        print "Cannot restore settings:", exc
+    return s
 
+def get_prefix():
+    # prefix to find package files/folders
+    prefix = os.path.abspath(os.path.dirname(__file__))
+    if gv.verbose: print "base directory (prefix) =", prefix
+    return prefix
+
+def create_settings_dir():
+    # set up gshogi directory under home directory
+    gshogipath = os.path.expanduser("~") + "/.gshogi"
+    if not os.path.exists(gshogipath):
+        try:
+            os.makedirs(gshogipath)
+        except OSError, exc:
+            raise
+    return gshogipath
+
+def get_verbose():
+    verbose = False
+    verbose_usi = False
+    for arg in sys.argv:
+        if arg == '-v' or arg == '--verbose':
+            verbose = True
+        if arg == '-vusi':
+            verbose_usi = True
+    return verbose, verbose_usi
 

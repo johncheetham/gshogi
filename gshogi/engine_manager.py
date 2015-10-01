@@ -28,10 +28,9 @@ from constants import *
 class Engine_Manager:
 
 
-    def __init__(self, verbose):
+    def __init__(self):
         # engine list is list of (name, path) pairs    
         self.engine_list = [('gshogi', '')]
-        self.verbose = verbose
         self.glade_file = None
         self.hash_value = 256
         self.ponder = False           
@@ -214,7 +213,7 @@ class Engine_Manager:
             #print "attempting to add new engine"            
             path = dialog.get_filename()
             # use a new usi object so not to mess with main game engine 
-            u = usi.Usi(self.verbose, self.game.get_verbose_usi(), '0')            
+            u = usi.Usi('0')            
             u.set_engine("addengine", path)             
             errmsg, name = u.test_engine(path)
             if errmsg != '':          

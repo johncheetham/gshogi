@@ -26,13 +26,13 @@ import engine
 import utils
 import move_list
 from constants import *
+import gv
 
 class Load_Save:
 
     load_save_ref = None
 
     def __init__(self):
-        self.verbose = False        
         self.usib, self.usiw = utils.get_usi_refs()
         self.gui = utils.get_gui_ref()
         self.board = utils.get_board_ref()
@@ -41,10 +41,6 @@ class Load_Save:
         self.tc = utils.get_tc_ref()
         self.psn = utils.get_psn_ref()                
         self.comments = utils.get_comments_ref()
-
-
-    def set_verbose(self, verbose):
-        self.verbose = verbose        
 
 
     # Load game from a previously saved game    
@@ -97,7 +93,7 @@ class Load_Save:
         startpos = sfen
         sfenlst = sfen.split()                    
         if sfenlst[1] == 'b':
-            if self.verbose: print "setting stm to black"
+            if gv.verbose: print "setting stm to black"
             stm = BLACK                                
         elif sfenlst[1] == 'w':
             stm = WHITE
@@ -147,7 +143,7 @@ class Load_Save:
                 break
             if line.startswith('startpos'):
                 startpos = line[9:].strip()
-                if self.verbose: print "startpos set to",startpos
+                if gv.verbose: print "startpos set to",startpos
                 continue  
             if startmoves:                        
                 l = line.strip()

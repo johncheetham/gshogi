@@ -22,19 +22,15 @@ from gi.repository import GObject
 
 import utils
 from constants import *
+import gv
 
 class Drag_And_Drop:
 
     drag_and_drop_ref = None
 
     def __init__(self):
-        self.verbose = False
         self.board = utils.get_board_ref()
         self.game = utils.get_game_ref()
-
-
-    def set_verbose(self, verbose):
-        self.verbose = verbose
 
 
     """
@@ -71,7 +67,7 @@ class Drag_And_Drop:
         # get x,y co-ords of source square
         x, y = data
 
-        if self.verbose:
+        if gv.verbose:
             print "in drag begin"       
             print "data=",data
             print "widget_name=",widget.get_name()
@@ -106,7 +102,7 @@ class Drag_And_Drop:
             sq = self.board.get_square_posn(x, y)        
            
             self.src = sq
-            if self.verbose: print "source square: (x, y) = (", x, ",",  y, ") ", sq
+            if gv.verbose: print "source square: (x, y) = (", x, ",",  y, ") ", sq
             self.src_x = x
             self.src_y = y            
         
@@ -133,7 +129,7 @@ class Drag_And_Drop:
 
     def receiveCallback(self, widget, context, x, y, selection, targetType,
                         time, data):
-        if self.verbose:
+        if gv.verbose:
             print "in receive callback"
             print "x=", x
             print "y=", y        
@@ -152,10 +148,10 @@ class Drag_And_Drop:
              
         # set destination square            
         dst = sq
-        if self.verbose: print "dst =",dst        
+        if gv.verbose: print "dst =",dst        
 
         move = self.game.get_move(self.piece, self.src, dst, self.src_x, self.src_y, x, y)
-        if self.verbose:        
+        if gv.verbose:        
             print "move=",move
             print
 

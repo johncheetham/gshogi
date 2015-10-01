@@ -23,14 +23,14 @@ from gi.repository import GObject
 import os
 
 import utils
+import gv
 
 class Set_Board_Colours:
 
     set_board_colours_ref = None
 
     def __init__(self):
-        self.verbose = False
-        if self.verbose: print "set_board_colours - init"                      
+        if gv.verbose: print "set_board_colours - init"                      
         self.gui = utils.get_gui_ref()        
         self.game = utils.get_game_ref()
         self.pieces = utils.get_pieces_ref()
@@ -87,7 +87,7 @@ class Set_Board_Colours:
     def set_colours(self, board_bg_colour, board_komadai_colour, \
       board_square_colour, board_text_colour, piece_fill_colour, \
       piece_outline_colour, piece_kanji_colour, border_colour, grid_colour):
-        if self.verbose: print "set_board_colours - set_colours"
+        if gv.verbose: print "set_board_colours - set_colours"
         self.bg_colour = board_bg_colour
         self.komadai_colour = board_komadai_colour
         self.square_colour = board_square_colour
@@ -261,7 +261,7 @@ class Set_Board_Colours:
 
 
     def apply_colour_settings(self):
-        if self.verbose: print "set_board_colours - apply_colour_settings"        
+        if gv.verbose: print "set_board_colours - apply_colour_settings"        
         self.text_colour_temp = None
         if self.use_presets:                 
              presets = self.get_presets()

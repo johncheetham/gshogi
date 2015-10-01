@@ -24,13 +24,12 @@ import usi
 import time
 import engine
 from constants import *
+import gv
 
 class Time_Control:
 
 
-    def __init__(self, verbose):             
-
-        self.verbose = verbose 
+    def __init__(self):
 
         # time control defaults
         self.type = 0
@@ -833,7 +832,7 @@ class Time_Control:
 
             gs_level = gs_mins_str + ':' + gs_secs_str                    
 
-            if self.verbose:
+            if gv.verbose:
                 print "using byoyomi TC - wtime:", self.wtime, ", btime:",self.btime, ", byoyomi:",self.byo_byoyomi * 1000, ", stm:", stm, ", time for move (ms):", gs_movetime 
             command = 'level 0 ' + gs_level
             #print "gshogi time limit:",command
@@ -872,7 +871,7 @@ class Time_Control:
                 gs_secs_str = '0' + gs_secs_str
 
             gs_level = gs_mins_str + ':' + gs_secs_str
-            if self.verbose:
+            if gv.verbose:
                 print "using classical TC - wtime:", self.wtime, ", btime:",self.btime, ", movestogo:",str(self.wmoves_to_go), ", stm:", stm, ", time for move (ms):", gs_movetime
                 print "                   - ", str(self.wmoves_to_go), " moves in ", gs_mins_str, "minutes", gs_secs_str, " seconds"    
 
@@ -913,7 +912,7 @@ class Time_Control:
                 gs_secs_str = '0' + gs_secs_str
 
             gs_level = gs_mins_str + ':' + gs_secs_str
-            if self.verbose:
+            if gv.verbose:
                 print "using incremental TC - wtime:", self.wtime, ", btime:",self.btime, ", winc/binc:",str(self.inc_bonus * 1000), ", stm:", stm, ", time for move (ms):", gs_movetime                
             
             command = 'level 0 ' + gs_level
@@ -941,7 +940,7 @@ class Time_Control:
                 gs_secs_str = '0' + gs_secs_str
 
             gs_level = gs_mins_str + ':' + gs_secs_str
-            if self.verbose:
+            if gv.verbose:
                 print "using fixed time per move TC - wtime:", self.wtime, ", btime:",self.btime, " stm:", stm, ", time for move (ms):", gs_movetime                
             
             command = 'level 0 ' + gs_level
@@ -950,16 +949,16 @@ class Time_Control:
         elif self.type == 4:
             idepth = self.dpth_depth
             if idepth > 39:
-                if self.verbose: print "search depth (", idepth, ") exceeds max for gshogi engine, setting to 39"
+                if gv.verbose: print "search depth (", idepth, ") exceeds max for gshogi engine, setting to 39"
                 idepth = 39                
-            if self.verbose:                
+            if gv.verbose:                
                 print "setting depth for gshogi engine to", idepth                
             engine.depth(idepth)            
         # fixed nodes search
         elif self.type == 6:
             inodes = self.nodes_nodes            
                 
-            if self.verbose:                
+            if gv.verbose:                
                 print "setting nodes for gshogi engine to",inodes
                 print "time=",time.time()
             engine.nodes(inodes)

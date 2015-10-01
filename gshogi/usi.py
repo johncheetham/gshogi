@@ -23,11 +23,12 @@ from gi.repository import GObject
 import os, subprocess, thread
 import time
 import engine_debug, engine_output
+import gv
 
 class Usi:
 
     
-    def __init__(self, verbose, verbose_usi, side):
+    def __init__(self, side):
     
         self.engine = 'gshogi'
         self.path = ''        
@@ -36,8 +37,6 @@ class Usi:
         self.running_engine = ''         
         self.stop_pending = False
         self.ponder_move = None
-        self.verbose = verbose 
-        self.verbose_usi = verbose_usi
         self.side = side        
         self.engine_debug = engine_debug.get_ref()
         self.engine_output = engine_output.get_ref()        
@@ -60,13 +59,13 @@ class Usi:
         # get engine working directory
         #
         orig_cwd = os.getcwd()
-        if self.verbose: print "current working directory is", orig_cwd
+        if gv.verbose: print "current working directory is", orig_cwd
 
         engine_wdir = os.path.dirname(path)
-        if self.verbose: print "engine working directory is" ,engine_wdir
+        if gv.verbose: print "engine working directory is" ,engine_wdir
 
         # Attempt to start the engine as a subprocess
-        if self.verbose: print "starting engine with path:",path
+        if gv.verbose: print "starting engine with path:",path
         p = subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=engine_wdir) 
         self.p = p
 
@@ -79,7 +78,7 @@ class Usi:
                 return False
             time.sleep(0.25)        
 
-        if self.verbose: print "pid=",p.pid
+        if gv.verbose: print "pid=",p.pid
         # start thread to read stdout
         self.op = []       
         self.soutt = thread.start_new_thread( self.read_stdout, () )
@@ -151,7 +150,7 @@ class Usi:
         
     def command(self, cmd):        
         e = self.side + '(' + self.get_running_engine().strip() + '):'
-        if self.verbose or self.verbose_usi: print "->" + e + cmd.strip()
+        if gv.verbose or gv.verbose_usi: print "->" + e + cmd.strip()
         GObject.idle_add(self.engine_debug.add_to_log, "->" + e + cmd.strip())        
         try:
             self.p.stdin.write(cmd)
@@ -169,7 +168,7 @@ class Usi:
         engine_stopped = False
 
         try:
-            if self.verbose: print "stopping engine" 
+            if gv.verbose: print "stopping engine" 
                      
             self.command('quit\n')
 
@@ -181,12 +180,12 @@ class Usi:
                     break                
                 i += 1
                 if i > 8:         
-                    if self.verbose: print "engine has not terminated after quit command"
+                    if gv.verbose: print "engine has not terminated after quit command"
                     break        
                 time.sleep(0.25)
 
             if not engine_stopped:
-                if self.verbose: print "terminating engine subprocess pid ",self.p.pid
+                if gv.verbose: print "terminating engine subprocess pid ",self.p.pid
                 # SIGTERM
                 self.p.terminate()
                 i = 0
@@ -196,12 +195,12 @@ class Usi:
                         break                
                     i += 1
                     if i > 8:         
-                        if self.verbose: print "engine has not responded to terminate command"
+                        if gv.verbose: print "engine has not responded to terminate command"
                         break        
                     time.sleep(0.25)
 
             if not engine_stopped:
-                if self.verbose: print "killing engine subprocess pid ",self.p.pid
+                if gv.verbose: print "killing engine subprocess pid ",self.p.pid
                 # SIGKILL
                 self.p.kill()
                 i = 0
@@ -211,16 +210,16 @@ class Usi:
                         break                
                     i += 1
                     if i > 16:         
-                        if self.verbose: print "engine has not responded to kill command"
+                        if gv.verbose: print "engine has not responded to kill command"
                         print "unable to stop engine pid",self.p.pid
                         break        
                     time.sleep(0.25)            
         except:                
             pass
 
-        if self.verbose: print
+        if gv.verbose: print
         if engine_stopped: 
-            if self.verbose: print "engine stopped ok"
+            if gv.verbose: print "engine stopped ok"
         self.engine_running = False
         self.stop_pending = False
         self.running_engine = ''      
@@ -233,11 +232,11 @@ class Usi:
                 self.p.stdout.flush()
                 line = self.p.stdout.readline()
                 if line == '':
-                    if self.verbose: print e + 'eof reached'
-                    if self.verbose: print e + "stderr:",self.p.stderr.read()
+                    if gv.verbose: print e + 'eof reached'
+                    if gv.verbose: print e + "stderr:",self.p.stderr.read()
                     break                
                 line = line.strip()
-                if self.verbose or self.verbose_usi: print e + line
+                if gv.verbose or gv.verbose_usi: print e + line
                 GObject.idle_add(self.engine_debug.add_to_log, e+line)
                 if line.startswith('info'):
                     GObject.idle_add(self.engine_output.add_to_log, self.side, self.get_running_engine().strip(), line)
@@ -337,7 +336,7 @@ class Usi:
                 l = l.strip()                    
                 if l.startswith('bestmove'):
                     bestmove = l[9:].strip()
-                    if self.verbose: print "bestmove is ",bestmove
+                    if gv.verbose: print "bestmove is ",bestmove
 
                     # get ponder move if present
                     self.ponder_move = None
@@ -384,7 +383,7 @@ class Usi:
                 l = l.strip()                    
                 if l.startswith('bestmove'):
                     bestmove = l[9:].strip()
-                    if self.verbose: print "ponder bestmove is ",bestmove
+                    if gv.verbose: print "ponder bestmove is ",bestmove
 
                     # get ponder move if present
                     ponder_move = None
@@ -426,7 +425,7 @@ class Usi:
                 l = l.strip()                    
                 if l.startswith('bestmove'):
                     bestmove = l[9:].strip()
-                    if self.verbose: print "bestmove is ",bestmove
+                    if gv.verbose: print "bestmove is ",bestmove
 
                     # get ponder move if present
                     self.ponder_move = None
@@ -615,19 +614,19 @@ class Usi:
                 words = option.split()
                 w = words.pop(0)
                 if w != 'option':
-                    if self.verbose: print 'invalid option line ignored:',option
+                    if gv.verbose: print 'invalid option line ignored:',option
                     continue
 
                 w = words.pop(0)
                 if w != 'name':
-                    if self.verbose: print 'invalid option line ignored:',option
+                    if gv.verbose: print 'invalid option line ignored:',option
                     continue
 
                 name = words.pop(0)
 
                 w = words.pop(0)
                 if w != 'type':
-                    if self.verbose: print 'invalid option line ignored:',option
+                    if gv.verbose: print 'invalid option line ignored:',option
                     continue
 
                 otype = words.pop(0)               
@@ -647,7 +646,7 @@ class Usi:
                     elif w == 'userval':
                         userval = w2                    
                     else:
-                        if self.verbose: print 'error parsing option:', option
+                        if gv.verbose: print 'error parsing option:', option
 
             except IndexError:                
                 pass
@@ -784,7 +783,7 @@ class Usi:
                 al.show()
                 hb.show()
             else:
-                if self.verbose: print "type ignored - ",otype 
+                if gv.verbose: print "type ignored - ",otype 
         
         dialog.set_default_response(Gtk.ResponseType.OK)
         response = dialog.run()
@@ -803,7 +802,7 @@ class Usi:
                 elif otype == 'combo': 
                     av = widge.get_active_text()                   
                 else:
-                    if self.verbose: print "unknown type", otype
+                    if gv.verbose: print "unknown type", otype
                 #setoption name <id> [value <x>]
                 #usi.set_option('option name LimitDepth type spin default 10 min 4 max 10')    
                 a = 'setoption name ' + name + ' value ' + str(av)

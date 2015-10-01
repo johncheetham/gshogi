@@ -40,18 +40,19 @@ import gui, usi, engine_manager, time_control, set_board_colours
 import move_list
 import engine_output
 from constants import *
+import gv
 
 class Game:    
 
     def __init__(self):
 
-        self.verbose = False
-        self.verbose_usi = False
+        gv.verbose = False
+        gv.verbose_usi = False
         for arg in sys.argv:
             if arg == '-v' or arg == '--verbose':
-                self.verbose = True
+                gv.verbose = True
             if arg == '-vusi':
-                self.verbose_usi = True
+                gv.verbose_usi = True
 
         self.ask_before_promoting = False
         self.gameover = False       
@@ -75,7 +76,7 @@ class Game:
        # set paths to images. opening book etc        
         self.set_data_paths() 
         opening_book_path = os.path.join(self.prefix, "data/opening.bbk")              
-        engine.init(opening_book_path, self.verbose)
+        engine.init(opening_book_path, gv.verbose)
 
         self.glade_dir = os.path.join(self.prefix, 'glade')             
         
@@ -83,14 +84,14 @@ class Game:
 
         # usiw is the instance that plays white (gote)
         # usib is the instance that plays black (sente)
-        self.usib = usi.Usi(self.verbose, self.verbose_usi, 'b')
-        self.usiw = usi.Usi(self.verbose, self.verbose_usi, 'w')
+        self.usib = usi.Usi('b')
+        self.usiw = usi.Usi('w')
         utils.set_usi_refs(self.usib, self.usiw)  
 
         # instantiate board, gui, classes 
-        self.tc = time_control.Time_Control(self.verbose) 
+        self.tc = time_control.Time_Control()
         utils.set_tc_ref(self.tc)
-        self.engine_manager = engine_manager.Engine_Manager(self.verbose)        
+        self.engine_manager = engine_manager.Engine_Manager()        
         self.board = utils.get_board_ref()
         self.pieces = utils.get_pieces_ref()
         
@@ -139,7 +140,7 @@ class Game:
  
         # prefix to find package files/folders        
         self.prefix = os.path.abspath(os.path.dirname(__file__))
-        if self.verbose: print "prefix to find package files/folders=", self.prefix
+        if gv.verbose: print "prefix to find package files/folders=", self.prefix
 
         # set up gshogi directory under home directory
         self.gshogipath = os.path.expanduser("~") + "/.gshogi"        
@@ -179,7 +180,7 @@ class Game:
         # then set this square as the source square
         if self.board.valid_source_square(x, y, self.stm):             
             self.src = sq
-            if self.verbose: print "source square: (x, y) = (", x, ",",  y, ") ", sq
+            if gv.verbose: print "source square: (x, y) = (", x, ",",  y, ") ", sq
             self.src_x = x
             self.src_y = y
             self.piece = self.board.get_piece(x, y)
@@ -204,7 +205,7 @@ class Game:
 
     # format human move            
     def get_move(self, piece, src, dst, src_x, src_y, dst_x, dst_y):
-        if self.verbose:
+        if gv.verbose:
             print "in get move"
             print "src=",src
             print "dst=",dst
@@ -235,7 +236,7 @@ class Game:
                 else:                        
                     move = move + "+"           
 
-        if self.verbose: print "move=",move        
+        if gv.verbose: print "move=",move        
 
         engine.setplayer(self.stm)
         validmove = engine.hmove(move)
@@ -258,7 +259,7 @@ class Game:
         # update move list in move list window
         self.move_list.update()
 
-        if self.verbose: engine.command('bd')
+        if gv.verbose: engine.command('bd')
         self.src = ''
 
         self.gameover, msg = self.check_for_gameover() 
@@ -269,11 +270,11 @@ class Game:
             return                   
                 
         #self.gui.set_status_bar_msg('Thinking ...')  
-        #if self.verbose: print "--------------------------------------------------------------------------------"
+        #if gv.verbose: print "--------------------------------------------------------------------------------"
         #print "whites move"
         self.stm = self.get_side_to_move()
         self.gui.set_side_to_move(self.stm)
-        if self.verbose:
+        if gv.verbose:
             print "#"
             print "# " + self.get_side_to_move_string(self.stm) + " to move"
             print "#"                
@@ -348,7 +349,7 @@ class Game:
         
         self.stopped = False
 
-        if self.verbose:
+        if gv.verbose:
             print "#"
             print "# " + self.get_side_to_move_string(self.stm) + " to move"
             print "#"        
@@ -427,7 +428,7 @@ class Game:
                 #self.tc.start_clock(self.stm)
                 Gdk.threads_leave()
 
-                if self.verbose:
+                if gv.verbose:
                     print "#"
                     print "# " + self.get_side_to_move_string(self.stm) + " to move"
                     print "#"                
@@ -479,10 +480,10 @@ class Game:
                         self.thinking = False                        
                         return                    
 
-                    if self.verbose: print "computer move is",self.cmove
+                    if gv.verbose: print "computer move is",self.cmove
                     # check if player resigned
                     if self.cmove == 'resign':
-                        if self.verbose: print "computer resigned"                        
+                        if gv.verbose: print "computer resigned"                        
                         self.gameover = True
                         self.thinking = False
                         colour = self.get_side_to_move_string(self.stm)                        
@@ -505,10 +506,10 @@ class Game:
                         self.gameover = True                        
                         self.thinking = False                 
                         return                    
-                    if self.verbose: engine.command('bd')                                                         
+                    if gv.verbose: engine.command('bd')                                                         
                 else:
 
-                    if self.verbose: print "using gshogi builtin engine"
+                    if gv.verbose: print "using gshogi builtin engine"
                     #
                     # We are using the builtin gshogi engine (not a USI engine)
                     #
@@ -560,7 +561,7 @@ class Game:
                     Gdk.threads_leave() 
                 else:
                     # empty move is returned by gshogi engine when it is in checkmate
-                    if self.verbose: print "empty move returned by engine"
+                    if gv.verbose: print "empty move returned by engine"
                 
                 # if the engine moved very fast then wait a bit
                 # before displaying the move. The time to wait
@@ -587,9 +588,9 @@ class Game:
                 #    self.usi.send_ponder()
                 #    #self.ctp= thread.start_new_thread( self.usi.send_ponder, () )                   
 
-                if self.verbose: engine.command('bd')
+                if gv.verbose: engine.command('bd')
        
-                if self.verbose: print "move=",self.cmove
+                if gv.verbose: print "move=",self.cmove
                 msg = self.cmove                
 
                 self.gameover, gmsg = self.check_for_gameover()
@@ -831,13 +832,13 @@ class Game:
             try:                
                 self.engine_manager.set_engine_list(x.engine_list)                
             except Exception, e:                        
-                if self.verbose: print e, ". engine list not restored"
+                if gv.verbose: print e, ". engine list not restored"
 
             # pieceset 'eastern', 'western' or 'custom'
             try:                
                 self.pieces.set_pieceset(x.pieceset) 
             except Exception, e:                        
-                if self.verbose: print e, ". pieceset setting not restored" 
+                if gv.verbose: print e, ". pieceset setting not restored" 
 
             # custom pieceset path
             try:
@@ -845,28 +846,28 @@ class Game:
                if x.custom_pieceset_path is not None:
                    self.pieces.load_pieces(self.get_prefix())
             except Exception, e:                        
-                if self.verbose: print e, ". custom pieceset path setting not restored" 
+                if gv.verbose: print e, ". custom pieceset path setting not restored" 
 
             # set the engine or human for each player
             try:
                 self.player[WHITE] = x.player_white
                 self.player[BLACK] = x.player_black
             except Exception, e:                        
-                if self.verbose: print e, ". player setting not restored" 
+                if gv.verbose: print e, ". player setting not restored" 
 
             # time controls
             try:
                 cs = x.clock_settings                
                 self.tc.restore_clock_settings(cs)          
             except Exception, e:                        
-                if self.verbose: print e, ". time controls not restored" 
+                if gv.verbose: print e, ". time controls not restored" 
 
             # using Drag and Drop enabled
             #try:
             #    if x.dnd == True:
             #        self.gui.set_dnd()
             #except Exception, e:                        
-            #    if self.verbose: print e, ". DND setting not restored" 
+            #    if gv.verbose: print e, ". DND setting not restored" 
 
            # colour settings
             try:               
@@ -885,35 +886,35 @@ class Game:
 
                 self.set_board_colours.restore_colour_settings(cs)          
             except Exception, e:                        
-                if self.verbose: print e, ". colour settings not restored" 
+                if gv.verbose: print e, ". colour settings not restored" 
 
             # hash value
             try:               
                 hash_value = x.hash_value                         
                 self.engine_manager.set_hash_value(hash_value)                
             except Exception, e:                        
-                if self.verbose: print e, ". hash value not restored" 
+                if gv.verbose: print e, ". hash value not restored" 
     
             # ponder (true/false)
             try:
                 ponder = x.ponder
                 self.engine_manager.set_ponder(ponder)
             except Exception, e:                        
-                if self.verbose: print e, ". ponder not restored" 
+                if gv.verbose: print e, ". ponder not restored" 
 
             # show coordinates (true/false)
             try:
                 show_coords = x.show_coords
                 self.gui.set_show_coords(show_coords)
             except Exception, e:                        
-                if self.verbose: print e, ". show_coords not restored" 
+                if gv.verbose: print e, ". show_coords not restored" 
 
             # highlight moves (true/false)
             try:
                 highlight_moves = x.highlight_moves
                 self.gui.set_highlight_moves(highlight_moves)
             except Exception, e:                        
-                if self.verbose: print e, ". highlight_moves not restored" 
+                if gv.verbose: print e, ". highlight_moves not restored" 
 
 
     def goto_move(self, move_idx):
@@ -1188,14 +1189,6 @@ class Game:
 
     def get_redolist(self):
         return self.redolist
-
-
-    def get_verbose(self):
-        return self.verbose
-
-
-    def get_verbose_usi(self):
-        return self.verbose_usi
 
 
     def set_players(self, b):

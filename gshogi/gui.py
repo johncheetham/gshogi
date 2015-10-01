@@ -34,6 +34,7 @@ import load_save
 import utils
 #import inspect
 from constants import *
+import gv
 
 class Gui:
 
@@ -46,9 +47,8 @@ class Gui:
         self.highlighted = []  # list of highlighted squares        
 
 
-    def build_gui(self): 
+    def build_gui(self):
 
-        self.verbose = self.game.get_verbose()
         self.gobactive = False             
         self.engine_debug = engine_debug.get_ref()
         self.engine_output = engine_output.get_ref()
@@ -56,10 +56,8 @@ class Gui:
         self.gamelist = utils.get_gamelist_ref()        
         self.set_board_colours = set_board_colours.get_ref()
         self.drag_and_drop = drag_and_drop.get_ref()
-        self.drag_and_drop.set_verbose(self.verbose)
         self.enable_dnd = True
         self.load_save = load_save.get_ref()
-        self.load_save.set_verbose(self.verbose)
         self.show_coords = True
         self.highlight_moves = True                
         
@@ -568,7 +566,7 @@ class Gui:
     #
     def apply_drag_and_drop_settings(self, player, stm):
 
-        if self.verbose: print "in apply_drag_and_drop_settings"
+        if gv.verbose: print "in apply_drag_and_drop_settings"
 
         # If drag and drop not enabled then exit
         #if not self.ta_action_group.get_action('enableDND').get_active():
@@ -591,12 +589,12 @@ class Gui:
 
                 # human piece - set as valid source square for dnd
                 if self.board.valid_source_square(x, y, stm):
-                    if self.verbose: print x, y, "is a valid source sq"
+                    if gv.verbose: print x, y, "is a valid source sq"
                     self.dnd_set_source_square(x, y)
                     self.dnd_unset_dest_square(x, y)                   
                 else:
                     # valid target square for dnd
-                    if self.verbose: print x, y, "is NOT a valid source sq"
+                    if gv.verbose: print x, y, "is NOT a valid source sq"
                     self.dnd_unset_source_square(x, y)
                     self.dnd_set_dest_square(x, y)
 
@@ -1079,7 +1077,7 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
         #for item in stack:
         #    print item
         #print "stack:",inspect.stack()
-        if self.verbose:        
+        if gv.verbose:        
             print "in gui set_colours with these parms:"            
             print "  bg_colour=",bg_colour
             print "  komadai_colour=",komadai_colour

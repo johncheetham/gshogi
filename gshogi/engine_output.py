@@ -1,7 +1,7 @@
 #
 #   engine_output.py - Display USI Engine Output Window
 #
-#   This file is part of gshogi   
+#   This file is part of gshogi
 #
 #   gshogi is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -29,12 +29,12 @@ class Engine_Output:
 
     engine_output_ref = None
 
-    def __init__(self):        
+    def __init__(self):
         self.game = utils.get_game_ref()
         glade_dir = self.game.get_glade_dir()
-        self.glade_file = os.path.join(glade_dir, "engine_output.glade")       
-        Engine_Output.engine_output_ref = self       
-       
+        self.glade_file = os.path.join(glade_dir, "engine_output.glade")
+        Engine_Output.engine_output_ref = self
+
         self.builder = Gtk.Builder()
         self.builder.add_from_file(self.glade_file)
         self.builder.connect_signals(self)
@@ -55,46 +55,46 @@ class Engine_Output:
         self.tv[0].set_tabs(tabs)
         self.tv[1].set_tabs(tabs)
 
-        self.tb = [Gtk.TextBuffer(), Gtk.TextBuffer()] 
+        self.tb = [Gtk.TextBuffer(), Gtk.TextBuffer()]
         self.tb[0] = self.tv[0].get_buffer()
-        self.tb[1] = self.tv[1].get_buffer() 
+        self.tb[1] = self.tv[1].get_buffer()
         #self.tb[0].set_text('')
-        #self.tb[1].set_text('')               
+        #self.tb[1].set_text('')
 
         self.nps_lbl = [Gtk.Label(), Gtk.Label()]
         self.nps_lbl[0] = self.builder.get_object('engine_output_nodes_lbl1')
         self.nps_lbl[1] = self.builder.get_object('engine_output_nodes_lbl2')
-        
+
         self.engine_name_lbl = [Gtk.Label(), Gtk.Label()]
         self.engine_name_lbl[0] = self.builder.get_object('engine_output_engine_name_lbl1')
         self.engine_name_lbl[1] = self.builder.get_object('engine_output_engine_name_lbl2')
-       
+
         self.ponder_move_lbl = [Gtk.Label(), Gtk.Label()]
         self.ponder_move_lbl[0] = self.builder.get_object('engine_output_ponder_move_lbl1')
-        self.ponder_move_lbl[1] = self.builder.get_object('engine_output_ponder_move_lbl2')       
+        self.ponder_move_lbl[1] = self.builder.get_object('engine_output_ponder_move_lbl2')
 
         self.currmove_lbl = [Gtk.Label(), Gtk.Label()]
         self.currmove_lbl[0] = self.builder.get_object('engine_output_currmove_lbl1')
         self.currmove_lbl[1] = self.builder.get_object('engine_output_currmove_lbl2')
- 
-        #self.window.show_all() 
+
+        #self.window.show_all()
 
 
     # user has closed the window
     # just hide it
-    def delete_event(self, widget, event):        
+    def delete_event(self, widget, event):
         self.window.hide()
-        return True  # do not propagate to other handlers        
+        return True  # do not propagate to other handlers
 
 
     def format_time(self, ztime):
         if ztime == '':
-            return ztime        
+            return ztime
         try:
             ms = int(ztime)
         except:
             return ztime
-        secs = ms / 1000        
+        secs = ms / 1000
         mins = 0
         if secs > 60:
             mins = secs / 60
@@ -106,7 +106,7 @@ class Engine_Output:
         if secs < 10:
             ssecs = '0' + ssecs
         return smins + ':' + ssecs
-        
+
 
     def add_to_log(self, side, engine_name, msg):
         # Write to either the black or white split pane
@@ -123,9 +123,9 @@ class Engine_Output:
         nps = ''
         pv = ''
         currmove = ''
-        score = ''   
+        score = ''
         msg_lst = msg.split()
-        for i in range(0, len(msg_lst)):                
+        for i in range(0, len(msg_lst)):
             if msg_lst[i] == 'time':
                 ztime = msg_lst[i + 1]
             elif msg_lst[i] == 'nodes':
@@ -136,24 +136,24 @@ class Engine_Output:
                 nps = msg_lst[i + 1]
             elif msg_lst[i] == 'currmove':
                 currmove = msg_lst[i + 1]
-            elif msg_lst[i] == 'score':                
+            elif msg_lst[i] == 'score':
                 score = msg_lst[i + 1]
                 if score == 'cp':
                     score = msg_lst[i + 2]
                 elif score == 'mate':
-                    score = score + ' ' + msg_lst[i + 2]         
+                    score = score + ' ' + msg_lst[i + 2]
             elif msg_lst[i] == 'pv':
                 pv_lst = msg_lst[i + 1:]
                 for p in pv_lst:
                     pv = pv + p + '  '
 
-        ztime = self.format_time(ztime)        
-        zmsg = depth + '\t' + nodes + '\t' + ztime + '\t' + score + '\t' + pv + '\n'         
-        
+        ztime = self.format_time(ztime)
+        zmsg = depth + '\t' + nodes + '\t' + ztime + '\t' + score + '\t' + pv + '\n'
+
         # insert at start of buffer
-        start_iter = self.tb[idx].get_start_iter()            
-            
-  
+        start_iter = self.tb[idx].get_start_iter()
+
+
         if ztime != '' or nodes != '' or depth != '' or pv != '':
             self.tb[idx].insert(start_iter, zmsg)
 
@@ -162,14 +162,14 @@ class Engine_Output:
         if nps != '':
             self.nps_lbl[idx].set_text('NPS: ' + nps)
         else:
-            try:                    
-                nps_num = int(nodes) * 1000 / int(ztime)             
+            try:
+                nps_num = int(nodes) * 1000 / int(ztime)
                 nps = str(nps_num)
                 self.nps_lbl[idx].set_text('NPS: ' + nps)
             except:
-                pass            
+                pass
         """
-        
+
 
         #self.nps_lbl[idx].set_text('NPS: 1200')
 
@@ -189,21 +189,21 @@ class Engine_Output:
             idx = 1   # bottom pane for black
         else:
             idx = 0   # top pane for white
-        
-        self.tb[idx].set_text('')      
+
+        self.tb[idx].set_text('')
 
         if side == 'b':
             s = 'Black: '
         else:
             s = 'White: '
-        self.engine_name_lbl[idx].set_text(s + engine_name)        
+        self.engine_name_lbl[idx].set_text(s + engine_name)
 
 
-    def set_ponder_move(self, pondermove, side):        
+    def set_ponder_move(self, pondermove, side):
         if side == 'b':
             self.ponder_move_lbl[1].set_text('Ponder: ' + pondermove)
-        else: 
-            self.ponder_move_lbl[0].set_text('Ponder: ' + pondermove)        
+        else:
+            self.ponder_move_lbl[0].set_text('Ponder: ' + pondermove)
 
 
     def show_engine_output_window(self, b):
@@ -214,6 +214,3 @@ def get_ref():
     if Engine_Output.engine_output_ref is None:
         Engine_Output.engine_output_ref = Engine_Output()
     return Engine_Output.engine_output_ref
-
-
-

@@ -1,8 +1,8 @@
 /*
     enginemodule.c - Interface between the gui (written in python/pygtk)
-                     and the engine (written in C)   
-   
-    This file is part of gshogi    
+                     and the engine (written in C)
+
+    This file is part of gshogi
 
     gshogi is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
 
     You should have received a copy of the GNU General Public License
     along with gshogi.  If not, see <http://www.gnu.org/licenses/>.
-   
+
  */
 
 #include <Python.h>
@@ -31,14 +31,14 @@
 static PyObject *
 engine_init(PyObject *self, PyObject *args)
 {
-    int rc;            
+    int rc;
 
     if (!PyArg_ParseTuple(args, "sh", &binbookfile, &verbose))
         return NULL;
 
-    rc = InitMain();     
-    
-    Py_RETURN_NONE;   
+    rc = InitMain();
+
+    Py_RETURN_NONE;
 }
 
 /* command */
@@ -46,8 +46,8 @@ static PyObject *
 engine_command(PyObject *self, PyObject *args)
 {
 
-    char *command;    
-    
+    char *command;
+
     if (!PyArg_ParseTuple(args, "s", &command))
         return NULL;
 
@@ -55,10 +55,10 @@ engine_command(PyObject *self, PyObject *args)
     if (verbose)
     {
         printf("-> gshogi builtin:%s\n", command);
-    }    
-    
-    Py_RETURN_NONE;   
-           
+    }
+
+    Py_RETURN_NONE;
+
 }
 
 
@@ -69,10 +69,10 @@ engine_genbook(PyObject *self, PyObject *args)
 
     if (!PyArg_ParseTuple(args, "ssii", &bookfile, &binbookfile, &booksize, &bookmaxply))
         return NULL;
-    
+
     GetOpenings();
-    
-    Py_RETURN_NONE;         
+
+    Py_RETURN_NONE;
 
 }
 
@@ -81,8 +81,8 @@ engine_genbook(PyObject *self, PyObject *args)
 static PyObject *
 engine_getmate(PyObject *self, PyObject *args)
 {
-    
-    return Py_BuildValue("h", flag.mate);       
+
+    return Py_BuildValue("h", flag.mate);
 
 }
 
@@ -90,8 +90,8 @@ engine_getmate(PyObject *self, PyObject *args)
 static PyObject *
 engine_getwinner(PyObject *self, PyObject *args)
 {
-    
-    return Py_BuildValue("h", winner);       
+
+    return Py_BuildValue("h", winner);
 
 }
 
@@ -104,8 +104,8 @@ engine_info(PyObject *self, PyObject *args)
     printf("computer=%d\n", computer);
     printf("opponent=%d\n", opponent);
     printf("player=%d\n", player);
-    
-    Py_RETURN_NONE;         
+
+    Py_RETURN_NONE;
 
 }
 
@@ -118,21 +118,21 @@ engine_setplayer(PyObject *self, PyObject *args)
 
     if (!PyArg_ParseTuple(args, "i", &plyr))
         return NULL;
-    
+
     if (plyr == black)
     {
         player = black;
         opponent = black;
-        computer = white;        
+        computer = white;
     }
     else
     {
         player = white;
         opponent = white;
-        computer = black;        
-    }    
-    
-    Py_RETURN_NONE;         
+        computer = black;
+    }
+
+    Py_RETURN_NONE;
 
 }
 
@@ -140,8 +140,8 @@ engine_setplayer(PyObject *self, PyObject *args)
 static PyObject *
 engine_getmove(PyObject *self, PyObject *args)
 {
-    
-    return Py_BuildValue("s", mvstr[0]);       
+
+    return Py_BuildValue("s", mvstr[0]);
 
 }
 
@@ -154,39 +154,39 @@ engine_loadgame(PyObject *self, PyObject *args)
 
     if (!PyArg_ParseTuple(args, "s", &filename))
         return NULL;
-    
+
     rc = GetGame(filename);
-    
+
     return Py_BuildValue("h", rc);
 }
 
 /* save game */
 static PyObject *
 engine_savegame(PyObject *self, PyObject *args)
-{    
+{
     char *filename;
     char *sfen;
 
     if (!PyArg_ParseTuple(args, "ss", &filename, &sfen))
         return NULL;
-    
-    SaveGame(filename, sfen);    
-    
+
+    SaveGame(filename, sfen);
+
     Py_RETURN_NONE;
 }
 
 /* set search depth */
 static PyObject *
 engine_depth(PyObject *self, PyObject *args)
-{  
+{
 
     if (!PyArg_ParseTuple(args, "h", &MaxSearchDepth))
         return NULL;
-    
+
     if (verbose)
     {
         printf("-> gshogi builtin depth set to %i\n", MaxSearchDepth);
-    }      
+    }
 
     Py_RETURN_NONE;
 }
@@ -194,15 +194,15 @@ engine_depth(PyObject *self, PyObject *args)
 /* set search nodes limit */
 static PyObject *
 engine_nodes(PyObject *self, PyObject *args)
-{  
+{
 
     if (!PyArg_ParseTuple(args, "l", &NodeCntLimit))
         return NULL;
-    
+
     if (verbose)
     {
         printf("-> gshogi builtin node limit set to %ld\n", NodeCntLimit);
-    }      
+    }
 
     Py_RETURN_NONE;
 }
@@ -215,16 +215,16 @@ engine_hmove(PyObject *self, PyObject *args)
 
     char *hmove;
     short rc;
-    
+
     if (!PyArg_ParseTuple(args, "s", &hmove))
         return NULL;
-   
+
     winner = 0;
     oppptr = (oppptr + 1) % MINGAMEIN;
-     
+
     rc = DoMove(hmove); /* in commondsp.c */
-       
-    return Py_BuildValue("h", rc);       
+
+    return Py_BuildValue("h", rc);
 }
 
 /* computer move */
@@ -254,10 +254,10 @@ engine_cmove(PyObject *self, PyObject *args)
             printf(" (no limit)\n");
         }
         printf("  - tournament (classical) TC (true/false): %d\n", TCflag);
-        printf("  - tournament TC minutes: %d\n", TCminutes); 
-        printf("  - tournament TC seconds: %d\n", TCseconds); 
+        printf("  - tournament TC minutes: %d\n", TCminutes);
+        printf("  - tournament TC seconds: %d\n", TCseconds);
         printf("  - max response time if not using tournament TC (centiseconds): %ld\n", MaxResponseTime);
-    }    
+    }
     winner = 0;
     compptr = (compptr + 1) % MINGAMEIN;
 
@@ -266,7 +266,7 @@ engine_cmove(PyObject *self, PyObject *args)
 #ifdef INTERRUPT_TEST
         printf("starting search...\n");
 #endif
-        Py_BEGIN_ALLOW_THREADS 
+        Py_BEGIN_ALLOW_THREADS
         SelectMove(computer, FOREGROUND_MODE);
         Py_END_ALLOW_THREADS
 
@@ -297,32 +297,32 @@ engine_cmove(PyObject *self, PyObject *args)
     short side;
     for (side = black; side <= white; side++)
     {
-   
+
         short piece, c;
         printf((side == black)?"black ":"white ");
 
         side = white;
 
         for (piece = pawn; piece <= king; piece++)
-        {            
+        {
             c = Captured[side][piece];
-            printf("%i%c ", c, pxx[piece]);               
-          
+            printf("%i%c ", c, pxx[piece]);
+
         }
 
         printf("\n");
 
-    
+
     }
     */
-    
-    return Py_BuildValue("s", mvstr[0]);       
+
+    return Py_BuildValue("s", mvstr[0]);
 }
 
 /* user has issued a movenow command */
 static PyObject *
 engine_movenow(PyObject *self, PyObject *args)
-{    
+{
     flag.musttimeout = true;
     Py_RETURN_NONE;
 }
@@ -340,14 +340,14 @@ engine_movenow(PyObject *self, PyObject *args)
    5 - Gold General    (g)
    6 - Bishop          (b)
    7 - Rook            (r)
-  14 - King            (k) 
+  14 - King            (k)
 
 
    colour
    0 - black
    1 - white
    2 - neutral
-  
+
    promoted
    0 - not promoted
    1? - promoted
@@ -364,17 +364,17 @@ engine_movenow(PyObject *self, PyObject *args)
    5 - Gold General    (g)
    6 - Bishop          (b)
    7 - Rook            (r)
-   8 - King            (k) 
+   8 - King            (k)
 
    9 - promoted pawn            (+p)
   10 - promoted lance           (+l)
   11 - promoted Knight          (+n)
-  12 - promoted Silver General  (+s)   
+  12 - promoted Silver General  (+s)
   13 - promoted Bishop          (+b)
   14 - promoted Rook            (+r)
-     
 
-  
+
+
   Board used in gnushogi
 
                        ROW
@@ -386,64 +386,64 @@ engine_movenow(PyObject *self, PyObject *args)
     - - - - - - - - -   3     l = 27..35
     p p p p p p p p p   2     l = 18..26
     - b - - - - - r -   1     l =  9..17
-    l n s g k g s n l   0     l =  0..8  
+    l n s g k g s n l   0     l =  0..8
 
-COL 0 1 2 3 4 5 6 7 8  
+COL 0 1 2 3 4 5 6 7 8
 
 */
-  
+
 /* get board */
 static PyObject *
 engine_getboard(PyObject *self, PyObject *args)
 {
 
-    PyObject *lst = PyList_New(81);    
-    char pos[81];   
- 
+    PyObject *lst = PyList_New(81);
+    char pos[81];
+
     char cpos[81][3] = { "aa", "bb", "cc", "dd"};
-    
+
     int r,c,l;
     for (r = (NO_ROWS - 1); r >= 0; r--)
     {
         for (c = 0; c <= (NO_COLS - 1); c++)
         {
-            l = locn(r, c);           
+            l = locn(r, c);
             pos[l] = board[l];
         }
-        
-    }   
+
+    }
 
     for (r = (NO_ROWS - 1); r >= 0; r--)
     {
         for (c = 0; c <= (NO_COLS - 1); c++)
         {
             char pc;
-            
+
             l = locn((NO_ROWS - 1) - r, (NO_COLS - 1) - c);
             pc = (is_promoted[board[l]] ? '+' : ' ');
 
             if (color[l] == neutral)
-            {               
+            {
                 cpos[l][0] = ' ';
                 cpos[l][1] = '-';
                 cpos[l][2] = '\0';
             }
             else if (color[l] == black)
-            {                
+            {
                 cpos[l][0] = pc;
                 cpos[l][1] = qxx[board[l]];
                 cpos[l][2] = '\0';
             }
             else
-            {                
+            {
                 cpos[l][0] = pc;
                 cpos[l][1] = pxx[board[l]];
                 cpos[l][2] = '\0';
             }
         }
-        
+
     }
-    
+
 
         lst = Py_BuildValue("[sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss]",   \
             cpos[0],cpos[1],cpos[2],cpos[3],cpos[4],cpos[5],cpos[6],cpos[7],cpos[8],cpos[9],cpos[10],cpos[11],cpos[12],cpos[13], \
@@ -457,8 +457,8 @@ engine_getboard(PyObject *self, PyObject *args)
     );
 
 
-    return lst; 
-   
+    return lst;
+
 }
 
 /* get captured pieces */
@@ -469,12 +469,12 @@ static PyObject *
 engine_getcaptured_pieces(PyObject *self, PyObject *args)
 {
     short side;
-    char cp[NO_PIECES][3];    
-    PyObject *lst = PyList_New(NO_PIECES);    
+    char cp[NO_PIECES][3];
+    PyObject *lst = PyList_New(NO_PIECES);
     short piece, c;
 
      if (!PyArg_ParseTuple(args, "h", &side))
-        return NULL;    
+        return NULL;
 
     for (piece = pawn; piece <= king; piece++)
     {
@@ -490,50 +490,50 @@ engine_getcaptured_pieces(PyObject *self, PyObject *args)
         {
             cp[p][0] = '\0';
         }
-    }    
+    }
 
     lst = Py_BuildValue("[ssssssssssssss]",   \
             cp[0],cp[1],cp[2],cp[3],cp[4],cp[5],cp[6],cp[7],cp[8],cp[9],cp[10],cp[11],cp[12],cp[13],cp[13] \
      );
 
 
-    return lst;   
+    return lst;
 
 }
 
 
 /* set computer player to black or white*/
 void set_player(short plyr)
-{    
+{
     if (plyr == black)
     {
         player = black;
         opponent = black;
-        computer = white;                  
+        computer = white;
     }
     else
     {
         player = white;
         opponent = white;
-        computer = black;             
+        computer = black;
     }
 }
 
 
 /* set computer player to black or white*/
 void set_computer_player(short plyr)
-{    
+{
     if (plyr == black)
     {
         player = white;
         opponent = white;
-        computer = black;           
+        computer = black;
     }
     else
     {
         player = black;
         opponent = black;
-        computer = white;       
+        computer = white;
     }
 }
 
@@ -549,7 +549,7 @@ engine_setfen(PyObject *self, PyObject *args)
     /*                                                                                       */
     /* examples:                                                                             */
     /*      lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1                  */
-    /*      8l/1l+R2P3/p2pBG1pp/kps1p4/Nn1P2G2/P1P1P2PP/1PS6/1KSG3+r1/LN2+p3L w Sbgn3p 124   */ 
+    /*      8l/1l+R2P3/p2pBG1pp/kps1p4/Nn1P2G2/P1P1P2PP/1PS6/1KSG3+r1/LN2+p3L w Sbgn3p 124   */
 
     /*
 
@@ -564,18 +564,18 @@ engine_setfen(PyObject *self, PyObject *args)
    5 - Gold General    (g)
    6 - Bishop          (b)
    7 - Rook            (r)
-  14 - King            (k) 
+  14 - King            (k)
 
 
    colour
    0 - black
    1 - white
    2 - neutral
-  
+
    promoted
    0 - not promoted
    1 - promoted
-  
+
   Board used in gshogi
 
                        ROW
@@ -587,25 +587,25 @@ engine_setfen(PyObject *self, PyObject *args)
     - - - - - - - - -   3     l = 27..35
     p p p p p p p p p   2     l = 18..26
     - b - - - - - r -   1     l =  9..17
-    l n s g k g s n l   0     l =  0..8  
+    l n s g k g s n l   0     l =  0..8
 
-COL 0 1 2 3 4 5 6 7 8  
+COL 0 1 2 3 4 5 6 7 8
 
 */
 
-    char *fen;    
-    
+    char *fen;
+
     if (!PyArg_ParseTuple(args, "s", &fen))
         return NULL;
 
-    char *p;    
+    char *p;
     int c, i, j, z;
     short sq;
     short side, isp;
     char ch;
     char num[3];
 
-    p = fen;    
+    p = fen;
     NewGame();
     flag.regularstart = false;
     Book = false;
@@ -613,7 +613,7 @@ COL 0 1 2 3 4 5 6 7 8
     i = NO_ROWS - 1; /* i is row index */
     j = 0; /* j is column index */
 
-    while (*p != ' ') 
+    while (*p != ' ')
     {
         if (*p == '/')
         {
@@ -621,7 +621,7 @@ COL 0 1 2 3 4 5 6 7 8
             i--;
             p++;
         }
-        
+
         if (*p == '+')
         {
             isp = 1;
@@ -630,22 +630,22 @@ COL 0 1 2 3 4 5 6 7 8
         else
         {
             isp = 0;
-        }        
+        }
 
         sq = i * NO_COLS + j;
 
         if (isdigit(*p))
         {
             num[0] = *p;
-            num[1] = '\0';            
+            num[1] = '\0';
             for (z = 0; z < atoi(num); z++)
-            {                
+            {
                 board[sq] = no_piece;
                 color[sq] = neutral;
                 j++;
-                sq = i * NO_COLS + j;                
+                sq = i * NO_COLS + j;
             }
-            j--;            
+            j--;
         }
         else
         {
@@ -655,11 +655,11 @@ COL 0 1 2 3 4 5 6 7 8
                 {
                     if (isp)
                     {
-                        board[sq] = promoted[c];                        
+                        board[sq] = promoted[c];
                     }
                     else
                     {
-                        board[sq] = unpromoted[c];                        
+                        board[sq] = unpromoted[c];
                     }
 
                     color[sq] = white;
@@ -672,11 +672,11 @@ COL 0 1 2 3 4 5 6 7 8
                 {
                     if (isp)
                     {
-                        board[sq] = promoted[c];                        
-                    }    
+                        board[sq] = promoted[c];
+                    }
                     else
                     {
-                        board[sq] = unpromoted[c];                        
+                        board[sq] = unpromoted[c];
                     }
 
                     color[sq] = black;
@@ -701,8 +701,8 @@ COL 0 1 2 3 4 5 6 7 8
     {
         fprintf(stderr, "error - side to move not valid in sfen: %c\n",*p);
         set_computer_player(black);
-    }    
-    
+    }
+
     p++;
     if (*p != ' ')
     {
@@ -714,8 +714,8 @@ COL 0 1 2 3 4 5 6 7 8
     p++;
     if (*p != '-')
     {
-        while (*p != ' '  && *p != '\n' && *p != '\0')        
-        {        
+        while (*p != ' '  && *p != '\n' && *p != '\0')
+        {
             strcpy(num, "1");
             if (isdigit(*p))
             {
@@ -728,7 +728,7 @@ COL 0 1 2 3 4 5 6 7 8
                     num[2] = '\0';
                     p++;
                 }
-            
+
             }
 
             ch = *p;
@@ -742,7 +742,7 @@ COL 0 1 2 3 4 5 6 7 8
                 side = white;
             }
 
-        
+
             if (ch == 'p')
             {
                 Captured[side][pawn]   = atoi(num);
@@ -773,9 +773,9 @@ COL 0 1 2 3 4 5 6 7 8
             }
             p++;
         }
-        
+
     }
-   
+
     Game50 = 1;
     ZeroRPT();
     InitializeStats();
@@ -783,7 +783,7 @@ COL 0 1 2 3 4 5 6 7 8
     Sdepth = 0;
     hint = 0;
 
-    Py_RETURN_NONE;    
+    Py_RETURN_NONE;
 }
 
 
@@ -793,51 +793,51 @@ engine_getlegalmoves(PyObject *self, PyObject *args)
     static short pnt;
     struct leaf  *node;
     PyObject *lst = PyList_New(GameCnt);
-    int nummoves, len, maxlen;    
+    int nummoves, len, maxlen;
 
     MoveList(opponent, 2, -1, true);
     generate_move_flags = false;
     pnt = TrPnt[2];
 
-    nummoves = (TrPnt[3] - TrPnt[2]);  
+    nummoves = (TrPnt[3] - TrPnt[2]);
 
     char legalmoves[nummoves * ((int)sizeof(mvstr[0]) + 1) * 4 + 1];
-    legalmoves[0] = '\0';   
+    legalmoves[0] = '\0';
 
     while (pnt < TrPnt[3])
     {
         node = &Tree[pnt++];
         algbr(node->f, node->t, (short) node->flags);
-        /*printf("move: %s %s %s %s\n", mvstr[0], mvstr[1], mvstr[2], mvstr[3]);*/       
+        /*printf("move: %s %s %s %s\n", mvstr[0], mvstr[1], mvstr[2], mvstr[3]);*/
 
-        strcat(legalmoves, mvstr[0]);                
+        strcat(legalmoves, mvstr[0]);
         strcat(legalmoves, ",");
 
         strcat(legalmoves, mvstr[1]);
-        strcat(legalmoves, ",");        
+        strcat(legalmoves, ",");
 
         strcat(legalmoves, mvstr[2]);
-        strcat(legalmoves, ",");        
+        strcat(legalmoves, ",");
 
         strcat(legalmoves, mvstr[3]);
-        strcat(legalmoves, ";");        
+        strcat(legalmoves, ";");
 
     }
-        
+
     len = (int)strlen(legalmoves);
     maxlen = (int)sizeof(legalmoves);
     if (len > maxlen)
     {
         printf("error in getlegalmoves, char length is too small\n");
-        printf("len/maxlen of legalmoves is %i / % i \n", len, maxlen); 
-    } 
+        printf("len/maxlen of legalmoves is %i / % i \n", len, maxlen);
+    }
 
     lst = Py_BuildValue("s",   \
             legalmoves \
-    );    
+    );
 
-    return lst;     
-        
+    return lst;
+
 }
 
 
@@ -851,7 +851,7 @@ engine_getmovelist(PyObject *self, PyObject *args)
     int len, maxlen;
     char *p;
     char cap = ' ';
-    char prm = ' ';    
+    char prm = ' ';
 
     for (i = 1; i <= GameCnt; i++)
     {
@@ -859,7 +859,7 @@ engine_getmovelist(PyObject *self, PyObject *args)
 
         f = g->gmove >> 8;
         t = (g->gmove & 0xFF);
-        algbr(f, t, g->flags);        
+        algbr(f, t, g->flags);
 
         /* set prm to + if piece is promoted */
         if (f > NO_SQUARES)
@@ -884,10 +884,10 @@ engine_getmovelist(PyObject *self, PyObject *args)
         {
             cap = '-';
         }
-        
+
         p = movelist + strlen(movelist);
         *p = cap;
-        p++;   
+        p++;
         *p = ';';
         p++;
 
@@ -896,12 +896,12 @@ engine_getmovelist(PyObject *self, PyObject *args)
         *p = ';';
         p++;
 
-        *p = pxx[g->fpiece];        
+        *p = pxx[g->fpiece];
         p++;
         p[0] = '\0';
-        
-        strcat(movelist, (f > NO_SQUARES) ? &mvstr[0][1] : mvstr[0]);                
-        strcat(movelist, ",");        
+
+        strcat(movelist, (f > NO_SQUARES) ? &mvstr[0][1] : mvstr[0]);
+        strcat(movelist, ",");
         /*printf("%s %s %s %s %c\n", mvstr[0], mvstr[1], mvstr[2], mvstr[3], cap);*/
     }
 
@@ -914,45 +914,43 @@ engine_getmovelist(PyObject *self, PyObject *args)
     if (len > maxlen)
     {
         printf("error in getmovelist, char length is too small\n");
-        printf("len/maxlen of movelist is %i / % i \n", len, maxlen); 
+        printf("len/maxlen of movelist is %i / % i \n", len, maxlen);
     }
 
     lst = Py_BuildValue("s",   \
            movelist \
-    );    
+    );
 
-    return lst;    
+    return lst;
 }
 
 
-static PyMethodDef EngineMethods[] = {    
-    {"init", engine_init, METH_VARARGS, "Initialise the engine."},  
-    {"hmove", engine_hmove, METH_VARARGS, "Human move."}, 
+static PyMethodDef EngineMethods[] = {
+    {"init", engine_init, METH_VARARGS, "Initialise the engine."},
+    {"hmove", engine_hmove, METH_VARARGS, "Human move."},
     {"cmove", engine_cmove, METH_VARARGS, "Computer move."},
-    {"movenow", engine_movenow, METH_VARARGS, "Move Now."},     
-    {"getboard", engine_getboard, METH_VARARGS, "Get Board."}, 
-    {"getcaptured", engine_getcaptured_pieces, METH_VARARGS, "Get Captured Pieces."},      
-    {"command", engine_command, METH_VARARGS, "Command."}, 
-    {"getmate", engine_getmate, METH_VARARGS, "Check if Mate."}, 
-    {"getwinner", engine_getwinner, METH_VARARGS, "Check if Mate."},  
-    {"getmove", engine_getmove, METH_VARARGS, "get Whites move."}, 
+    {"movenow", engine_movenow, METH_VARARGS, "Move Now."},
+    {"getboard", engine_getboard, METH_VARARGS, "Get Board."},
+    {"getcaptured", engine_getcaptured_pieces, METH_VARARGS, "Get Captured Pieces."},
+    {"command", engine_command, METH_VARARGS, "Command."},
+    {"getmate", engine_getmate, METH_VARARGS, "Check if Mate."},
+    {"getwinner", engine_getwinner, METH_VARARGS, "Check if Mate."},
+    {"getmove", engine_getmove, METH_VARARGS, "get Whites move."},
     {"genbook", engine_genbook, METH_VARARGS, "create binary opening book."},
-    {"info", engine_info, METH_VARARGS, "print engine data."},   
-    {"setplayer", engine_setplayer, METH_VARARGS, "set player to black."},  
+    {"info", engine_info, METH_VARARGS, "print engine data."},
+    {"setplayer", engine_setplayer, METH_VARARGS, "set player to black."},
     {"loadgame", engine_loadgame, METH_VARARGS, "load game."},
-    {"savegame", engine_savegame, METH_VARARGS, "save game."},  
+    {"savegame", engine_savegame, METH_VARARGS, "save game."},
     {"depth", engine_depth, METH_VARARGS, "set search depth."},
-    {"nodes", engine_nodes, METH_VARARGS, "set search nodes limit."}, 
+    {"nodes", engine_nodes, METH_VARARGS, "set search nodes limit."},
     {"setfen", engine_setfen, METH_VARARGS, "set start position from sfen."},
     {"getmovelist", engine_getmovelist, METH_VARARGS, "get the list of moves in the current game."},
-    {"getlegalmoves", engine_getlegalmoves, METH_VARARGS, "get the list of legal moves for the player."},   
+    {"getlegalmoves", engine_getlegalmoves, METH_VARARGS, "get the list of legal moves for the player."},
     {NULL, NULL, 0, NULL}        /* Sentinel */
 };
 
 PyMODINIT_FUNC
 initengine(void)
-{    
-    (void) Py_InitModule("engine", EngineMethods);    
+{
+    (void) Py_InitModule("engine", EngineMethods);
 }
-
-

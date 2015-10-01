@@ -2,22 +2,22 @@
 
     rawdsp.c
 
-    This file is part of gshogi 
+    This file is part of gshogi
     It came from GNU SHOGI and may have been modified for use in gshogi.
 
     gshogi is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
- 
+
     gshogi is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
- 
+
     You should have received a copy of the GNU General Public License
     along with gshogi.  If not, see <http://www.gnu.org/licenses/>.
-   
+
 */
 
 
@@ -571,7 +571,7 @@ OutputMove(void)
     {
         /* printf("My move is: %s\n", mvstr[0]); */
         if (verbose)
-        {    
+        {
             printf(CP[83], mvstr[0]);
         }
 
@@ -975,4 +975,3 @@ ShowPostnValues(void)
            mtl[opponent], pscore[opponent], GameType[opponent]);
     printf("\nhung black %d hung white %d\n", hung[black], hung[white]);
 }
-

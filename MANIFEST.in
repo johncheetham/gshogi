@@ -93,4 +93,3 @@ include gshogi/glade/engine_debug.glade
 include gshogi/glade/move_list.glade
 include gshogi/glade/engine_output.glade
 include gshogi/glade/preferences.glade
-

@@ -159,7 +159,7 @@ small_short pattern_data[MAX_PATTERN_DATA] =
     -3, 1,30,1,29,4,12,6,10,1,44,-4,
     -2,
   -1
-}; 
+};
 
 #define MAX_OPENING_SEQUENCE 14
 

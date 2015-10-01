@@ -2,22 +2,22 @@
 
     commondsp.c
 
-    This file is part of gshogi 
+    This file is part of gshogi
     It came from GNU SHOGI and may have been modified for use in gshogi.
 
     gshogi is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
- 
+
     gshogi is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
- 
+
     You should have received a copy of the GNU General Public License
     along with gshogi.  If not, see <http://www.gnu.org/licenses/>.
-   
+
 */
 
 
@@ -176,8 +176,8 @@ algbr(short f, short t, short flag)
     if ((f == t) && ((f != 0) || (t != 0)))
     {
         if (!barebones)
-        {            
-            printf("error in algbr: FROM=TO=%d, flag=0x%4x\n", t, flag);            
+        {
+            printf("error in algbr: FROM=TO=%d, flag=0x%4x\n", t, flag);
         }
 
         mvstr[0][0] = mvstr[1][0] = mvstr[2][0] = mvstr[3][0] = '\0';
@@ -310,10 +310,10 @@ VerifyMove(char *s, VerifyMove_mode iop, unsigned short *mv)
         if (SqAttacked(PieceList[opponent][0], computer, &blocked))
         {
             UnmakeMove(opponent, &xnode, &tempb, &tempc, &tempsf, &tempst);
-            
+
             /* Illegal move in check */
             printf(CP[77], mvstr[0]);
-            printf("\n");                          
+            printf("\n");
 
             return false;
         }
@@ -355,9 +355,9 @@ VerifyMove(char *s, VerifyMove_mode iop, unsigned short *mv)
             return true;
         }
     }
-    
+
     /* Illegal move */
-    printf (CP[75], s);            
+    printf (CP[75], s);
 
     if (!barebones && (cnt > 1))
     {
@@ -439,16 +439,16 @@ GetGame(char *filename)
     short side, isp;
 
     /*filename += 4;*/
-    strcpy(fname, filename);    
+    strcpy(fname, filename);
 
     /* shogi.000 */
     if (fname[0] == '\0')
         strcpy(fname, CP[137]);
 
     if ((fd = fopen(fname, "r")) != NULL)
-    {        
+    {
         NewGame();
-        if (fgets(fname, 256, fd) == NULL) return 1;        
+        if (fgets(fname, 256, fd) == NULL) return 1;
         computer = opponent = black;
         InPtr = fname;
         skip();
@@ -660,7 +660,7 @@ SaveGame(char *filename, char *sfen)
     char empty[2] = "\n";
 
     /* filename +=5;*/
-    strcpy(fname, filename);    
+    strcpy(fname, filename);
 
     if (fname[0] == '\0')        /* shogi.000 */
         strcpy(fname, CP[137]);
@@ -1113,7 +1113,7 @@ TestSpeed(void(*f)(short side, short ply,
 #endif
 
     printf(CP[91], cnt, rate);
-    
+
 }
 
 
@@ -1156,7 +1156,7 @@ TestPSpeed(short(*f) (short side), unsigned j)
     /* printf("Nodes= %ld Nodes/sec= %ld\n", cnt, rate); */
 
     printf(CP[91], cnt, rate);
-    
+
 }
 
 
@@ -1235,7 +1235,7 @@ DoMove(char *command)
 {
     short ok, is_move = false;
     unsigned short mv;
-    char s[80], sx[80];    
+    char s[80], sx[80];
 
     s[0] = sx[0] = '\0';
 
@@ -1243,11 +1243,11 @@ DoMove(char *command)
     sx[1] = command[1];
     sx[2] = command[2];
     sx[3] = command[3];
-    sx[4] = command[4];    
+    sx[4] = command[4];
     sx[5] = '\0';
 
     sscanf(sx, "%s", s);
-    
+
     if ((ok = VerifyMove(s, VERIFY_AND_MAKE_MODE, &mv)))
     {
         /* check for repetition */
@@ -1299,7 +1299,7 @@ InputCommand(char *command)
 
 #if ttblsz
     if (TTadd > ttbllimit)
-        ZeroTTable();        
+        ZeroTTable();
 #endif
 
     if ((hint > 0) && !flag.easy && !flag.force)
@@ -1326,7 +1326,7 @@ InputCommand(char *command)
             Sdepth = 0;
 
 #ifdef QUIETBACKGROUND
-            PromptForMove();            
+            PromptForMove();
 
             have_shown_prompt = true;
 #endif /* QUIETBACKGROUND */
@@ -1374,7 +1374,7 @@ InputCommand(char *command)
         {
 #endif /* QUIETBACKGROUND */
 
-            PromptForMove();            
+            PromptForMove();
 
 #ifdef QUIETBACKGROUND
         }
@@ -1384,15 +1384,15 @@ InputCommand(char *command)
 
         if (command == NULL)
         {
-            
+
             s[0] = sx[0] = '\0';
-            
+
             sx[0] = command[0];
             sx[1] = command[1];
             sx[2] = command[2];
             sx[3] = command[3];
-            sx[4] = '\0';            
-            
+            sx[4] = '\0';
+
         }
         else
         {
@@ -1601,7 +1601,7 @@ InputCommand(char *command)
         {
             Undo();
             Undo();
-        }        
+        }
 #ifdef EASY_OPENINGS
         else if ((strcmp(s, "?") == 0)
                  || (strcmp(s, "!") == 0)
@@ -1815,4 +1815,3 @@ SetTimeControl(void)
     et = 0;
     ElapsedTime(COMPUTE_AND_INIT_MODE);
 }
-

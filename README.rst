@@ -5,7 +5,7 @@ Description
 gshogi is a program to play Shogi (Japanese Chess). It has a builtin
 engine and can also use USI engines. It is written in python/C and runs
 on GTK3 (PyGI) desktops.
- 
+
 It's licensed under the GPL v3+ (see the file named LICENSE) and aimed mainly
 at Linux users.
 
@@ -32,8 +32,8 @@ You can install these on Fedora 17 with:
 
 For Ubuntu 12.04 do:
 
-    sudo apt-get install build-essential python-dev python-glade2    
-           
+    sudo apt-get install build-essential python-dev python-glade2
+
 
 Running gshogi from the Source Directory
 
@@ -47,7 +47,7 @@ Running gshogi from the Source Directory
         Then execute 'run.py' to start gshogi
 
 
-Installing on the system     
+Installing on the system
 
     Enter 'python setup.py build' to build it (as normal user).
     Then 'python setup.py install' to install it (as root user).
@@ -55,21 +55,21 @@ Installing on the system
     Note:
 
         You must run 'python setup.py build' first since this creates
-        the opening book (don't just run 'python setup.py install' 
+        the opening book (don't just run 'python setup.py install'
         on it's own)
 
         You can check the build step worked by looking for a file called
-        engine.so under the build directory.    
+        engine.so under the build directory.
 
         gshogi should now be installed on your system. You can launch it from
         the gnome menu (under games) or type 'gshogi' in any terminal window.
 
-        There is no uninstall (setuptools doesn't have one). If you need to     
+        There is no uninstall (setuptools doesn't have one). If you need to
         uninstall you have to make a note of the file names and then delete
         them manually.
 
         If running the build/install multiple times it's best to delete the
-        build folder each time. 
+        build folder each time.
 
 Note that the binary opening book (data/opening.bbk) has a different format
 on 32 bit and 64 bit systems. You cannot use the 32 bit book on a 64 bit
@@ -117,7 +117,7 @@ count.
 To add a white piece to the main board right-click on the square you
 want to add the piece to then select the piece from the pop-up menu.
 To add a black piece left-click on the square.
- 
+
 
 Time control/Level support
 --------------------------
@@ -135,7 +135,7 @@ byoyomi
     This means the player can make as many or as few moves as they like
     in the 30 minutes and after that they will have 30 seconds per move.
 
-    go btime 3600000 wtime 3600000 byoyomi 30000    
+    go btime 3600000 wtime 3600000 byoyomi 30000
 
     If you want a fixed time of 10 seconds per move:
     go btime 0 wtime 0 byoyomi 10000
@@ -189,7 +189,7 @@ supported in most USI engines.
 Custom Pieces
 -------------
 You can load custom pieces using the 'Load Custom Pieces' button on the
-'set pieces' menu. 
+'set pieces' menu.
 
 To set up your own custom pieces you must provide images with these filenames.
 You can use either png or svg files. If you use png change the file extension
@@ -248,5 +248,3 @@ See the project homepage to download an example.
 Acknowledgements
 ----------------
 gshogi uses C engine code and board graphics from GNU Shogi.
-
-

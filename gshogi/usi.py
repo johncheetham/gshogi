@@ -1,7 +1,7 @@
 #
 #   usi.py
 #
-#   This file is part of gshogi   
+#   This file is part of gshogi
 #
 #   gshogi is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
 #
 #   You should have received a copy of the GNU General Public License
 #   along with gshogi.  If not, see <http://www.gnu.org/licenses/>.
-#   
+#
 
 from gi.repository import Gtk
 from gi.repository import Gdk
@@ -27,34 +27,34 @@ import gv
 
 class Usi:
 
-    
+
     def __init__(self, side):
-    
+
         self.engine = 'gshogi'
-        self.path = ''        
+        self.path = ''
         self.engine_running = False
         self.newgame = False
-        self.running_engine = ''         
+        self.running_engine = ''
         self.stop_pending = False
         self.ponder_move = None
-        self.side = side        
+        self.side = side
         self.engine_debug = engine_debug.get_ref()
-        self.engine_output = engine_output.get_ref()        
+        self.engine_output = engine_output.get_ref()
 
 
     def start_engine(self, path):
-        
+
         if path is None:
             path = self.path
-            # if using builtin engine return (not USI)        
+            # if using builtin engine return (not USI)
             if self.engine == 'gshogi':
-                return       
- 
+                return
+
         # path is the path to the USI engine executable
         if not os.path.isfile(path):
             print "invalid usipath:", path
             return False
- 
+
         #
         # get engine working directory
         #
@@ -66,31 +66,31 @@ class Usi:
 
         # Attempt to start the engine as a subprocess
         if gv.verbose: print "starting engine with path:",path
-        p = subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=engine_wdir) 
+        p = subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=engine_wdir)
         self.p = p
 
         # check process is running
         i = 0
-        while (p.poll() is not None):            
+        while (p.poll() is not None):
             i += 1
-            if i > 40:        
+            if i > 40:
                 print "unable to start engine process"
                 return False
-            time.sleep(0.25)        
+            time.sleep(0.25)
 
         if gv.verbose: print "pid=",p.pid
         # start thread to read stdout
-        self.op = []       
+        self.op = []
         self.soutt = thread.start_new_thread( self.read_stdout, () )
-        
-        # Tell engine to use the USI (universal shogi interface).        
-        self.command('usi\n')       
+
+        # Tell engine to use the USI (universal shogi interface).
+        self.command('usi\n')
 
         # wait for reply
         self.usi_option = []
         usi_ok = False
         i = 0
-        while True:            
+        while True:
             for l in self.op:
                 l = l.strip()
                 #print l
@@ -100,11 +100,11 @@ class Usi:
                     usi_ok = True
             self.op = []
             if usi_ok:
-                break            
+                break
             i += 1
-            if i > 40:                
+            if i > 40:
                 print "error - usiok not returned from engine"
-                return False        
+                return False
             time.sleep(0.25)
 
         # set pondering
@@ -112,20 +112,20 @@ class Usi:
         if self.engine_manager.get_ponder():
             ponder_str = 'true'
         else:
-            ponder_str = 'false' 
+            ponder_str = 'false'
         self.command('setoption name USI_Ponder value ' + ponder_str + '\n')
 
-        # set hash value 
+        # set hash value
         #self.command('setoption name USI_Hash value 256\n')
         self.command('setoption name USI_Hash value ' + str(self.engine_manager.get_hash_value()) + '\n')
 
         # Ask if ready
         self.command('isready\n')
-        
+
         # wait for reply
         ready_ok = False
         i = 0
-        while True:            
+        while True:
             for l in self.op:
                 l = l.strip()
                 #print l
@@ -135,9 +135,9 @@ class Usi:
             if ready_ok:
                 break
             i += 1
-            if i > 40:         
+            if i > 40:
                 print "error - readyok not returned from engine"
-                return False        
+                return False
             time.sleep(0.25)
 
         # Tell engine we are starting new game
@@ -147,41 +147,41 @@ class Usi:
 
         return True
 
-        
-    def command(self, cmd):        
+
+    def command(self, cmd):
         e = self.side + '(' + self.get_running_engine().strip() + '):'
         if gv.verbose or gv.verbose_usi: print "->" + e + cmd.strip()
-        GObject.idle_add(self.engine_debug.add_to_log, "->" + e + cmd.strip())        
+        GObject.idle_add(self.engine_debug.add_to_log, "->" + e + cmd.strip())
         try:
             self.p.stdin.write(cmd)
-        except AttributeError:           
+        except AttributeError:
             GObject.idle_add(self.engine_debug.add_to_log, "# engine process is not running")
-        except IOError:            
+        except IOError:
             GObject.idle_add(self.engine_debug.add_to_log, "# engine process is not running")
 
 
-    def stop_engine(self):        
+    def stop_engine(self):
         if not self.engine_running:
             return
- 
+
         self.stop_pending = True
         engine_stopped = False
 
         try:
-            if gv.verbose: print "stopping engine" 
-                     
+            if gv.verbose: print "stopping engine"
+
             self.command('quit\n')
 
-            # allow 2 seconds for engine process to end            
+            # allow 2 seconds for engine process to end
             i = 0
             while True:
                 if self.p.poll() is not None:
                     engine_stopped = True
-                    break                
+                    break
                 i += 1
-                if i > 8:         
+                if i > 8:
                     if gv.verbose: print "engine has not terminated after quit command"
-                    break        
+                    break
                 time.sleep(0.25)
 
             if not engine_stopped:
@@ -192,11 +192,11 @@ class Usi:
                 while True:
                     if self.p.poll() is not None:
                         engine_stopped = True
-                        break                
+                        break
                     i += 1
-                    if i > 8:         
+                    if i > 8:
                         if gv.verbose: print "engine has not responded to terminate command"
-                        break        
+                        break
                     time.sleep(0.25)
 
             if not engine_stopped:
@@ -207,34 +207,34 @@ class Usi:
                 while True:
                     if self.p.poll() is not None:
                         engine_stopped = True
-                        break                
+                        break
                     i += 1
-                    if i > 16:         
+                    if i > 16:
                         if gv.verbose: print "engine has not responded to kill command"
                         print "unable to stop engine pid",self.p.pid
-                        break        
-                    time.sleep(0.25)            
-        except:                
+                        break
+                    time.sleep(0.25)
+        except:
             pass
 
         if gv.verbose: print
-        if engine_stopped: 
+        if engine_stopped:
             if gv.verbose: print "engine stopped ok"
         self.engine_running = False
         self.stop_pending = False
-        self.running_engine = ''      
+        self.running_engine = ''
 
 
-    def read_stdout(self):                
-        while True:                  
-            try:                
+    def read_stdout(self):
+        while True:
+            try:
                 e = '<-' + self.side + '(' + self.get_running_engine().strip() + '):'
                 self.p.stdout.flush()
                 line = self.p.stdout.readline()
                 if line == '':
                     if gv.verbose: print e + 'eof reached'
                     if gv.verbose: print e + "stderr:",self.p.stderr.read()
-                    break                
+                    break
                 line = line.strip()
                 if gv.verbose or gv.verbose_usi: print e + line
                 GObject.idle_add(self.engine_debug.add_to_log, e+line)
@@ -243,7 +243,7 @@ class Usi:
                 self.op.append(line)
             except Exception, e:
                 #line = e + 'error'
-                print "subprocess error in usi.py read_stdout:",e                
+                print "subprocess error in usi.py read_stdout:",e
 
 
     def check_running(self):
@@ -268,12 +268,12 @@ class Usi:
 
     # Ask engine to make move
     def cmove(self, movelist, side_to_move):
-        self.check_running() 
+        self.check_running()
 
-        if self.newgame:      
+        if self.newgame:
             self.command('usinewgame\n')
             self.newgame = False
-        
+
         startpos = self.game.get_startpos()
 
         # if not startpos must be sfen
@@ -282,46 +282,46 @@ class Usi:
 
         ml = ''
         for move in movelist:
-            ml = ml + move + ' '        
-        if ml == '':           
-            b = 'position ' + startpos + '\n'           
-        else:             
-            b = 'position ' + startpos + ' moves ' + ml.strip() + '\n'           
+            ml = ml + move + ' '
+        if ml == '':
+            b = 'position ' + startpos + '\n'
+        else:
+            b = 'position ' + startpos + ' moves ' + ml.strip() + '\n'
 
-        #b = 'position sfen lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1 moves ' + ml.strip() +  '\n' 
-        #b = 'position sfen 8l/1l+R2P3/p2pBG1pp/kps1p4/Nn1P2G2/P1P1P2PP/1PS6/1KSG3+r1/LN2+p3L w Sbgn3p 124 moves ' + ml.strip() +  '\n'        
+        #b = 'position sfen lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1 moves ' + ml.strip() +  '\n'
+        #b = 'position sfen 8l/1l+R2P3/p2pBG1pp/kps1p4/Nn1P2G2/P1P1P2PP/1PS6/1KSG3+r1/LN2+p3L w Sbgn3p 124 moves ' + ml.strip() +  '\n'
 
         # Send the board position to the engine
-        self.command(b)               
+        self.command(b)
 
         # times in milliseconds
         #btime = time_left[0]
         #wtime = time_left[1]
-        #byoyomi = time_left[2]     
-    
+        #byoyomi = time_left[2]
+
         # clear the engine output window ready for next move
         GObject.idle_add(self.engine_output.clear, self.side, self.get_running_engine().strip())
 
         #print "calling time control module from usi module to get go command"
         gocmnd = self.tc.get_go_command(side_to_move)
-        self.gocmnd = gocmnd        # save for possible ponder                  
+        self.gocmnd = gocmnd        # save for possible ponder
         #print "go command:", gocmnd
 
 
         # start the clock
-        #print "starting clock from usi.py"                
+        #print "starting clock from usi.py"
         self.tc.start_clock(side_to_move)
-        
-        # send the engine the command to do the move
-        self.command(gocmnd + '\n')   
-        
 
-        #self.command('go btime ' + str(btime) +' wtime ' + str(wtime) + ' byoyomi ' + str(byoyomi) + '\n')        
+        # send the engine the command to do the move
+        self.command(gocmnd + '\n')
+
+
+        #self.command('go btime ' + str(btime) +' wtime ' + str(wtime) + ' byoyomi ' + str(byoyomi) + '\n')
 
         # Wait for move from engine
         i = 0
-        bestmove = False                
-        while True:            
+        bestmove = False
+        while True:
 
             time.sleep(0.5)
 
@@ -330,10 +330,10 @@ class Usi:
 
             # if stop command sent while engine was thinking then return
             if not self.engine_running or self.stop_pending:
-                return None, None            
+                return None, None
 
             for l in self.op:
-                l = l.strip()                    
+                l = l.strip()
                 if l.startswith('bestmove'):
                     bestmove = l[9:].strip()
                     if gv.verbose: print "bestmove is ",bestmove
@@ -347,28 +347,28 @@ class Usi:
 
                     # get bestmove
                     s = bestmove.find(' ')
-                    if s != -1:        
+                    if s != -1:
                         bestmove = bestmove[:s]
                     self.op = []
-        
+
                     # update time for last move
                     GObject.idle_add(self.tc.update_clock)
-                    GObject.idle_add(self.gui.set_side_to_move, side_to_move)      
+                    GObject.idle_add(self.gui.set_side_to_move, side_to_move)
 
-                    return bestmove, self.ponder_move            
+                    return bestmove, self.ponder_move
             self.op = []
 
 
     def stop_ponder(self):
         # return if not pondering
         #if self.ponder_move is None:
-        #    return 
+        #    return
         # stop pondering
         self.command('stop\n')
         # Wait for move from engine
         i = 0
-        bestmove = False                
-        while True:            
+        bestmove = False
+        while True:
 
             time.sleep(0.5)
 
@@ -377,10 +377,10 @@ class Usi:
 
             # if stop command sent while engine was thinking then return
             if not self.engine_running or self.stop_pending:
-                return None, None            
+                return None, None
 
             for l in self.op:
-                l = l.strip()                    
+                l = l.strip()
                 if l.startswith('bestmove'):
                     bestmove = l[9:].strip()
                     if gv.verbose: print "ponder bestmove is ",bestmove
@@ -389,28 +389,28 @@ class Usi:
                     ponder_move = None
                     s = bestmove.find('ponder')
                     if s != -1:
-                        ponder_move = bestmove[s + 7:].strip()                     
+                        ponder_move = bestmove[s + 7:].strip()
 
                     # get bestmove
                     s = bestmove.find(' ')
-                    if s != -1:        
+                    if s != -1:
                         bestmove = bestmove[:s]
-                    self.op = []                  
+                    self.op = []
 
-                    return bestmove, ponder_move            
-            self.op = []            
+                    return bestmove, ponder_move
+            self.op = []
 
 
     def send_ponderhit(self, side_to_move):
 
-        # start the clock                       
+        # start the clock
         self.tc.start_clock(side_to_move)
 
         self.command('ponderhit\n')
         # Wait for move from engine
         i = 0
-        bestmove = False                
-        while True:            
+        bestmove = False
+        while True:
 
             time.sleep(0.5)
 
@@ -419,10 +419,10 @@ class Usi:
 
             # if stop command sent while engine was thinking then return
             if not self.engine_running or self.stop_pending:
-                return None, None            
+                return None, None
 
             for l in self.op:
-                l = l.strip()                    
+                l = l.strip()
                 if l.startswith('bestmove'):
                     bestmove = l[9:].strip()
                     if gv.verbose: print "bestmove is ",bestmove
@@ -431,27 +431,27 @@ class Usi:
                     self.ponder_move = None
                     s = bestmove.find('ponder')
                     if s != -1:
-                        self.ponder_move = bestmove[s + 7:].strip()                     
+                        self.ponder_move = bestmove[s + 7:].strip()
                         GObject.idle_add(self.engine_output.set_ponder_move, self.ponder_move, self.side)  # set ponder move in engine output window
 
                     # get bestmove
                     s = bestmove.find(' ')
-                    if s != -1:        
+                    if s != -1:
                         bestmove = bestmove[:s]
                     self.op = []
-        
+
                     # update time for last move
                     Gdk.threads_enter()
-                    #print "updating clock from usi.py"                    
-                    self.tc.update_clock()                
-                    self.gui.set_side_to_move(side_to_move)        
-                    Gdk.threads_leave()      
+                    #print "updating clock from usi.py"
+                    self.tc.update_clock()
+                    self.gui.set_side_to_move(side_to_move)
+                    Gdk.threads_leave()
 
-                    return bestmove, self.ponder_move            
-            self.op = []            
+                    return bestmove, self.ponder_move
+            self.op = []
 
 
-    def start_ponder(self, pondermove, movelist, cmove):       
+    def start_ponder(self, pondermove, movelist, cmove):
 
         startpos = self.game.get_startpos()
 
@@ -461,22 +461,22 @@ class Usi:
 
         ml = ''
         for move in movelist:
-            ml = ml + move + ' '        
+            ml = ml + move + ' '
         #if ml == '':
         #    print "error empty movelist in ponder in usi.py"
         #    return
-                 
+
         ml = ml.strip()
         ml = ml + ' ' + cmove + ' ' + pondermove
         ml = ml.strip()
- 
+
         # create the position string with the ponder move added
-        b = 'position ' + startpos + ' moves ' + ml + '\n'       
+        b = 'position ' + startpos + ' moves ' + ml + '\n'
 
         # Send the board position to the engine
         self.command(b)
-        
-        pondercmd = 'go ponder' + self.gocmnd[2:]                 
+
+        pondercmd = 'go ponder' + self.gocmnd[2:]
         self.command(pondercmd + '\n')
 
         # clear the engine output window ready for next move
@@ -490,11 +490,11 @@ class Usi:
 
 
     def set_options(self, options):
-        self.usi_option = options       
+        self.usi_option = options
 
 
     def set_option(self, option):
-        option = option + '\n'        
+        option = option + '\n'
         self.command(option)
 
 
@@ -515,70 +515,70 @@ class Usi:
         # Attempt to start the engine as a subprocess
         engine_wdir = os.path.dirname(path)
         try:
-            p = subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=engine_wdir) 
-        except OSError, oe:            
+            p = subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=engine_wdir)
+        except OSError, oe:
             msg = "error starting engine: " + "OSError" + str(oe)
             return msg, name
-        self.p = p        
+        self.p = p
 
         # check process is running
         i = 0
-        while (p.poll() is not None):            
+        while (p.poll() is not None):
             i += 1
-            if i > 40:        
+            if i > 40:
                 msg = "not a valid USI engine"
-                return msg, name     
-            time.sleep(0.25)   
+                return msg, name
+            time.sleep(0.25)
 
         # start thread to read stdout
-        self.op = []       
+        self.op = []
         self.soutt = thread.start_new_thread( self.read_stdout, () )
-        
+
         # Tell engine to use the USI (universal shogi interface).
-        self.command('usi\n')        
+        self.command('usi\n')
 
         # wait for reply
         self.usi_option = []
         usi_ok = False
         i = 0
-        while True:            
+        while True:
             for l in self.op:
-                l = l.strip()               
-                if l.startswith('id '):                   
-                    w = l.split()                   
+                l = l.strip()
+                if l.startswith('id '):
+                    w = l.split()
                     if w[1] == 'name':
                         w.pop(0)
                         w.pop(0)
                         for j in w:
                             name = name + j + ' '
-                        name.strip()                    
+                        name.strip()
                     self.usi_option.append(l)
                 if l == 'usiok':
                     usi_ok = True
             self.op = []
             if usi_ok:
-                break            
+                break
             i += 1
-            if i > 40:                
+            if i > 40:
                 msg = "not a valid USI engine"
-                return msg, name       
+                return msg, name
             time.sleep(0.25)
 
-        try:                    
-            self.command('quit\n')            
+        try:
+            self.command('quit\n')
             self.p.terminate()
-        except:                
+        except:
             pass
 
-        return msg, name    
+        return msg, name
 
 
     def set_engine(self, ename, path):
         self.engine = ename
         if path == None:
             self.path = self.engine_manager.get_path(ename)
-        else:    
-            self.path = path        
+        else:
+            self.path = path
 
 
     def set_path(self, epath):
@@ -586,24 +586,24 @@ class Usi:
 
 
     def get_engine(self):
-        return self.engine    
+        return self.engine
 
-   
+
     def get_running_engine(self):
         if self.running_engine == '':
             return self.engine
-        else:    
-            return self.running_engine    
+        else:
+            return self.running_engine
 
 
     def USI_options(self, b):
-        self.check_running() 
-        options = self.get_options()        
-       
+        self.check_running()
+        options = self.get_options()
+
         wdgts = []
         opt_i = -1
-        for option in options:            
-            opt_i += 1            
+        for option in options:
+            opt_i += 1
             name = ''
             otype = ''
             default = ''
@@ -629,12 +629,12 @@ class Usi:
                     if gv.verbose: print 'invalid option line ignored:',option
                     continue
 
-                otype = words.pop(0)               
-                
+                otype = words.pop(0)
+
                 uvars = []
-                while True:                
+                while True:
                     w = words.pop(0)
-                    w2 = words.pop(0)                    
+                    w2 = words.pop(0)
                     if w == 'default':
                         default = w2
                     elif w == 'min':
@@ -644,22 +644,22 @@ class Usi:
                     elif w == 'var':
                         uvars.append(w2)
                     elif w == 'userval':
-                        userval = w2                    
+                        userval = w2
                     else:
                         if gv.verbose: print 'error parsing option:', option
 
-            except IndexError:                
+            except IndexError:
                 pass
 
-            wdgts.append((opt_i, name, otype, default, minimum, maximum, uvars, userval))            
-       
+            wdgts.append((opt_i, name, otype, default, minimum, maximum, uvars, userval))
+
 
         diagtitle = self.get_engine()
-        dialog = Gtk.Dialog(diagtitle, None, 0, (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK))  
+        dialog = Gtk.Dialog(diagtitle, None, 0, (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK))
         wlist = []
-        for w in wdgts:            
+        for w in wdgts:
             opt_i, name, otype, default, minimum, maximum, uvars, userval = w
-            if otype == 'spin':                 
+            if otype == 'spin':
                 if minimum == '':
                     minimum = 0
                 if maximum == '':
@@ -668,20 +668,20 @@ class Usi:
                     default = minimum
                 if userval != '':
                     default = userval
-                adj = Gtk.Adjustment(float(default), float(minimum), float(maximum), 1, 5, 0)               
+                adj = Gtk.Adjustment(float(default), float(minimum), float(maximum), 1, 5, 0)
                 spinner = Gtk.SpinButton.new(adj, 1.0, 0)
                 #spinner.set_width_chars(14)
                 al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
-                al.add(spinner)                    
-    
+                al.add(spinner)
+
                 lbl = Gtk.Label(label=name + ':')
 
                 hb = Gtk.HBox(False, 0)
                 hb.pack_start(lbl, False, False, 0)
                 hb.pack_start(al, True, True, 10)
 
-                dialog.vbox.pack_start(hb, False, True, 0)               
-        
+                dialog.vbox.pack_start(hb, False, True, 0)
+
                 v = (opt_i, adj, name, otype)
                 wlist.append(v)
 
@@ -689,7 +689,7 @@ class Usi:
                 spinner.show()
                 al.show()
                 hb.show()
-            elif otype == 'string':               
+            elif otype == 'string':
                 ent = Gtk.Entry()
                 if userval != '':
                     default = userval
@@ -704,7 +704,7 @@ class Usi:
                 hb.pack_start(lbl, False, False, 0)
                 hb.pack_start(al, True, True, 10)
 
-                dialog.vbox.pack_start(hb, False, True, 0) 
+                dialog.vbox.pack_start(hb, False, True, 0)
 
                 v = (opt_i, ent, name, otype)
                 wlist.append(v)
@@ -713,11 +713,11 @@ class Usi:
                 ent.show()
                 al.show()
                 hb.show()
-            elif otype == 'check':              
+            elif otype == 'check':
                 cb = Gtk.CheckButton(label=None)
                 if userval != '':
                     default = userval
-                if default == 'true':                
+                if default == 'true':
                     cb.set_active(True)
                 else:
                     cb.set_active(False)
@@ -729,21 +729,21 @@ class Usi:
                 hb.pack_start(lbl, False, False, 0)
                 hb.pack_start(al, True, True, 10)
 
-                dialog.vbox.pack_start(hb, False, True, 0) 
+                dialog.vbox.pack_start(hb, False, True, 0)
 
                 v = (opt_i, cb, name, otype)
                 wlist.append(v)
-                
+
                 lbl.show()
                 cb.show()
                 al.show()
                 hb.show()
             elif otype == 'combo':
                 if userval != '':
-                    default = userval                
+                    default = userval
                 combobox = Gtk.ComboBoxText()
                 i = 0
-                for v in uvars: 
+                for v in uvars:
                     combobox.append_text(v)
                     if v == default:
                         combobox.set_active(i)
@@ -751,7 +751,7 @@ class Usi:
 
                 al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
                 al.add(combobox)
-                al.show() 
+                al.show()
                 combobox.show()
 
                 lbl = Gtk.Label(label=name + ':')
@@ -763,8 +763,8 @@ class Usi:
 
                 v = (opt_i, combobox, name, otype)
                 wlist.append(v)
- 
-                lbl.show()                                
+
+                lbl.show()
                 hb.show()
             elif otype == 'button':
                 b = Gtk.Button(label=name)
@@ -783,14 +783,14 @@ class Usi:
                 al.show()
                 hb.show()
             else:
-                if gv.verbose: print "type ignored - ",otype 
-        
+                if gv.verbose: print "type ignored - ",otype
+
         dialog.set_default_response(Gtk.ResponseType.OK)
         response = dialog.run()
         if response == Gtk.ResponseType.OK:
-            for w in wlist:               
-                opt_i, widge, name, otype = w                
-                if otype == 'spin':    
+            for w in wlist:
+                opt_i, widge, name, otype = w
+                if otype == 'spin':
                     av = int(widge.get_value())
                 elif otype == 'string':
                     av = widge.get_text()
@@ -799,29 +799,26 @@ class Usi:
                         av = 'true'
                     else:
                         av = 'false'
-                elif otype == 'combo': 
-                    av = widge.get_active_text()                   
+                elif otype == 'combo':
+                    av = widge.get_active_text()
                 else:
                     if gv.verbose: print "unknown type", otype
                 #setoption name <id> [value <x>]
-                #usi.set_option('option name LimitDepth type spin default 10 min 4 max 10')    
+                #usi.set_option('option name LimitDepth type spin default 10 min 4 max 10')
                 a = 'setoption name ' + name + ' value ' + str(av)
-                #print "a=",a                
+                #print "a=",a
                 self.set_option(a)
                 u = options[opt_i].find('userval')
                 if u == -1:
                     options[opt_i] = options[opt_i] +  ' userval ' + str(av)
-                else:                   
-                    options[opt_i] = options[opt_i][0:u] + 'userval ' + str(av)                                                
-            self.set_options(options) 
+                else:
+                    options[opt_i] = options[opt_i][0:u] + 'userval ' + str(av)
+            self.set_options(options)
         dialog.destroy()
 
 
     def set_refs(self, game, em, gui, tc):
-        self.game = game 
+        self.game = game
         self.engine_manager = em
         self.gui = gui
-        self.tc = tc                
-        
-
-
+        self.tc = tc

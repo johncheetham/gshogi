@@ -1,7 +1,7 @@
 #
 #   engine_debug.py - Display USI Engine Debug Window
 #
-#   This file is part of gshogi   
+#   This file is part of gshogi
 #
 #   gshogi is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -28,17 +28,17 @@ class Engine_Debug:
 
     engine_debug_ref = None
 
-    def __init__(self):        
+    def __init__(self):
         self.game = utils.get_game_ref()
         glade_dir = self.game.get_glade_dir()
-        self.glade_file = os.path.join(glade_dir, "engine_debug.glade")       
+        self.glade_file = os.path.join(glade_dir, "engine_debug.glade")
         Engine_Debug.engine_debug_ref = self
 
         self.debug_text = ''
         self.window = None
 
 
-    def clear_text(self, b):        
+    def clear_text(self, b):
         self.tb.set_text("")
 
 
@@ -49,8 +49,8 @@ class Engine_Debug:
         if player == 'Human' or player == 'gshogi':
             GObject.idle_add(self.add_to_log, "# command not sent - player 1 (white) is not a USI engine")
             return
-        
-        cmd = self.cmd_entry.get_text() + '\n'       
+
+        cmd = self.cmd_entry.get_text() + '\n'
         usib, usiw = utils.get_usi_refs()
         usiw.command(cmd)
 
@@ -63,16 +63,16 @@ class Engine_Debug:
             GObject.idle_add(self.add_to_log, "# command not sent - player 2 (black) is not a USI engine")
             return
 
-        cmd = self.cmd_entry.get_text() + '\n'       
+        cmd = self.cmd_entry.get_text() + '\n'
         usib, usiw = utils.get_usi_refs()
         usib.command(cmd)
 
 
     # user has closed the window
     # just hide it
-    def delete_event(self, widget, event):        
+    def delete_event(self, widget, event):
         self.window.hide()
-        return True  # do not propagate to other handlers        
+        return True  # do not propagate to other handlers
 
 
     def add_to_log(self, msg):
@@ -85,19 +85,19 @@ class Engine_Debug:
             GObject.idle_add(self.scroll_to_end)
         except AttributeError:
             # engine debug window has not been opened. Append the debug
-            # messages until it is opened 
+            # messages until it is opened
             self.debug_text += msg
 
 
-    def show_debug_window(self, b):       
+    def show_debug_window(self, b):
 
-        # window already exists and is hidden so just show it 
+        # window already exists and is hidden so just show it
         if self.window is not None:
             # 'present' will show the window if it is hidden
             # if not hidden it will raise it to the top
-            self.window.present()           
+            self.window.present()
             return
-        
+
         # This is the first time the user has opened the engine debug
         # window so need to create it.
         self.builder = Gtk.Builder()
@@ -110,9 +110,9 @@ class Engine_Debug:
         self.tb = self.tv.get_buffer()
         self.tb.set_text(self.debug_text)
         self.debug_text = ''
-        
+
         # used to type commands and send them to the engine
-        self.cmd_entry = self.builder.get_object('engine_debug_entry')        
+        self.cmd_entry = self.builder.get_object('engine_debug_entry')
 
         self.window.show_all()
 
@@ -123,7 +123,7 @@ class Engine_Debug:
     def scroll_to_end(self):
         within_margin = 0.2
         end_iter = self.tb.get_end_iter()
-        self.tv.scroll_to_iter(end_iter, within_margin, False, 0.5, 0.5) 
+        self.tv.scroll_to_iter(end_iter, within_margin, False, 0.5, 0.5)
 
 
 def get_ref():
@@ -134,6 +134,3 @@ def get_ref():
 
 #Engine_Debug.engine_debug_ref = Engine_Debug()
 #print "utilsref:",utils.Utils.utils_ref
-
-
-

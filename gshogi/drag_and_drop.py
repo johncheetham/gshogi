@@ -1,7 +1,7 @@
 #
 #   drag_and_drop.py
 #
-#   This file is part of gshogi   
+#   This file is part of gshogi
 #
 #   gshogi is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -39,8 +39,8 @@ class Drag_And_Drop:
         cr.set_source_rgb(0.5, 0.5, 0.5)
         cr.rectangle(0, 0, width, height)
         cr.fill()
-    """    
-    
+    """
+
 
     #
     # user has begun to drag a piece
@@ -61,14 +61,14 @@ class Drag_And_Drop:
         #self.draw(cr, *self.gui.window.window.get_size())
         self.draw(cr, *self.gui.af.window.get_size())
         """
-   
-        self.dnd_data_received = False        
+
+        self.dnd_data_received = False
 
         # get x,y co-ords of source square
         x, y = data
 
         if gv.verbose:
-            print "in drag begin"       
+            print "in drag begin"
             print "data=",data
             print "widget_name=",widget.get_name()
             print "source sq=", x, y
@@ -79,33 +79,33 @@ class Drag_And_Drop:
         # drag source is a capture square not a board square
         if widget.get_name() == "bcap_eb" or widget.get_name() == "wcap_eb":
             self.src_x = x
-            self.src_y = y   
+            self.src_y = y
             self.piece = self.board.get_cap_piece(y, stm)
-            
+
             self.src = self.piece + '*'
-            
-            pb = self.board.get_cap_pixbuf(y, stm)          
+
+            pb = self.board.get_cap_pixbuf(y, stm)
 
             hot_x = pb.get_width() / 2
-            hot_y = pb.get_height() / 2       
-            drag_context.set_icon_pixbuf(pb, hot_x, hot_y)        
+            hot_y = pb.get_height() / 2
+            drag_context.set_icon_pixbuf(pb, hot_x, hot_y)
 
             # save the pixbuf for use in the drop (receivecallback) routines
             self.dnd_pixbuf = pb
 
             # clear the square where the piece is being moved from
-            self.board.set_cap_as_unoccupied(y, self.piece, stm)            
+            self.board.set_cap_as_unoccupied(y, self.piece, stm)
             self.board.refresh_screen()
-        else:                    
+        else:
 
             # convert the x, y co-ords into the shogi representation (e.g. 8, 6 is 1g)
-            sq = self.board.get_square_posn(x, y)        
-           
+            sq = self.board.get_square_posn(x, y)
+
             self.src = sq
             if gv.verbose: print "source square: (x, y) = (", x, ",",  y, ") ", sq
             self.src_x = x
-            self.src_y = y            
-        
+            self.src_y = y
+
             # set the icon for the drag and drop to the piece that is being dragged
             self.piece = self.board.get_piece(x, y)
             pb = self.board.get_piece_pixbuf(x, y)
@@ -123,7 +123,7 @@ class Drag_And_Drop:
 
 
     def sendCallback(self, widget, context, selection, targetType, eventTime):
-        if targetType == TARGET_TYPE_TEXT:           
+        if targetType == TARGET_TYPE_TEXT:
             sel = "gShogi"
             selection.set_text(sel, 8)
 
@@ -132,11 +132,11 @@ class Drag_And_Drop:
         if gv.verbose:
             print "in receive callback"
             print "x=", x
-            print "y=", y        
+            print "y=", y
             print "selection.data=",selection.get_text()
             print "targetType=", targetType
             print "time=", time
-            print "data=",data        
+            print "data=",data
 
         self.dnd_data_received = True
 
@@ -145,13 +145,13 @@ class Drag_And_Drop:
 
         # convert the x, y co-ords into the shogi representation (e.g. 8, 6 is 1g)
         sq = self.board.get_square_posn(x, y)
-             
-        # set destination square            
+
+        # set destination square
         dst = sq
-        if gv.verbose: print "dst =",dst        
+        if gv.verbose: print "dst =",dst
 
         move = self.game.get_move(self.piece, self.src, dst, self.src_x, self.src_y, x, y)
-        if gv.verbose:        
+        if gv.verbose:
             print "move=",move
             print
 
@@ -160,11 +160,11 @@ class Drag_And_Drop:
         if move is None:
             self.board.update()
             return
-         
-        # show the dropped piece on the board
-        self.board.set_image(x, y, self.dnd_pixbuf)        
 
-        # display the move                
+        # show the dropped piece on the board
+        self.board.set_image(x, y, self.dnd_pixbuf)
+
+        # display the move
         GObject.idle_add(self.game.human_move, move)
 
 
@@ -182,6 +182,3 @@ def get_ref():
     if Drag_And_Drop.drag_and_drop_ref is None:
         Drag_And_Drop.drag_and_drop_ref = Drag_And_Drop()
     return Drag_And_Drop.drag_and_drop_ref
-
-
-

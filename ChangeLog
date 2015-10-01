@@ -16,7 +16,7 @@ Changes for 0.4.5
 
     * Add a new comments window so you can add comments to the game.
 
-    * Allow loading of custom piece images 
+    * Allow loading of custom piece images
 
     * Apply Fixes to make pondering work
 
@@ -24,8 +24,8 @@ Changes for 0.4.5
 
     * Remove the none.jpg for empty squares. Empty pixbuf now created in code.
 
-    * Add score and change time format in engine output.    
-        
+    * Add score and change time format in engine output.
+
 
 Changes for 0.4.4
 -----------------
@@ -41,9 +41,9 @@ Changes for 0.4.4
 
     * Improve the look of the komadai
 
-    * Move code for drag and drop, load/save to separate modules    
+    * Move code for drag and drop, load/save to separate modules
 
-    * Convert main window to glade - some widgets only    
+    * Convert main window to glade - some widgets only
 
     * Fix bug where side to move is shown wrong after clicking
       a move in the movelist
@@ -54,7 +54,7 @@ Changes for 0.4.4
 
     * Fix bug - invalid textbuf iterator
 
-    * Delete duplicated function (get_startpos) in gshogi.py 
+    * Delete duplicated function (get_startpos) in gshogi.py
 
     * Fix bug in processing of position SFEN line
 
@@ -83,18 +83,18 @@ Changes for 0.4.2
     * Add Game Navigation buttons to toolbar
 
     * Allow Drag and Drop of pieces
-  
+
 
 Changes for 0.4.1
 -----------------
-2011-04-03  John Cheetham  developer@johncheetham.com  
+2011-04-03  John Cheetham  developer@johncheetham.com
 
     * Make board resizing quicker after resizing the main window
 
 
 Changes for 0.4
 ---------------
-2011-03-23  John Cheetham  developer@johncheetham.com  
+2011-03-23  John Cheetham  developer@johncheetham.com
 
     * Add Menu option to play handicap games
 
@@ -109,7 +109,7 @@ Changes for 0.4
 
 Changes for 0.3
 ---------------
-2010-10-03  John Cheetham  developer@johncheetham.com  
+2010-10-03  John Cheetham  developer@johncheetham.com
 
     * New set player function to allow playing engine vs engine as
       well as human vs engine and human vs human.
@@ -124,7 +124,7 @@ Changes for 0.3
     * set gameover to false when loading game
 
     * fix abends in engine manager when you press delete/rename and
-      no engine was selected. 
+      no engine was selected.
 
     * Retract Move has been renamed as Undo move and undoes 1 move
       and not a pair of moves.
@@ -134,7 +134,7 @@ Changes for 0.3
 
 Changes for 0.2.1
 -----------------
-2010-08-28  John Cheetham  developer@johncheetham.com        
+2010-08-28  John Cheetham  developer@johncheetham.com
 
     * Fix bug where some controls are unresponsive after black mates
 
@@ -149,7 +149,7 @@ Changes for 0.2.1
 
 Changes for 0.2
 ---------------
-2010-08-20  John Cheetham  developer@johncheetham.com 
+2010-08-20  John Cheetham  developer@johncheetham.com
 
     * Add USI support
 
@@ -158,7 +158,7 @@ Changes for 0.2
 
 Changes for 0.1.1
 -----------------
-2010-07-29  John Cheetham  developer@johncheetham.com 
+2010-07-29  John Cheetham  developer@johncheetham.com
 
     * Make window resizable
 
@@ -171,6 +171,6 @@ Changes for 0.1.1
 
 Inital Version 0.1
 ------------------
-2010-07-14  John Cheetham  developer@johncheetham.com 
+2010-07-14  John Cheetham  developer@johncheetham.com
 
     * Release the initial version (0.1)

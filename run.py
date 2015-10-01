@@ -17,8 +17,7 @@ plat_specifier = ".%s-%s" % (plat_name, sys.version[0:3])
 build_lib = "lib" + plat_specifier
 pypath = os.path.join("build", build_lib)
 pypath = os.path.join(pypath, "gshogi")
-sys.path.append(pypath) 
+sys.path.append(pypath)
 
 import gshogi.gshogi
 gshogi.gshogi.run()
-

@@ -2,22 +2,22 @@
 
     search.c
 
-    This file is part of gshogi 
+    This file is part of gshogi
     It came from GNU SHOGI and may have been modified for use in gshogi.
 
     gshogi is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
- 
+
     gshogi is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
- 
+
     You should have received a copy of the GNU General Public License
     along with gshogi.  If not, see <http://www.gnu.org/licenses/>.
-   
+
 */
 
 
@@ -568,7 +568,7 @@ search(short side,
 #ifdef NULLMOVE
     if (!null)
     {
-#endif        
+#endif
         if (NodeCnt > NodeCntLimit && NodeCntLimit > 0)
         {
             if (verbose)
@@ -924,9 +924,9 @@ search(short side,
 
             /*
             printf("capture=%d\n",capture);
-            printf("node->flags=%d\n",node->flags);  
-            */         
-            
+            printf("node->flags=%d\n",node->flags);
+            */
+
 
             /* fix to set CptrFlag[ply] correctly
                CptrFlag[ply] is small_short (i.e signed char) and
@@ -941,7 +941,7 @@ search(short side,
             {
                 CptrFlag[ply] = false;
             }
-            
+
 
             /*printf("CptrFlag[ply]=%d\n",CptrFlag[ply]);*/
 

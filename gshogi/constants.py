@@ -1,7 +1,7 @@
 #
 #   constants.py
 #
-#   This file is part of gshogi   
+#   This file is part of gshogi
 #
 #   gshogi is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
 #
 #   You should have received a copy of the GNU General Public License
 #   along with gshogi.  If not, see <http://www.gnu.org/licenses/>.
-#   
+#
 
 NAME = 'gshogi'
 VERSION = '0.4.6.dev1'
@@ -25,7 +25,7 @@ BEEP = False
 
 # Specify a minimum move time in seconds for engines.
 # A value of say 1.0 will mean that there will be
-# at least 1 second between moves being displayed. 
+# at least 1 second between moves being displayed.
 # This makes it easier to follow when the engines are moving
 # very quickly
 MIN_MOVETIME = 0.5
@@ -37,4 +37,3 @@ NEUTRAL = 2
 
 # Drag and Drop
 TARGET_TYPE_TEXT = 1180
-

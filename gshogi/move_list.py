@@ -1,7 +1,7 @@
 #
 #   move_list.py - Display Move List Window
 #
-#   This file is part of gshogi   
+#   This file is part of gshogi
 #
 #   gshogi is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -29,15 +29,15 @@ class Move_List:
 
     move_list_ref = None
 
-    def __init__(self):        
+    def __init__(self):
         self.game = utils.get_game_ref()
         glade_dir = self.game.get_glade_dir()
-        self.glade_file = os.path.join(glade_dir, "move_list.glade")       
+        self.glade_file = os.path.join(glade_dir, "move_list.glade")
         Move_List.move_list_ref = self
         self.comments = utils.get_comments_ref()
-        
-        self.saved_move_list = []       
-        
+
+        self.saved_move_list = []
+
         # create move list window
         self.builder = Gtk.Builder()
         self.builder.add_from_file(self.glade_file)
@@ -46,68 +46,68 @@ class Move_List:
         self.window = self.builder.get_object('move_list_window')
         self.treeview = self.builder.get_object('treeview1')
         self.liststore = self.builder.get_object('liststore1')
-        self.scrolled_window = self.builder.get_object('move_list_scrolled_window') 
+        self.scrolled_window = self.builder.get_object('move_list_scrolled_window')
 
-        cell0 = Gtk.CellRendererText()       
+        cell0 = Gtk.CellRendererText()
         #cell0.set_property('cell-background', Gdk.color_parse("#F8F8FF"))
-        tvcolumn0 = Gtk.TreeViewColumn('#')       
-        self.treeview.append_column(tvcolumn0)         
+        tvcolumn0 = Gtk.TreeViewColumn('#')
+        self.treeview.append_column(tvcolumn0)
         tvcolumn0.pack_start(cell0, True)
-        tvcolumn0.set_min_width(50)        
-        tvcolumn0.set_attributes(cell0, text=0)        
+        tvcolumn0.set_min_width(50)
+        tvcolumn0.set_attributes(cell0, text=0)
 
-        cell1 = Gtk.CellRendererText()       
-        #cell1.set_property('cell-background', Gdk.color_parse("#F8F8FF"))      
-        tvcolumn1 = Gtk.TreeViewColumn('Move')       
-        self.treeview.append_column(tvcolumn1)   
+        cell1 = Gtk.CellRendererText()
+        #cell1.set_property('cell-background', Gdk.color_parse("#F8F8FF"))
+        tvcolumn1 = Gtk.TreeViewColumn('Move')
+        self.treeview.append_column(tvcolumn1)
         tvcolumn1.pack_start(cell1, True)
-        tvcolumn1.set_min_width(100)        
+        tvcolumn1.set_min_width(100)
         tvcolumn1.set_attributes(cell1, text=1)
 
-        cell2 = Gtk.CellRendererText()       
-        #cell1.set_property('cell-background', Gdk.color_parse("#F8F8FF"))      
-        tvcolumn2 = Gtk.TreeViewColumn('Cmt')       
-        self.treeview.append_column(tvcolumn2)   
+        cell2 = Gtk.CellRendererText()
+        #cell1.set_property('cell-background', Gdk.color_parse("#F8F8FF"))
+        tvcolumn2 = Gtk.TreeViewColumn('Cmt')
+        self.treeview.append_column(tvcolumn2)
         tvcolumn2.pack_start(cell2, True)
-        tvcolumn2.set_min_width(20)        
+        tvcolumn2.set_min_width(20)
         tvcolumn2.set_attributes(cell2, text=2)
 
         self.tree_selection = self.treeview.get_selection()
 
-        self.window.hide()        
-        self.update()       
+        self.window.hide()
+        self.update()
 
 
     # user has closed the window
     # just hide it
-    def delete_event(self, widget, event):           
+    def delete_event(self, widget, event):
         self.window.hide()
-        return True  # do not propagate to other handlers        
+        return True  # do not propagate to other handlers
 
 
-    def show_movelist_window(self, b):        
+    def show_movelist_window(self, b):
         # 'present' will show the window if it is hidden
         # if not hidden it will raise it to the top
-        self.window.present()           
-        return        
+        self.window.present()
+        return
 
 
     # update the move list
     # called when the number of moves in the list has changed
-    def update(self): 
+    def update(self):
 
         # update liststore
         self.liststore.clear()
         self.liststore.append( ('0.', 'Start Pos', ' ') )
         mvstr = engine.getmovelist()
-        
-        if mvstr != "":                
+
+        if mvstr != "":
             mlst = mvstr.split(',')
             moveno = 1
-            for m in mlst:                    
-                        
-                (capture, ispromoted, move) = m.split(';') 
-                    
+            for m in mlst:
+
+                (capture, ispromoted, move) = m.split(';')
+
                 if move.find('*') == -1:
                     m1 = move[0:3]
                     m2 = move[3:]
@@ -118,11 +118,11 @@ class Move_List:
                 if comment != '':
                     cind = '...'
                 else:
-                    cind = ' '                 
+                    cind = ' '
                 e = str(moveno) + '.', move, cind
                 self.liststore.append(e)
-                moveno += 1       
-        
+                moveno += 1
+
         GObject.idle_add(self.scroll_to_end)
 
 
@@ -157,16 +157,16 @@ class Move_List:
             GObject.idle_add(self.process_tree_selection)
         else:
             GObject.idle_add(self.tree_selection.unselect_all)
- 
+
 
     # set the board position at the move the user clicked on
-    def process_tree_selection(self):       
-        (treemodel, treeiter) = self.tree_selection.get_selected() 
-        if treeiter is not None:           
+    def process_tree_selection(self):
+        (treemodel, treeiter) = self.tree_selection.get_selected()
+        if treeiter is not None:
             move_str = treemodel.get_value(treeiter, 0)
             move_str = move_str[0: len(move_str) - 1]
             move_idx = int(move_str)
-            self.comments.set_moveno(move_idx)            
+            self.comments.set_moveno(move_idx)
             # now call a method in gshogi.py to position it at the move clicked on
             self.game.goto_move(move_idx)
 
@@ -175,10 +175,10 @@ class Move_List:
         if ind:
             cind = '...'
         else:
-            cind = ' ' 
+            cind = ' '
         (treemodel, treeiter) = self.tree_selection.get_selected()
         if treeiter is not None:
-            self.liststore.set_value(treeiter, 2, cind)       
+            self.liststore.set_value(treeiter, 2, cind)
 
 
     def comments_button_clicked_cb(self, button):
@@ -189,6 +189,3 @@ def get_ref():
     if Move_List.move_list_ref is None:
         Move_List.move_list_ref = Move_List()
     return Move_List.move_list_ref
-
-
-

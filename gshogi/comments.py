@@ -1,7 +1,7 @@
 #
 #   comments.py - View/Edit Comments
 #
-#   This file is part of gshogi   
+#   This file is part of gshogi
 #
 #   gshogi is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@ class Comments:
 
         self.game = utils.get_game_ref()
         glade_dir = self.game.get_glade_dir()
-        self.glade_file = os.path.join(glade_dir, "comments.glade") 
+        self.glade_file = os.path.join(glade_dir, "comments.glade")
         self.move_list = move_list.get_ref()
 
         # create comments window
@@ -39,7 +39,7 @@ class Comments:
 
         self.window = self.builder.get_object('comments_window')
         self.window.hide()
-                
+
         self.moveno = 0 # the moveno the comment applies to
 
         tv = self.builder.get_object('comments_textview')
@@ -47,27 +47,27 @@ class Comments:
         tv.set_wrap_mode(Gtk.WrapMode.WORD)
         self.tb = tv.get_buffer()
         self.tb.connect("changed", self.text_changed)
-        self.comment_list = []  
+        self.comment_list = []
 
 
     # user has closed the window
     # just hide it
-    def delete_event(self, widget, event):                 
+    def delete_event(self, widget, event):
         self.window.hide()
-        return True  # do not propagate to other handlers 
+        return True  # do not propagate to other handlers
 
 
-    # called from comments_button_clicked_cb in move_list.py  
-    def show_comments_window(self):        
+    # called from comments_button_clicked_cb in move_list.py
+    def show_comments_window(self):
         # 'present' will show the window if it is hidden
         # if not hidden it will raise it to the top
-        self.window.present()           
-        return 
+        self.window.present()
+        return
 
 
-    # Called from move_list.py when selected move changes    
+    # Called from move_list.py when selected move changes
     # change the comment window to show the comment for the
-    # selected move 
+    # selected move
     def set_moveno(self, moveno):
         max = moveno
         if max < self.moveno:
@@ -75,7 +75,7 @@ class Comments:
         # extend comment list if it is shorter than movelist
         while len(self.comment_list) <= max:
             self.comment_list.append('')
-       
+
         # get current text from comments window
         start_iter = self.tb.get_start_iter()
         end_iter = self.tb.get_end_iter()
@@ -84,7 +84,7 @@ class Comments:
         #self.comment_list[self.moveno] = text
 
         self.moveno = moveno
-       
+
         # set the comment in the window to that of the newly selected
         # move
         self.tb.set_text(self.comment_list[moveno])
@@ -95,7 +95,7 @@ class Comments:
         #self.moveno = moveno
 
 
-    def text_changed(self, textbuffer):        
+    def text_changed(self, textbuffer):
         # get text
         start_iter = textbuffer.get_start_iter()
         end_iter = textbuffer.get_end_iter()
@@ -104,25 +104,25 @@ class Comments:
         # extend comment list if it is shorter than movelist
         while len(self.comment_list) <= self.moveno:
             self.comment_list.append('')
-    
+
         # save it
         #print "saving to move;",self.moveno
         #print "text=",text
         self.comment_list[self.moveno] = text
-        if text != '': 
+        if text != '':
             self.move_list.set_comment_ind(True)
         else:
             self.move_list.set_comment_ind(False)
 
 
     # Clear the comment window when clear button is clicked
-    def clear_button_clicked_cb(self, button):        
+    def clear_button_clicked_cb(self, button):
         text = ''
         # extend comment list if it is shorter than movelist
         while len(self.comment_list) <= self.moveno:
             self.comment_list.append('')
         self.comment_list[self.moveno] = text
-        self.tb.set_text(text) 
+        self.tb.set_text(text)
 
 
     # clear all comments.
@@ -130,21 +130,21 @@ class Comments:
     def clear_comments(self):
         self.moveno = 0
         self.comment_list = ['']
-        self.tb.set_text('')       
-        self.window.set_title("Comment for Move 0")       
+        self.tb.set_text('')
+        self.window.set_title("Comment for Move 0")
 
 
     # called by load_save.py when loading file in PSN format
-    def set_comment(self, moveno, comment):        
+    def set_comment(self, moveno, comment):
         while len(self.comment_list) <= moveno:
-            self.comment_list.append('') 
+            self.comment_list.append('')
         self.comment_list[moveno] = comment
 
 
     # called by load_save.py when saving file in PSN format
     def get_comment(self, moveno):
         while len(self.comment_list) <= moveno:
-            self.comment_list.append('')        
+            self.comment_list.append('')
         return self.comment_list[moveno]
 
 
@@ -155,6 +155,3 @@ class Comments:
             if len(comment) > 0:
                 return True
         return False
-
-
-

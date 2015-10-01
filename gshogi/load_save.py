@@ -1,7 +1,7 @@
 #
 #   load_save.py
 #
-#   This file is part of gshogi   
+#   This file is part of gshogi
 #
 #   gshogi is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -39,13 +39,13 @@ class Load_Save:
         self.move_list = move_list.get_ref()
         self.game = utils.get_game_ref()
         self.tc = utils.get_tc_ref()
-        self.psn = utils.get_psn_ref()                
+        self.psn = utils.get_psn_ref()
         self.comments = utils.get_comments_ref()
 
 
-    # Load game from a previously saved game    
-    def load_game(self, b):        
-        
+    # Load game from a previously saved game
+    def load_game(self, b):
+
         dialog = Gtk.FileChooserDialog("Load..",
                                None,
                                Gtk.FileChooserAction.OPEN,
@@ -54,20 +54,20 @@ class Load_Save:
         dialog.set_default_response(Gtk.ResponseType.OK)
         dialog.set_current_folder(os.path.expanduser("~"))
 
-        filter = Gtk.FileFilter()  
-        filter.set_name("psn files") 
-        filter.add_pattern("*.psn")              
-        dialog.add_filter(filter)    
+        filter = Gtk.FileFilter()
+        filter.set_name("psn files")
+        filter.add_pattern("*.psn")
+        dialog.add_filter(filter)
 
-        filter = Gtk.FileFilter()  
-        filter.set_name("gshog files")         
-        filter.add_pattern("*.gshog")        
-        dialog.add_filter(filter)     
+        filter = Gtk.FileFilter()
+        filter.set_name("gshog files")
+        filter.add_pattern("*.gshog")
+        dialog.add_filter(filter)
 
         filter = Gtk.FileFilter()
         filter.set_name("All files")
         filter.add_pattern("*")
-        dialog.add_filter(filter)        
+        dialog.add_filter(filter)
 
         response = dialog.run()
         if response != Gtk.ResponseType.OK:
@@ -75,8 +75,8 @@ class Load_Save:
             return
 
         fname = dialog.get_filename()
-        dialog.destroy()            
-        
+        dialog.destroy()
+
         if fname.endswith(".psn"):
             self.psn.load_game_psn(fname)
             return
@@ -88,29 +88,29 @@ class Load_Save:
 
     # this routine is called from utils.py (when doing paste position)
     # and from gui.py (when ending an edit board session).
-    def init_game(self, sfen):        
+    def init_game(self, sfen):
         engine.setfen(sfen)
         startpos = sfen
-        sfenlst = sfen.split()                    
+        sfenlst = sfen.split()
         if sfenlst[1] == 'b':
             if gv.verbose: print "setting stm to black"
-            stm = BLACK                                
+            stm = BLACK
         elif sfenlst[1] == 'w':
             stm = WHITE
         else:
-            stm = BLACK                    
+            stm = BLACK
         engine.setplayer(stm)
 
         self.usib.set_newgame()
         self.usiw.set_newgame()
         self.gui.set_status_bar_msg("ready")
-        self.gameover = False            
+        self.gameover = False
 
         self.game.set_movelist([])
         self.game.set_redolist([])
         self.game.set_startpos(startpos)
 
-        self.board.update()        
+        self.board.update()
 
         # update move list in move list window
         self.move_list.update()
@@ -118,8 +118,8 @@ class Load_Save:
         stm = self.game.get_side_to_move()
         self.game.set_side_to_move(stm)
         self.gui.set_side_to_move(stm)
-        self.gui.unhilite_squares()               
-            
+        self.gui.unhilite_squares()
+
         self.tc.reset_clock()
 
 
@@ -131,39 +131,39 @@ class Load_Save:
 
         self.comments.clear_comments()
 
-        # get movelist                 
+        # get movelist
         f = open(fname)
         startmoves = False
         movelist = []
         redolist = []
         startpos = 'startpos'
-        while 1:        
+        while 1:
             line = f.readline()
             if not line:
                 break
             if line.startswith('startpos'):
                 startpos = line[9:].strip()
                 if gv.verbose: print "startpos set to",startpos
-                continue  
-            if startmoves:                        
+                continue
+            if startmoves:
                 l = line.strip()
                 sl = l.split()
                 m = sl[0]
                 if m.startswith('+'):
                     m = m[1:]
-                if m.find('*') != -1:        
+                if m.find('*') != -1:
                     move = m
-                else:                                
-                    move = m[1:]                                
-                movelist.append(move)                            
+                else:
+                    move = m[1:]
+                movelist.append(move)
             if line.startswith('  move   score depth'):
                 startmoves = True
         f.close()
-                       
+
         self.usib.set_newgame()
         self.usiw.set_newgame()
         self.gui.set_status_bar_msg("game loaded")
-        self.gameover = False            
+        self.gameover = False
 
         self.game.set_movelist(movelist)
         self.game.set_redolist(redolist)
@@ -176,8 +176,8 @@ class Load_Save:
         self.game.set_side_to_move(stm)
         self.gui.set_side_to_move(stm)
         self.gui.unhilite_squares()
-        utils.get_gamelist_ref().set_game_list([])     
- 
+        utils.get_gamelist_ref().set_game_list([])
+
         self.tc.reset_clock()
 
 
@@ -189,7 +189,7 @@ class Load_Save:
         # properties
         dat = str(date.today())
         dat = dat.replace('-', '/')
-                
+
         zstr = '[Date "' + dat + '"]\n'
         gamestr += zstr
 
@@ -203,20 +203,20 @@ class Load_Save:
         if startpos == 'startpos':
             zstr = '[SFEN "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1"]\n'
             gamestr += zstr
-        else:                    
+        else:
             zstr = '[SFEN "' + startpos + '"]\n'
             gamestr += zstr
 
         # add comment if present
         comment = self.comments.get_comment(0)
-        if comment != '':                    
-            gamestr = gamestr + '{\n' + comment + '\n}\n' 
+        if comment != '':
+            gamestr = gamestr + '{\n' + comment + '\n}\n'
 
         # if the movelist is positioned part way through the game then
         # we must redo all moves so the full game will be saved
         redo_count = len(self.game.get_redolist())
-        for i in range(0, redo_count):                    
-            self.game.redo_move()   
+        for i in range(0, redo_count):
+            self.game.redo_move()
 
         # moves
         moveno = 1
@@ -225,16 +225,16 @@ class Load_Save:
 
         # if we did any redo moves then undo them now to get things back
         # the way they were
-        for i in range(0, redo_count):                    
+        for i in range(0, redo_count):
             self.game.undo_move()
 
-        if mvstr != "":                             
-            mlst = mvstr.split(',')                
+        if mvstr != "":
+            mlst = mvstr.split(',')
 
-            for m in mlst:                
+            for m in mlst:
 
-                (capture, ispromoted, move) = m.split(';') 
-                    
+                (capture, ispromoted, move) = m.split(';')
+
                 if move.find('*') == -1:
                     m1 = move[0:3]
                     m2 = move[3:]
@@ -242,17 +242,17 @@ class Load_Save:
                     if ispromoted == '+':
                         move = '+' + move
                 zstr = str(moveno) + '.' + move + '\n'
-                gamestr += zstr 
-                # add comment for this move if present 
+                gamestr += zstr
+                # add comment for this move if present
                 comment = self.comments.get_comment(moveno)
-                if comment != '':                    
-                    gamestr = gamestr + '{' + comment + '}\n' 
+                if comment != '':
+                    gamestr = gamestr + '{' + comment + '}\n'
                 moveno += 1
-        return (gamestr)        
+        return (gamestr)
 
 
-    # Save game to a file   
-    def save_game(self, b):        
+    # Save game to a file
+    def save_game(self, b):
 
         dialog = Gtk.FileChooserDialog("Save..",
                                None,
@@ -262,55 +262,55 @@ class Load_Save:
         dialog.set_default_response(Gtk.ResponseType.OK)
         dialog.set_current_folder(os.path.expanduser("~"))
 
-        filter = Gtk.FileFilter()  
-        filter.set_name("psn files") 
-        filter.add_pattern("*.psn")              
-        dialog.add_filter(filter)  
+        filter = Gtk.FileFilter()
+        filter.set_name("psn files")
+        filter.add_pattern("*.psn")
+        dialog.add_filter(filter)
 
-        filter = Gtk.FileFilter()  
-        filter.set_name("gshog files")      
-        filter.add_pattern("*.gshog")        
-        dialog.add_filter(filter)              
+        filter = Gtk.FileFilter()
+        filter.set_name("gshog files")
+        filter.add_pattern("*.gshog")
+        dialog.add_filter(filter)
 
         filter = Gtk.FileFilter()
         filter.set_name("All files")
         filter.add_pattern("*")
-        dialog.add_filter(filter)        
+        dialog.add_filter(filter)
 
         response = dialog.run()
-        if response == Gtk.ResponseType.OK:                        
+        if response == Gtk.ResponseType.OK:
 
             startpos = self.game.get_startpos()
 
             #
-            # filename must end with .gshog or .psn            
+            # filename must end with .gshog or .psn
             #
             filename = dialog.get_filename()
-            if not filename.endswith('.gshog') and not filename.endswith('.psn'): 
-                if dialog.get_filter().get_name() == 'psn files':                    
+            if not filename.endswith('.gshog') and not filename.endswith('.psn'):
+                if dialog.get_filter().get_name() == 'psn files':
                     filename = filename + '.psn'
                 else:
-                    filename = filename + '.gshog'            
+                    filename = filename + '.gshog'
 
             # If file already exists then ask before overwriting
             if os.path.isfile(filename):
-                resp = self.gui.ok_cancel_box("Warning - file already exists and will be replaced.\nPress Cancel if you do not want to overwrite it.")                
+                resp = self.gui.ok_cancel_box("Warning - file already exists and will be replaced.\nPress Cancel if you do not want to overwrite it.")
                 if resp == Gtk.ResponseType.CANCEL:
-                    dialog.destroy()                    
-                    return               
+                    dialog.destroy()
+                    return
 
             if filename.endswith('.psn'):
                 # save in psn format
-                gamestr = self.get_game()                 
+                gamestr = self.get_game()
                 f = open(filename, 'w')
-                f.write(gamestr)               
-                f.close()                
+                f.write(gamestr)
+                f.close()
             else:
                 # save in gshog format
                 #engine.command('save ' + filename)
 
-                # comments cannot be saved in gshog format 
-                # if there are comments warn the user               
+                # comments cannot be saved in gshog format
+                # if there are comments warn the user
                 if self.comments.has_comments():
                     msg = "Warning. This Game has comments which will be lost if you save in this format."
                     msg += "\nTo save the comments save in PSN format instead."
@@ -319,18 +319,18 @@ class Load_Save:
                 # if the movelist is positioned part way through the game then
                 # we must redo all moves so the full game will be saved
                 redo_count = len(self.game.get_redolist())
-                for i in range(0, redo_count):                    
-                    self.game.redo_move()              
+                for i in range(0, redo_count):
+                    self.game.redo_move()
 
-                engine.savegame(filename, 'startpos ' + startpos + '\n')                
+                engine.savegame(filename, 'startpos ' + startpos + '\n')
 
                 # if we did any redo moves then undo them now to get things back
                 # the way they were
-                for i in range(0, redo_count):                    
+                for i in range(0, redo_count):
                     self.game.undo_move()
-               
+
             self.gui.set_status_bar_msg("game saved")
-              
+
         dialog.destroy()
 
 
@@ -338,6 +338,3 @@ def get_ref():
     if Load_Save.load_save_ref is None:
         Load_Save.load_save_ref = Load_Save()
     return Load_Save.load_save_ref
-
-
-

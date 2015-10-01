@@ -1,7 +1,7 @@
 #
 #   gamelist.py
 #
-#   This file is part of gshogi   
+#   This file is part of gshogi
 #
 #   gshogi is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -28,8 +28,8 @@ class Gamelist:
 
         self.game = utils.get_game_ref()
         glade_dir = self.game.get_glade_dir()
-        self.glade_file = os.path.join(glade_dir, "gamelist.glade")        
-        
+        self.glade_file = os.path.join(glade_dir, "gamelist.glade")
+
         # create gamelist window
         self.builder = Gtk.Builder()
         self.builder.add_from_file(self.glade_file)
@@ -39,13 +39,13 @@ class Gamelist:
         self.treeview = self.builder.get_object('gamelist_treeview')
         self.liststore = self.builder.get_object('liststore1')
 
-        cell0 = Gtk.CellRendererText()       
+        cell0 = Gtk.CellRendererText()
         #cell0.set_property('cell-background', Gdk.color_parse("#F8F8FF"))
-        tvcolumn0 = Gtk.TreeViewColumn()       
-        self.treeview.append_column(tvcolumn0)         
+        tvcolumn0 = Gtk.TreeViewColumn()
+        self.treeview.append_column(tvcolumn0)
         tvcolumn0.pack_start(cell0, True)
-        tvcolumn0.set_min_width(50)        
-        tvcolumn0.set_attributes(cell0, text=0)     
+        tvcolumn0.set_min_width(50)
+        tvcolumn0.set_attributes(cell0, text=0)
 
         self.tree_selection = self.treeview.get_selection()
 
@@ -54,9 +54,9 @@ class Gamelist:
 
     # user has closed the window
     # just hide it
-    def delete_event(self, widget, event):                     
+    def delete_event(self, widget, event):
         self.window.hide()
-        return True  # do not propagate to other handlers 
+        return True  # do not propagate to other handlers
 
 
     # called from gui.py when doing view gamelist
@@ -65,49 +65,46 @@ class Gamelist:
 
 
     # called from psn.py when opening multi-game file
-    # and from show_gamelist_window_cb above        
-    def show_gamelist_window(self):        
+    # and from show_gamelist_window_cb above
+    def show_gamelist_window(self):
         # 'present' will show the window if it is hidden
         # if not hidden it will raise it to the top
-        self.window.present()           
-        return 
+        self.window.present()
+        return
 
     def set_game_list(self, glist):
         # update liststore
         self.liststore.clear()
-        gameno = 0 
-        for hdrs in glist:           
+        gameno = 0
+        for hdrs in glist:
             gameno += 1
             h = str(gameno) + '. '
-            hdrno = 1 
+            hdrno = 1
             for hdr in hdrs:
                 hdr = hdr.strip()
                 hdr = hdr.lstrip('[')
-                hdr = hdr.rstrip(']') 
+                hdr = hdr.rstrip(']')
                 if hdrno == 1:
-                    h = h + hdr 
+                    h = h + hdr
                 else:
-                    h = h + ', ' + hdr 
-                hdrno += 1            
+                    h = h + ', ' + hdr
+                hdrno += 1
             lst = [ h ]
             self.liststore.append(lst)
 
 
-    def loadgame_button_clicked_cb(self, button):           
-        (treemodel, treeiter) = self.tree_selection.get_selected() 
-        if treeiter is not None:                
+    def loadgame_button_clicked_cb(self, button):
+        (treemodel, treeiter) = self.tree_selection.get_selected()
+        if treeiter is not None:
             game_str = treemodel.get_value(treeiter, 0)
             gameno = ''
             i = 0
             while game_str[i] != '.':
                 gameno += game_str[i]
                 i += 1
-            try: 
+            try:
                 gameno = int(gameno)
             except ValueError, ve:
                 return
-            psn_ref = utils.get_psn_ref() 
+            psn_ref = utils.get_psn_ref()
             psn_ref.load_game_from_multigame_file(gameno)
-            
-           
-

@@ -18,20 +18,17 @@
 #
 
 from gi.repository import Gtk
-from gi.repository import GObject
-import os
 from gi.repository import Pango
+import os
 
-import utils
-from constants import *
+import gv
 
 class Engine_Output:
 
     engine_output_ref = None
 
     def __init__(self):
-        self.game = utils.get_game_ref()
-        glade_dir = self.game.get_glade_dir()
+        glade_dir = gv.gshogi.get_glade_dir()
         self.glade_file = os.path.join(glade_dir, "engine_output.glade")
         Engine_Output.engine_output_ref = self
 

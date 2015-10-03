@@ -19,13 +19,13 @@
 
 from gi.repository import Gtk
 import os
-import codecs
 from datetime import date
 
 import engine
-import utils
 import move_list
-from constants import *
+import comments
+import psn
+from constants import WHITE, BLACK
 import gv
 
 class Load_Save:
@@ -33,14 +33,9 @@ class Load_Save:
     load_save_ref = None
 
     def __init__(self):
-        self.usib, self.usiw = utils.get_usi_refs()
-        self.gui = utils.get_gui_ref()
-        self.board = utils.get_board_ref()
         self.move_list = move_list.get_ref()
-        self.game = utils.get_game_ref()
-        self.tc = utils.get_tc_ref()
-        self.psn = utils.get_psn_ref()
-        self.comments = utils.get_comments_ref()
+        self.psn = psn.get_ref()
+        self.comments = comments.get_ref()
 
 
     # Load game from a previously saved game
@@ -101,32 +96,32 @@ class Load_Save:
             stm = BLACK
         engine.setplayer(stm)
 
-        self.usib.set_newgame()
-        self.usiw.set_newgame()
-        self.gui.set_status_bar_msg("ready")
-        self.gameover = False
+        gv.usib.set_newgame()
+        gv.usiw.set_newgame()
+        gv.gui.set_status_bar_msg("ready")
+        gv.gshogiover = False
 
-        self.game.set_movelist([])
-        self.game.set_redolist([])
-        self.game.set_startpos(startpos)
+        gv.gshogi.set_movelist([])
+        gv.gshogi.set_redolist([])
+        gv.gshogi.set_startpos(startpos)
 
-        self.board.update()
+        gv.board.update()
 
         # update move list in move list window
         self.move_list.update()
 
-        stm = self.game.get_side_to_move()
-        self.game.set_side_to_move(stm)
-        self.gui.set_side_to_move(stm)
-        self.gui.unhilite_squares()
+        stm = gv.gshogi.get_side_to_move()
+        gv.gshogi.set_side_to_move(stm)
+        gv.gui.set_side_to_move(stm)
+        gv.gui.unhilite_squares()
 
-        self.tc.reset_clock()
+        gv.tc.reset_clock()
 
 
     def load_game_gshog(self, fname):
         rc = engine.loadgame(fname)
         if (rc > 0):
-            self.gui.set_status_bar_msg("Error 1 loading game - not a valid gshog file")
+            gv.gui.set_status_bar_msg("Error 1 loading game - not a valid gshog file")
             return
 
         self.comments.clear_comments()
@@ -160,32 +155,32 @@ class Load_Save:
                 startmoves = True
         f.close()
 
-        self.usib.set_newgame()
-        self.usiw.set_newgame()
-        self.gui.set_status_bar_msg("game loaded")
-        self.gameover = False
+        gv.usib.set_newgame()
+        gv.usiw.set_newgame()
+        gv.gui.set_status_bar_msg("game loaded")
+        gv.gshogiover = False
 
-        self.game.set_movelist(movelist)
-        self.game.set_redolist(redolist)
-        self.game.set_startpos(startpos)
+        gv.gshogi.set_movelist(movelist)
+        gv.gshogi.set_redolist(redolist)
+        gv.gshogi.set_startpos(startpos)
 
-        self.board.update()
+        gv.board.update()
         # update move list in move list window
         self.move_list.update()
-        stm = self.game.get_side_to_move()
-        self.game.set_side_to_move(stm)
-        self.gui.set_side_to_move(stm)
-        self.gui.unhilite_squares()
+        stm = gv.gshogi.get_side_to_move()
+        gv.gshogi.set_side_to_move(stm)
+        gv.gui.set_side_to_move(stm)
+        gv.gui.unhilite_squares()
         utils.get_gamelist_ref().set_game_list([])
 
-        self.tc.reset_clock()
+        gv.tc.reset_clock()
 
 
     # called from utils.py as well as from this module
     def get_game(self):
 
         gamestr = ""
-        startpos = self.game.get_startpos()
+        startpos = gv.gshogi.get_startpos()
         # properties
         dat = str(date.today())
         dat = dat.replace('-', '/')
@@ -193,10 +188,10 @@ class Load_Save:
         zstr = '[Date "' + dat + '"]\n'
         gamestr += zstr
 
-        zstr = '[Sente "' + self.game.get_player(BLACK).strip() + '"]\n'
+        zstr = '[Sente "' + gv.gshogi.get_player(BLACK).strip() + '"]\n'
         gamestr += zstr
 
-        zstr = '[Gote "' + self.game.get_player(WHITE).strip() + '"]\n'
+        zstr = '[Gote "' + gv.gshogi.get_player(WHITE).strip() + '"]\n'
         gamestr += zstr
 
         # sfen
@@ -214,9 +209,9 @@ class Load_Save:
 
         # if the movelist is positioned part way through the game then
         # we must redo all moves so the full game will be saved
-        redo_count = len(self.game.get_redolist())
+        redo_count = len(gv.gshogi.get_redolist())
         for i in range(0, redo_count):
-            self.game.redo_move()
+            gv.gshogi.redo_move()
 
         # moves
         moveno = 1
@@ -226,7 +221,7 @@ class Load_Save:
         # if we did any redo moves then undo them now to get things back
         # the way they were
         for i in range(0, redo_count):
-            self.game.undo_move()
+            gv.gshogi.undo_move()
 
         if mvstr != "":
             mlst = mvstr.split(',')
@@ -280,7 +275,7 @@ class Load_Save:
         response = dialog.run()
         if response == Gtk.ResponseType.OK:
 
-            startpos = self.game.get_startpos()
+            startpos = gv.gshogi.get_startpos()
 
             #
             # filename must end with .gshog or .psn
@@ -294,7 +289,7 @@ class Load_Save:
 
             # If file already exists then ask before overwriting
             if os.path.isfile(filename):
-                resp = self.gui.ok_cancel_box("Warning - file already exists and will be replaced.\nPress Cancel if you do not want to overwrite it.")
+                resp = gv.gui.ok_cancel_box("Warning - file already exists and will be replaced.\nPress Cancel if you do not want to overwrite it.")
                 if resp == Gtk.ResponseType.CANCEL:
                     dialog.destroy()
                     return
@@ -314,22 +309,22 @@ class Load_Save:
                 if self.comments.has_comments():
                     msg = "Warning. This Game has comments which will be lost if you save in this format."
                     msg += "\nTo save the comments save in PSN format instead."
-                    self.gui.info_box(msg)
+                    gv.gui.info_box(msg)
 
                 # if the movelist is positioned part way through the game then
                 # we must redo all moves so the full game will be saved
-                redo_count = len(self.game.get_redolist())
+                redo_count = len(gv.gshogi.get_redolist())
                 for i in range(0, redo_count):
-                    self.game.redo_move()
+                    gv.gshogi.redo_move()
 
                 engine.savegame(filename, 'startpos ' + startpos + '\n')
 
                 # if we did any redo moves then undo them now to get things back
                 # the way they were
                 for i in range(0, redo_count):
-                    self.game.undo_move()
+                    gv.gshogi.undo_move()
 
-            self.gui.set_status_bar_msg("game saved")
+            gv.gui.set_status_bar_msg("game saved")
 
         dialog.destroy()
 

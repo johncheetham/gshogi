@@ -22,7 +22,6 @@ from gi.repository import Gdk
 from gi.repository import GObject
 import os
 
-import utils
 import gv
 
 class Set_Board_Colours:
@@ -31,11 +30,7 @@ class Set_Board_Colours:
 
     def __init__(self):
         if gv.verbose: print "set_board_colours - init"
-        self.gui = utils.get_gui_ref()
-        self.game = utils.get_game_ref()
-        self.pieces = utils.get_pieces_ref()
-        self.board = utils.get_board_ref()
-        glade_dir = self.game.get_glade_dir()
+        glade_dir = gv.gshogi.get_glade_dir()
         self.glade_file = os.path.join(glade_dir, "set_colours.glade")
         self.pieces_glade_file = os.path.join(glade_dir, "set_pieces.glade")
         if Set_Board_Colours.set_board_colours_ref is not None:
@@ -275,8 +270,8 @@ class Set_Board_Colours:
                    self.piece_outline_colour, self.piece_kanji_colour, self.border_colour, self.grid_colour)
 
         try:
-            #self.gui.set_colours(bg_colour, komadai_colour, square_colour, text_colour, piece_fill_colour, piece_outline_colour, piece_kanji_colour, border_colour, grid_colour)
-            self.gui.set_colours(bg_colour, komadai_colour, square_colour, text_colour, border_colour, grid_colour)
+            #gv.gui.set_colours(bg_colour, komadai_colour, square_colour, text_colour, piece_fill_colour, piece_outline_colour, piece_kanji_colour, border_colour, grid_colour)
+            gv.gui.set_colours(bg_colour, komadai_colour, square_colour, text_colour, border_colour, grid_colour)
         except Exception, e:
             print "set_board_colours.py - call to gui set_colours failed: ", e
 
@@ -300,8 +295,8 @@ class Set_Board_Colours:
         grid_colour = self.get_button_colour(self.grid_colour_button)
 
         self.text_colour_temp = text_colour
-        #self.gui.set_colours(bg_colour, komadai_colour, square_colour, text_colour, piece_fill_colour, piece_outline_colour, piece_kanji_colour, border_colour, grid_colour)
-        self.gui.set_colours(bg_colour, komadai_colour, square_colour, text_colour, border_colour, grid_colour)
+        #gv.gui.set_colours(bg_colour, komadai_colour, square_colour, text_colour, piece_fill_colour, piece_outline_colour, piece_kanji_colour, border_colour, grid_colour)
+        gv.gui.set_colours(bg_colour, komadai_colour, square_colour, text_colour, border_colour, grid_colour)
 
 
     def get_button_colour(self, colour_button):
@@ -330,8 +325,8 @@ class Set_Board_Colours:
         (bg_colour, komadai_colour, square_colour, text_colour, piece_fill_colour, piece_outline_colour, piece_kanji_colour, border_colour, grid_colour) = theme[1]
 
         self.text_colour_temp = text_colour
-        #self.gui.set_colours(bg_colour, komadai_colour, square_colour, text_colour, piece_fill_colour, piece_outline_colour, piece_kanji_colour, border_colour, grid_colour)
-        self.gui.set_colours(bg_colour, komadai_colour, square_colour, text_colour, border_colour, grid_colour)
+        #gv.gui.set_colours(bg_colour, komadai_colour, square_colour, text_colour, piece_fill_colour, piece_outline_colour, piece_kanji_colour, border_colour, grid_colour)
+        gv.gui.set_colours(bg_colour, komadai_colour, square_colour, text_colour, border_colour, grid_colour)
 
 
     # use presets radio button has been toggled
@@ -386,12 +381,12 @@ class Set_Board_Colours:
         self.builder = Gtk.Builder()
         self.builder.add_from_file(self.pieces_glade_file)
         self.builder.connect_signals(self)
-        self.pieces_dialog = self.builder.get_object('pieces_dialog')
+        gv.pieces_dialog = self.builder.get_object('pieces_dialog')
         self.eastern_radio_button = self.builder.get_object('eastern_radiobutton')
         self.western_radio_button = self.builder.get_object('western_radiobutton')
         self.custom_radio_button = self.builder.get_object('custom_radiobutton')
 
-        self.orig_pieceset = self.pieces.get_pieceset()
+        self.orig_pieceset = gv.pieces.get_pieceset()
         if self.orig_pieceset == 'eastern':
             self.eastern_radio_button.set_active(True)
         elif self.orig_pieceset == 'western':
@@ -399,17 +394,17 @@ class Set_Board_Colours:
         elif self.orig_pieceset == 'custom':
             self.custom_radio_button.set_active(True)
 
-        if not self.pieces.custom_pieces_loaded():
+        if not gv.pieces.custom_pieces_loaded():
             self.custom_radio_button.set_sensitive(False)
 
         response_cancel = 1
         response_ok = 2
 
         # If user hasn't clicked on OK then exit now
-        if self.pieces_dialog.run() != response_ok:
-            self.pieces_dialog.destroy()
-            self.board.use_pieceset(self.orig_pieceset)  # user cancelled so restore pieceset to what it was
-        self.pieces_dialog.destroy()
+        if gv.pieces_dialog.run() != response_ok:
+            gv.pieces_dialog.destroy()
+            gv.board.use_pieceset(self.orig_pieceset)  # user cancelled so restore pieceset to what it was
+        gv.pieces_dialog.destroy()
 
 
     # callback for when piecset radiobutton changed
@@ -427,7 +422,7 @@ class Set_Board_Colours:
             print "invalid pieceset in pieces_radio_button_changed in set_board_colours.py:",name
             pieceset = 'eastern'
 
-        self.board.use_pieceset(pieceset)
+        gv.board.use_pieceset(pieceset)
 
 
     # called when user clicks the load custom pieces button
@@ -448,13 +443,13 @@ class Set_Board_Colours:
         fname = dialog.get_filename()
         dialog.destroy()
 
-        errmsg = self.pieces.load_custom_pieces(fname)
+        errmsg = gv.pieces.load_custom_pieces(fname)
         if errmsg is not None:
-            self.gui.info_box(errmsg)
+            gv.gui.info_box(errmsg)
         else:
-            self.gui.info_box('Pieces Loaded')
+            gv.gui.info_box('Pieces Loaded')
 
-        if self.pieces.custom_pieces_loaded():
+        if gv.pieces.custom_pieces_loaded():
             self.custom_radio_button.set_sensitive(True)
         else:
             self.custom_radio_button.set_sensitive(False)

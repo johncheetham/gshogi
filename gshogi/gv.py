@@ -22,3 +22,27 @@
 # set in gshogi.py
 verbose = False
 verbose_usi = False
+
+# references to classes that have one instance
+gshogi = None
+gui = None
+pieces = None
+tc = None
+board = None
+usib = None
+usiw = None
+engine_manager = None
+
+
+
+# Make sure no gv global variables have been created elsewhere
+# Only those above should be present
+import sys
+modulename = sys.modules[__name__]  # gshogi.gv
+def testnames():
+    names = dir(modulename)
+    for n in names:
+        if n not in initial_namelist:
+            print "unknown global variable in gv.py:", n
+initial_namelist = None
+initial_namelist = dir()

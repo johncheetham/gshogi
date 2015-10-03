@@ -20,21 +20,20 @@
 from gi.repository import Gtk
 from gi.repository import GObject
 import os
-import engine
 
-import utils
-from constants import *
+import engine
+import comments
+import gv
 
 class Move_List:
 
     move_list_ref = None
 
     def __init__(self):
-        self.game = utils.get_game_ref()
-        glade_dir = self.game.get_glade_dir()
+        glade_dir = gv.gshogi.get_glade_dir()
         self.glade_file = os.path.join(glade_dir, "move_list.glade")
         Move_List.move_list_ref = self
-        self.comments = utils.get_comments_ref()
+        self.comments = comments.get_ref()
 
         self.saved_move_list = []
 
@@ -153,7 +152,7 @@ class Move_List:
 
     # user clicked on the move list
     def treeview_button_press(self, treeview, event):
-        if self.game.get_stopped():
+        if gv.gshogi.get_stopped():
             GObject.idle_add(self.process_tree_selection)
         else:
             GObject.idle_add(self.tree_selection.unselect_all)
@@ -168,7 +167,7 @@ class Move_List:
             move_idx = int(move_str)
             self.comments.set_moveno(move_idx)
             # now call a method in gshogi.py to position it at the move clicked on
-            self.game.goto_move(move_idx)
+            gv.gshogi.goto_move(move_idx)
 
 
     def set_comment_ind(self, ind):

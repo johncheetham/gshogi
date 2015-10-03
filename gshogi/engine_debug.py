@@ -21,16 +21,15 @@ from gi.repository import Gtk
 from gi.repository import GObject
 import os
 
-import utils
-from constants import *
+from constants import WHITE, BLACK
+import gv
 
 class Engine_Debug:
 
     engine_debug_ref = None
 
     def __init__(self):
-        self.game = utils.get_game_ref()
-        glade_dir = self.game.get_glade_dir()
+        glade_dir = gv.gshogi.get_glade_dir()
         self.glade_file = os.path.join(glade_dir, "engine_debug.glade")
         Engine_Debug.engine_debug_ref = self
 
@@ -45,27 +44,25 @@ class Engine_Debug:
     # send command to engine1 (white)
     def engine1_button_clicked(self, b):
 
-        player = self.game.get_player(WHITE)
+        player = gv.gshogi.get_player(WHITE)
         if player == 'Human' or player == 'gshogi':
             GObject.idle_add(self.add_to_log, "# command not sent - player 1 (white) is not a USI engine")
             return
 
         cmd = self.cmd_entry.get_text() + '\n'
-        usib, usiw = utils.get_usi_refs()
-        usiw.command(cmd)
+        gv.usiw.command(cmd)
 
 
     # send command to engine2 (black)
     def engine2_button_clicked(self, b):
 
-        player = self.game.get_player(BLACK)
+        player = gv.gshogi.get_player(BLACK)
         if player == 'Human' or player == 'gshogi':
             GObject.idle_add(self.add_to_log, "# command not sent - player 2 (black) is not a USI engine")
             return
 
         cmd = self.cmd_entry.get_text() + '\n'
-        usib, usiw = utils.get_usi_refs()
-        usib.command(cmd)
+        gv.usib.command(cmd)
 
 
     # user has closed the window
@@ -130,7 +127,3 @@ def get_ref():
     if Engine_Debug.engine_debug_ref is None:
         Engine_Debug.engine_debug_ref = Engine_Debug()
     return Engine_Debug.engine_debug_ref
-
-
-#Engine_Debug.engine_debug_ref = Engine_Debug()
-#print "utilsref:",utils.Utils.utils_ref

@@ -20,14 +20,16 @@
 from gi.repository import Gtk
 import os
 
-import utils
+import psn
+import gv
 
 class Gamelist:
 
+    gamelist_ref = None
+
     def __init__(self):
 
-        self.game = utils.get_game_ref()
-        glade_dir = self.game.get_glade_dir()
+        glade_dir = gv.gshogi.get_glade_dir()
         self.glade_file = os.path.join(glade_dir, "gamelist.glade")
 
         # create gamelist window
@@ -106,5 +108,11 @@ class Gamelist:
                 gameno = int(gameno)
             except ValueError, ve:
                 return
-            psn_ref = utils.get_psn_ref()
-            psn_ref.load_game_from_multigame_file(gameno)
+            psn = psn.get_ref()
+            psn.load_game_from_multigame_file(gameno)
+
+
+def get_ref():
+    if Gamelist.gamelist_ref is None:
+        Gamelist.gamelist_ref = Gamelist()
+    return Gamelist.gamelist_ref

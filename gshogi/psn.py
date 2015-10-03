@@ -18,33 +18,30 @@
 #
 
 import engine
-import utils
+import gamelist
+import comments
 import move_list
-from constants import *
+from constants import WHITE, BLACK
 import gv
 
 class Psn:
 
-    def __init__(self):
-        self.usib, self.usiw = utils.get_usi_refs()
-        self.gui = utils.get_gui_ref()
-        self.board = utils.get_board_ref()
-        self.move_list = move_list.get_ref()
-        self.game = utils.get_game_ref()
-        self.gamelist = utils.get_gamelist_ref()
-        self.tc = utils.get_tc_ref()
-        self.comments = utils.get_comments_ref()
+    psn_ref = None
 
+    def __init__(self):
+        self.move_list = move_list.get_ref()
+        self.gamelist = gamelist.get_ref()
+        self.comments = comments.get_ref()
 
     def is_whitespace(self, ptr):
-        if self.gamestr[ptr] == '\n' or self.gamestr[ptr] == '\r' or self.gamestr[ptr] == '\t' or self.gamestr[ptr] == ' ':
+        if gv.gshogistr[ptr] == '\n' or gv.gshogistr[ptr] == '\r' or gv.gshogistr[ptr] == '\t' or gv.gshogistr[ptr] == ' ':
             return True
         return False
 
 
     def skip_whitespace(self, ptr):
         while 1:
-            if ptr >= self.game_len:
+            if ptr >= gv.gshogi_len:
                 return None
             if self.is_whitespace(ptr):
                 ptr += 1
@@ -62,19 +59,19 @@ class Psn:
 
         # Now pointing at none whitespace character
         # should be '[' if it is a header
-        if self.gamestr[ptr] != '[':
+        if gv.gshogistr[ptr] != '[':
             return None, None  # not a header
 
         ptr += 1  # step past '['
 
         hdr = ''
         while 1:
-            if ptr >= self.game_len:
+            if ptr >= gv.gshogi_len:
                 return None, None
-            if self.gamestr[ptr] == ']':
+            if gv.gshogistr[ptr] == ']':
                 ptr += 1   # step past ']'
                 break
-            hdr += self.gamestr[ptr]
+            hdr += gv.gshogistr[ptr]
             ptr += 1
         return hdr, ptr  # valid header found
 
@@ -110,8 +107,8 @@ class Psn:
 
         movecnt = 0
 
-        self.gamestr = gamestr
-        self.game_len = len(self.gamestr)
+        gv.gshogistr = gamestr
+        gv.gshogi_len = len(gv.gshogistr)
 
         self.comments.clear_comments()
 
@@ -123,10 +120,10 @@ class Psn:
 
         # Find '[' of first header
         while 1:
-            if ptr >= self.game_len or ptr > 2000:
-                self.gui.info_box("Error (1) loading file. No headers found")
-                self.game.new_game('NewGame')
-                self.gui.set_status_bar_msg("Error loading game")
+            if ptr >= gv.gshogi_len or ptr > 2000:
+                gv.gui.info_box("Error (1) loading file. No headers found")
+                gv.gshogi.new_game('NewGame')
+                gv.gui.set_status_bar_msg("Error loading game")
                 return 1
             if gamestr[ptr] == '[':
                 break
@@ -135,9 +132,9 @@ class Psn:
         # First Header found (ptr pointing at '[')
         hdr, newptr = self.get_header(ptr)
         if hdr is None:
-            self.gui.info_box("Error (2) loading file. No headers found")
-            self.game.new_game('NewGame')
-            self.gui.set_status_bar_msg("Error loading game")
+            gv.gui.info_box("Error (2) loading file. No headers found")
+            gv.gshogi.new_game('NewGame')
+            gv.gui.set_status_bar_msg("Error loading game")
             return 1
 
         # Read remaining headers
@@ -147,9 +144,9 @@ class Psn:
                 prop, value = hdr.split(None, 1)
             except ValueError:
                 # Error - cannot split header into a property/value pair
-                self.gui.info_box("Error loading file. Invalid header:" + hdr)
-                self.game.new_game('NewGame')
-                self.gui.set_status_bar_msg("Error loading game")
+                gv.gui.info_box("Error loading file. Invalid header:" + hdr)
+                gv.gshogi.new_game('NewGame')
+                gv.gui.set_status_bar_msg("Error loading game")
                 return 1
             if prop == 'SFEN':
                 # set board position, side to move
@@ -214,19 +211,19 @@ class Psn:
                 continue
 
             # comment
-            if self.gamestr[ptr] == '{':
+            if gv.gshogistr[ptr] == '{':
                 comment = ''
                 ptr += 1
                 while 1:
-                    if ptr >= self.game_len:
-                        self.gui.info_box("Error unterminated comment")
-                        self.game.new_game('NewGame')
-                        self.gui.set_status_bar_msg("Error loading game")
+                    if ptr >= gv.gshogi_len:
+                        gv.gui.info_box("Error unterminated comment")
+                        gv.gshogi.new_game('NewGame')
+                        gv.gui.set_status_bar_msg("Error loading game")
                         return 1  # end of file before end of comment
-                    if self.gamestr[ptr] == '}':
+                    if gv.gshogistr[ptr] == '}':
                         ptr += 1
                         break
-                    comment += self.gamestr[ptr]
+                    comment += gv.gshogistr[ptr]
                     ptr += 1
 
                 # add comment
@@ -253,9 +250,9 @@ class Psn:
                     # Should never get this message since get_move has already
                     # validated the move aginst the legal move list
                     # Can get it for sennichite (repetition)
-                    self.gui.info_box("Error loading file, illegal move (possible sennichite (repetition)):" + move + " move number:" + str(movecnt + 1))
-                    self.game.new_game('NewGame')
-                    self.gui.set_status_bar_msg("Error loading game")
+                    gv.gui.info_box("Error loading file, illegal move (possible sennichite (repetition)):" + move + " move number:" + str(movecnt + 1))
+                    gv.gshogi.new_game('NewGame')
+                    gv.gui.set_status_bar_msg("Error loading game")
                     return 1
                 movecnt += 1
                 movelist.append(move)
@@ -270,33 +267,33 @@ class Psn:
             # ignore processing above
             word, newptr = self.get_word(ptr)
             if word is not None:
-                self.gui.info_box("Error loading file, unable to process move number " + str(movecnt + 1) + ". (illegal move or invalid format):" + word)
+                gv.gui.info_box("Error loading file, unable to process move number " + str(movecnt + 1) + ". (illegal move or invalid format):" + word)
                 # Load failed part way through so reset the game
-                self.game.new_game('NewGame')
-                self.gui.set_status_bar_msg("Error loading game")
+                gv.gshogi.new_game('NewGame')
+                gv.gui.set_status_bar_msg("Error loading game")
                 return 1
 
             ptr +=1
 
-        self.usib.set_newgame()
-        self.usiw.set_newgame()
-        self.gui.set_status_bar_msg("game loaded")
-        self.gameover = False
+        gv.usib.set_newgame()
+        gv.usiw.set_newgame()
+        gv.gui.set_status_bar_msg("game loaded")
+        gv.gshogiover = False
 
-        self.game.set_movelist(movelist)
-        self.game.set_redolist(redolist)
-        self.game.set_startpos(startpos)
+        gv.gshogi.set_movelist(movelist)
+        gv.gshogi.set_redolist(redolist)
+        gv.gshogi.set_startpos(startpos)
 
-        self.board.update()
+        gv.board.update()
 
         # update move list in move list window
         self.move_list.update()
-        stm = self.game.get_side_to_move()
-        self.game.set_side_to_move(stm)
-        self.gui.set_side_to_move(stm)
-        self.gui.unhilite_squares()
+        stm = gv.gshogi.get_side_to_move()
+        gv.gshogi.set_side_to_move(stm)
+        gv.gui.set_side_to_move(stm)
+        gv.gui.unhilite_squares()
 
-        self.tc.reset_clock()
+        gv.tc.reset_clock()
 
         return 0
 
@@ -304,7 +301,7 @@ class Psn:
     def get_word(self, ptr):
         word = ''
         while 1:
-            if ptr >= self.game_len:
+            if ptr >= gv.gshogi_len:
                 if word != '':
                     return word, ptr
                 else:
@@ -312,7 +309,7 @@ class Psn:
 
             if self.is_whitespace(ptr):
                 break
-            word += self.gamestr[ptr]
+            word += gv.gshogistr[ptr]
             ptr += 1
         return word, ptr
 
@@ -321,23 +318,23 @@ class Psn:
     def get_ignore_string(self, ptr):
 
         # ignore things enclosed in brackets such variations and timecodes
-        if self.gamestr[ptr] == '(':
+        if gv.gshogistr[ptr] == '(':
             ignore_str = '('
             ptr += 1
             nestcnt = 0
             while 1:
-                if ptr >= self.game_len:
+                if ptr >= gv.gshogi_len:
                     return None, None
-                if self.gamestr[ptr] == '(':
+                if gv.gshogistr[ptr] == '(':
                     nestcnt += 1
-                elif self.gamestr[ptr] == ')':
+                elif gv.gshogistr[ptr] == ')':
                     if nestcnt > 0:
                         nestcnt -= 1                     # nested parentheses - just decrease count
                     else:
-                        ignore_str += self.gamestr[ptr]  # )
+                        ignore_str += gv.gshogistr[ptr]  # )
                         ptr += 1
                         return ignore_str, ptr           # return with sting to ignore and new ptr
-                ignore_str += self.gamestr[ptr]
+                ignore_str += gv.gshogistr[ptr]
                 ptr += 1
 
         # get next word in file
@@ -450,7 +447,7 @@ class Psn:
             print "in get legal movelist with piece:",piece
         # Make sure board is up to date so that when we do a 'get_piece'
         # it will return the correct value
-        self.board.update(refresh_gui = False)
+        gv.board.update(refresh_gui = False)
 
         lm = engine.getlegalmoves()
         lm = lm.rstrip(';')
@@ -467,8 +464,8 @@ class Psn:
                 source_square = fl[0][0:2]  # e.g. '7h' or 'G*' (if drop)
                 if self.validate_square(source_square):
                     valid = True
-                    x, y = self.board.get_gs_square_posn(source_square)  # convert standard notation for square into gshogi co-ordinates (e.g.  7g -> (2, 6) )
-                    piece2 = self.board.get_piece(x, y)
+                    x, y = gv.board.get_gs_square_posn(source_square)  # convert standard notation for square into gshogi co-ordinates (e.g.  7g -> (2, 6) )
+                    piece2 = gv.board.get_piece(x, y)
                     if piece2.startswith('+'):
                         i = 0
                         for m in fl:
@@ -794,13 +791,13 @@ class Psn:
     def get_moveno(self, ptr):
         moveno = ''
         while 1:
-            if ptr >= self.game_len:
+            if ptr >= gv.gshogi_len:
                 return None, None
-            if self.gamestr[ptr] >= '0' and self.gamestr[ptr] <= '9':
-                moveno += self.gamestr[ptr]
+            if gv.gshogistr[ptr] >= '0' and gv.gshogistr[ptr] <= '9':
+                moveno += gv.gshogistr[ptr]
                 ptr += 1
                 continue
-            if self.gamestr[ptr] == '.':
+            if gv.gshogistr[ptr] == '.':
                 ptr += 1
                 break
             return None, None  # Not a move number
@@ -841,7 +838,7 @@ class Psn:
         # No games in file
         if gamecnt == 0:
             self.gamelist.set_game_list([])
-            self.gui.info_box('No games in file')
+            gv.gui.info_box('No games in file')
             return
 
         # single game file - Load the game
@@ -905,3 +902,8 @@ class Psn:
 
         rc = self.load_game_psn_from_str(gamestr)
         return rc
+
+def get_ref():
+    if Psn.psn_ref is None:
+        Psn.psn_ref = Psn()
+    return Psn.psn_ref

@@ -17,12 +17,10 @@
 #   along with gshogi.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 import os
 import traceback
-from constants import *
 
 
 class Pieces:

@@ -18,12 +18,10 @@
 #
 
 from gi.repository import Gtk
-from gi.repository import GObject
-import os
-import usi
 import time
+
 import engine
-from constants import *
+from constants import WHITE, BLACK
 import gv
 
 class Time_Control:
@@ -507,7 +505,7 @@ class Time_Control:
                 byo_minutes = int(byo_adj_mins.get_value())
                 byo_byoyomi = int(byo_adj_byoyomi.get_value())
                 if byo_hours == 0 and byo_minutes == 0 and byo_byoyomi == 0:
-                    self.gui.info_box("Time fields cannot all be zero!")
+                    gv.gui.info_box("Time fields cannot all be zero!")
                 else:
                     # input ok - exit loop
                     self.byo_hours = byo_hours
@@ -528,7 +526,7 @@ class Time_Control:
                     if rep.get_value() != 0:
                         rep_zero = False
                 if rep_zero:
-                    self.gui.info_box("Count fields cannot all be zero!")
+                    gv.gui.info_box("Count fields cannot all be zero!")
                 else:
                     for i in range(0, self.cls_max_sessions):
                         moves_to_go, mins, rep = adj_cls_settings[i]
@@ -546,7 +544,7 @@ class Time_Control:
                 inc_minutes = int(inc_adj_mins.get_value())
                 inc_bonus = int(inc_adj_bonus.get_value())
                 if inc_hours == 0 and inc_minutes == 0 and inc_bonus == 0:
-                    self.gui.info_box("Incremental Time fields cannot all be zero!")
+                    gv.gui.info_box("Incremental Time fields cannot all be zero!")
                 else:
                     # input ok - exit loop
                     self.inc_hours = inc_hours
@@ -624,9 +622,6 @@ class Time_Control:
         #self.area = a.x, a.y, a.width, a.height
         #print self.area
 
-    def set_refs(self, game, gui):
-        self.game = game
-        self.gui = gui
 
     #
     # called before each move
@@ -732,7 +727,7 @@ class Time_Control:
         # Don't refresh clock if stm is not set
         if self.clock_stm is None:
             return True
-        if self.game.get_stopped():
+        if gv.gshogi.get_stopped():
             self.timer_active = False
             return False
         elapsed_time = int((time.time() - self.clock_start_time) * 1000)
@@ -1040,7 +1035,7 @@ class Time_Control:
             sbyoyomi = '0' + sbyoyomi
 
         txt = shours + ':' + smins + ':' + ssecs + '  ' + sbyo + '/' + sbyoyomi
-        self.gui.set_toolbar_time_control(txt, side_to_move)
+        gv.gui.set_toolbar_time_control(txt, side_to_move)
 
 
     # update gui clock for classical TC
@@ -1079,7 +1074,7 @@ class Time_Control:
             ssecs = '0' + ssecs
 
         txt = shours + ':' + smins + ':' + ssecs + ' ' + str(moves_to_go)
-        self.gui.set_toolbar_time_control(txt, side_to_move)
+        gv.gui.set_toolbar_time_control(txt, side_to_move)
 
 
     # update gui clock for incremental TC
@@ -1117,7 +1112,7 @@ class Time_Control:
             ssecs = '0' + ssecs
 
         txt = shours + ':' + smins + ':' + ssecs
-        self.gui.set_toolbar_time_control(txt, side_to_move)
+        gv.gui.set_toolbar_time_control(txt, side_to_move)
 
 
     # update gui clock for fixed time per move TC
@@ -1155,7 +1150,7 @@ class Time_Control:
             ssecs = '0' + ssecs
 
         txt = shours + ':' + smins + ':' + ssecs
-        self.gui.set_toolbar_time_control(txt, side_to_move)
+        gv.gui.set_toolbar_time_control(txt, side_to_move)
 
 
     # update gui clock for fixed search depth TC
@@ -1188,4 +1183,4 @@ class Time_Control:
             ssecs = '0' + ssecs
 
         txt = shours + ':' + smins + ':' + ssecs
-        self.gui.set_toolbar_time_control(txt, side_to_move)
+        gv.gui.set_toolbar_time_control(txt, side_to_move)

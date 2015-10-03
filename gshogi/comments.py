@@ -21,14 +21,15 @@ from gi.repository import Gtk
 import os
 
 import move_list
-import utils
+import gv
 
 class Comments:
 
+    comments_ref = None
+
     def __init__(self):
 
-        self.game = utils.get_game_ref()
-        glade_dir = self.game.get_glade_dir()
+        glade_dir = gv.gshogi.get_glade_dir()
         self.glade_file = os.path.join(glade_dir, "comments.glade")
         self.move_list = move_list.get_ref()
 
@@ -155,3 +156,9 @@ class Comments:
             if len(comment) > 0:
                 return True
         return False
+
+
+def get_ref():
+    if Comments.comments_ref is None:
+        Comments.comments_ref = Comments()
+    return Comments.comments_ref

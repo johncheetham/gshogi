@@ -19,21 +19,21 @@
 
 from gi.repository import Gtk
 from gi.repository import Gdk
-from gi.repository import GObject
 from gi.repository import GdkPixbuf
-import os
-import time
 from gi.repository import Pango
+import os
+#import inspect
 import cairo
 
-import engine_debug, engine_output
+import engine_debug
+import engine_output
 import move_list
 import set_board_colours
 import drag_and_drop
 import load_save
 import utils
-#import inspect
-from constants import *
+import gamelist
+from constants import WHITE, BLACK, NAME, VERSION, TARGET_TYPE_TEXT
 import gv
 
 class Gui:
@@ -53,7 +53,7 @@ class Gui:
         self.engine_debug = engine_debug.get_ref()
         self.engine_output = engine_output.get_ref()
         self.move_list = move_list.get_ref()
-        self.gamelist = utils.get_gamelist_ref()
+        self.gamelist = gamelist.get_ref()
         self.set_board_colours = set_board_colours.get_ref()
         self.drag_and_drop = drag_and_drop.get_ref()
         self.enable_dnd = True
@@ -74,7 +74,7 @@ class Gui:
             = self.set_board_colours.get_colours()
 
         # Create Main Window
-        glade_dir = self.game.get_glade_dir()
+        glade_dir = gv.gshogi.get_glade_dir()
         self.glade_file = os.path.join(glade_dir, "main_window.glade")
         self.glade_file_preferences = os.path.join(glade_dir, "preferences.glade")
         self.builder = Gtk.Builder()
@@ -88,28 +88,18 @@ class Gui:
         self.window.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(self.board_bg_colour))
 
         # 1 eventbox per board square
-        self.eb = [ \
-            [Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox()], \
-            [Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox()], \
-            [Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox()], \
-            [Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox()], \
-            [Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox()], \
-            [Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox()], \
-            [Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox()], \
-            [Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox()], \
-            [Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox()]  \
-            ]
+        self.eb = [[Gtk.EventBox() for x in range(9)] for x in range(9)]
 
         # 1 eventbox per white komadai board square
-        self.web = [Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox()]
-        self.wcap_label = [Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label()]
+        self.web = [Gtk.EventBox() for x in range(7)]
+        self.wcap_label = [Gtk.Label() for x in range(7)]
 
         # 1 eventbox per black komadai board square
-        self.beb = [Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox(), Gtk.EventBox()]
-        self.bcap_label = [Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label()]
+        self.beb = [Gtk.EventBox() for x in range(7)]
+        self.bcap_label = [Gtk.Label() for x in range(7)]
 
         # Set a handler for delete_event that immediately exits GTK.
-        self.window.connect("delete_event", self.game.delete_event)
+        self.window.connect("delete_event", gv.gshogi.delete_event)
 
         # connect to configure event so pieces can be resized when user resizes the window
         self.window.connect("configure_event", self.configure_event)
@@ -142,35 +132,35 @@ class Gui:
         # Create actions
         actiongroup.add_actions([
                                  # NewGame and the handicap names are used in gshogi.py NewGame routine. Don't change them.
-                                 ('NewGame', Gtk.STOCK_NEW, '_New Game', None, 'New Game', self.game.new_game_cb),
-                                 ('LanceHandicap', None, '_Lance', None, 'Lance Handicap', self.game.new_game_cb),
-                                 ('BishopHandicap', None, '_Bishop', None, 'Bishop Handicap', self.game.new_game_cb),
-                                 ('RookHandicap', None, '_Rook', None, 'Rook Handicap', self.game.new_game_cb),
-                                 ('RookandLanceHandicap', None, '_Rook and Lance', None, 'Rook and Lance Handicap', self.game.new_game_cb),
-                                 ('TwoPieceHandicap', None, '_2 Pieces', None, 'Two Piece Handicap', self.game.new_game_cb),
-                                 ('FourPieceHandicap', None, '_4 Pieces', None, 'Four Piece Handicap', self.game.new_game_cb),
-                                 ('SixPieceHandicap', None, '_6 Pieces', None, 'Six Piece Handicap', self.game.new_game_cb),
-                                 ('EightPieceHandicap', None, '_8 Pieces', None, 'Eight Piece Handicap', self.game.new_game_cb),
-                                 ('TenPieceHandicap', None, '_10 Pieces', None, 'Ten Piece Handicap', self.game.new_game_cb),
+                                 ('NewGame', Gtk.STOCK_NEW, '_New Game', None, 'New Game', gv.gshogi.new_game_cb),
+                                 ('LanceHandicap', None, '_Lance', None, 'Lance Handicap', gv.gshogi.new_game_cb),
+                                 ('BishopHandicap', None, '_Bishop', None, 'Bishop Handicap', gv.gshogi.new_game_cb),
+                                 ('RookHandicap', None, '_Rook', None, 'Rook Handicap', gv.gshogi.new_game_cb),
+                                 ('RookandLanceHandicap', None, '_Rook and Lance', None, 'Rook and Lance Handicap', gv.gshogi.new_game_cb),
+                                 ('TwoPieceHandicap', None, '_2 Pieces', None, 'Two Piece Handicap', gv.gshogi.new_game_cb),
+                                 ('FourPieceHandicap', None, '_4 Pieces', None, 'Four Piece Handicap', gv.gshogi.new_game_cb),
+                                 ('SixPieceHandicap', None, '_6 Pieces', None, 'Six Piece Handicap', gv.gshogi.new_game_cb),
+                                 ('EightPieceHandicap', None, '_8 Pieces', None, 'Eight Piece Handicap', gv.gshogi.new_game_cb),
+                                 ('TenPieceHandicap', None, '_10 Pieces', None, 'Ten Piece Handicap', gv.gshogi.new_game_cb),
                                  ('NewHandicapGame', None, '_New Handicap Game'),
                                  #
-                                 ('Quit', Gtk.STOCK_QUIT, '_Quit', None, 'Quit the Program', self.game.quit_game),
+                                 ('Quit', Gtk.STOCK_QUIT, '_Quit', None, 'Quit the Program', gv.gshogi.quit_game),
                                  ('LoadGame', Gtk.STOCK_OPEN, '_Load Game', None, 'Load Game', self.load_save.load_game),
                                  ('SaveGame', Gtk.STOCK_SAVE, '_Save Game', None, 'Save Game', self.load_save.save_game),
                                  ('File', None, '_File'),
                                  ('Edit', None, '_Edit'),
-                                 ('Undo', Gtk.STOCK_UNDO, '_Undo Move', "<Control>U", 'Undo Move', self.game.undo_single_move),
-                                 ('Redo', Gtk.STOCK_REDO, '_Redo Move', "<Control>R", 'Redo Move', self.game.redo_single_move),
-                                 ('MoveNow', None, '_Move Now', "<Control>M", 'Move Now', self.game.move_now),
+                                 ('Undo', Gtk.STOCK_UNDO, '_Undo Move', "<Control>U", 'Undo Move', gv.gshogi.undo_single_move),
+                                 ('Redo', Gtk.STOCK_REDO, '_Redo Move', "<Control>R", 'Redo Move', gv.gshogi.redo_single_move),
+                                 ('MoveNow', None, '_Move Now', "<Control>M", 'Move Now', gv.gshogi.move_now),
                                  ('SetBoardColours', None, '_Set Board Colours', None, 'Set Board Colours', self.set_board_colours.show_dialog),
                                  ('SetPieces', None, '_Set Pieces', None, 'Set Pieces', self.set_board_colours.show_pieces_dialog),
-                                 ('TimeControl', None, '_Time Control', None, 'Time Control', self.tc.time_control),
+                                 ('TimeControl', None, '_Time Control', None, 'Time Control', gv.tc.time_control),
                                  # ConfigureEngine1 - this name is used in engine_manager. Don't change it.
-                                 ('ConfigureEngine1', None, '_Configure Engine 1', None, 'Configure Engine 1', self.engine_manager.configure_engine),
-                                 ('ConfigureEngine2', None, '_Configure Engine 2', None, 'Configure Engine 2', self.engine_manager.configure_engine),
-                                 ('Players', None, '_Players', None, 'Players', self.game.set_players),
-                                 ('Engines', None, '_Engines', None, 'Engines', self.engine_manager.engines),
-                                 ('CommonEngineSettings', None, '_Common Engine Settings', None, 'Common Engine Settings', self.engine_manager.common_settings),
+                                 ('ConfigureEngine1', None, '_Configure Engine 1', None, 'Configure Engine 1', gv.engine_manager.configure_engine),
+                                 ('ConfigureEngine2', None, '_Configure Engine 2', None, 'Configure Engine 2', gv.engine_manager.configure_engine),
+                                 ('Players', None, '_Players', None, 'Players', gv.gshogi.set_players),
+                                 ('Engines', None, '_Engines', None, 'Engines', gv.engine_manager.engines),
+                                 ('CommonEngineSettings', None, '_Common Engine Settings', None, 'Common Engine Settings', gv.engine_manager.common_settings),
                                  ('MoveList', None, '_Move List', None, 'Move List', self.move_list.show_movelist_window),
                                  ('GameList', None, '_Game List', None, 'Game List', self.gamelist.show_gamelist_window_cb),
                                  ('EngineOutput', None, '_Engine Output', None, 'Engine Output', self.engine_output.show_engine_output_window),
@@ -330,10 +320,10 @@ class Gui:
         # stop/go buttons
         hb = Gtk.HBox(False, 0)
         self.gobutton = Gtk.ToolButton(Gtk.STOCK_YES)
-        self.gobutton.connect('clicked', self.game.go_clicked)
+        self.gobutton.connect('clicked', gv.gshogi.go_clicked)
 
         self.stopbutton = Gtk.ToolButton(Gtk.STOCK_NO)
-        self.stopbutton.connect('clicked', self.game.stop_clicked)
+        self.stopbutton.connect('clicked', gv.gshogi.stop_clicked)
 
         # set_tooltip_text needs PyGTK 2.12 and above.
         try:
@@ -360,16 +350,16 @@ class Gui:
         # game review buttons
         hb = Gtk.HBox(False, 0)
         self.go_first = Gtk.ToolButton(Gtk.STOCK_GOTO_FIRST)
-        self.go_first.connect('clicked', self.game.undo_all)
+        self.go_first.connect('clicked', gv.gshogi.undo_all)
 
         self.go_back = Gtk.ToolButton(Gtk.STOCK_GO_BACK)
-        self.go_back.connect('clicked', self.game.undo_single_move)
+        self.go_back.connect('clicked', gv.gshogi.undo_single_move)
 
         self.go_forward = Gtk.ToolButton(Gtk.STOCK_GO_FORWARD)
-        self.go_forward.connect('clicked', self.game.redo_single_move)
+        self.go_forward.connect('clicked', gv.gshogi.redo_single_move)
 
         self.go_last = Gtk.ToolButton(Gtk.STOCK_GOTO_LAST)
-        self.go_last.connect('clicked', self.game.redo_all)
+        self.go_last.connect('clicked', gv.gshogi.redo_all)
 
         hb.pack_start(self.go_first, False, True, 0)
         hb.pack_start(self.go_back, False, True, 0)
@@ -463,14 +453,6 @@ class Gui:
         self.build_edit_popup()
 
 
-    def set_refs(self, game, board, engine_manager, time_control):
-        self.game = game
-        self.board = board
-        self.engine_manager = engine_manager
-        self.tc = time_control
-        self.pieces = self.board.get_pieces_ref()
-
-
     def init_board_square(self, image, x, y):
         event_box = Gtk.EventBox()
         event_box.add(image)
@@ -480,7 +462,7 @@ class Gui:
         event_box.set_border_width(1)
         event_box.add_events(Gdk.EventMask.BUTTON_PRESS_MASK)
         data = (x, y)
-        event_box.connect('button_press_event', self.game.square_clicked, data)
+        event_box.connect('button_press_event', gv.gshogi.square_clicked, data)
         image.show()
 
         # set up square as a source square for sending out drag data
@@ -588,7 +570,7 @@ class Gui:
                 # contains a piece for his side
 
                 # human piece - set as valid source square for dnd
-                if self.board.valid_source_square(x, y, stm):
+                if gv.board.valid_source_square(x, y, stm):
                     if gv.verbose: print x, y, "is a valid source sq"
                     self.dnd_set_source_square(x, y)
                     self.dnd_unset_dest_square(x, y)
@@ -598,8 +580,8 @@ class Gui:
                     self.dnd_unset_source_square(x, y)
                     self.dnd_set_dest_square(x, y)
 
-        wcap = self.board.get_capturedw()
-        bcap = self.board.get_capturedb()
+        wcap = gv.board.get_capturedw()
+        bcap = gv.board.get_capturedb()
 
         # komadai
         for y in range(0, 7):
@@ -611,7 +593,7 @@ class Gui:
 
             # player is human so allow a square to be dragged if it
             # contains a piece for his side
-            if self.board.get_cap_piece(y, stm) != '0':
+            if gv.board.get_cap_piece(y, stm) != '0':
                 if stm == WHITE:
                     self.dnd_set_source_wcap_square(y)
                 else:
@@ -695,7 +677,7 @@ class Gui:
 
         event_box.add_events(Gdk.EventMask.BUTTON_PRESS_MASK)
         data = (x, y, WHITE)
-        event_box.connect('button_press_event', self.game.cap_square_clicked, data)
+        event_box.connect('button_press_event', gv.gshogi.cap_square_clicked, data)
         image.show()
         self.web[y] = event_box
 
@@ -737,7 +719,7 @@ class Gui:
 
         event_box.add_events(Gdk.EventMask.BUTTON_PRESS_MASK)
         data = (x, y, BLACK)
-        event_box.connect('button_press_event', self.game.cap_square_clicked, data)
+        event_box.connect('button_press_event', gv.gshogi.cap_square_clicked, data)
 
         image.show()
         self.beb[y] = event_box
@@ -814,7 +796,7 @@ class Gui:
         about.set_comments("gshogi is a program to play shogi (Japanese Chess).")
         about.set_authors(["John Cheetham"])
         about.set_website("http://www.johncheetham.com/projects/gshogi/index.shtml")
-        about.set_logo(GdkPixbuf.Pixbuf.new_from_file(os.path.join(self.game.prefix, "images/logo.png")))
+        about.set_logo(GdkPixbuf.Pixbuf.new_from_file(os.path.join(gv.gshogi.prefix, "images/logo.png")))
 
         license = '''gshogi is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -835,7 +817,7 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
 
 
     def set_status_bar_msg(self, msg):
-        if self.game.quitting:
+        if gv.gshogi.quitting:
             return
         self.status_bar.push(self.context_id, msg)
 
@@ -843,9 +825,9 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
     # ask before promoting
     def promote_mode(self, w):
         if w.get_active():
-            self.game.set_promotion_mode(True)
+            gv.gshogi.set_promotion_mode(True)
         else:
-            self.game.set_promotion_mode(False)
+            gv.gshogi.set_promotion_mode(False)
 
 
     def enable_drag_and_drop(self, w):
@@ -868,7 +850,7 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
         self.resize_pieces(event.width, event.height)
 
     def resize_pieces(self, w, h):
-        self.board.refresh_screen(w, h)
+        gv.board.refresh_screen(w, h)
         return False
 
 
@@ -1110,9 +1092,9 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
 
         self.grid_eb.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(grid_colour))
 
-        #self.pieces.change_piece_colours2(piece_fill_colour, piece_outline_colour, piece_kanji_colour)
+        #gv.pieces.change_piece_colours2(piece_fill_colour, piece_outline_colour, piece_kanji_colour)
 
-        self.board.refresh_screen()
+        gv.board.refresh_screen()
 
 
     # add inc to a hexstring
@@ -1239,24 +1221,24 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
             return
 
         if piece_name == "Clear Board":
-            self.board.clear_board()
+            gv.board.clear_board()
             return
 
         if piece_name == "Black to Move":
-            self.game.set_side_to_move(BLACK)
+            gv.gshogi.set_side_to_move(BLACK)
             self.set_side_to_move(BLACK)   # update ind in gui
             return
 
         if piece_name == "White to Move":
-            self.game.set_side_to_move(WHITE)
+            gv.gshogi.set_side_to_move(WHITE)
             self.set_side_to_move(WHITE)   # update ind in gui
             return
 
         if piece_name == "Cancel":
             self.edit_mode = False
-            self.game.set_side_to_move(self.orig_stm)
+            gv.gshogi.set_side_to_move(self.orig_stm)
             self.set_side_to_move(self.orig_stm)
-            self.board.update()                # restore board to its pre-edit state
+            gv.board.update()                # restore board to its pre-edit state
             self.enable_menu_items(mode="editmode")
             return
 
@@ -1273,13 +1255,13 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
         piece = piece_dict[piece_name]
         if colour == WHITE:
             piece = piece.upper()
-        self.board.set_piece_at_square(self.ed_x, self.ed_y, piece)          # add piece to main board
+        gv.board.set_piece_at_square(self.ed_x, self.ed_y, piece)          # add piece to main board
 
 
     # save position and exit edit mode
     def end_edit(self):
         self.edit_mode = False
-        sfen = self.board.get_sfen()
+        sfen = gv.board.get_sfen()
         load_save_ref = load_save.get_ref()
         load_save_ref.init_game(sfen)      # update board to reflect edit
         self.enable_menu_items(mode="editmode")
@@ -1291,10 +1273,10 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
             self.end_edit()
             return
         self.edit_mode = True
-        self.orig_stm = self.game.get_side_to_move()
+        self.orig_stm = gv.gshogi.get_side_to_move()
         self.set_status_bar_msg("Edit Mode")
         self.disable_menu_items(mode="editmode")
-        self.board.set_komadai_for_edit()
+        gv.board.set_komadai_for_edit()
 
 
     def get_edit_mode(self):
@@ -1404,7 +1386,7 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
             self.show_coords = coords_checkbutton.get_active()
             self.highlight_moves = highlight_moves_checkbutton.get_active()
             #rect = self.border_eb.get_allocation()
-            #self.board.update()
+            #gv.board.update()
             self.border_eb.queue_draw()
         dialog.destroy()
 

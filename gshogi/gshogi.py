@@ -27,25 +27,30 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GObject
-
-import thread, traceback
-import sys
+import thread
+import traceback
 import os
 import pickle
 import time
 
 import engine
 import utils
-import gui, usi, engine_manager, time_control, set_board_colours
+import gui
+import usi
+import engine_manager
+import time_control
+import set_board_colours
 import move_list
+import board
+import pieces
 import engine_output
-from constants import *
+from constants import WHITE, BLACK, NEUTRAL, NAME, VERSION, BEEP, MIN_MOVETIME
 import gv
 
 class Game:
 
     def __init__(self):
-
+        gv.gshogi = self
         gv.verbose, gv.verbose_usi = utils.get_verbose() # set global variables for debug messages
         self.prefix = utils.get_prefix()                 # prefix to find package files/folders
         self.gshogipath = utils.create_settings_dir()    # set up .gshogi directory in the home directory
@@ -74,30 +79,20 @@ class Game:
         opening_book_path = os.path.join(self.prefix, "data/opening.bbk")
         engine.init(opening_book_path, gv.verbose)
 
-        utils.set_game_ref(self)
-
+        gv.gui = gui.Gui()
+        gv.pieces = pieces.Pieces()
         # usiw is the instance that plays white (gote)
         # usib is the instance that plays black (sente)
-        self.usib = usi.Usi('b')
-        self.usiw = usi.Usi('w')
-        utils.set_usi_refs(self.usib, self.usiw)
+        gv.usib = usi.Usi('b')
+        gv.usiw = usi.Usi('w')
 
         # instantiate board, gui, classes
-        self.tc = time_control.Time_Control()
-        utils.set_tc_ref(self.tc)
-        self.engine_manager = engine_manager.Engine_Manager()
-        self.board = utils.get_board_ref()
-        self.pieces = utils.get_pieces_ref()
+        gv.tc = time_control.Time_Control()
+        gv.engine_manager = engine_manager.Engine_Manager()
+        gv.board = board.Board()
 
-        self.gui = utils.get_gui_ref()
-        self.board.set_refs(self, self.gui)
-        self.gui.set_refs(self, self.board, self.engine_manager, self.tc)
-        self.gui.build_gui()
-        self.board.build_board()
-        self.engine_manager.set_refs(self, self.gui, self.usib, self.usiw)
-        self.usib.set_refs(self, self.engine_manager, self.gui, self.tc)
-        self.usiw.set_refs(self, self.engine_manager, self.gui, self.tc)
-        self.tc.set_refs(self, self.gui)
+        gv.gui.build_gui()
+        gv.board.build_board()
         self.set_board_colours = set_board_colours.get_ref()
         self.engine_output = engine_output.get_ref()
 
@@ -111,16 +106,16 @@ class Game:
         # restore users settings to values from previous game
         self.restore_settings(settings)
 
-        self.usib.set_engine(self.player[BLACK], None)
-        self.usiw.set_engine(self.player[WHITE], None)
-        self.gui.update_toolbar(self.player)
+        gv.usib.set_engine(self.player[BLACK], None)
+        gv.usiw.set_engine(self.player[WHITE], None)
+        gv.gui.update_toolbar(self.player)
 
         self.move_list = move_list.get_ref()
 
-        self.tc.reset_clock()
+        gv.tc.reset_clock()
 
-        self.gui.enable_go_button()
-        self.gui.disable_stop_button()
+        gv.gui.enable_go_button()
+        gv.gui.disable_stop_button()
 
         self.stm = self.get_side_to_move()
 
@@ -133,9 +128,9 @@ class Game:
     def square_clicked(self, widget, event, data):
         # if in edit board mode then call routine in gui.py to show the edit
         # popup menu
-        if self.gui.get_edit_mode():
+        if gv.gui.get_edit_mode():
             (x, y) = data
-            self.gui.show_edit_popup(event, x, y)
+            gv.gui.show_edit_popup(event, x, y)
             return
 
         if self.gameover or self.thinking or self.stopped:
@@ -144,24 +139,24 @@ class Game:
         self.stm = self.get_side_to_move()
         if self.player[self.stm]  != "Human":
             return
-        self.gui.set_side_to_move(self.stm)
+        gv.gui.set_side_to_move(self.stm)
 
         # get x,y co-ords of square clicked on (0, 0 is top left)
         (x, y) = data
 
         # convert the x, y co-ords into the shogi representation (e.g. 8, 6 is 1g)
-        sq = self.board.get_square_posn(x, y)
+        sq = gv.board.get_square_posn(x, y)
 
         # if the square clicked on is a valid source square
         # then set this square as the source square
-        if self.board.valid_source_square(x, y, self.stm):
+        if gv.board.valid_source_square(x, y, self.stm):
             self.src = sq
             if gv.verbose: print "source square: (x, y) = (", x, ",",  y, ") ", sq
             self.src_x = x
             self.src_y = y
-            self.piece = self.board.get_piece(x, y)
+            self.piece = gv.board.get_piece(x, y)
             #self.hilite_move(sq)
-            self.gui.hilite_squares( [(x, y)] )
+            gv.gui.hilite_squares( [(x, y)] )
             return
 
         # must have a valid source square before checking dest square
@@ -193,7 +188,7 @@ class Game:
         move = self.src + dst
         # check for promotion
         if self.promotion_zone(src, dst, self.stm):
-            promote = self.board.promote(piece, src_x, src_y, dst_x, dst_y, self.stm)
+            promote = gv.board.promote(piece, src_x, src_y, dst_x, dst_y, self.stm)
             if (promote == 2):
                 # must promote
                 move = move + "+"
@@ -204,7 +199,7 @@ class Game:
                 # can be valuable to have an unpromoted silver on the
                 # opposite side of the board.
                 if self.ask_before_promoting or piece == " s" or piece == " S":
-                    response = self.gui.promote_popup()
+                    response = gv.gui.promote_popup()
                     if (response == Gtk.ResponseType.CANCEL):
                         return None
                     if (response == Gtk.ResponseType.YES):
@@ -218,7 +213,7 @@ class Game:
         validmove = engine.hmove(move)
         if (not validmove):
             # illegal move
-            self.gui.set_status_bar_msg("Illegal Move")
+            gv.gui.set_status_bar_msg("Illegal Move")
             return None
         return move
 
@@ -226,12 +221,12 @@ class Game:
     def human_move(self, move):
         self.movelist.append(move)
         self.redolist = []
-        #self.board.save_board(len(self.movelist))
+        #gv.board.save_board(len(self.movelist))
 
         # highlight the move by changing square colours
         self.hilite_move(move)
 
-        self.board.update()
+        gv.board.update()
         # update move list in move list window
         self.move_list.update()
 
@@ -241,41 +236,41 @@ class Game:
         self.gameover, msg = self.check_for_gameover()
         if (self.gameover):
             self.stop()
-            self.gui.set_status_bar_msg(msg)
+            gv.gui.set_status_bar_msg(msg)
             self.thinking = False
             return
 
-        #self.gui.set_status_bar_msg('Thinking ...')
+        #gv.gui.set_status_bar_msg('Thinking ...')
         #if gv.verbose: print "--------------------------------------------------------------------------------"
         #print "whites move"
         self.stm = self.get_side_to_move()
-        self.gui.set_side_to_move(self.stm)
+        gv.gui.set_side_to_move(self.stm)
         if gv.verbose:
             print "#"
             print "# " + self.get_side_to_move_string(self.stm) + " to move"
             print "#"
-        self.gui.set_status_bar_msg(" ")
+        gv.gui.set_status_bar_msg(" ")
 
         self.src = ''
 
         # update time for last move
-        self.tc.update_clock()
+        gv.tc.update_clock()
 
-        self.gui.apply_drag_and_drop_settings(self.player[self.stm], self.stm)
+        gv.gui.apply_drag_and_drop_settings(self.player[self.stm], self.stm)
 
         if self.player[self.stm] == "Human":
 
             # set clock ready for move to come
-            self.tc.start_clock(self.stm)
+            gv.tc.start_clock(self.stm)
 
             if not self.timer_active:
-                GObject.timeout_add(1000, self.tc.show_time)
+                GObject.timeout_add(1000, gv.tc.show_time)
 
             return
 
         self.thinking = True
         # disable some functionality while the computer is thinking
-        #self.gui.disable_menu_items()
+        #gv.gui.disable_menu_items()
 
         # It's the computers turn to move
         # kick off a separate thread for computers move so that gui is still useable
@@ -290,38 +285,38 @@ class Game:
 
     def stop(self):
         self.stopped = True
-        self.gui.enable_menu_items()
-        self.gui.enable_go_button()
-        self.gui.disable_stop_button()
-        self.gui.unset_all_drag_and_drop_squares()
+        gv.gui.enable_menu_items()
+        gv.gui.enable_go_button()
+        gv.gui.disable_stop_button()
+        gv.gui.unset_all_drag_and_drop_squares()
 
         # update time
-        self.tc.stop_clock()
+        gv.tc.stop_clock()
 
         # stop engines
-        self.usib.stop_engine()
-        self.usiw.stop_engine()
+        gv.usib.stop_engine()
+        gv.usiw.stop_engine()
         engine.movenow()
-        self.gui.set_status_bar_msg("stopped")
+        gv.gui.set_status_bar_msg("stopped")
 
 
     def go_clicked(self, widget):
 
         # update time control prior to move
-        self.tc.update_gui_time_control(self.stm)
+        gv.tc.update_gui_time_control(self.stm)
 
         # side to move
         self.stm = self.get_side_to_move()
 
         # start a timer to display the time left while the player is thinking
-        self.tc.start_clock(self.stm)
+        gv.tc.start_clock(self.stm)
 
         if not self.timer_active:
-            GObject.timeout_add(1000, self.tc.show_time)
+            GObject.timeout_add(1000, gv.tc.show_time)
 
-        self.gui.disable_menu_items()
-        self.gui.disable_go_button()
-        self.gui.enable_stop_button()
+        gv.gui.disable_menu_items()
+        gv.gui.disable_go_button()
+        gv.gui.enable_stop_button()
 
         self.stopped = False
 
@@ -330,17 +325,17 @@ class Game:
             print "# " + self.get_side_to_move_string(self.stm) + " to move"
             print "#"
 
-        self.gui.apply_drag_and_drop_settings(self.player[self.stm], self.stm)
+        gv.gui.apply_drag_and_drop_settings(self.player[self.stm], self.stm)
 
-        #self.board.reduce_board_history(self.movelist)
+        #gv.board.reduce_board_history(self.movelist)
         self.engine_output.clear('w', ' ')
         self.engine_output.clear('b', ' ')
 
         if self.player[self.stm] == "Human":
-            self.gui.set_status_bar_msg("ready")
+            gv.gui.set_status_bar_msg("ready")
             return
 
-        self.gui.set_status_bar_msg('Thinking ...')
+        gv.gui.set_status_bar_msg('Thinking ...')
         # It's the computers turn to move
         # kick off a separate thread for computers move so that gui is still useable
         self.ct= thread.start_new_thread( self.computer_move, () )
@@ -350,12 +345,12 @@ class Game:
 
         # if in edit board mode then call routines in board.py to change the piece count
         # in the komadai
-        if self.gui.get_edit_mode():
+        if gv.gui.get_edit_mode():
             x, y, colour = data
             if event.button == 1:                           # left click - decrement count for the piece clicked on
-                self.board.decrement_cap_piece(y, colour)
+                gv.board.decrement_cap_piece(y, colour)
             elif event.button == 3:                         # right click - increment count for the piece clicked on
-                self.board.increment_cap_piece(y, colour)
+                gv.board.increment_cap_piece(y, colour)
             return
 
         if self.gameover or self.thinking:
@@ -371,7 +366,7 @@ class Game:
 
         self.src_x = x
         self.src_y = y
-        self.piece = self.board.get_cap_piece(y, stm)
+        self.piece = gv.board.get_cap_piece(y, stm)
 
         if (self.piece != '0'):
             self.src = self.piece + '*'
@@ -398,10 +393,10 @@ class Game:
 
                 # update time for last move
                 Gdk.threads_enter()
-                #self.tc.update_clock()
-                self.gui.set_side_to_move(self.stm)
+                #gv.tc.update_clock()
+                gv.gui.set_side_to_move(self.stm)
                 # set clock ready for move to come
-                #self.tc.start_clock(self.stm)
+                #gv.tc.start_clock(self.stm)
                 Gdk.threads_leave()
 
                 if gv.verbose:
@@ -411,24 +406,24 @@ class Game:
 
                 if self.player[self.stm] == "Human":
                     Gdk.threads_enter()
-                    self.gui.apply_drag_and_drop_settings(self.player[self.stm], self.stm)
+                    gv.gui.apply_drag_and_drop_settings(self.player[self.stm], self.stm)
                     Gdk.threads_leave()
                     self.thinking = False
-                    self.tc.start_clock(self.stm)
+                    gv.tc.start_clock(self.stm)
                     return
 
                 t_start = time.time()
                 if self.player[self.stm] != 'gshogi':
                     if self.stm == BLACK:
-                        self.usi = self.usib
+                        self.usi = gv.usib
                         #usi_opponent = self.usiw
                         #opponent_stm = WHITE
                     else:
-                        self.usi = self.usiw
+                        self.usi = gv.usiw
                         #usi_opponent = self.usib
                         #opponent_stm = BLACK
 
-                    ponder_enabled = self.engine_manager.get_ponder()
+                    ponder_enabled = gv.engine_manager.get_ponder()
 
                     if not ponder_enabled:
                         # get engines move
@@ -466,7 +461,7 @@ class Game:
                         msg = "game over - " + colour + " resigned"
                         Gdk.threads_enter()
                         self.stop()
-                        self.gui.set_status_bar_msg(msg)
+                        gv.gui.set_status_bar_msg(msg)
                         Gdk.threads_leave()
                         self.thinking = False
                         return
@@ -477,7 +472,7 @@ class Game:
                     if (not validmove):
                         Gdk.threads_enter()
                         self.stop()
-                        self.gui.set_status_bar_msg(self.cmove + " - computer made illegal Move!")
+                        gv.gui.set_status_bar_msg(self.cmove + " - computer made illegal Move!")
                         Gdk.threads_leave()
                         self.gameover = True
                         self.thinking = False
@@ -492,7 +487,7 @@ class Game:
 
                     if self.player[self.stm ^ 1] == "Human":
                         Gdk.threads_enter()
-                        self.gui.set_status_bar_msg('Thinking ...')
+                        gv.gui.set_status_bar_msg('Thinking ...')
                         Gdk.threads_leave()
 
                     # set the computer to black or white
@@ -501,11 +496,11 @@ class Game:
                     # start the clock
                     #print "starting clock from gshogi.py"
                     Gdk.threads_enter()
-                    self.tc.start_clock(self.stm)
+                    gv.tc.start_clock(self.stm)
                     Gdk.threads_leave()
 
                     # set time limit/level for move in gshogi engine
-                    self.tc.set_gshogi_time_limit(self.stm)
+                    gv.tc.set_gshogi_time_limit(self.stm)
 
                     # call the gshogi engine to do the move
                     self.cmove = engine.cmove()
@@ -513,8 +508,8 @@ class Game:
                     # update time for last move
                     Gdk.threads_enter()
                     #print "updating clock from gshogi.py"
-                    self.tc.update_clock()
-                    self.gui.set_side_to_move(self.stm)
+                    gv.tc.update_clock()
+                    gv.gui.set_side_to_move(self.stm)
                     Gdk.threads_leave()
 
                     if self.quitting:
@@ -523,7 +518,7 @@ class Game:
                     if self.stopped:
                         self.thinking = False
                         Gdk.threads_enter()
-                        self.gui.set_status_bar_msg("stopped")
+                        gv.gui.set_status_bar_msg("stopped")
                         Gdk.threads_leave()
                         engine.command('undo')
                         return
@@ -552,15 +547,15 @@ class Game:
                 if self.quitting:
                     return
 
-                #self.board.save_board(len(self.movelist))
+                #gv.board.save_board(len(self.movelist))
                 # show computer move
                 Gdk.threads_enter()
-                self.board.update()
+                gv.board.update()
                 self.move_list.update()
                 Gdk.threads_leave()
 
 
-                #if self.player[self.stm] != 'gshogi' and self.engine_manager.get_ponder():
+                #if self.player[self.stm] != 'gshogi' and gv.engine_manager.get_ponder():
                 #    self.usi.send_ponder()
                 #    #self.ctp= thread.start_new_thread( self.usi.send_ponder, () )
 
@@ -580,14 +575,14 @@ class Game:
                     self.stm = self.get_side_to_move()
                     Gdk.threads_enter()
                     self.stop()
-                    self.gui.set_side_to_move(self.stm)
-                    self.gui.set_status_bar_msg(msg)
+                    gv.gui.set_side_to_move(self.stm)
+                    gv.gui.set_status_bar_msg(msg)
                     Gdk.threads_leave()
                     return
 
                 msg = self.get_side_to_move_string(self.stm) + ": " + msg
                 Gdk.threads_enter()
-                self.gui.set_status_bar_msg(msg)
+                gv.gui.set_status_bar_msg(msg)
                 Gdk.threads_leave()
 
             self.thinking = False
@@ -600,13 +595,13 @@ class Game:
     def hilite_move(self, move):
         # if move is a drop then just highlight the dest square
         if move[1] == '*':
-            dst = self.board.get_gs_square_posn(move[2:4])
-            self.gui.hilite_squares( [dst] )
+            dst = gv.board.get_gs_square_posn(move[2:4])
+            gv.gui.hilite_squares( [dst] )
         else:
             # not a drop so highlight source and dest squares
-            src = self.board.get_gs_square_posn(move[0:2])
-            dst = self.board.get_gs_square_posn(move[2:4])
-            self.gui.hilite_squares( [src, dst] )
+            src = gv.board.get_gs_square_posn(move[0:2])
+            dst = gv.board.get_gs_square_posn(move[2:4])
+            gv.gui.hilite_squares( [src, dst] )
 
 
     def check_for_gameover(self):
@@ -656,12 +651,14 @@ class Game:
     #
 
     def quit_game(self, b):
+        if gv.verbose: gv.testnames()
         self.quit()
         return False
 
 
     # This callback quits the program
     def delete_event(self, widget, event, data=None):
+        gv.testnames()
         self.quit()
         return False
 
@@ -671,8 +668,8 @@ class Game:
         self.quitting = True
         engine.movenow()
         self.save_settings()
-        self.usib.stop_engine()
-        self.usiw.stop_engine()
+        gv.usib.stop_engine()
+        gv.usiw.stop_engine()
         Gtk.main_quit()
         return False
 
@@ -722,28 +719,28 @@ class Game:
             elif menu_name == 'TenPieceHandicap':
                 sfen = '4k4/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1'
             else:
-                self.gui.info_box('Error. Invalid menu name:' + menu_name)
+                gv.gui.info_box('Error. Invalid menu name:' + menu_name)
                 return
 
             engine.setfen(sfen)
             self.startpos = sfen
 
-        self.board.update()
+        gv.board.update()
         # update move list in move list window
         self.move_list.update()
         if not BEEP:
             engine.command('beep')
 
-        self.usib.set_newgame()
-        self.usiw.set_newgame()
+        gv.usib.set_newgame()
+        gv.usiw.set_newgame()
         self.movelist = []
         self.redolist = []
-        self.gui.set_status_bar_msg('')
+        gv.gui.set_status_bar_msg('')
         self.stm = self.get_side_to_move()
-        self.gui.set_side_to_move(self.stm)
-        self.gui.unhilite_squares()
+        gv.gui.set_side_to_move(self.stm)
+        gv.gui.unhilite_squares()
 
-        self.tc.reset_clock()
+        gv.tc.reset_clock()
 
 
     #
@@ -755,18 +752,18 @@ class Game:
         s = Settings()
         s.name = NAME
         s.version = VERSION
-        s.engine_list = self.engine_manager.get_engine_list()
-        s.pieceset = self.pieces.get_pieceset()
-        s.custom_pieceset_path = self.pieces.get_custom_pieceset_path()
+        s.engine_list = gv.engine_manager.get_engine_list()
+        s.pieceset = gv.pieces.get_pieceset()
+        s.custom_pieceset_path = gv.pieces.get_custom_pieceset_path()
         s.player_white = self.player[WHITE]
         s.player_black = self.player[BLACK]
-        s.clock_settings = self.tc.get_clock_settings()
-        #s.dnd = self.gui.get_dnd()
+        s.clock_settings = gv.tc.get_clock_settings()
+        #s.dnd = gv.gui.get_dnd()
         s.colour_settings = self.set_board_colours.get_settings()
-        s.hash_value = self.engine_manager.get_hash_value()
-        s.ponder = self.engine_manager.get_ponder()
-        s.show_coords = self.gui.get_show_coords()
-        s.highlight_moves = self.gui.get_highlight_moves()
+        s.hash_value = gv.engine_manager.get_hash_value()
+        s.ponder = gv.engine_manager.get_ponder()
+        s.show_coords = gv.gui.get_show_coords()
+        s.highlight_moves = gv.gui.get_highlight_moves()
 
         # pickle and save settings
         try:
@@ -791,21 +788,21 @@ class Game:
         if x:
             # engine list
             try:
-                self.engine_manager.set_engine_list(x.engine_list)
+                gv.engine_manager.set_engine_list(x.engine_list)
             except Exception, e:
                 if gv.verbose: print e, ". engine list not restored"
 
             # pieceset 'eastern', 'western' or 'custom'
             try:
-                self.pieces.set_pieceset(x.pieceset)
+                gv.pieces.set_pieceset(x.pieceset)
             except Exception, e:
                 if gv.verbose: print e, ". pieceset setting not restored"
 
             # custom pieceset path
             try:
-               self.pieces.set_custom_pieceset_path(x.custom_pieceset_path)
+               gv.pieces.set_custom_pieceset_path(x.custom_pieceset_path)
                if x.custom_pieceset_path is not None:
-                   self.pieces.load_pieces(self.get_prefix())
+                   gv.pieces.load_pieces(self.get_prefix())
             except Exception, e:
                 if gv.verbose: print e, ". custom pieceset path setting not restored"
 
@@ -819,14 +816,14 @@ class Game:
             # time controls
             try:
                 cs = x.clock_settings
-                self.tc.restore_clock_settings(cs)
+                gv.tc.restore_clock_settings(cs)
             except Exception, e:
                 if gv.verbose: print e, ". time controls not restored"
 
             # using Drag and Drop enabled
             #try:
             #    if x.dnd == True:
-            #        self.gui.set_dnd()
+            #        gv.gui.set_dnd()
             #except Exception, e:
             #    if gv.verbose: print e, ". DND setting not restored"
 
@@ -852,36 +849,36 @@ class Game:
             # hash value
             try:
                 hash_value = x.hash_value
-                self.engine_manager.set_hash_value(hash_value)
+                gv.engine_manager.set_hash_value(hash_value)
             except Exception, e:
                 if gv.verbose: print e, ". hash value not restored"
 
             # ponder (true/false)
             try:
                 ponder = x.ponder
-                self.engine_manager.set_ponder(ponder)
+                gv.engine_manager.set_ponder(ponder)
             except Exception, e:
                 if gv.verbose: print e, ". ponder not restored"
 
             # show coordinates (true/false)
             try:
                 show_coords = x.show_coords
-                self.gui.set_show_coords(show_coords)
+                gv.gui.set_show_coords(show_coords)
             except Exception, e:
                 if gv.verbose: print e, ". show_coords not restored"
 
             # highlight moves (true/false)
             try:
                 highlight_moves = x.highlight_moves
-                self.gui.set_highlight_moves(highlight_moves)
+                gv.gui.set_highlight_moves(highlight_moves)
             except Exception, e:
                 if gv.verbose: print e, ". highlight_moves not restored"
 
 
     def goto_move(self, move_idx):
         try:
-            self.usib.stop_engine()
-            self.usiw.stop_engine()
+            gv.usib.stop_engine()
+            gv.usiw.stop_engine()
         except:
             pass
         self.gameover = False
@@ -895,10 +892,10 @@ class Game:
                 self.redo_move()
 
         self.stm = self.get_side_to_move()
-        self.gui.set_side_to_move(self.stm)
+        gv.gui.set_side_to_move(self.stm)
 
-        self.board.update()
-        #self.gui.set_status_bar_msg(" ")
+        gv.board.update()
+        #gv.gui.set_status_bar_msg(" ")
         move = None
         try:
             move = self.movelist[len(self.movelist) - 1]
@@ -907,12 +904,12 @@ class Game:
             pass
 
         if move is not None:
-            self.gui.set_status_bar_msg(move)
+            gv.gui.set_status_bar_msg(move)
             # highlight the move by changing square colours
             self.hilite_move(move)
         else:
-            self.gui.set_status_bar_msg(" ")
-            self.gui.unhilite_squares()
+            gv.gui.set_status_bar_msg(" ")
+            gv.gui.unhilite_squares()
 
 
     #
@@ -926,25 +923,25 @@ class Game:
             move = self.movelist.pop()
             self.redolist.append(move)
             self.stm = self.get_side_to_move()
-            self.gui.set_side_to_move(self.stm)
+            gv.gui.set_side_to_move(self.stm)
         except IndexError:
             pass
 
         try:
-            self.usib.stop_engine()
-            self.usiw.stop_engine()
+            gv.usib.stop_engine()
+            gv.usiw.stop_engine()
         except:
             pass
         self.gameover = False
-        self.board.update()
+        gv.board.update()
         # set move list window to last move
         self.move_list.set_move(len(self.movelist))
         if move is not None:
-            self.gui.set_status_bar_msg('(' + move + ')')
+            gv.gui.set_status_bar_msg('(' + move + ')')
             # highlight the move by changing square colours
             self.hilite_move(move)
         else:
-            self.gui.unhilite_squares()
+            gv.gui.unhilite_squares()
 
 
     # undo a move without updating the gui
@@ -960,8 +957,8 @@ class Game:
 
     def undo_all(self, toolbutton):
         try:
-            self.usib.stop_engine()
-            self.usiw.stop_engine()
+            gv.usib.stop_engine()
+            gv.usiw.stop_engine()
         except:
             pass
         self.gameover = False
@@ -969,13 +966,13 @@ class Game:
             self.undo_move()
 
         self.stm = self.get_side_to_move()
-        self.gui.set_side_to_move(self.stm)
+        gv.gui.set_side_to_move(self.stm)
 
-        self.board.update()
+        gv.board.update()
         # set move list window to initial position
         self.move_list.set_move(0)
-        self.gui.set_status_bar_msg(" ")
-        self.gui.unhilite_squares()
+        gv.gui.set_status_bar_msg(" ")
+        gv.gui.unhilite_squares()
 
 
     #
@@ -997,20 +994,20 @@ class Game:
 
             # side to move changes to opponent
             self.stm = self.get_side_to_move()
-            self.gui.set_side_to_move(self.stm)
+            gv.gui.set_side_to_move(self.stm)
         except IndexError:
             pass
 
         try:
-            self.usib.stop_engine()
-            self.usiw.stop_engine()
+            gv.usib.stop_engine()
+            gv.usiw.stop_engine()
         except:
             pass
-        self.board.update()
+        gv.board.update()
         # set move list window to last move
         self.move_list.set_move(len(self.movelist))
         if move is not None:
-            self.gui.set_status_bar_msg(move)
+            gv.gui.set_status_bar_msg(move)
             # highlight the move by changing square colours
             self.hilite_move(move)
 
@@ -1034,15 +1031,15 @@ class Game:
 
     def redo_all(self, toolbutton):
         #try:
-        #    self.usib.stop_engine()
-        #    self.usiw.stop_engine()
+        #    gv.usib.stop_engine()
+        #    gv.usiw.stop_engine()
         #except:
         #    pass
         while len(self.redolist) != 0:
             self.redo_move()
         self.stm = self.get_side_to_move()
-        self.gui.set_side_to_move(self.stm)
-        self.board.update()
+        gv.gui.set_side_to_move(self.stm)
+        gv.board.update()
         # set move list window to last move
         self.move_list.set_move(len(self.movelist))
 
@@ -1054,7 +1051,7 @@ class Game:
             pass
 
         if move is not None:
-            self.gui.set_status_bar_msg(move)
+            gv.gui.set_status_bar_msg(move)
             # highlight the move by changing square colours
             self.hilite_move(move)
 
@@ -1137,9 +1134,9 @@ class Game:
         # USI engine
         try:
             if self.stm == BLACK:
-                self.usib.command('stop\n')
+                gv.usib.command('stop\n')
             else:
-                self.usiw.command('stop\n')
+                gv.usiw.command('stop\n')
         except:
             pass
 
@@ -1156,7 +1153,7 @@ class Game:
         dialog = Gtk.Dialog("Players", None, 0, (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK))
         dialog.set_title('Set Players')
 
-        elist = self.engine_manager.get_engine_list()
+        elist = gv.engine_manager.get_engine_list()
 
         # White Player
         fr = Gtk.Frame.new("White")
@@ -1212,10 +1209,10 @@ class Game:
         self.player[BLACK] = comboboxb.get_active_text()
         self.player[WHITE] = comboboxw.get_active_text()
 
-        self.usib.set_engine(self.player[BLACK], None)
-        self.usiw.set_engine(self.player[WHITE], None)
+        gv.usib.set_engine(self.player[BLACK], None)
+        gv.usiw.set_engine(self.player[WHITE], None)
 
-        self.gui.update_toolbar(self.player)
+        gv.gui.update_toolbar(self.player)
 
         dialog.destroy()
 

@@ -23,102 +23,13 @@ import os
 import sys
 import pickle
 
-import gui, board, pieces
 import load_save
-import comments
 import psn
-import gamelist
 import gv
-
-game_ref = None
-gui_ref = None
-pieces_ref = None
-board_ref = None
-usib_ref = None
-usiw_ref = None
-tc_ref = None
-comments_ref = None
-psn_ref = None
-gamelist_ref = None
-
-
-def get_gui_ref():
-    global gui_ref
-    if gui_ref is None:
-        gui_ref = gui.Gui()
-    return gui_ref
-
-
-def get_pieces_ref():
-    global pieces_ref
-    if pieces_ref is None:
-        pieces_ref = pieces.Pieces()
-    return pieces_ref
-
-
-def get_board_ref():
-    global board_ref
-    if board_ref is None:
-        board_ref = board.Board()
-    return board_ref
-
-
-def set_game_ref(game):
-    global game_ref
-    game_ref = game
-
-
-def get_game_ref():
-    if game_ref is None:
-        raise RuntimeError, 'game_ref not set'
-    return game_ref
-
-
-def get_comments_ref():
-    global comments_ref
-    if comments_ref is None:
-        comments_ref = comments.Comments()
-    return comments_ref
-
-
-def set_tc_ref(tc):
-    global tc_ref
-    tc_ref = tc
-
-
-def get_tc_ref():
-    if tc_ref is None:
-        raise RuntimeError, 'tc_ref not set'
-    return tc_ref
-
-
-def get_psn_ref():
-    global psn_ref
-    if psn_ref is None:
-        psn_ref = psn.Psn()
-    return psn_ref
-
-
-def get_gamelist_ref():
-    global gamelist_ref
-    if gamelist_ref is None:
-        gamelist_ref = gamelist.Gamelist()
-    return gamelist_ref
-
-
-def set_usi_refs(usi_b, usi_w):
-    global usib_ref, usiw_ref
-    usib_ref = usi_b
-    usiw_ref = usi_w
-
-
-def get_usi_refs():
-    return usib_ref, usiw_ref
-
 
 # Copy the board position to the clipboard in std SFEN format
 def copy_SFEN_to_clipboard(action):
-    sfen = board_ref.get_sfen()
+    sfen = gv.board.get_sfen()
     copy_text_to_clipboard(sfen)
 
 
@@ -126,10 +37,10 @@ def copy_SFEN_to_clipboard(action):
 def paste_clipboard_to_SFEN(action):
     sfen = get_text_from_clipboard()
     if sfen is None:
-       get_gui_ref().info_box("Error: invalid sfen")
+       gv.gui.info_box("Error: invalid sfen")
        return
     if not validate_sfen(sfen):
-        get_gui_ref().info_box("Error: invalid sfen")
+        gv.gui.info_box("Error: invalid sfen")
         return
     load_save_ref = load_save.get_ref()
     load_save_ref.init_game(sfen)
@@ -183,8 +94,8 @@ def paste_game_from_clipboard(action):
     if gamestr is None:
        print "Error invalid game data"
        return
-    ref = get_psn_ref()
-    ref.load_game_psn_from_str(gamestr)
+    psn_ref = psn.get_ref()
+    psn_ref.load_game_psn_from_str(gamestr)
 
 
 def copy_text_to_clipboard(text):

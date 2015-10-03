@@ -20,9 +20,13 @@
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GObject
-import os, subprocess, thread
+import os
+import subprocess
+import thread
 import time
-import engine_debug, engine_output
+
+import engine_debug
+import engine_output
 import gv
 
 class Usi:
@@ -109,7 +113,7 @@ class Usi:
 
         # set pondering
         #self.command('setoption name USI_Ponder value false\n')
-        if self.engine_manager.get_ponder():
+        if gv.engine_manager.get_ponder():
             ponder_str = 'true'
         else:
             ponder_str = 'false'
@@ -117,7 +121,7 @@ class Usi:
 
         # set hash value
         #self.command('setoption name USI_Hash value 256\n')
-        self.command('setoption name USI_Hash value ' + str(self.engine_manager.get_hash_value()) + '\n')
+        self.command('setoption name USI_Hash value ' + str(gv.engine_manager.get_hash_value()) + '\n')
 
         # Ask if ready
         self.command('isready\n')
@@ -274,7 +278,7 @@ class Usi:
             self.command('usinewgame\n')
             self.newgame = False
 
-        startpos = self.game.get_startpos()
+        startpos = gv.gshogi.get_startpos()
 
         # if not startpos must be sfen
         if startpos != 'startpos':
@@ -303,14 +307,14 @@ class Usi:
         GObject.idle_add(self.engine_output.clear, self.side, self.get_running_engine().strip())
 
         #print "calling time control module from usi module to get go command"
-        gocmnd = self.tc.get_go_command(side_to_move)
+        gocmnd = gv.tc.get_go_command(side_to_move)
         self.gocmnd = gocmnd        # save for possible ponder
         #print "go command:", gocmnd
 
 
         # start the clock
         #print "starting clock from usi.py"
-        self.tc.start_clock(side_to_move)
+        gv.tc.start_clock(side_to_move)
 
         # send the engine the command to do the move
         self.command(gocmnd + '\n')
@@ -352,8 +356,8 @@ class Usi:
                     self.op = []
 
                     # update time for last move
-                    GObject.idle_add(self.tc.update_clock)
-                    GObject.idle_add(self.gui.set_side_to_move, side_to_move)
+                    GObject.idle_add(gv.tc.update_clock)
+                    GObject.idle_add(gv.gui.set_side_to_move, side_to_move)
 
                     return bestmove, self.ponder_move
             self.op = []
@@ -404,7 +408,7 @@ class Usi:
     def send_ponderhit(self, side_to_move):
 
         # start the clock
-        self.tc.start_clock(side_to_move)
+        gv.tc.start_clock(side_to_move)
 
         self.command('ponderhit\n')
         # Wait for move from engine
@@ -443,8 +447,8 @@ class Usi:
                     # update time for last move
                     Gdk.threads_enter()
                     #print "updating clock from usi.py"
-                    self.tc.update_clock()
-                    self.gui.set_side_to_move(side_to_move)
+                    gv.tc.update_clock()
+                    gv.gui.set_side_to_move(side_to_move)
                     Gdk.threads_leave()
 
                     return bestmove, self.ponder_move
@@ -453,7 +457,7 @@ class Usi:
 
     def start_ponder(self, pondermove, movelist, cmove):
 
-        startpos = self.game.get_startpos()
+        startpos = gv.gshogi.get_startpos()
 
         # if not startpos must be sfen
         if startpos != 'startpos':
@@ -576,7 +580,7 @@ class Usi:
     def set_engine(self, ename, path):
         self.engine = ename
         if path == None:
-            self.path = self.engine_manager.get_path(ename)
+            self.path = gv.engine_manager.get_path(ename)
         else:
             self.path = path
 
@@ -815,10 +819,3 @@ class Usi:
                     options[opt_i] = options[opt_i][0:u] + 'userval ' + str(av)
             self.set_options(options)
         dialog.destroy()
-
-
-    def set_refs(self, game, em, gui, tc):
-        self.game = game
-        self.engine_manager = em
-        self.gui = gui
-        self.tc = tc

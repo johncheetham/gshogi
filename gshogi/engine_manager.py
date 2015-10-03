@@ -21,9 +21,10 @@ from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GObject
 import os
+
 import usi
-import utils
-from constants import *
+from constants import WHITE, BLACK
+import gv
 
 class Engine_Manager:
 
@@ -38,9 +39,7 @@ class Engine_Manager:
 
     def common_settings(self, b):
 
-        self.game = utils.get_game_ref()
-
-        glade_dir = self.game.get_glade_dir()
+        glade_dir = gv.gshogi.get_glade_dir()
         self.glade_file = os.path.join(glade_dir, "common_engine_settings.glade")
         self.builder = Gtk.Builder()
         self.builder.add_from_file(self.glade_file)
@@ -238,19 +237,19 @@ class Engine_Manager:
     def configure_engine(self, widget, data=None):
         if widget.get_name() == "ConfigureEngine1":
             player = WHITE
-            usi = self.usiw
+            usi = gv.usiw
         else:
             player = BLACK
-            usi = self.usib
+            usi = gv.usib
 
         # If not an engine return
-        if self.game.get_player(player) == "Human":
-            self.gui.info_box("No options to configure")
+        if gv.gshogi.get_player(player) == "Human":
+            gv.gui.info_box("No options to configure")
             return
 
         if usi.get_engine() == 'gshogi':
-            #self.game.set_level(widget)
-            self.gui.info_box("No options to configure")
+            #gv.gshogi.set_level(widget)
+            gv.gui.info_box("No options to configure")
             return
         else:
             usi.USI_options(widget)
@@ -265,14 +264,14 @@ class Engine_Manager:
         tm = self.treeview.get_model()
 
         if l_iter is None:
-            self.gui.info_box("no engine selected")
+            gv.gui.info_box("no engine selected")
             return
 
         name = tm.get_value(l_iter, 0)
         path = tm.get_value(l_iter, 1)
 
         if name == 'gshogi':
-            self.gui.info_box("delete of gshogi engine not permitted")
+            gv.gui.info_box("delete of gshogi engine not permitted")
             return
 
         if not lso.remove(l_iter):
@@ -291,14 +290,14 @@ class Engine_Manager:
         tm = self.treeview.get_model()
 
         if l_iter is None:
-            self.gui.info_box("no engine selected")
+            gv.gui.info_box("no engine selected")
             return
 
         name = tm.get_value(l_iter, 0)
         path = tm.get_value(l_iter, 1)
 
         if name == 'gshogi':
-            self.gui.info_box("rename of gshogi engine not permitted")
+            gv.gui.info_box("rename of gshogi engine not permitted")
             return
 
         dialog = Gtk.MessageDialog(
@@ -353,10 +352,3 @@ class Engine_Manager:
 
     def set_engine_list(self, engine_list):
         self.engine_list = engine_list
-
-
-    def set_refs(self, game, gui, usib, usiw):
-        self.game = game
-        self.gui = gui
-        self.usib = usib
-        self.usiw = usiw

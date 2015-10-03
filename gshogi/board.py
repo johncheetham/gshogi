@@ -19,14 +19,10 @@
 
 from gi.repository import Gtk
 from gi.repository import GObject
-import os.path
-import move_list
-import utils
 
 import engine
-import time
-import sys, gc
-from constants import *
+from constants import WHITE, BLACK
+import gv
 
 class Board:
 
@@ -36,46 +32,24 @@ class Board:
         self.wcap = engine.getcaptured(WHITE)
         self.bcap = engine.getcaptured(BLACK)
 
-        self.pieces = utils.get_pieces_ref()
-        self.move_list = move_list.get_ref()
-
-
-    def get_pieces_ref(self):
-        return self.pieces
-
 
     def build_board(self):
-        self.myimage = [ \
-            [Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image()], \
-            [Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image()], \
-            [Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image()], \
-            [Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image()], \
-            [Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image()], \
-            [Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image()], \
-            [Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image()], \
-            [Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image()], \
-            [Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image()]  \
-            ]
+        self.myimage = [[Gtk.Image() for x in range(9)] for x in range(9)]
 
-        self.wcap_image = [Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image()]
-        self.wcap_label = [Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label()]
-        self.bcap_image = [Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image(), Gtk.Image()]
-        self.bcap_label = [Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label(), Gtk.Label()]
+        self.wcap_image = [Gtk.Image() for x in range(9)]
+        self.wcap_label = [Gtk.Label() for x in range(9)]
+        self.bcap_image = [Gtk.Image() for x in range(9)]
+        self.bcap_label = [Gtk.Label() for x in range(9)]
 
         self.piece_pixbuf = []
 
         self.init_board()
 
 
-    def set_refs(self, game, gui):
-        self.game = game
-        self.gui = gui
-
-
     def init_board(self):
-        prefix = self.game.get_prefix()
+        prefix = gv.gshogi.get_prefix()
 
-        self.pieces.load_pieces(prefix)
+        gv.pieces.load_pieces(prefix)
 
         # pieces captured by black (index 0) and white (index 1)
         self.bcap2 = [ ['0', '0', '0', '0', '0', '0', '0'],
@@ -98,28 +72,28 @@ class Board:
                 piece = self.board_position[l]
 
                 # set the image on the board square to the required piece
-                pb = self.pieces.getpixbuf(piece)
+                pb = gv.pieces.getpixbuf(piece)
                 self.myimage[x][y].set_from_pixbuf(pb)
 
                 # call gui to show this square
-                self.gui.init_board_square(self.myimage[x][y], x, y)
+                gv.gui.init_board_square(self.myimage[x][y], x, y)
 
         # initialise white komadai (area containing pieces captured by white)
         for y in range(0, 7):
-            self.wcap_image[y].set_from_pixbuf(self.pieces.getpixbuf(" -"))
+            self.wcap_image[y].set_from_pixbuf(gv.pieces.getpixbuf(" -"))
             self.wcap_label[y].set_text("   ")
             # call gui to show this square
-            self.gui.init_wcap_square(self.wcap_image[y], y, self.wcap_label[y])
+            gv.gui.init_wcap_square(self.wcap_image[y], y, self.wcap_label[y])
 
 
         # initialise black komadai (area containing pieces captured by black)
         for y in range(0, 7):
-            self.bcap_image[y].set_from_pixbuf(self.pieces.getpixbuf(" -"))
+            self.bcap_image[y].set_from_pixbuf(gv.pieces.getpixbuf(" -"))
             self.bcap_label[y].set_text("   ")
             # call gui to show this square
-            self.gui.init_bcap_square(self.bcap_image[y], y, self.bcap_label[y])
+            gv.gui.init_bcap_square(self.bcap_image[y], y, self.bcap_label[y])
 
-        GObject.idle_add(self.gui.set_window_size)
+        GObject.idle_add(gv.gui.set_window_size)
         GObject.idle_add(self.update)
 
     def get_gs_loc(self, x, y):
@@ -182,7 +156,7 @@ class Board:
                 sfen += '/'
 
         # side to move
-        if self.game.get_stm() == BLACK:
+        if gv.gshogi.get_stm() == BLACK:
             stm = 'b'
         else:
             stm = 'w'
@@ -223,7 +197,7 @@ class Board:
         if pih == '':
             pih = '-'
 
-        move_count = self.game.get_move_count()
+        move_count = gv.gshogi.get_move_count()
 
         sfen = sfen + ' ' + pih + ' ' + str(move_count)
 
@@ -242,7 +216,7 @@ class Board:
     def display_board(self, w=None, h=None):
 
         sf = self.get_scale_factor(w, h)
-        self.pieces.set_scale_factor(sf)
+        gv.pieces.set_scale_factor(sf)
 
         #
         # loop through the board squares and set the pieces
@@ -253,7 +227,7 @@ class Board:
                 # convert the x, y square to the location value used by the engine
                 l = self.get_gs_loc(x, y)
                 piece = self.board_position[l]
-                pb = self.pieces.getpixbuf(piece)
+                pb = gv.pieces.getpixbuf(piece)
                 # the get_pixbuf line prevents error messages of the type
                 # Warning: g_object_unref: assertion `object->ref_count > 0' failed
                 # on the set_from_pixbuf line
@@ -275,7 +249,7 @@ class Board:
             # Warning: g_object_unref: assertion `object->ref_count > 0' failed
             # on the set_from_pixbuf line
             cpb = self.wcap_image[i].get_pixbuf()
-            self.wcap_image[i].set_from_pixbuf(self.pieces.getpixbuf(" -"))
+            self.wcap_image[i].set_from_pixbuf(gv.pieces.getpixbuf(" -"))
             self.wcap_label[i].set_text("   ")
 
         i = 0
@@ -291,7 +265,7 @@ class Board:
                 # Warning: g_object_unref: assertion `object->ref_count > 0' failed
                 # on the set_from_pixbuf line
                 cpb = self.wcap_image[i].get_pixbuf()
-                self.wcap_image[i].set_from_pixbuf(self.pieces.getpixbuf(z))
+                self.wcap_image[i].set_from_pixbuf(gv.pieces.getpixbuf(z))
                 self.bcap2[WHITE][i] = piece
                 self.wcap_label[i].set_text(" " + num + " ")
 
@@ -307,7 +281,7 @@ class Board:
             # Warning: g_object_unref: assertion `object->ref_count > 0' failed
             # on the set_from_pixbuf line
             cpb = self.bcap_image[i].get_pixbuf()
-            self.bcap_image[i].set_from_pixbuf(self.pieces.getpixbuf(" -"))
+            self.bcap_image[i].set_from_pixbuf(gv.pieces.getpixbuf(" -"))
             self.bcap_label[i].set_text("   ")
 
         i = 6
@@ -324,7 +298,7 @@ class Board:
                 # Warning: g_object_unref: assertion `object->ref_count > 0' failed
                 # on the set_from_pixbuf line
                 cpb = self.bcap_image[i].get_pixbuf()
-                self.bcap_image[i].set_from_pixbuf(self.pieces.getpixbuf(z))
+                self.bcap_image[i].set_from_pixbuf(gv.pieces.getpixbuf(z))
                 self.bcap2[BLACK][i] = piece
                 self.bcap_label[i].set_text(" " + num + " ")
             i = i - 1
@@ -394,7 +368,7 @@ class Board:
 
 
     def use_pieceset(self, pieceset):
-        self.pieces.set_pieceset(pieceset)
+        gv.pieces.set_pieceset(pieceset)
         self.refresh_screen()
 
 
@@ -405,7 +379,7 @@ class Board:
     # work out a factor to scale the pieces by
     # this changes when the user resizes the board
     def get_scale_factor(self, w=None, h=None):
-        square_size = self.gui.get_square_size(w, h)
+        square_size = gv.gui.get_square_size(w, h)
         width = square_size
         if width < 15:
             factor = 1.0
@@ -442,7 +416,7 @@ class Board:
         # convert the x, y square to the location value used by the engine
         l = self.get_gs_loc(x, y)
         piece = self.board_position[l]
-        return self.pieces.getpixbuf(piece)
+        return gv.pieces.getpixbuf(piece)
 
 
     def get_cap_pixbuf(self, y, stm):
@@ -467,7 +441,7 @@ class Board:
     def set_piece_at_square(self, x, y, piece):
         l = self.get_gs_loc(x, y)
         self.board_position[l] =  piece
-        pb = self.pieces.getpixbuf(piece)
+        pb = gv.pieces.getpixbuf(piece)
         self.myimage[x][y].set_from_pixbuf(pb)
 
 

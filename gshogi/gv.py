@@ -17,6 +17,8 @@
 #   along with gshogi.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import sys
+
 # Global variables
 
 # set in gshogi.py
@@ -33,12 +35,12 @@ usib = None
 usiw = None
 engine_manager = None
 
-
-
 # Make sure no gv global variables have been created elsewhere
 # Only those above should be present
-import sys
+
 modulename = sys.modules[__name__]  # gshogi.gv
+
+
 def testnames():
     names = dir(modulename)
     for n in names:

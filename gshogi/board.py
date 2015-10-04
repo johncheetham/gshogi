@@ -24,14 +24,13 @@ import engine
 from constants import WHITE, BLACK
 import gv
 
-class Board:
 
+class Board:
 
     def __init__(self):
         self.board_position = self.getboard()
         self.wcap = engine.getcaptured(WHITE)
         self.bcap = engine.getcaptured(BLACK)
-
 
     def build_board(self):
         self.myimage = [[Gtk.Image() for x in range(9)] for x in range(9)]
@@ -45,19 +44,23 @@ class Board:
 
         self.init_board()
 
-
     def init_board(self):
         prefix = gv.gshogi.get_prefix()
 
         gv.pieces.load_pieces(prefix)
 
         # pieces captured by black (index 0) and white (index 1)
-        self.bcap2 = [ ['0', '0', '0', '0', '0', '0', '0'],
-                       ['0', '0', '0', '0', '0', '0', '0'] ]
-
+        self.bcap2 = [
+            ["0", "0", "0", "0", "0", "0", "0"],
+            ["0", "0", "0", "0", "0", "0", "0"]
+        ]
 
         # pieces contains the list of possible pieces in self.board_position
-        pieces = [" -", " p", " l", " n", " s", " g", " b", " r", " k", "+p", "+l", "+n", "+s", "+b", "+r", " P", " L", " N", " S", " G", " B", " R", " K", "+P", "+L", "+N", "+S", "+B", "+R"]
+        pieces = [
+            " -", " p", " l", " n", " s", " g", " b", " r", " k", "+p", "+l",
+            "+n", "+s", "+b", "+r", " P", " L", " N", " S", " G", " B", " R",
+            " K", "+P", "+L", "+N", "+S", "+B", "+R"
+        ]
 
         #
         # loop through the board squares and set the pieces
@@ -65,7 +68,8 @@ class Board:
         #
         for x in range(0, 9):
             for y in range(0, 9):
-                # convert the x, y square to the location value used by the engine
+                # convert the x, y square to the location value
+                # used by the engine
                 l = self.get_gs_loc(x, y)
 
                 # get the piece at (x, y)
@@ -85,7 +89,6 @@ class Board:
             # call gui to show this square
             gv.gui.init_wcap_square(self.wcap_image[y], y, self.wcap_label[y])
 
-
         # initialise black komadai (area containing pieces captured by black)
         for y in range(0, 7):
             self.bcap_image[y].set_from_pixbuf(gv.pieces.getpixbuf(" -"))
@@ -100,40 +103,40 @@ class Board:
         l = x + (8 - y) * 9
         return l
 
-
-    # convert gshogi co-ordinates for square into standard notation (e.g.  (2, 6) -> 7g)
+    # convert gshogi co-ordinates for square into
+    # standard notation (e.g.  (2, 6) -> 7g)
     def get_square_posn(self, x, y):
-        lets = 'abcdefghi'
+        lets = "abcdefghi"
         sq = str(9 - x) + lets[y]
         return sq
 
-
-    # convert standard notation for square into gshogi co-ordinates (e.g.  7g -> (2, 6) )
+    # convert standard notation for square into
+    # gshogi co-ordinates (e.g.  7g -> (2, 6) )
     def get_gs_square_posn(self, sq):
         x = 9 - int(sq[0:1])
-        lets = 'abcdefghi'
+        lets = "abcdefghi"
         y = lets.index(sq[1:2])
         return x, y
 
     #
-    #    /*                                                                                       */
-    #    /* USI SFEN string                                                                       */
-    #    /*                                                                                       */
-    #    /* uppercase letters for black pieces, lowercase letters for white pieces                */
-    #    /*                                                                                       */
-    #    /* examples:                                                                             */
-    #    /*      lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1                  */
-    #    /*      8l/1l+R2P3/p2pBG1pp/kps1p4/Nn1P2G2/P1P1P2PP/1PS6/1KSG3+r1/LN2+p3L w Sbgn3p 124   */
+    # USI SFEN string
     #
+    # uppercase letters for black pieces, lowercase letters for white pieces
+    #
+    # examples:
+    #     "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1"
+    #     "8l/1l+R2P3/p2pBG1pp/kps1p4/Nn1P2G2/P1P1P2PP/1PS6/1KSG3+r1/LN2+p3L w
+    # Sbgn3p 124"
     def get_sfen(self):
 
         empty = 0
-        sfen = ''
+        sfen = ""
 
         # board state
         for y in range(0, 9):
             for x in range(0, 9):
-                # convert the x, y square to the location value used by the engine
+                # convert the x, y square to the location value
+                # used by the engine
                 l = self.get_gs_loc(x, y)
                 p = self.board_position[l]
                 if p == " -":
@@ -146,39 +149,40 @@ class Board:
                     usi_p = p[1].lower()
                 else:
                     usi_p = p[1].upper()
-                if p[0] == '+':
-                    usi_p = '+' + usi_p
+                if p[0] == "+":
+                    usi_p = "+" + usi_p
                 sfen += usi_p
             if empty != 0:
                 sfen += str(empty)
                 empty = 0
             if y != 8:
-                sfen += '/'
+                sfen += "/"
 
         # side to move
         if gv.gshogi.get_stm() == BLACK:
-            stm = 'b'
+            stm = "b"
         else:
-            stm = 'w'
-        sfen = sfen + ' ' + stm
+            stm = "w"
+        sfen = sfen + " " + stm
 
         # pieces in hand
-        pih = ''
+        pih = ""
 
         # get list of captured pieces for black in the correct order
         # (rook, bishop, gold, silver, knight, lance, pawn)
         cap_list = []
-        for p in ('R', 'B', 'G', 'S', 'N', 'L', 'P'):
+        for p in ("R", "B", "G", "S", "N", "L", "P"):
             zcap = self.getcap(p, self.bcap)
-            if zcap != '':
+            if zcap != "":
                 cap_list.append(zcap)
 
         # get list captured pieces for white in the correct order
         # (rook, bishop, gold, silver, knight, lance, pawn)
-        for p in ('R', 'B', 'G', 'S', 'N', 'L', 'P'):
+        for p in ("R", "B", "G", "S", "N", "L", "P"):
             zcap = self.getcap(p, self.wcap)
-            if zcap != '':
-                zcap2 = zcap[0] + zcap[1].lower()  # change to lower case for white
+            if zcap != "":
+                # change to lower case for white
+                zcap2 = zcap[0] + zcap[1].lower()
                 cap_list.append(zcap2)
 
         # cap_list is now a list of captured pieces in the correct order
@@ -188,30 +192,26 @@ class Board:
         for c in cap_list:
             piece = c[1:2]
             num = c[0:1]
-
-            #print "num,piece=",num,piece
             if int(num) > 1:
                 pih += str(num)
             pih += piece
 
-        if pih == '':
-            pih = '-'
+        if pih == "":
+            pih = "-"
 
         move_count = gv.gshogi.get_move_count()
 
-        sfen = sfen + ' ' + pih + ' ' + str(move_count)
+        sfen = sfen + " " + pih + " " + str(move_count)
 
         return sfen
 
-
     def getcap(self, piece, cap):
         for p in cap:
-            if p == '':
+            if p == "":
                 continue
-            if p[1] == piece and p[0] != '0':
+            if p[1] == piece and p[0] != "0":
                 return p
-        return ''
-
+        return ""
 
     def display_board(self, w=None, h=None):
 
@@ -224,16 +224,16 @@ class Board:
         #
         for x in range(0, 9):
             for y in range(0, 9):
-                # convert the x, y square to the location value used by the engine
+                # convert the x, y square to the location value
+                # used by the engine
                 l = self.get_gs_loc(x, y)
                 piece = self.board_position[l]
                 pb = gv.pieces.getpixbuf(piece)
                 # the get_pixbuf line prevents error messages of the type
-                # Warning: g_object_unref: assertion `object->ref_count > 0' failed
-                # on the set_from_pixbuf line
+                # Warning: g_object_unref: assertion `object->ref_count > 0'
+                # failed on the set_from_pixbuf line
                 cpb = self.myimage[x][y].get_pixbuf()
                 self.myimage[x][y].set_from_pixbuf(pb)
-
 
     def display_capturedw(self, wcap):
 
@@ -242,7 +242,7 @@ class Board:
         # 0P 0L 0N 0S 0G 0B 0R 0P 0L 0N 0S 0B 0R 0K
         #
 
-        self.bcap2[WHITE] = ['0', '0', '0', '0', '0', '0', '0']
+        self.bcap2[WHITE] = ["0", "0", "0", "0", "0", "0", "0"]
 
         for i in range(0, 7):
             # the get_pixbuf line prevents error messages of the type
@@ -254,7 +254,7 @@ class Board:
 
         i = 0
         for c in wcap:
-            if c == '':
+            if c == "":
                 continue
             piece = c[1:2]
             num = c[0:1]
@@ -262,8 +262,8 @@ class Board:
             if i < 7:
                 z = " " + piece
                 # the get_pixbuf line prevents error messages of the type
-                # Warning: g_object_unref: assertion `object->ref_count > 0' failed
-                # on the set_from_pixbuf line
+                # Warning: g_object_unref: assertion `object->ref_count > 0'
+                # failed on the set_from_pixbuf line
                 cpb = self.wcap_image[i].get_pixbuf()
                 self.wcap_image[i].set_from_pixbuf(gv.pieces.getpixbuf(z))
                 self.bcap2[WHITE][i] = piece
@@ -271,22 +271,21 @@ class Board:
 
             i = i + 1
 
-
     def display_capturedb(self, bcap):
 
-        self.bcap2[BLACK] = ['0', '0', '0', '0', '0', '0', '0', '0', '0']
+        self.bcap2[BLACK] = ["0", "0", "0", "0", "0", "0", "0", "0", "0"]
 
         for i in range(0, 7):
             # the get_pixbuf line prevents error messages of the type
-            # Warning: g_object_unref: assertion `object->ref_count > 0' failed
-            # on the set_from_pixbuf line
+            # Warning: g_object_unref: assertion `object->ref_count > 0'
+            # failed on the set_from_pixbuf line
             cpb = self.bcap_image[i].get_pixbuf()
             self.bcap_image[i].set_from_pixbuf(gv.pieces.getpixbuf(" -"))
             self.bcap_label[i].set_text("   ")
 
         i = 6
         for c in bcap:
-            if c == '':
+            if c == "":
                 continue
             piece = c[1:2]
             num = c[0:1]
@@ -295,14 +294,13 @@ class Board:
                 z = " " + piece
                 z = z.lower()
                 # the get_pixbuf line prevents error messages of the type
-                # Warning: g_object_unref: assertion `object->ref_count > 0' failed
-                # on the set_from_pixbuf line
+                # Warning: g_object_unref: assertion `object->ref_count > 0'
+                # failed on the set_from_pixbuf line
                 cpb = self.bcap_image[i].get_pixbuf()
                 self.bcap_image[i].set_from_pixbuf(gv.pieces.getpixbuf(z))
                 self.bcap2[BLACK][i] = piece
                 self.bcap_label[i].set_text(" " + num + " ")
             i = i - 1
-
 
     #
     # test if user has clicked on a valid source square
@@ -313,18 +311,25 @@ class Board:
         l = self.get_gs_loc(x, y)
         piece = self.board_position[l]
 
-        pieces = [ [" p", " l", " n", " s", " g", " b", " r", " k", "+p", "+l", "+n", "+s", "+b", "+r"],
-                   [" P", " L", " N", " S", " G", " B", " R", " K", "+P", "+L", "+N", "+S", "+B", "+R"] ]
+        pieces = [
+            [
+               " p", " l", " n", " s", " g", " b", " r", " k", "+p", "+l",
+               "+n", "+s", "+b", "+r"
+            ],
+            [
+                " P", " L", " N", " S", " G", " B", " R", " K", "+P", "+L",
+                "+N", "+S", "+B", "+R"
+            ]
+        ]
 
-
-        # black_pieces = [" p", " l", " n", " s", " g", " b", " r", " k", "+p", "+l", "+n", "+s", "+b", "+r"]
+        # black_pieces = [" p", " l", " n", " s", " g", " b", " r", " k", "+p",
+        # "+l", "+n", "+s", "+b", "+r"]
         try:
             idx = pieces[stm].index(piece)
         except ValueError, ve:
             return False
 
         return True
-
 
 #
 # Check if promotion is mandatory (i.e on last rank of board for
@@ -335,7 +340,7 @@ class Board:
 # 1 - promotion optional
 # 2 - promotion mandatory
 #
-    def promote(self, piece, src_x, src_y ,dst_x ,dst_y, stm):
+    def promote(self, piece, src_x, src_y, dst_x, dst_y, stm):
 
         # check for mandatory
         if stm == BLACK:
@@ -356,8 +361,14 @@ class Board:
         # check for optional
         #        BlackPawn,    BlackLance,   BlackKnight, BlackSilver,
         #        BlackBishop,  BlackRook,
-        promotable_pieces = [ [" p", " l", " n", " s", " b", " r"],
-                              [" P", " L", " N", " S", " B", " R"] ]
+        promotable_pieces = [
+            [
+                " p", " l", " n", " s", " b", " r"
+            ],
+            [
+                " P", " L", " N", " S", " B", " R"
+            ]
+        ]
 
         try:
             idx = promotable_pieces[stm].index(piece)
@@ -366,15 +377,12 @@ class Board:
 
         return 1
 
-
     def use_pieceset(self, pieceset):
         gv.pieces.set_pieceset(pieceset)
         self.refresh_screen()
 
-
     def getboard(self):
         return engine.getboard()
-
 
     # work out a factor to scale the pieces by
     # this changes when the user resizes the board
@@ -388,25 +396,20 @@ class Board:
 
         return factor
 
-
-    def update(self, refresh_gui = True):
+    def update(self, refresh_gui=True):
         self.board_position = self.getboard()
         self.wcap = engine.getcaptured(WHITE)
         self.bcap = engine.getcaptured(BLACK)
         if refresh_gui:
             self.refresh_screen()
 
-
     def refresh_screen(self, w=None, h=None):
-        #print "refresh"
         self.display_board(w, h)
         self.display_capturedw(self.wcap)
         self.display_capturedb(self.bcap)
 
-
     def get_cap_piece(self, y, stm):
         return self.bcap2[stm][y]
-
 
     #
     # return a pixbuf of the piece at the given square
@@ -418,13 +421,11 @@ class Board:
         piece = self.board_position[l]
         return gv.pieces.getpixbuf(piece)
 
-
     def get_cap_pixbuf(self, y, stm):
         if stm == BLACK:
             return self.bcap_image[y].get_pixbuf()
         else:
             return self.wcap_image[y].get_pixbuf()
-
 
     #
     # called from gshogi.py to clear the source square when a drag of
@@ -434,18 +435,17 @@ class Board:
         piece = " -"    # empty square
         self.set_piece_at_square(x, y, piece)
 
-
-    # called from this module to clear the source square when draggin and dropping.
-    # Also called from gui.py when editing the board position to set the piece on a
-    # square.
+    # called from this module to clear the source square when draggin and
+    # dropping.
+    # Also called from gui.py when editing the board position to set the piece
+    # on a square.
     def set_piece_at_square(self, x, y, piece):
         l = self.get_gs_loc(x, y)
-        self.board_position[l] =  piece
+        self.board_position[l] = piece
         pb = gv.pieces.getpixbuf(piece)
         self.myimage[x][y].set_from_pixbuf(pb)
 
-
-    # called when user does a 'clear board' in board edit
+    # called when user does a "clear board" in board edit
     def clear_board(self):
         for x in range(0, 9):
             for y in range(0, 9):
@@ -454,7 +454,6 @@ class Board:
         self.wcap = ["0B", "0S", "0G", "0L", "0N", "0R", "0P"]
         self.display_capturedb(self.bcap)
         self.display_capturedw(self.wcap)
-
 
     #
     # called from gshogi.py to clear the source komadai square or
@@ -480,7 +479,6 @@ class Board:
             self.bcap[i] = newcap
         else:
             self.wcap[i] = newcap
-
 
     # In edit mode show all pieces in the komadai with a zero next to those
     # not present. This allows for easy editing by clicking on each piece
@@ -534,7 +532,6 @@ class Board:
         else:
             self.display_capturedw(self.wcap)
 
-
     # called from board.py in edit board mode when the user right clicks
     # on a piece in the komadai to increase the count of the piece by 1.
     def increment_cap_piece(self, y, colour):
@@ -554,7 +551,6 @@ class Board:
         else:
             self.display_capturedw(self.wcap)
 
-
     #
     # set the piece image on a board square to the supplied pixbuf
     # used in gshogi.py drag and drop
@@ -562,20 +558,16 @@ class Board:
     def set_image(self, x, y, pixbuf):
         self.myimage[x][y].set_from_pixbuf(pixbuf)
 
-
     def get_capturedw(self):
         return self.wcap
 
-
     def get_capturedb(self):
         return self.bcap
-
 
     def get_piece(self, x, y):
         l = self.get_gs_loc(x, y)
         piece = self.board_position[l]
         return piece
-
 
     """"
     # Board position history
@@ -595,12 +587,12 @@ class Board:
 
         self.board_hist.append( (board_position, wcap, bcap) )
 
-
-    # This reduces the number of saved boards if the user has restarted the game
-    # from an earlier position
+    # This reduces the number of saved boards if the user has restarted the
+    #  game from an earlier position
     def reduce_board_history(self, movelist):
         num_moves = len(movelist)
-        # no. of board positions saved should be 1 more than the number of moves
+        # no. of board positions saved should be 1 more than the number of
+        # moves
         # Need to add 1 for the initial board position after zero moves
         num_boards = num_moves + 1
         while num_boards  < len(self.board_hist):

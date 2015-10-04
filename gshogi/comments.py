@@ -23,6 +23,7 @@ import os
 import move_list
 import gv
 
+
 class Comments:
 
     comments_ref = None
@@ -38,18 +39,17 @@ class Comments:
         self.builder.add_from_file(self.glade_file)
         self.builder.connect_signals(self)
 
-        self.window = self.builder.get_object('comments_window')
+        self.window = self.builder.get_object("comments_window")
         self.window.hide()
 
-        self.moveno = 0 # the moveno the comment applies to
+        self.moveno = 0  # the moveno the comment applies to
 
-        tv = self.builder.get_object('comments_textview')
+        tv = self.builder.get_object("comments_textview")
         tv.set_editable(True)
         tv.set_wrap_mode(Gtk.WrapMode.WORD)
         self.tb = tv.get_buffer()
         self.tb.connect("changed", self.text_changed)
         self.comment_list = []
-
 
     # user has closed the window
     # just hide it
@@ -57,14 +57,12 @@ class Comments:
         self.window.hide()
         return True  # do not propagate to other handlers
 
-
     # called from comments_button_clicked_cb in move_list.py
     def show_comments_window(self):
-        # 'present' will show the window if it is hidden
+        # "present" will show the window if it is hidden
         # if not hidden it will raise it to the top
         self.window.present()
         return
-
 
     # Called from move_list.py when selected move changes
     # change the comment window to show the comment for the
@@ -75,14 +73,14 @@ class Comments:
             max = self.moveno
         # extend comment list if it is shorter than movelist
         while len(self.comment_list) <= max:
-            self.comment_list.append('')
+            self.comment_list.append("")
 
         # get current text from comments window
         start_iter = self.tb.get_start_iter()
         end_iter = self.tb.get_end_iter()
         text = self.tb.get_text(start_iter, end_iter, False)
         # save it
-        #self.comment_list[self.moveno] = text
+        # self.comment_list[self.moveno] = text
 
         self.moveno = moveno
 
@@ -93,8 +91,7 @@ class Comments:
         # show the moveno the comment relates to in the window title
         self.window.set_title("Comment for Move " + str(moveno))
 
-        #self.moveno = moveno
-
+        # self.moveno = moveno
 
     def text_changed(self, textbuffer):
         # get text
@@ -104,50 +101,45 @@ class Comments:
 
         # extend comment list if it is shorter than movelist
         while len(self.comment_list) <= self.moveno:
-            self.comment_list.append('')
+            self.comment_list.append("")
 
         # save it
-        #print "saving to move;",self.moveno
-        #print "text=",text
+        # print "saving to move;",self.moveno
+        # print "text=",text
         self.comment_list[self.moveno] = text
-        if text != '':
+        if text != "":
             self.move_list.set_comment_ind(True)
         else:
             self.move_list.set_comment_ind(False)
 
-
     # Clear the comment window when clear button is clicked
     def clear_button_clicked_cb(self, button):
-        text = ''
+        text = ""
         # extend comment list if it is shorter than movelist
         while len(self.comment_list) <= self.moveno:
-            self.comment_list.append('')
+            self.comment_list.append("")
         self.comment_list[self.moveno] = text
         self.tb.set_text(text)
-
 
     # clear all comments.
     # Called from load_save.py when a new game is loaded
     def clear_comments(self):
         self.moveno = 0
-        self.comment_list = ['']
-        self.tb.set_text('')
+        self.comment_list = [""]
+        self.tb.set_text("")
         self.window.set_title("Comment for Move 0")
-
 
     # called by load_save.py when loading file in PSN format
     def set_comment(self, moveno, comment):
         while len(self.comment_list) <= moveno:
-            self.comment_list.append('')
+            self.comment_list.append("")
         self.comment_list[moveno] = comment
-
 
     # called by load_save.py when saving file in PSN format
     def get_comment(self, moveno):
         while len(self.comment_list) <= moveno:
-            self.comment_list.append('')
+            self.comment_list.append("")
         return self.comment_list[moveno]
-
 
     # called by load_save.py when saving file to check if there are
     # comments on it when saving in gshog format

@@ -23,6 +23,7 @@ import os
 
 import gv
 
+
 class Engine_Output:
 
     engine_output_ref = None
@@ -36,14 +37,14 @@ class Engine_Output:
         self.builder.add_from_file(self.glade_file)
         self.builder.connect_signals(self)
 
-        self.window = self.builder.get_object('engine_output_window')
+        self.window = self.builder.get_object("engine_output_window")
         self.tv = [Gtk.TextView(), Gtk.TextView()]
-        self.tv[0] = self.builder.get_object('engine_output_textview1')
-        self.tv[1] = self.builder.get_object('engine_output_textview2')
+        self.tv[0] = self.builder.get_object("engine_output_textview1")
+        self.tv[1] = self.builder.get_object("engine_output_textview2")
         self.tv[0].set_editable(False)
         self.tv[1].set_editable(False)
 
-        tabs =  Pango.TabArray.new(4, True)
+        tabs = Pango.TabArray.new(4, True)
         tabs.set_tab(0, Pango.TabAlign.LEFT, 40)
         tabs.set_tab(1, Pango.TabAlign.LEFT, 160)
         tabs.set_tab(2, Pango.TabAlign.LEFT, 230)
@@ -55,27 +56,32 @@ class Engine_Output:
         self.tb = [Gtk.TextBuffer(), Gtk.TextBuffer()]
         self.tb[0] = self.tv[0].get_buffer()
         self.tb[1] = self.tv[1].get_buffer()
-        #self.tb[0].set_text('')
-        #self.tb[1].set_text('')
+        # self.tb[0].set_text("")
+        # self.tb[1].set_text("")
 
         self.nps_lbl = [Gtk.Label(), Gtk.Label()]
-        self.nps_lbl[0] = self.builder.get_object('engine_output_nodes_lbl1')
-        self.nps_lbl[1] = self.builder.get_object('engine_output_nodes_lbl2')
+        self.nps_lbl[0] = self.builder.get_object("engine_output_nodes_lbl1")
+        self.nps_lbl[1] = self.builder.get_object("engine_output_nodes_lbl2")
 
         self.engine_name_lbl = [Gtk.Label(), Gtk.Label()]
-        self.engine_name_lbl[0] = self.builder.get_object('engine_output_engine_name_lbl1')
-        self.engine_name_lbl[1] = self.builder.get_object('engine_output_engine_name_lbl2')
+        self.engine_name_lbl[0] = self.builder.get_object(
+            "engine_output_engine_name_lbl1")
+        self.engine_name_lbl[1] = self.builder.get_object(
+            "engine_output_engine_name_lbl2")
 
         self.ponder_move_lbl = [Gtk.Label(), Gtk.Label()]
-        self.ponder_move_lbl[0] = self.builder.get_object('engine_output_ponder_move_lbl1')
-        self.ponder_move_lbl[1] = self.builder.get_object('engine_output_ponder_move_lbl2')
+        self.ponder_move_lbl[0] = self.builder.get_object(
+            "engine_output_ponder_move_lbl1")
+        self.ponder_move_lbl[1] = self.builder.get_object(
+            "engine_output_ponder_move_lbl2")
 
         self.currmove_lbl = [Gtk.Label(), Gtk.Label()]
-        self.currmove_lbl[0] = self.builder.get_object('engine_output_currmove_lbl1')
-        self.currmove_lbl[1] = self.builder.get_object('engine_output_currmove_lbl2')
+        self.currmove_lbl[0] = self.builder.get_object(
+            "engine_output_currmove_lbl1")
+        self.currmove_lbl[1] = self.builder.get_object(
+            "engine_output_currmove_lbl2")
 
-        #self.window.show_all()
-
+        # self.window.show_all()
 
     # user has closed the window
     # just hide it
@@ -83,9 +89,8 @@ class Engine_Output:
         self.window.hide()
         return True  # do not propagate to other handlers
 
-
     def format_time(self, ztime):
-        if ztime == '':
+        if ztime == "":
             return ztime
         try:
             ms = int(ztime)
@@ -98,110 +103,105 @@ class Engine_Output:
             secs = secs - mins * 60
         smins = str(mins)
         if mins < 10:
-            smins = '0' + smins
+            smins = "0" + smins
         ssecs = str(secs)
         if secs < 10:
-            ssecs = '0' + ssecs
-        return smins + ':' + ssecs
-
+            ssecs = "0" + ssecs
+        return smins + ":" + ssecs
 
     def add_to_log(self, side, engine_name, msg):
         # Write to either the black or white split pane
-        if side == 'b':
+        if side == "b":
             idx = 1   # bottom pane for black
         else:
             idx = 0   # top pane for white
 
-        msg = msg + '\n'
+        msg = msg + "\n"
 
-        ztime = ''
-        nodes = ''
-        depth = ''
-        nps = ''
-        pv = ''
-        currmove = ''
-        score = ''
+        ztime = ""
+        nodes = ""
+        depth = ""
+        nps = ""
+        pv = ""
+        currmove = ""
+        score = ""
         msg_lst = msg.split()
         for i in range(0, len(msg_lst)):
-            if msg_lst[i] == 'time':
+            if msg_lst[i] == "time":
                 ztime = msg_lst[i + 1]
-            elif msg_lst[i] == 'nodes':
+            elif msg_lst[i] == "nodes":
                 nodes = msg_lst[i + 1]
-            elif msg_lst[i] == 'depth':
+            elif msg_lst[i] == "depth":
                 depth = msg_lst[i + 1]
-            elif msg_lst[i] == 'nps':
+            elif msg_lst[i] == "nps":
                 nps = msg_lst[i + 1]
-            elif msg_lst[i] == 'currmove':
+            elif msg_lst[i] == "currmove":
                 currmove = msg_lst[i + 1]
-            elif msg_lst[i] == 'score':
+            elif msg_lst[i] == "score":
                 score = msg_lst[i + 1]
-                if score == 'cp':
+                if score == "cp":
                     score = msg_lst[i + 2]
-                elif score == 'mate':
-                    score = score + ' ' + msg_lst[i + 2]
-            elif msg_lst[i] == 'pv':
+                elif score == "mate":
+                    score = score + " " + msg_lst[i + 2]
+            elif msg_lst[i] == "pv":
                 pv_lst = msg_lst[i + 1:]
                 for p in pv_lst:
-                    pv = pv + p + '  '
+                    pv = pv + p + "  "
 
         ztime = self.format_time(ztime)
-        zmsg = depth + '\t' + nodes + '\t' + ztime + '\t' + score + '\t' + pv + '\n'
+        zmsg = (depth + "\t" + nodes + "\t" + ztime + "\t" +
+                score + "\t" + pv + "\n")
 
         # insert at start of buffer
         start_iter = self.tb[idx].get_start_iter()
 
-
-        if ztime != '' or nodes != '' or depth != '' or pv != '':
+        if ztime != "" or nodes != "" or depth != "" or pv != "":
             self.tb[idx].insert(start_iter, zmsg)
 
-        self.nps_lbl[idx].set_text('NPS: ' + nps)
+        self.nps_lbl[idx].set_text("NPS: " + nps)
         """
-        if nps != '':
-            self.nps_lbl[idx].set_text('NPS: ' + nps)
+        if nps != "":
+            self.nps_lbl[idx].set_text("NPS: " + nps)
         else:
             try:
                 nps_num = int(nodes) * 1000 / int(ztime)
                 nps = str(nps_num)
-                self.nps_lbl[idx].set_text('NPS: ' + nps)
+                self.nps_lbl[idx].set_text("NPS: " + nps)
             except:
                 pass
         """
 
+        # self.nps_lbl[idx].set_text("NPS: 1200")
 
-        #self.nps_lbl[idx].set_text('NPS: 1200')
-
-        if side == 'b':
-            s = 'Black: '
+        if side == "b":
+            s = "Black: "
         else:
-            s = 'White: '
+            s = "White: "
         self.engine_name_lbl[idx].set_text(s + engine_name)
 
-        if currmove != '':
-            self.currmove_lbl[idx].set_text('Current Move: ' + currmove)
-
+        if currmove != "":
+            self.currmove_lbl[idx].set_text("Current Move: " + currmove)
 
     def clear(self, side, engine_name):
         # Write to either the black or white split pane
-        if side == 'b':
+        if side == "b":
             idx = 1   # bottom pane for black
         else:
             idx = 0   # top pane for white
 
-        self.tb[idx].set_text('')
+        self.tb[idx].set_text("")
 
-        if side == 'b':
-            s = 'Black: '
+        if side == "b":
+            s = "Black: "
         else:
-            s = 'White: '
+            s = "White: "
         self.engine_name_lbl[idx].set_text(s + engine_name)
 
-
     def set_ponder_move(self, pondermove, side):
-        if side == 'b':
-            self.ponder_move_lbl[1].set_text('Ponder: ' + pondermove)
+        if side == "b":
+            self.ponder_move_lbl[1].set_text("Ponder: " + pondermove)
         else:
-            self.ponder_move_lbl[0].set_text('Ponder: ' + pondermove)
-
+            self.ponder_move_lbl[0].set_text("Ponder: " + pondermove)
 
     def show_engine_output_window(self, b):
         self.window.present()

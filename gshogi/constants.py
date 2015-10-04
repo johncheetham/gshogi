@@ -17,8 +17,8 @@
 #   along with gshogi.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-NAME = 'gshogi'
-VERSION = '0.4.6.dev1'
+NAME = "gshogi"
+VERSION = "0.4.6.dev1"
 
 # Beep after move - not implemented yet
 BEEP = False

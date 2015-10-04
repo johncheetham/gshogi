@@ -27,6 +27,7 @@ import load_save
 import psn
 import gv
 
+
 # Copy the board position to the clipboard in std SFEN format
 def copy_SFEN_to_clipboard(action):
     sfen = gv.board.get_sfen()
@@ -37,8 +38,8 @@ def copy_SFEN_to_clipboard(action):
 def paste_clipboard_to_SFEN(action):
     sfen = get_text_from_clipboard()
     if sfen is None:
-       gv.gui.info_box("Error: invalid sfen")
-       return
+        gv.gui.info_box("Error: invalid sfen")
+        return
     if not validate_sfen(sfen):
         gv.gui.info_box("Error: invalid sfen")
         return
@@ -50,28 +51,27 @@ def paste_clipboard_to_SFEN(action):
 def validate_sfen(sfen):
     sfenlst = sfen.split()
     num_words = len(sfenlst)
-    if num_words != 3 and num_words !=4:
+    if num_words != 3 and num_words != 4:
         return False
 
     if num_words == 3:
         board_state, side_to_move, pieces_in_hand = sfenlst
-        move_count = '1'
+        move_count = "1"
     else:
         board_state, side_to_move, pieces_in_hand, move_count = sfenlst
 
     # board_state
-    ranks = board_state.split('/')
+    ranks = board_state.split("/")
     if len(ranks) != 9:
         print "board state does not have 9 ranks"
         return False
 
     # side_to_move
-    if side_to_move != 'w' and side_to_move != 'b':
+    if side_to_move != "w" and side_to_move != "b":
         print "invalid side to move"
         return False
 
     # pieces in hand
-
 
     # Move Count
     try:
@@ -92,45 +92,56 @@ def copy_game_to_clipboard(action):
 def paste_game_from_clipboard(action):
     gamestr = get_text_from_clipboard()
     if gamestr is None:
-       print "Error invalid game data"
-       return
+        print "Error invalid game data"
+        return
     psn_ref = psn.get_ref()
     psn_ref.load_game_psn_from_str(gamestr)
 
 
 def copy_text_to_clipboard(text):
-    clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD) # get the clipboard
-    clipboard.set_text(text, -1)                           # put the FEN data on the clipboard
-    clipboard.store()                                      # make our data available to other applications
+    # get the clipboard
+    clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
+    # put the FEN data on the clipboard
+    clipboard.set_text(text, -1)
+    # make our data available to other applications
+    clipboard.store()
 
 
 def get_text_from_clipboard():
-    clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD) # get the clipboard
-    text = clipboard.wait_for_text()                       # read the text from the clipboard
+    # get the clipboard
+    clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
+    # read the text from the clipboard
+    text = clipboard.wait_for_text()
     return text
 
+
 def get_settings_from_file(filepath):
-    s = ''
+    s = ""
     try:
-        settings_file = os.path.join (filepath, "settings")
-        f = open(settings_file, 'rb')
+        settings_file = os.path.join(filepath, "settings")
+        f = open(settings_file, "rb")
         s = pickle.load(f)
         f.close()
     except EOFError, eofe:
-        print "eof error:",eofe
+        print "eof error:", eofe
     except pickle.PickleError, pe:
         print "pickle error:", pe
     except IOError, ioe:
-        pass    # Normally this error means it is the 1st run and the settings file does not exist
+        # Normally this error means it is the 1st run and the settings file
+        # does not exist
+        pass
     except Exception, exc:
         print "Cannot restore settings:", exc
     return s
 
+
 def get_prefix():
     # prefix to find package files/folders
     prefix = os.path.abspath(os.path.dirname(__file__))
-    if gv.verbose: print "base directory (prefix) =", prefix
+    if gv.verbose:
+        print "base directory (prefix) =", prefix
     return prefix
+
 
 def create_settings_dir():
     # set up gshogi directory under home directory
@@ -142,12 +153,13 @@ def create_settings_dir():
             raise
     return gshogipath
 
+
 def get_verbose():
     verbose = False
     verbose_usi = False
     for arg in sys.argv:
-        if arg == '-v' or arg == '--verbose':
+        if arg == "-v" or arg == "--verbose":
             verbose = True
-        if arg == '-vusi':
+        if arg == "-vusi":
             verbose_usi = True
     return verbose, verbose_usi

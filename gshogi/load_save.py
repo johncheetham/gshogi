@@ -28,6 +28,7 @@ import psn
 from constants import WHITE, BLACK
 import gv
 
+
 class Load_Save:
 
     load_save_ref = None
@@ -37,15 +38,13 @@ class Load_Save:
         self.psn = psn.get_ref()
         self.comments = comments.get_ref()
 
-
     # Load game from a previously saved game
     def load_game(self, b):
 
-        dialog = Gtk.FileChooserDialog("Load..",
-                               None,
-                               Gtk.FileChooserAction.OPEN,
-                               (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-                                Gtk.STOCK_OPEN, Gtk.ResponseType.OK))
+        dialog = Gtk.FileChooserDialog(
+            "Load..", None, Gtk.FileChooserAction.OPEN,
+            (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+             Gtk.STOCK_OPEN, Gtk.ResponseType.OK))
         dialog.set_default_response(Gtk.ResponseType.OK)
         dialog.set_current_folder(os.path.expanduser("~"))
 
@@ -80,17 +79,17 @@ class Load_Save:
             self.load_game_gshog(fname)
             return
 
-
     # this routine is called from utils.py (when doing paste position)
     # and from gui.py (when ending an edit board session).
     def init_game(self, sfen):
         engine.setfen(sfen)
         startpos = sfen
         sfenlst = sfen.split()
-        if sfenlst[1] == 'b':
-            if gv.verbose: print "setting stm to black"
+        if sfenlst[1] == "b":
+            if gv.verbose:
+                print "setting stm to black"
             stm = BLACK
-        elif sfenlst[1] == 'w':
+        elif sfenlst[1] == "w":
             stm = WHITE
         else:
             stm = BLACK
@@ -117,11 +116,11 @@ class Load_Save:
 
         gv.tc.reset_clock()
 
-
     def load_game_gshog(self, fname):
         rc = engine.loadgame(fname)
         if (rc > 0):
-            gv.gui.set_status_bar_msg("Error 1 loading game - not a valid gshog file")
+            gv.gui.set_status_bar_msg(
+                "Error 1 loading game - not a valid gshog file")
             return
 
         self.comments.clear_comments()
@@ -131,27 +130,28 @@ class Load_Save:
         startmoves = False
         movelist = []
         redolist = []
-        startpos = 'startpos'
+        startpos = "startpos"
         while 1:
             line = f.readline()
             if not line:
                 break
-            if line.startswith('startpos'):
+            if line.startswith("startpos"):
                 startpos = line[9:].strip()
-                if gv.verbose: print "startpos set to",startpos
+                if gv.verbose:
+                    print "startpos set to", startpos
                 continue
             if startmoves:
                 l = line.strip()
                 sl = l.split()
                 m = sl[0]
-                if m.startswith('+'):
+                if m.startswith("+"):
                     m = m[1:]
-                if m.find('*') != -1:
+                if m.find("*") != -1:
                     move = m
                 else:
                     move = m[1:]
                 movelist.append(move)
-            if line.startswith('  move   score depth'):
+            if line.startswith("  move   score depth"):
                 startmoves = True
         f.close()
 
@@ -175,7 +175,6 @@ class Load_Save:
 
         gv.tc.reset_clock()
 
-
     # called from utils.py as well as from this module
     def get_game(self):
 
@@ -183,7 +182,7 @@ class Load_Save:
         startpos = gv.gshogi.get_startpos()
         # properties
         dat = str(date.today())
-        dat = dat.replace('-', '/')
+        dat = dat.replace("-", "/")
 
         zstr = '[Date "' + dat + '"]\n'
         gamestr += zstr
@@ -195,8 +194,9 @@ class Load_Save:
         gamestr += zstr
 
         # sfen
-        if startpos == 'startpos':
-            zstr = '[SFEN "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1"]\n'
+        if startpos == "startpos":
+            zstr = '[SFEN "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP" \
+                   "/1B5R1/LNSGKGSNL b - 1"]\n'
             gamestr += zstr
         else:
             zstr = '[SFEN "' + startpos + '"]\n'
@@ -204,8 +204,8 @@ class Load_Save:
 
         # add comment if present
         comment = self.comments.get_comment(0)
-        if comment != '':
-            gamestr = gamestr + '{\n' + comment + '\n}\n'
+        if comment != "":
+            gamestr = gamestr + "{\n" + comment + "\n}\n"
 
         # if the movelist is positioned part way through the game then
         # we must redo all moves so the full game will be saved
@@ -224,36 +224,34 @@ class Load_Save:
             gv.gshogi.undo_move()
 
         if mvstr != "":
-            mlst = mvstr.split(',')
+            mlst = mvstr.split(",")
 
             for m in mlst:
 
-                (capture, ispromoted, move) = m.split(';')
+                (capture, ispromoted, move) = m.split(";")
 
-                if move.find('*') == -1:
+                if move.find("*") == -1:
                     m1 = move[0:3]
                     m2 = move[3:]
                     move = m1 + capture + m2
-                    if ispromoted == '+':
-                        move = '+' + move
-                zstr = str(moveno) + '.' + move + '\n'
+                    if ispromoted == "+":
+                        move = "+" + move
+                zstr = str(moveno) + "." + move + "\n"
                 gamestr += zstr
                 # add comment for this move if present
                 comment = self.comments.get_comment(moveno)
-                if comment != '':
-                    gamestr = gamestr + '{' + comment + '}\n'
+                if comment != "":
+                    gamestr = gamestr + "{" + comment + "}\n"
                 moveno += 1
         return (gamestr)
-
 
     # Save game to a file
     def save_game(self, b):
 
-        dialog = Gtk.FileChooserDialog("Save..",
-                               None,
-                               Gtk.FileChooserAction.SAVE,
-                               (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-                                Gtk.STOCK_SAVE, Gtk.ResponseType.OK))
+        dialog = Gtk.FileChooserDialog(
+            "Save..", None, Gtk.FileChooserAction.SAVE,
+            (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+             Gtk.STOCK_SAVE, Gtk.ResponseType.OK))
         dialog.set_default_response(Gtk.ResponseType.OK)
         dialog.set_current_folder(os.path.expanduser("~"))
 
@@ -281,33 +279,37 @@ class Load_Save:
             # filename must end with .gshog or .psn
             #
             filename = dialog.get_filename()
-            if not filename.endswith('.gshog') and not filename.endswith('.psn'):
-                if dialog.get_filter().get_name() == 'psn files':
-                    filename = filename + '.psn'
+            if not (filename.endswith(".gshog") and not
+                    filename.endswith(".psn")):
+                if dialog.get_filter().get_name() == "psn files":
+                    filename = filename + ".psn"
                 else:
-                    filename = filename + '.gshog'
+                    filename = filename + ".gshog"
 
             # If file already exists then ask before overwriting
             if os.path.isfile(filename):
-                resp = gv.gui.ok_cancel_box("Warning - file already exists and will be replaced.\nPress Cancel if you do not want to overwrite it.")
+                resp = gv.gui.ok_cancel_box(
+                    "Warning - file already exists and will be replaced.\n"
+                    "Press Cancel if you do not want to overwrite it.")
                 if resp == Gtk.ResponseType.CANCEL:
                     dialog.destroy()
                     return
 
-            if filename.endswith('.psn'):
+            if filename.endswith(".psn"):
                 # save in psn format
                 gamestr = self.get_game()
-                f = open(filename, 'w')
+                f = open(filename, "w")
                 f.write(gamestr)
                 f.close()
             else:
                 # save in gshog format
-                #engine.command('save ' + filename)
+                # engine.command("save " + filename)
 
                 # comments cannot be saved in gshog format
                 # if there are comments warn the user
                 if self.comments.has_comments():
-                    msg = "Warning. This Game has comments which will be lost if you save in this format."
+                    msg = "Warning. This Game has comments which will be " \
+                          "lost if you save in this format."
                     msg += "\nTo save the comments save in PSN format instead."
                     gv.gui.info_box(msg)
 
@@ -317,10 +319,10 @@ class Load_Save:
                 for i in range(0, redo_count):
                     gv.gshogi.redo_move()
 
-                engine.savegame(filename, 'startpos ' + startpos + '\n')
+                engine.savegame(filename, "startpos " + startpos + "\n")
 
-                # if we did any redo moves then undo them now to get things back
-                # the way they were
+                # if we did any redo moves then undo them now to get things
+                # back the way they were
                 for i in range(0, redo_count):
                     gv.gshogi.undo_move()
 

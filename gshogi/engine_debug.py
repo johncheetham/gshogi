@@ -24,6 +24,7 @@ import os
 from constants import WHITE, BLACK
 import gv
 
+
 class Engine_Debug:
 
     engine_debug_ref = None
@@ -33,37 +34,37 @@ class Engine_Debug:
         self.glade_file = os.path.join(glade_dir, "engine_debug.glade")
         Engine_Debug.engine_debug_ref = self
 
-        self.debug_text = ''
+        self.debug_text = ""
         self.window = None
-
 
     def clear_text(self, b):
         self.tb.set_text("")
-
 
     # send command to engine1 (white)
     def engine1_button_clicked(self, b):
 
         player = gv.gshogi.get_player(WHITE)
-        if player == 'Human' or player == 'gshogi':
-            GObject.idle_add(self.add_to_log, "# command not sent - player 1 (white) is not a USI engine")
+        if player == "Human" or player == "gshogi":
+            GObject.idle_add(
+                self.add_to_log,
+                "# command not sent - player 1 (white) is not a USI engine")
             return
 
-        cmd = self.cmd_entry.get_text() + '\n'
+        cmd = self.cmd_entry.get_text() + "\n"
         gv.usiw.command(cmd)
-
 
     # send command to engine2 (black)
     def engine2_button_clicked(self, b):
 
         player = gv.gshogi.get_player(BLACK)
-        if player == 'Human' or player == 'gshogi':
-            GObject.idle_add(self.add_to_log, "# command not sent - player 2 (black) is not a USI engine")
+        if player == "Human" or player == "gshogi":
+            GObject.idle_add(
+                self.add_to_log,
+                "# command not sent - player 2 (black) is not a USI engine")
             return
 
-        cmd = self.cmd_entry.get_text() + '\n'
+        cmd = self.cmd_entry.get_text() + "\n"
         gv.usib.command(cmd)
-
 
     # user has closed the window
     # just hide it
@@ -71,9 +72,8 @@ class Engine_Debug:
         self.window.hide()
         return True  # do not propagate to other handlers
 
-
     def add_to_log(self, msg):
-        msg = msg + '\n'
+        msg = msg + "\n"
         try:
             # append to end of buffer
             end_iter = self.tb.get_end_iter()
@@ -85,12 +85,11 @@ class Engine_Debug:
             # messages until it is opened
             self.debug_text += msg
 
-
     def show_debug_window(self, b):
 
         # window already exists and is hidden so just show it
         if self.window is not None:
-            # 'present' will show the window if it is hidden
+            # "present" will show the window if it is hidden
             # if not hidden it will raise it to the top
             self.window.present()
             return
@@ -101,21 +100,20 @@ class Engine_Debug:
         self.builder.add_from_file(self.glade_file)
         self.builder.connect_signals(self)
 
-        self.window = self.builder.get_object('engine_debug_window')
-        self.tv = self.builder.get_object('engine_debug_textview')
+        self.window = self.builder.get_object("engine_debug_window")
+        self.tv = self.builder.get_object("engine_debug_textview")
         self.tv.set_editable(False)
         self.tb = self.tv.get_buffer()
         self.tb.set_text(self.debug_text)
-        self.debug_text = ''
+        self.debug_text = ""
 
         # used to type commands and send them to the engine
-        self.cmd_entry = self.builder.get_object('engine_debug_entry')
+        self.cmd_entry = self.builder.get_object("engine_debug_entry")
 
         self.window.show_all()
 
         # scroll to end
         GObject.idle_add(self.scroll_to_end)
-
 
     def scroll_to_end(self):
         within_margin = 0.2

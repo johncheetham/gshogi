@@ -23,6 +23,7 @@ import os
 import psn
 import gv
 
+
 class Gamelist:
 
     gamelist_ref = None
@@ -37,12 +38,12 @@ class Gamelist:
         self.builder.add_from_file(self.glade_file)
         self.builder.connect_signals(self)
 
-        self.window = self.builder.get_object('gamelist_window')
-        self.treeview = self.builder.get_object('gamelist_treeview')
-        self.liststore = self.builder.get_object('liststore1')
+        self.window = self.builder.get_object("gamelist_window")
+        self.treeview = self.builder.get_object("gamelist_treeview")
+        self.liststore = self.builder.get_object("liststore1")
 
         cell0 = Gtk.CellRendererText()
-        #cell0.set_property('cell-background', Gdk.color_parse("#F8F8FF"))
+        # cell0.set_property("cell-background", Gdk.color_parse("#F8F8FF"))
         tvcolumn0 = Gtk.TreeViewColumn()
         self.treeview.append_column(tvcolumn0)
         tvcolumn0.pack_start(cell0, True)
@@ -53,23 +54,20 @@ class Gamelist:
 
         self.window.hide()
 
-
     # user has closed the window
     # just hide it
     def delete_event(self, widget, event):
         self.window.hide()
         return True  # do not propagate to other handlers
 
-
     # called from gui.py when doing view gamelist
     def show_gamelist_window_cb(self, action):
         self.show_gamelist_window()
 
-
     # called from psn.py when opening multi-game file
     # and from show_gamelist_window_cb above
     def show_gamelist_window(self):
-        # 'present' will show the window if it is hidden
+        # "present" will show the window if it is hidden
         # if not hidden it will raise it to the top
         self.window.present()
         return
@@ -80,36 +78,35 @@ class Gamelist:
         gameno = 0
         for hdrs in glist:
             gameno += 1
-            h = str(gameno) + '. '
+            h = str(gameno) + ". "
             hdrno = 1
             for hdr in hdrs:
                 hdr = hdr.strip()
-                hdr = hdr.lstrip('[')
-                hdr = hdr.rstrip(']')
+                hdr = hdr.lstrip("[")
+                hdr = hdr.rstrip("]")
                 if hdrno == 1:
                     h = h + hdr
                 else:
-                    h = h + ', ' + hdr
+                    h = h + ", " + hdr
                 hdrno += 1
-            lst = [ h ]
+            lst = [h]
             self.liststore.append(lst)
-
 
     def loadgame_button_clicked_cb(self, button):
         (treemodel, treeiter) = self.tree_selection.get_selected()
         if treeiter is not None:
             game_str = treemodel.get_value(treeiter, 0)
-            gameno = ''
+            gameno = ""
             i = 0
-            while game_str[i] != '.':
+            while game_str[i] != ".":
                 gameno += game_str[i]
                 i += 1
             try:
                 gameno = int(gameno)
             except ValueError, ve:
                 return
-            psn = psn.get_ref()
-            psn.load_game_from_multigame_file(gameno)
+            psnref = psn.get_ref()
+            psnref.load_game_from_multigame_file(gameno)
 
 
 def get_ref():

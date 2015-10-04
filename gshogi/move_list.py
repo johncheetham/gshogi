@@ -25,6 +25,7 @@ import engine
 import comments
 import gv
 
+
 class Move_List:
 
     move_list_ref = None
@@ -42,30 +43,31 @@ class Move_List:
         self.builder.add_from_file(self.glade_file)
         self.builder.connect_signals(self)
 
-        self.window = self.builder.get_object('move_list_window')
-        self.treeview = self.builder.get_object('treeview1')
-        self.liststore = self.builder.get_object('liststore1')
-        self.scrolled_window = self.builder.get_object('move_list_scrolled_window')
+        self.window = self.builder.get_object("move_list_window")
+        self.treeview = self.builder.get_object("treeview1")
+        self.liststore = self.builder.get_object("liststore1")
+        self.scrolled_window = self.builder.get_object(
+            "move_list_scrolled_window")
 
         cell0 = Gtk.CellRendererText()
-        #cell0.set_property('cell-background', Gdk.color_parse("#F8F8FF"))
-        tvcolumn0 = Gtk.TreeViewColumn('#')
+        # cell0.set_property("cell-background", Gdk.color_parse("#F8F8FF"))
+        tvcolumn0 = Gtk.TreeViewColumn("#")
         self.treeview.append_column(tvcolumn0)
         tvcolumn0.pack_start(cell0, True)
         tvcolumn0.set_min_width(50)
         tvcolumn0.set_attributes(cell0, text=0)
 
         cell1 = Gtk.CellRendererText()
-        #cell1.set_property('cell-background', Gdk.color_parse("#F8F8FF"))
-        tvcolumn1 = Gtk.TreeViewColumn('Move')
+        # cell1.set_property("cell-background", Gdk.color_parse("#F8F8FF"))
+        tvcolumn1 = Gtk.TreeViewColumn("Move")
         self.treeview.append_column(tvcolumn1)
         tvcolumn1.pack_start(cell1, True)
         tvcolumn1.set_min_width(100)
         tvcolumn1.set_attributes(cell1, text=1)
 
         cell2 = Gtk.CellRendererText()
-        #cell1.set_property('cell-background', Gdk.color_parse("#F8F8FF"))
-        tvcolumn2 = Gtk.TreeViewColumn('Cmt')
+        # cell1.set_property("cell-background", Gdk.color_parse("#F8F8FF"))
+        tvcolumn2 = Gtk.TreeViewColumn("Cmt")
         self.treeview.append_column(tvcolumn2)
         tvcolumn2.pack_start(cell2, True)
         tvcolumn2.set_min_width(20)
@@ -76,20 +78,17 @@ class Move_List:
         self.window.hide()
         self.update()
 
-
     # user has closed the window
     # just hide it
     def delete_event(self, widget, event):
         self.window.hide()
         return True  # do not propagate to other handlers
 
-
     def show_movelist_window(self, b):
-        # 'present' will show the window if it is hidden
+        # "present" will show the window if it is hidden
         # if not hidden it will raise it to the top
         self.window.present()
         return
-
 
     # update the move list
     # called when the number of moves in the list has changed
@@ -97,48 +96,45 @@ class Move_List:
 
         # update liststore
         self.liststore.clear()
-        self.liststore.append( ('0.', 'Start Pos', ' ') )
+        self.liststore.append(("0.", "Start Pos", " "))
         mvstr = engine.getmovelist()
 
         if mvstr != "":
-            mlst = mvstr.split(',')
+            mlst = mvstr.split(",")
             moveno = 1
             for m in mlst:
 
-                (capture, ispromoted, move) = m.split(';')
+                (capture, ispromoted, move) = m.split(";")
 
-                if move.find('*') == -1:
+                if move.find("*") == -1:
                     m1 = move[0:3]
                     m2 = move[3:]
                     move = m1 + capture + m2
-                    if ispromoted == '+':
-                        move = '+' + move
+                    if ispromoted == "+":
+                        move = "+" + move
                 comment = self.comments.get_comment(moveno)
-                if comment != '':
-                    cind = '...'
+                if comment != "":
+                    cind = "..."
                 else:
-                    cind = ' '
-                e = str(moveno) + '.', move, cind
+                    cind = " "
+                e = str(moveno) + ".", move, cind
                 self.liststore.append(e)
                 moveno += 1
 
         GObject.idle_add(self.scroll_to_end)
 
-
     # sets the move at move_idx as the selected line
     # called from gshogi.py for undo/redo move
     def set_move(self, move_idx):
-        path = ( move_idx, )
+        path = (move_idx,)
         self.tree_selection.select_path(path)
         self.comments.set_moveno(move_idx)
         return
 
-
     def scroll_to_end(self):
         adj = self.scrolled_window.get_vadjustment()
-        adj.set_value( adj.get_upper() - adj.get_page_size() )
+        adj.set_value(adj.get_upper() - adj.get_page_size())
         return False
-
 
     def treeview_key_press(self, treeview, event):
 
@@ -149,14 +145,12 @@ class Move_List:
         if event.keyval == Gdk.KEY_Up or event.keyval == Gdk.KEY_Down:
             self.treeview_button_press(None, None)
 
-
     # user clicked on the move list
     def treeview_button_press(self, treeview, event):
         if gv.gshogi.get_stopped():
             GObject.idle_add(self.process_tree_selection)
         else:
             GObject.idle_add(self.tree_selection.unselect_all)
-
 
     # set the board position at the move the user clicked on
     def process_tree_selection(self):
@@ -166,19 +160,18 @@ class Move_List:
             move_str = move_str[0: len(move_str) - 1]
             move_idx = int(move_str)
             self.comments.set_moveno(move_idx)
-            # now call a method in gshogi.py to position it at the move clicked on
+            # now call a method in gshogi.py to position it at the move
+            # clicked on
             gv.gshogi.goto_move(move_idx)
-
 
     def set_comment_ind(self, ind):
         if ind:
-            cind = '...'
+            cind = "..."
         else:
-            cind = ' '
+            cind = " "
         (treemodel, treeiter) = self.tree_selection.get_selected()
         if treeiter is not None:
             self.liststore.set_value(treeiter, 2, cind)
-
 
     def comments_button_clicked_cb(self, button):
         self.comments.show_comments_window()

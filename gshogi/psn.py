@@ -24,6 +24,7 @@ import move_list
 from constants import WHITE, BLACK
 import gv
 
+
 class Psn:
 
     psn_ref = None
@@ -34,10 +35,10 @@ class Psn:
         self.comments = comments.get_ref()
 
     def is_whitespace(self, ptr):
-        if gv.gshogistr[ptr] == '\n' or gv.gshogistr[ptr] == '\r' or gv.gshogistr[ptr] == '\t' or gv.gshogistr[ptr] == ' ':
+        if (gv.gshogistr[ptr] == "\n" or gv.gshogistr[ptr] == "\r" or
+                gv.gshogistr[ptr] == "\t" or gv.gshogistr[ptr] == " "):
             return True
         return False
-
 
     def skip_whitespace(self, ptr):
         while 1:
@@ -49,7 +50,6 @@ class Psn:
             break
         return ptr
 
-
     def get_header(self, ptr):
 
         newptr = self.skip_whitespace(ptr)
@@ -58,41 +58,39 @@ class Psn:
         ptr = newptr
 
         # Now pointing at none whitespace character
-        # should be '[' if it is a header
-        if gv.gshogistr[ptr] != '[':
+        # should be "[" if it is a header
+        if gv.gshogistr[ptr] != "[":
             return None, None  # not a header
 
-        ptr += 1  # step past '['
+        ptr += 1  # step past "["
 
-        hdr = ''
+        hdr = ""
         while 1:
             if ptr >= gv.gshogi_len:
                 return None, None
-            if gv.gshogistr[ptr] == ']':
-                ptr += 1   # step past ']'
+            if gv.gshogistr[ptr] == "]":
+                ptr += 1   # step past "]"
                 break
             hdr += gv.gshogistr[ptr]
             ptr += 1
         return hdr, ptr  # valid header found
 
-
     # Note this can be called from 2 places
     # When and sfen header is read or when
-    # '1....' is encountered for move 1.
+    # "1...." is encountered for move 1.
     def process_sfen(self, sfen):
         sfen = sfen.strip('"')
         engine.setfen(sfen)
         startpos = sfen
         sfenlst = sfen.split()
-        if sfenlst[1] == 'b':
+        if sfenlst[1] == "b":
             stm = BLACK
-        elif sfenlst[1] == 'w':
+        elif sfenlst[1] == "w":
             stm = WHITE
         else:
             stm = BLACK
         engine.setplayer(stm)
         return startpos, stm
-
 
     # called from utils.py as well as this module
     def load_game_psn_from_str(self, gamestr):
@@ -101,8 +99,8 @@ class Psn:
         comment_active = False
         movelist = []
         redolist = []
-        startpos = 'startpos'
-        engine.command('new')
+        startpos = "startpos"
+        engine.command("new")
         stm = BLACK
 
         movecnt = 0
@@ -118,22 +116,22 @@ class Psn:
 
         ptr = 0
 
-        # Find '[' of first header
+        # Find "[" of first header
         while 1:
             if ptr >= gv.gshogi_len or ptr > 2000:
                 gv.gui.info_box("Error (1) loading file. No headers found")
-                gv.gshogi.new_game('NewGame')
+                gv.gshogi.new_game("NewGame")
                 gv.gui.set_status_bar_msg("Error loading game")
                 return 1
-            if gamestr[ptr] == '[':
+            if gamestr[ptr] == "[":
                 break
             ptr += 1
 
-        # First Header found (ptr pointing at '[')
+        # First Header found (ptr pointing at "[")
         hdr, newptr = self.get_header(ptr)
         if hdr is None:
             gv.gui.info_box("Error (2) loading file. No headers found")
-            gv.gshogi.new_game('NewGame')
+            gv.gshogi.new_game("NewGame")
             gv.gui.set_status_bar_msg("Error loading game")
             return 1
 
@@ -145,10 +143,10 @@ class Psn:
             except ValueError:
                 # Error - cannot split header into a property/value pair
                 gv.gui.info_box("Error loading file. Invalid header:" + hdr)
-                gv.gshogi.new_game('NewGame')
+                gv.gshogi.new_game("NewGame")
                 gv.gui.set_status_bar_msg("Error loading game")
                 return 1
-            if prop == 'SFEN':
+            if prop == "SFEN":
                 # set board position, side to move
                 startpos, stm = self.process_sfen(value)
             elif prop == "Handicap":
@@ -156,29 +154,37 @@ class Psn:
                 handicap = value.strip('"')
                 handicap = handicap.lower()
 
-                sfen = ''
-                if handicap == 'lance':
-                    sfen = 'lnsgkgsn1/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1'
-                elif handicap == 'bishop':
-                    sfen = 'lnsgkgsnl/1r7/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1'
-                elif handicap == 'rook':
-                    sfen = 'lnsgkgsnl/7b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1'
-                elif handicap == 'rook+lance':
-                    sfen = 'lnsgkgsn1/7b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1'
-                elif handicap == 'rook+bishop':
-                    sfen = 'lnsgkgsnl/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1'
-                elif handicap == 'four piece':
-                    sfen = '1nsgkgsn1/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1'
-                elif handicap == 'six piece':
-                    sfen = '2sgkgs2/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1'
-                elif handicap == 'eight piece':
-                    sfen = '3gkg3/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1'
-                elif handicap == 'ten piece':
-                    sfen = '4k4/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1'
+                sfen = ""
+                if handicap == "lance":
+                    sfen = "lnsgkgsn1/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/" \
+                           "1B5R1/LNSGKGSNL w - 1"
+                elif handicap == "bishop":
+                    sfen = "lnsgkgsnl/1r7/ppppppppp/9/9/9/PPPPPPPPP/" \
+                           "1B5R1/LNSGKGSNL w - 1"
+                elif handicap == "rook":
+                    sfen = "lnsgkgsnl/7b1/ppppppppp/9/9/9/PPPPPPPPP/" \
+                           "1B5R1/LNSGKGSNL w - 1"
+                elif handicap == "rook+lance":
+                    sfen = "lnsgkgsn1/7b1/ppppppppp/9/9/9/PPPPPPPPP/" \
+                           "1B5R1/LNSGKGSNL w - 1"
+                elif handicap == "rook+bishop":
+                    sfen = "lnsgkgsnl/9/ppppppppp/9/9/9/PPPPPPPPP/" \
+                           "1B5R1/LNSGKGSNL w - 1"
+                elif handicap == "four piece":
+                    sfen = "1nsgkgsn1/9/ppppppppp/9/9/9/PPPPPPPPP/" \
+                           "1B5R1/LNSGKGSNL w - 1"
+                elif handicap == "six piece":
+                    sfen = "2sgkgs2/9/ppppppppp/9/9/9/PPPPPPPPP/" \
+                           "1B5R1/LNSGKGSNL w - 1"
+                elif handicap == "eight piece":
+                    sfen = "3gkg3/9/ppppppppp/9/9/9/PPPPPPPPP/" \
+                           "1B5R1/LNSGKGSNL w - 1"
+                elif handicap == "ten piece":
+                    sfen = "4k4/9/ppppppppp/9/9/9/PPPPPPPPP/" \
+                           "B5R1/LNSGKGSNL w - 1"
 
-                if sfen != '':
+                if sfen != "":
                     startpos, stm = self.process_sfen(sfen)
-
 
             hdr, newptr = self.get_header(ptr)
 
@@ -196,31 +202,33 @@ class Psn:
 
             # if we get a header here then it must be a multi-game file
             # We cannot process multi-game so treat it as eof and exit
-            if gamestr[ptr] == '[':
+            if gamestr[ptr] == "[":
                 break
 
             # Check for stuff to ignore
             # ignore it and continue processing
             ignore_string, newptr = self.get_ignore_string(ptr)
             if ignore_string is not None:
-                #  Can get '1....' to indicate white to move first
-                #if ignore_string == '1....' and movecnt == 0:
+                #  Can get "1...." to indicate white to move first
+                # if ignore_string == "1...." and movecnt == 0:
                 #    # Use sfen for initial position but set stm to white
-                #    startpos, stm = self.process_sfen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1")
+                #    startpos, stm = self.process_sfen(
+                #       "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/" \
+                #       "1B5R1/LNSGKGSNL w - 1")
                 ptr = newptr
                 continue
 
             # comment
-            if gv.gshogistr[ptr] == '{':
-                comment = ''
+            if gv.gshogistr[ptr] == "{":
+                comment = ""
                 ptr += 1
                 while 1:
                     if ptr >= gv.gshogi_len:
                         gv.gui.info_box("Error unterminated comment")
-                        gv.gshogi.new_game('NewGame')
+                        gv.gshogi.new_game("NewGame")
                         gv.gui.set_status_bar_msg("Error loading game")
                         return 1  # end of file before end of comment
-                    if gv.gshogistr[ptr] == '}':
+                    if gv.gshogistr[ptr] == "}":
                         ptr += 1
                         break
                     comment += gv.gshogistr[ptr]
@@ -244,19 +252,24 @@ class Psn:
 
                 engine.setplayer(stm)
                 stm = stm ^ 1
-                if gv.verbose: print "move=",move
+                if gv.verbose:
+                    print "move=", move
                 validmove = engine.hmove(move)
                 if (not validmove):
                     # Should never get this message since get_move has already
                     # validated the move aginst the legal move list
                     # Can get it for sennichite (repetition)
-                    gv.gui.info_box("Error loading file, illegal move (possible sennichite (repetition)):" + move + " move number:" + str(movecnt + 1))
-                    gv.gshogi.new_game('NewGame')
+                    gv.gui.info_box(
+                        "Error loading file, illegal move (possible "
+                        "sennichite (repetition)):" + move + " move number:" +
+                        str(movecnt + 1))
+                    gv.gshogi.new_game("NewGame")
                     gv.gui.set_status_bar_msg("Error loading game")
                     return 1
                 movecnt += 1
                 movelist.append(move)
-                if gv.verbose: engine.command('bd')
+                if gv.verbose:
+                    engine.command("bd")
 
                 continue
 
@@ -267,13 +280,16 @@ class Psn:
             # ignore processing above
             word, newptr = self.get_word(ptr)
             if word is not None:
-                gv.gui.info_box("Error loading file, unable to process move number " + str(movecnt + 1) + ". (illegal move or invalid format):" + word)
+                gv.gui.info_box(
+                    "Error loading file, unable to process move number " +
+                    str(movecnt + 1) + ". (illegal move or invalid format):" +
+                    word)
                 # Load failed part way through so reset the game
-                gv.gshogi.new_game('NewGame')
+                gv.gshogi.new_game("NewGame")
                 gv.gui.set_status_bar_msg("Error loading game")
                 return 1
 
-            ptr +=1
+            ptr += 1
 
         gv.usib.set_newgame()
         gv.usiw.set_newgame()
@@ -297,12 +313,11 @@ class Psn:
 
         return 0
 
-
     def get_word(self, ptr):
-        word = ''
+        word = ""
         while 1:
             if ptr >= gv.gshogi_len:
-                if word != '':
+                if word != "":
                     return word, ptr
                 else:
                     return None, None
@@ -313,27 +328,28 @@ class Psn:
             ptr += 1
         return word, ptr
 
-
     # Ignore certain strings
     def get_ignore_string(self, ptr):
 
         # ignore things enclosed in brackets such variations and timecodes
-        if gv.gshogistr[ptr] == '(':
-            ignore_str = '('
+        if gv.gshogistr[ptr] == "(":
+            ignore_str = "("
             ptr += 1
             nestcnt = 0
             while 1:
                 if ptr >= gv.gshogi_len:
                     return None, None
-                if gv.gshogistr[ptr] == '(':
+                if gv.gshogistr[ptr] == "(":
                     nestcnt += 1
-                elif gv.gshogistr[ptr] == ')':
+                elif gv.gshogistr[ptr] == ")":
                     if nestcnt > 0:
-                        nestcnt -= 1                     # nested parentheses - just decrease count
+                        # nested parentheses - just decrease count
+                        nestcnt -= 1
                     else:
                         ignore_str += gv.gshogistr[ptr]  # )
                         ptr += 1
-                        return ignore_str, ptr           # return with sting to ignore and new ptr
+                        # return with sting to ignore and new ptr
+                        return ignore_str, ptr
                 ignore_str += gv.gshogistr[ptr]
                 ptr += 1
 
@@ -343,25 +359,26 @@ class Psn:
             return None, None
 
         # List of strings to ignore
-        reject = ['Resigns', 'Interrupt']
+        reject = ["Resigns", "Interrupt"]
         for rej in reject:
             if rej == word:
                 return word, newptr
 
-        return None, None # nothing to ignore
-
+        return None, None  # nothing to ignore
 
     #
     # move
-    # parse move into piece, source square, capture, destination square, promote
+    # parse move into piece, source square, capture, destination square,
+    # promote
     # e.g.   L1fx1c+ -> L, 1f, x, 1c, +
     #
     #
     # Example moves we can expect in a file created by gshogi
     #
-    # These are of the format piece/source square/capture/destination square/promote
-    # where capture = '-' or 'x'
-    #       promote = '' or '+'
+    # These are of the format piece/source square/capture/destination
+    # square/promote
+    # where capture = "-" or "x"
+    #       promote = "" or "+"
     #   +P2ax1a
     #   B9ex6h+
     #   S5d-5e
@@ -388,35 +405,40 @@ class Psn:
         if gv.verbose:
             print
             print "In get_move in psn.py"
-            print "get_move has been passed this possible move:",move
+            print "get_move has been passed this possible move:", move
 
         # Parse move and return its component parts
-        promoted_piece, piece, source_square, dest_square, move_promotes, move_equals, move_type = self.parse_move(move, movelist)
+        (promoted_piece, piece, source_square, dest_square,
+         move_promotes, move_equals, move_type) = self.parse_move(move,
+                                                                  movelist)
         if piece is None:
             if gv.verbose:
-                print "Unable to parse move:",move
+                print "Unable to parse move:", move
             return None, None
 
         # Get list of legal moves
         engine.setplayer(stm)
         legal_move_list = self.get_legal_move_list(piece)
         if gv.verbose:
-            print "legal_move_list=",legal_move_list
+            print "legal_move_list=", legal_move_list
 
         # Create move by concat of component parts
-        if self.validate_square(source_square) and self.validate_square(dest_square):
+        if (self.validate_square(source_square) and
+                self.validate_square(dest_square)):
             move = source_square + dest_square + move_promotes
         else:
-            move = promoted_piece + piece + source_square + dest_square + move_promotes
+            move = promoted_piece + piece + source_square + dest_square + \
+                   move_promotes
 
         # Search for move in the legal move list
         move2 = self.search_legal_moves(move, legal_move_list)
         if move2 is not None:
             # Move Found
-            # The move returned by the search is in the source+dest format suitable for gshogi
+            # The move returned by the search is in the source+dest format
+            # suitable for gshogi
             # e.g. S7b -> 7a7b
             if gv.verbose:
-                print "Search succeeded and returned move:",move2
+                print "Search succeeded and returned move:", move2
             return move2, newptr  # found a valid move
 
         # Search failed
@@ -425,67 +447,66 @@ class Psn:
 
         # try a drop
         if move_type == 1 and len(move) == 3:
-            rmove = move[0] + '*' + move[1:]
+            rmove = move[0] + "*" + move[1:]
             if gv.verbose:
                 print "trying a drop. move changed from", move, "to", rmove
             move2 = self.search_legal_moves(rmove, legal_move_list)
             if move2 is not None:
                 # Move Found
                 if gv.verbose:
-                    print "Search succeeded and returned move:",move2
+                    print "Search succeeded and returned move:", move2
             return move2, newptr  # found a valid move
 
         # No valid move found
         return None, None
 
-
-
-
     # get list of legal moves
     def get_legal_move_list(self, piece):
         if gv.verbose:
-            print "in get legal movelist with piece:",piece
-        # Make sure board is up to date so that when we do a 'get_piece'
+            print "in get legal movelist with piece:", piece
+        # Make sure board is up to date so that when we do a "get_piece"
         # it will return the correct value
-        gv.board.update(refresh_gui = False)
+        gv.board.update(refresh_gui=False)
 
         lm = engine.getlegalmoves()
-        lm = lm.rstrip(';')
-        lm = lm.split(';')
+        lm = lm.rstrip(";")
+        lm = lm.split(";")
         legal_move_list = []
 
         for l in lm:
-            fl = l.split(',')
-            # e.g. fl = ['7h9f', 'B9f', 'Bh9f', 'B79f']
+            fl = l.split(",")
+            # e.g. fl = ["7h9f", "B9f", "Bh9f", "B79f"]
 
-            # If the piece being moved is already promoted then add a '+'
+            # If the piece being moved is already promoted then add a "+"
             # in front of the piece when adding the move to the list.
-            if piece != '':
-                source_square = fl[0][0:2]  # e.g. '7h' or 'G*' (if drop)
+            if piece != "":
+                source_square = fl[0][0:2]  # e.g. "7h" or "G*" (if drop)
                 if self.validate_square(source_square):
                     valid = True
-                    x, y = gv.board.get_gs_square_posn(source_square)  # convert standard notation for square into gshogi co-ordinates (e.g.  7g -> (2, 6) )
+                    # convert standard notation for square into gshogi
+                    # co-ordinates (e.g.  7g -> (2, 6) )
+                    x, y = gv.board.get_gs_square_posn(source_square)
                     piece2 = gv.board.get_piece(x, y)
-                    if piece2.startswith('+'):
+                    if piece2.startswith("+"):
                         i = 0
                         for m in fl:
                             if m.startswith(piece):
-                                fl[i] = fl[i].replace(piece, '+' + piece)
+                                fl[i] = fl[i].replace(piece, "+" + piece)
                             i += 1
 
             legal_move_list.append(fl)
 
         return legal_move_list
 
-
-    # parse move into promoted_piece, piece, source_square, dest_square, move_promotes, move_equals
+    # parse move into promoted_piece, piece, source_square, dest_square,
+    # move_promotes, move_equals
     def parse_move(self, orig_move, movelist):
 
-        promoted_piece = ''
-        piece = ''
-        source_square = ''
-        dest_square = ''
-        move_promotes = ''
+        promoted_piece = ""
+        piece = ""
+        source_square = ""
+        dest_square = ""
+        move_promotes = ""
         move_equals = False
         move_type = 0
 
@@ -494,7 +515,7 @@ class Psn:
         if gv.verbose:
             print
             print "In parse_move in psn.py"
-            print "move passed in=",orig_move
+            print "move passed in=", orig_move
 
         # orig_move : move passed in
         # move0     : latest modified version of the move
@@ -504,38 +525,40 @@ class Psn:
 
         # check for drop e.g. P*2f
         move = move0
-        if len(move) == 4 and (move[1] == '*' or move[1] == "'"):
+        if len(move) == 4 and (move[1] == "*" or move[1] == "'"):
 
-            promoted_piece = ''
+            promoted_piece = ""
             piece = move[0]
 
             if not self.validate_piece(piece):
                 if gv.verbose:
-                    print "Move invalid (1). Drop Move has invalid piece. ",move0
+                    print "Move invalid (1). Drop Move has invalid " \
+                          "piece. ", move0
                 return error_return
 
-            source_square = '*'
+            source_square = "*"
 
             dest_square = move[2:4]
             if not self.validate_square(dest_square):
                 if gv.verbose:
-                    print "Move invalid (1). Drop Move has invalid dest square. ",move0
+                    print "Move invalid (1). Drop Move has invalid dest " \
+                          "square. ", move0
                 return error_return
 
-            move_promotes = ''
+            move_promotes = ""
 
-            return promoted_piece, piece, source_square, dest_square, move_promotes, move_equals, move_type
+            return (promoted_piece, piece, source_square, dest_square,
+                    move_promotes, move_equals, move_type)
 
-
-        # If move starts with 'x' flip it so the piece is first
+        # If move starts with "x" flip it so the piece is first
         # e.g. xS -> Sx, x+R -> +Rx, xS+ -> Sx+, xR= -> Rx=, xB7 -> B7x
         move = move0
-        if move[0] == 'x':
+        if move[0] == "x":
             move1 = move
 
             # get piece
             try:
-                if move[1] == '+':
+                if move[1] == "+":
                     pce = move[1:3]
                 else:
                     pce = move[1]
@@ -545,35 +568,35 @@ class Psn:
             # validate piece
             if not self.validate_piece(pce):
                 if gv.verbose:
-                    print "Move invalid (6). Move has invalid piece. ",orig_move, move0, pce
+                    print "Move invalid (6). Move has invalid " \
+                          "piece. ", orig_move, move0, pce
                 return error_return
 
             # check if move promotes
-            prom = ''
-            if move.endswith('+'):
-                prom = '+'
-            elif move.endswith('='):
-                prom = '='
+            prom = ""
+            if move.endswith("+"):
+                prom = "+"
+            elif move.endswith("="):
+                prom = "="
 
-            # Remove '+' / '=' from end of move, then shift 'x' from start to end, then add '+' / '=' back if present
-            move = move.rstrip('+')
-            move = move.rstrip('=')
-            move0 = move[1:] + 'x' + prom
+            # Remove "+" / "=" from end of move, then shift "x" from start to
+            # end, then add "+" / "=" back if present
+            move = move.rstrip("+")
+            move = move.rstrip("=")
+            move0 = move[1:] + "x" + prom
             if gv.verbose:
                 print "move reformatted from", move1, "to", move0
 
-
-        # If move ends in x (i.e. no dest square specified) then get dest square
-        # from the previous move
+        # If move ends in x (i.e. no dest square specified) then get dest
+        # square from the previous move
         # e.g. Sx ->  S4d
         move = move0
-        if move.endswith('x') or move.endswith('x+') or move.endswith('x='):
+        if move.endswith("x") or move.endswith("x+") or move.endswith("x="):
             prevmove = movelist[-1]
-            prevmove = prevmove.rstrip('+')
-            move0 = move.replace('x', prevmove[-2:])
+            prevmove = prevmove.rstrip("+")
+            move0 = move.replace("x", prevmove[-2:])
             if gv.verbose:
                 print "move reformatted from", move, "to", move0
-
 
         # set promoted_piece, move_promotes, capture
         # e.g. +Bx7f
@@ -582,30 +605,30 @@ class Psn:
         # promoted_piece
         #
         move = move0
-        if move.startswith('+'):
-            promoted_piece = '+'
-            move = move.lstrip('+')
+        if move.startswith("+"):
+            promoted_piece = "+"
+            move = move.lstrip("+")
         else:
-            promoted_piece = ''
+            promoted_piece = ""
 
         # e.g. Nx7g+
-        move_equals = False            # ends in '=' and move does not promote
-        if move.endswith('+'):
-            move_promotes = '+'
-            move = move.rstrip('+')
-        elif move.endswith('='):
-            move_promotes = ''
-            move = move.rstrip('=')
+        move_equals = False            # ends in "=" and move does not promote
+        if move.endswith("+"):
+            move_promotes = "+"
+            move = move.rstrip("+")
+        elif move.endswith("="):
+            move_promotes = ""
+            move = move.rstrip("=")
             move_equals = True
         else:
-            move_promotes = ''
+            move_promotes = ""
 
         capture = False
-        if move.find('-') != -1:
-            move = move.replace('-', '')
+        if move.find("-") != -1:
+            move = move.replace("-", "")
             capture = False
-        elif move.find('x') != -1:
-            move = move.replace('x', '')
+        elif move.find("x") != -1:
+            move = move.replace("x", "")
             capture = True
 
         if move0 != move:
@@ -613,8 +636,7 @@ class Psn:
                 print "move reformatted from", move0, "to", move
             move0 = move
 
-
-        # move0 now has leading/trailing '+' and '-' and 'x' symbols removed
+        # move0 now has leading/trailing "+" and "-" and "x" symbols removed
         # e.g. +Bx7f   ->  B7f
         #       Nx7g+  ->  N7g
         #       G5h-6g ->  G5h6g
@@ -629,21 +651,22 @@ class Psn:
 
             if not self.validate_piece(piece):
                 if gv.verbose:
-                    print "Move invalid (2). Move has invalid piece. ",move0
+                    print "Move invalid (2). Move has invalid piece. ", move0
                 return error_return
 
-            source_square = ''
+            source_square = ""
 
             dest_square = move[1:3]
             if not self.validate_square(dest_square):
                 if gv.verbose:
-                    print "Move invalid (2). Move has invalid dest square. ",move0
+                    print "Move invalid (2). Move has invalid dest " \
+                          "square. ", move0
                 return error_return
 
             move_type = 1  # Move type is piece + dest square
 
-            return promoted_piece, piece, source_square, dest_square, move_promotes, move_equals, move_type
-
+            return (promoted_piece, piece, source_square, dest_square,
+                    move_promotes, move_equals, move_type)
 
         # e.g. G5h6g
         move = move0
@@ -652,25 +675,28 @@ class Psn:
             piece = move[0]
             if not self.validate_piece(piece):
                 if gv.verbose:
-                    print "Move invalid (3). Move has invalid piece. ",move0
+                    print "Move invalid (3). Move has invalid piece. ", move0
                 return error_return
 
-            piece = ''  # just search on e.g. 5h6g to get match in legal move list
+            # just search on e.g. 5h6g to get match in legal move list
+            piece = ""
 
             source_square = move[1:3]
             if not self.validate_square(source_square):
                 if gv.verbose:
-                    print "Move invalid (3). Move has invalid source square. ",move0
+                    print "Move invalid (3). Move has invalid source" \
+                          " square. ", move0
                 return error_return
 
             dest_square = move[3:5]
             if not self.validate_square(dest_square):
                 if gv.verbose:
-                    print "Move invalid (3). Move has invalid dest square. ",move0
+                    print "Move invalid (3). Move has invalid dest square. ", \
+                          move0
                 return error_return
 
-            return promoted_piece, piece, source_square, dest_square, move_promotes, move_equals, move_type
-
+            return (promoted_piece, piece, source_square, dest_square,
+                    move_promotes, move_equals, move_type)
 
         # e.g. G45h or Sf3g
         move = move0
@@ -678,101 +704,103 @@ class Psn:
             piece = move[0]
             if not self.validate_piece(piece):
                 if gv.verbose:
-                    print "Move invalid (4). Move has invalid piece. ",move0
+                    print "Move invalid (4). Move has invalid piece. ", move0
                 return error_return
 
-            # in this format the 2nd char is either a row (a to i) or column (1-9)
+            # in this format the 2nd char is either a row (a to i) or
+            # column (1-9)
             source_square = move[1]
-            if '123456789abcdefghi'.find(source_square) == -1:
+            if "123456789abcdefghi".find(source_square) == -1:
                 if gv.verbose:
-                    print "Move invalid (4). Move has invalid source square. ",move0
+                    print "Move invalid (4). Move has invalid source square", \
+                          move0
                 return error_return
 
             dest_square = move[2:4]
             if not self.validate_square(dest_square):
                 if gv.verbose:
-                    print "Move invalid (4). Move has invalid dest square. ",move0
+                    print "Move invalid (4). Move has invalid dest square. ", \
+                          move0
                 return error_return
 
-            return promoted_piece, piece, source_square, dest_square, move_promotes, move_equals, move_type
-
+            return (promoted_piece, piece, source_square, dest_square,
+                    move_promotes, move_equals, move_type)
 
         # Fallen through without formatting a valid move
         if gv.verbose:
-            print "Move invalid (5).",move0
+            print "Move invalid (5).", move0
 
         return error_return
 
-
     def validate_piece(self, piece):
-        validpieces = ('L', 'N', 'S', 'G', 'K', 'B', 'R', 'P', '+L', '+N', '+S', '+B', '+R', '+P')
+        validpieces = (
+            "L", "N", "S", "G", "K", "B", "R",
+            "P", "+L", "+N", "+S", "+B", "+R", "+P")
         try:
             idx = validpieces.index(piece)
         except ValueError:
             return False
         return True
 
-
     def validate_square(self, square):
         if len(square) != 2:
-            return ''
-        # square is e.g. '7h'
+            return ""
+        # square is e.g. "7h"
         numstr = square[0]
         try:
             num = int(numstr)
         except:
-            return ''
+            return ""
 
         # num must be 1-9
         if num == 0:
-            return ''
+            return ""
 
         let = square[1]
-        if 'abcdefghi'.find(let) == -1:
-            return ''
+        if "abcdefghi".find(let) == -1:
+            return ""
 
         # square is valid
         return square
 
-
     def search_legal_moves(self, move, legal_move_list):
         if gv.verbose:
-            print "searching for move",move
+            print "searching for move", move
 
         check_for_dupes = True
         hit_cnt = 0
         hit_list = []
 
-        if move.endswith('+'):
+        if move.endswith("+"):
             prom = True
         else:
             prom = False
 
         for legal_moves in legal_move_list:
             for lmove in legal_moves:
-               lmove = lmove.strip()
+                lmove = lmove.strip()
 
-               if lmove == move:
-                  if not check_for_dupes:
-                      return legal_moves[0]   # found a valid move
-                  else:
-                      hit_cnt += 1
-                      hit_list.append(legal_moves[0])
-                      break
+                if lmove == move:
+                    if not check_for_dupes:
+                        return legal_moves[0]   # found a valid move
+                    else:
+                        hit_cnt += 1
+                        hit_list.append(legal_moves[0])
+                        break
 
-               # if move does not promote and legal move does then count as a match
-               # and return unpromoted version of the move
-               if not move.endswith('+') and lmove.endswith('+'):
-                   if move == lmove[:len(lmove) - 1]:
-                       move = legal_moves[0].replace('+', '')
-                       return move
+                # if move does not promote and legal move does then count as a
+                # matchand return unpromoted version of the move
+                if not move.endswith("+") and lmove.endswith("+"):
+                    if move == lmove[:len(lmove) - 1]:
+                        move = legal_moves[0].replace("+", "")
+                        return move
 
-                       if not check_for_dupes:
-                           return move            # found a valid move
-                       else:
-                           hit_cnt += 1
-                           hit_list.append(move)
-                           break
+                        if not check_for_dupes:
+                            return move            # found a valid move
+                        else:
+                            hit_cnt += 1
+                            hit_list.append(move)
+                            break
 
         if not check_for_dupes:
             return None
@@ -782,27 +810,25 @@ class Psn:
         elif hit_cnt == 1:
             return hit_list[0]
         else:
-            print "Duplicate hits for move:",move, "-", hit_list
+            print "Duplicate hits for move:", move, "-", hit_list
             return None
 
-
     # move number is numeric digits followed by a fullstop
-    # e.g. '12.'
+    # e.g. "12."
     def get_moveno(self, ptr):
-        moveno = ''
+        moveno = ""
         while 1:
             if ptr >= gv.gshogi_len:
                 return None, None
-            if gv.gshogistr[ptr] >= '0' and gv.gshogistr[ptr] <= '9':
+            if gv.gshogistr[ptr] >= "0" and gv.gshogistr[ptr] <= "9":
                 moveno += gv.gshogistr[ptr]
                 ptr += 1
                 continue
-            if gv.gshogistr[ptr] == '.':
+            if gv.gshogistr[ptr] == ".":
                 ptr += 1
                 break
             return None, None  # Not a move number
         return moveno, ptr
-
 
     def load_game_psn(self, fname):
 
@@ -819,7 +845,7 @@ class Psn:
         while 1:
             if not line:
                 break
-            if line.startswith('['):
+            if line.startswith("["):
                 self.file_position.append(position)
                 gamecnt += 1
                 hdr = []
@@ -828,7 +854,7 @@ class Psn:
                     line = f.readline()
                     if not line:
                         break
-                    if not line.startswith('['):
+                    if not line.startswith("["):
                         break
                 headers.append(hdr)
             position = f.tell()
@@ -838,14 +864,14 @@ class Psn:
         # No games in file
         if gamecnt == 0:
             self.gamelist.set_game_list([])
-            gv.gui.info_box('No games in file')
+            gv.gui.info_box("No games in file")
             return
 
         # single game file - Load the game
         if gamecnt == 1:
             self.gamelist.set_game_list([])
             # Read the file a line at a time
-            gamestr = ''
+            gamestr = ""
 
             f = open(fname)
             while 1:
@@ -877,24 +903,23 @@ class Psn:
         print "OK:", ok_cnt, "Errors",error_cnt
         """
 
-
     # called from gamelist.py to load the game selected from the gamelist
     # of a multigame file
     def load_game_from_multigame_file(self, gameno):
 
         f = open(self.fname)
         f.seek(self.file_position[gameno - 1])
-        gamestr = ''
+        gamestr = ""
         line = f.readline()
-        while line.startswith('['):
+        while line.startswith("["):
             if not line:
-               break
+                break
             gamestr += line
             line = f.readline()
 
-        while not line.startswith('['):
+        while not line.startswith("["):
             if not line:
-               break
+                break
             gamestr += line
             line = f.readline()
 
@@ -902,6 +927,7 @@ class Psn:
 
         rc = self.load_game_psn_from_str(gamestr)
         return rc
+
 
 def get_ref():
     if Psn.psn_ref is None:

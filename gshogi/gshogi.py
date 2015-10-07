@@ -1172,7 +1172,7 @@ class Game:
 
     def set_players(self, b):
         dialog = Gtk.Dialog(
-            "Players", None, 0,
+            "Players", gv.gui.get_window(), 0,
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
              Gtk.STOCK_OK, Gtk.ResponseType.OK))
         dialog.set_title("Set Players")

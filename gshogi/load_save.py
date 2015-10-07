@@ -42,7 +42,7 @@ class Load_Save:
     def load_game(self, b):
 
         dialog = Gtk.FileChooserDialog(
-            "Load..", None, Gtk.FileChooserAction.OPEN,
+            "Load..", gv.gui.get_window(), Gtk.FileChooserAction.OPEN,
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
              Gtk.STOCK_OPEN, Gtk.ResponseType.OK))
         dialog.set_default_response(Gtk.ResponseType.OK)
@@ -249,7 +249,7 @@ class Load_Save:
     def save_game(self, b):
 
         dialog = Gtk.FileChooserDialog(
-            "Save..", None, Gtk.FileChooserAction.SAVE,
+            "Save..", gv.gui.get_window(), Gtk.FileChooserAction.SAVE,
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
              Gtk.STOCK_SAVE, Gtk.ResponseType.OK))
         dialog.set_default_response(Gtk.ResponseType.OK)

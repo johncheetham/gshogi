@@ -168,6 +168,7 @@ class Set_Board_Colours:
         self.builder.connect_signals(self)
 
         self.dialog = self.builder.get_object("sc_dialog")
+        self.dialog.set_transient_for(gv.gui.get_window())
         self.presets_radio_button = self.builder.get_object(
             "presets_radiobutton")
         self.custom_colours_radio_button = self.builder.get_object(
@@ -427,7 +428,8 @@ class Set_Board_Colours:
         self.builder = Gtk.Builder()
         self.builder.add_from_file(self.pieces_glade_file)
         self.builder.connect_signals(self)
-        gv.pieces_dialog = self.builder.get_object("pieces_dialog")
+        pieces_dialog = self.builder.get_object("pieces_dialog")
+        pieces_dialog.set_transient_for(gv.gui.get_window())
         self.eastern_radio_button = self.builder.get_object(
             "eastern_radiobutton")
         self.western_radio_button = self.builder.get_object(
@@ -450,11 +452,12 @@ class Set_Board_Colours:
         response_ok = 2
 
         # If user hasn't clicked on OK then exit now
-        if gv.pieces_dialog.run() != response_ok:
-            gv.pieces_dialog.destroy()
+        if pieces_dialog.run() != response_ok:
+            pieces_dialog.destroy()
             # user cancelled so restore pieceset to what it was
             gv.board.use_pieceset(self.orig_pieceset)
-        gv.pieces_dialog.destroy()
+        else:
+            pieces_dialog.destroy()
 
     # callback for when piecset radiobutton changed
     def pieces_radio_button_changed(self, pieces_radio_button):

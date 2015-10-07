@@ -159,7 +159,7 @@ class Time_Control:
     #
     def time_control(self, b):
         dialog = Gtk.Dialog(
-            "Time Control", None, 0,
+            "Time Control", gv.gui.get_window(), 0,
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OK,
              Gtk.ResponseType.OK))
         dialog.set_title("Time Control")

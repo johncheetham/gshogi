@@ -46,7 +46,7 @@ class Engine_Manager:
         self.builder.connect_signals(self)
 
         dialog = self.builder.get_object("common_engine_settings")
-
+        dialog.set_transient_for(gv.gui.get_window())
         # ponder check button
         checkbutton = self.builder.get_object("ponderbutton")
         checkbutton.set_active(self.ponder)
@@ -89,7 +89,7 @@ class Engine_Manager:
         engine_list = self.get_engine_list()
 
         dialog = Gtk.Dialog(
-            "Engines", None, 0,
+            "Engines", gv.gui.get_window(), 0,
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OK,
              Gtk.ResponseType.OK)
         )
@@ -197,7 +197,7 @@ class Engine_Manager:
     def add_engine(self, widget, data=None):
         dialog = Gtk.FileChooserDialog(
             "Add USI Engine..",
-            None,
+            gv.gui.get_window(),
             Gtk.FileChooserAction.OPEN,
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
              Gtk.STOCK_OPEN, Gtk.ResponseType.OK)

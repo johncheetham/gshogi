@@ -857,7 +857,7 @@ class Gui:
 
     # about box
     def about_box(self, widget):
-        about = Gtk.AboutDialog()
+        about = Gtk.AboutDialog(parent=self.window)
         #
         # set_program_name method is available in PyGTK 2.12 and above
         #
@@ -1052,7 +1052,7 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
 
     def info_box(self, msg):
         dialog = Gtk.MessageDialog(
-            None,
+            self.window,
             Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
             Gtk.MessageType.INFO,
             Gtk.ButtonsType.OK,
@@ -1451,7 +1451,7 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
         self.builder.add_from_file(self.glade_file_preferences)
         self.builder.connect_signals(self)
         dialog = self.builder.get_object("preferences")
-
+        dialog.set_transient_for(self.window)
         # show co-ords
         coords_checkbutton = self.builder.get_object("coords_checkbutton")
         coords_checkbutton.set_active(self.show_coords)
@@ -1485,3 +1485,6 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
 
     def get_show_coords(self):
         return self.show_coords
+
+    def get_window(self):
+        return self.window

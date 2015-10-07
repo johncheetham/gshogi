@@ -691,7 +691,7 @@ class Usi:
 
         diagtitle = self.get_engine()
         dialog = Gtk.Dialog(
-            diagtitle, None, 0,
+            diagtitle, gv.gui.get_window(), 0,
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
              Gtk.STOCK_OK, Gtk.ResponseType.OK))
         wlist = []

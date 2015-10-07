@@ -79,6 +79,7 @@ class Gui:
         self.builder.connect_signals(self)
 
         self.window = self.builder.get_object("main_window")
+        self.set_window_size()
 
         # self.window = Gtk.Window(Gtk.WindowType.TOPLEVEL)
         self.window.set_title(NAME + " " + VERSION)

@@ -96,7 +96,6 @@ class Board:
             # call gui to show this square
             gv.gui.init_bcap_square(self.bcap_image[y], y, self.bcap_label[y])
 
-        GObject.idle_add(gv.gui.set_window_size)
         GObject.idle_add(self.update)
 
     def get_gs_loc(self, x, y):

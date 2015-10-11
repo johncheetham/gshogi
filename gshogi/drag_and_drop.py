@@ -82,7 +82,9 @@ class Drag_And_Drop:
 
             hot_x = pb.get_width() / 2
             hot_y = pb.get_height() / 2
-            drag_context.set_icon_pixbuf(pb, hot_x, hot_y)
+            Gtk.drag_set_icon_pixbuf(drag_context,
+                                     pb,
+                                     hot_x, hot_y)
 
             # save the pixbuf for use in the drop (receivecallback) routines
             self.dnd_pixbuf = pb

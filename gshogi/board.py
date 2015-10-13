@@ -29,19 +29,21 @@ class Board:
 
     def __init__(self):
         self.board_position = self.getboard()
-        self.wcap = engine.getcaptured(WHITE)
-        self.bcap = engine.getcaptured(BLACK)
+        self.cap = [
+            engine.getcaptured(BLACK),
+            engine.getcaptured(WHITE)
+        ]
 
     def build_board(self):
         self.myimage = [[Gtk.Image() for x in range(9)] for x in range(9)]
-
-        self.wcap_image = [Gtk.Image() for x in range(9)]
-        self.wcap_label = [Gtk.Label() for x in range(9)]
-        self.bcap_image = [Gtk.Image() for x in range(9)]
-        self.bcap_label = [Gtk.Label() for x in range(9)]
-
-        self.piece_pixbuf = []
-
+        self.cap_image = [
+            [Gtk.Image() for x in range(9)],
+            [Gtk.Image() for x in range(9)]
+        ]
+        self.cap_label = [
+            [Gtk.Label() for x in range(9)],
+            [Gtk.Label() for x in range(9)]
+        ]
         self.init_board()
 
     def init_board(self):
@@ -50,7 +52,7 @@ class Board:
         gv.pieces.load_pieces(prefix)
 
         # pieces captured by black (index 0) and white (index 1)
-        self.bcap2 = [
+        self.cap2 = [
             ["0", "0", "0", "0", "0", "0", "0"],
             ["0", "0", "0", "0", "0", "0", "0"]
         ]
@@ -66,8 +68,8 @@ class Board:
         # loop through the board squares and set the pieces
         # x, y = 0, 0 is the top left square of the board
         #
-        for x in range(0, 9):
-            for y in range(0, 9):
+        for x in range(9):
+            for y in range(9):
                 # convert the x, y square to the location value
                 # used by the engine
                 l = self.get_gs_loc(x, y)
@@ -82,19 +84,16 @@ class Board:
                 # call gui to show this square
                 gv.gui.init_board_square(self.myimage[x][y], x, y)
 
-        # initialise white komadai (area containing pieces captured by white)
-        for y in range(0, 7):
-            self.wcap_image[y].set_from_pixbuf(gv.pieces.getpixbuf(" -"))
-            self.wcap_label[y].set_text("   ")
-            # call gui to show this square
-            gv.gui.init_wcap_square(self.wcap_image[y], y, self.wcap_label[y])
-
-        # initialise black komadai (area containing pieces captured by black)
-        for y in range(0, 7):
-            self.bcap_image[y].set_from_pixbuf(gv.pieces.getpixbuf(" -"))
-            self.bcap_label[y].set_text("   ")
-            # call gui to show this square
-            gv.gui.init_bcap_square(self.bcap_image[y], y, self.bcap_label[y])
+        # initialise komadai (areas containing captured pieces)
+        for y in range(7):
+            for side in range(2):
+                self.cap_image[side][y].set_from_pixbuf(
+                    gv.pieces.getpixbuf(" -"))
+                self.cap_label[side][y].set_text("   ")
+                # call gui to show this square
+                gv.gui.init_komadai_square(
+                    self.cap_image[side][y], y,
+                        self.cap_label[side][y], side)
 
         GObject.idle_add(self.update)
 
@@ -132,8 +131,8 @@ class Board:
         sfen = ""
 
         # board state
-        for y in range(0, 9):
-            for x in range(0, 9):
+        for y in range(9):
+            for x in range(9):
                 # convert the x, y square to the location value
                 # used by the engine
                 l = self.get_gs_loc(x, y)
@@ -171,14 +170,14 @@ class Board:
         # (rook, bishop, gold, silver, knight, lance, pawn)
         cap_list = []
         for p in ("R", "B", "G", "S", "N", "L", "P"):
-            zcap = self.getcap(p, self.bcap)
+            zcap = self.getcap(p, self.cap[BLACK])
             if zcap != "":
                 cap_list.append(zcap)
 
         # get list captured pieces for white in the correct order
         # (rook, bishop, gold, silver, knight, lance, pawn)
         for p in ("R", "B", "G", "S", "N", "L", "P"):
-            zcap = self.getcap(p, self.wcap)
+            zcap = self.getcap(p, self.cap[WHITE])
             if zcap != "":
                 # change to lower case for white
                 zcap2 = zcap[0] + zcap[1].lower()
@@ -199,9 +198,7 @@ class Board:
             pih = "-"
 
         move_count = gv.gshogi.get_move_count()
-
         sfen = sfen + " " + pih + " " + str(move_count)
-
         return sfen
 
     def getcap(self, piece, cap):
@@ -221,85 +218,41 @@ class Board:
         # loop through the board squares and set the pieces
         # x, y = 0, 0 is the top left square of the board
         #
-        for x in range(0, 9):
-            for y in range(0, 9):
+        for x in range(9):
+            for y in range(9):
                 # convert the x, y square to the location value
                 # used by the engine
                 l = self.get_gs_loc(x, y)
                 piece = self.board_position[l]
                 pb = gv.pieces.getpixbuf(piece)
-                # the get_pixbuf line prevents error messages of the type
-                # Warning: g_object_unref: assertion `object->ref_count > 0'
-                # failed on the set_from_pixbuf line
-                cpb = self.myimage[x][y].get_pixbuf()
                 self.myimage[x][y].set_from_pixbuf(pb)
 
-    def display_capturedw(self, wcap):
-
+    def display_komadai(self, side):
         #
-        # wcap contains a list of captured pieces  e.g.
+        # cap contains a list of captured pieces  e.g.
         # 0P 0L 0N 0S 0G 0B 0R 0P 0L 0N 0S 0B 0R 0K
         #
-
-        self.bcap2[WHITE] = ["0", "0", "0", "0", "0", "0", "0"]
-
-        for i in range(0, 7):
-            # the get_pixbuf line prevents error messages of the type
-            # Warning: g_object_unref: assertion `object->ref_count > 0' failed
-            # on the set_from_pixbuf line
-            cpb = self.wcap_image[i].get_pixbuf()
-            self.wcap_image[i].set_from_pixbuf(gv.pieces.getpixbuf(" -"))
-            self.wcap_label[i].set_text("   ")
+        self.cap2[side] = ["0", "0", "0", "0", "0", "0", "0"]
+        for i in range(7):
+            self.cap_image[side][i].set_from_pixbuf(gv.pieces.getpixbuf(" -"))
+            self.cap_label[side][i].set_text("   ")
 
         i = 0
-        for c in wcap:
+        for c in self.cap[side]:
             if c == "":
                 continue
             piece = c[1:2]
             num = c[0:1]
-
             if i < 7:
                 z = " " + piece
-                # the get_pixbuf line prevents error messages of the type
-                # Warning: g_object_unref: assertion `object->ref_count > 0'
-                # failed on the set_from_pixbuf line
-                cpb = self.wcap_image[i].get_pixbuf()
-                self.wcap_image[i].set_from_pixbuf(gv.pieces.getpixbuf(z))
-                self.bcap2[WHITE][i] = piece
-                self.wcap_label[i].set_text(" " + num + " ")
-
+                idx = i
+                if side == BLACK:
+                    z = z.lower()
+                    idx = 6 - i
+                self.cap_image[side][idx].set_from_pixbuf(gv.pieces.getpixbuf(z))
+                self.cap2[side][idx] = piece
+                self.cap_label[side][idx].set_text(" " + num + " ")
             i = i + 1
-
-    def display_capturedb(self, bcap):
-
-        self.bcap2[BLACK] = ["0", "0", "0", "0", "0", "0", "0", "0", "0"]
-
-        for i in range(0, 7):
-            # the get_pixbuf line prevents error messages of the type
-            # Warning: g_object_unref: assertion `object->ref_count > 0'
-            # failed on the set_from_pixbuf line
-            cpb = self.bcap_image[i].get_pixbuf()
-            self.bcap_image[i].set_from_pixbuf(gv.pieces.getpixbuf(" -"))
-            self.bcap_label[i].set_text("   ")
-
-        i = 6
-        for c in bcap:
-            if c == "":
-                continue
-            piece = c[1:2]
-            num = c[0:1]
-
-            if i > -1:
-                z = " " + piece
-                z = z.lower()
-                # the get_pixbuf line prevents error messages of the type
-                # Warning: g_object_unref: assertion `object->ref_count > 0'
-                # failed on the set_from_pixbuf line
-                cpb = self.bcap_image[i].get_pixbuf()
-                self.bcap_image[i].set_from_pixbuf(gv.pieces.getpixbuf(z))
-                self.bcap2[BLACK][i] = piece
-                self.bcap_label[i].set_text(" " + num + " ")
-            i = i - 1
 
     #
     # test if user has clicked on a valid source square
@@ -397,18 +350,18 @@ class Board:
 
     def update(self, refresh_gui=True):
         self.board_position = self.getboard()
-        self.wcap = engine.getcaptured(WHITE)
-        self.bcap = engine.getcaptured(BLACK)
+        self.cap[BLACK] = engine.getcaptured(BLACK)
+        self.cap[WHITE] = engine.getcaptured(WHITE)
         if refresh_gui:
             self.refresh_screen()
 
     def refresh_screen(self, w=None, h=None):
         self.display_board(w, h)
-        self.display_capturedw(self.wcap)
-        self.display_capturedb(self.bcap)
+        self.display_komadai(WHITE)
+        self.display_komadai(BLACK)
 
     def get_cap_piece(self, y, stm):
-        return self.bcap2[stm][y]
+        return self.cap2[stm][y]
 
     #
     # return a pixbuf of the piece at the given square
@@ -421,10 +374,7 @@ class Board:
         return gv.pieces.getpixbuf(piece)
 
     def get_cap_pixbuf(self, y, stm):
-        if stm == BLACK:
-            return self.bcap_image[y].get_pixbuf()
-        else:
-            return self.wcap_image[y].get_pixbuf()
+        return self.cap_image[stm][y].get_pixbuf()
 
     #
     # called from gshogi.py to clear the source square when a drag of
@@ -446,25 +396,21 @@ class Board:
 
     # called when user does a "clear board" in board edit
     def clear_board(self):
-        for x in range(0, 9):
-            for y in range(0, 9):
+        for x in range(9):
+            for y in range(9):
                 self.set_square_as_unoccupied(x, y)
-        self.bcap = ["0B", "0S", "0G", "0L", "0N", "0R", "0P"]
-        self.wcap = ["0B", "0S", "0G", "0L", "0N", "0R", "0P"]
-        self.display_capturedb(self.bcap)
-        self.display_capturedw(self.wcap)
+        self.cap[BLACK] = ["0B", "0S", "0G", "0L", "0N", "0R", "0P"]
+        self.cap[WHITE] = ["0B", "0S", "0G", "0L", "0N", "0R", "0P"]
+        self.display_komadai(BLACK)
+        self.display_komadai(WHITE)
 
     #
     # called from gshogi.py to clear the source komadai square or
     # reduce the count by 1 when a drag of a piece has started
     #
     def set_cap_as_unoccupied(self, y, piece, stm):
-        if stm == BLACK:
-            cap = self.bcap
-        else:
-            cap = self.wcap
         i = 0
-        for cp in cap:
+        for cp in self.cap[stm]:
             if cp.endswith(piece):
                 ct = int(cp[0])
                 ct -= 1
@@ -474,81 +420,51 @@ class Board:
                     newcap = str(ct) + piece
                 break
             i += 1
-        if stm == BLACK:
-            self.bcap[i] = newcap
-        else:
-            self.wcap[i] = newcap
+        self.cap[stm][i] = newcap
 
     # In edit mode show all pieces in the komadai with a zero next to those
     # not present. This allows for easy editing by clicking on each piece
     # to change the count
     def set_komadai_for_edit(self):
-
-        # black
-        newcap = ["0B", "0S", "0G", "0L", "0N", "0R", "0P"]
-        cap = self.bcap
-        found = False
-        i = 0
-        for item in newcap:
-            for cp in cap:
-                if cp.endswith(item[1]):
-                    newcap[i] = cp
-                    break
-            i += 1
-        self.bcap = newcap
-        self.display_capturedb(self.bcap)
-
-        # white
-        newcap = ["0B", "0S", "0G", "0L", "0N", "0R", "0P"]
-        cap = self.wcap
-        found = False
-        i = 0
-        for item in newcap:
-            for cp in cap:
-                if cp.endswith(item[1]):
-                    newcap[i] = cp
-                    break
-            i += 1
-        self.wcap = newcap
-        self.display_capturedw(self.wcap)
+        for side in range(2):
+            newcap = ["0B", "0S", "0G", "0L", "0N", "0R", "0P"]
+            cap = self.cap[side]
+            found = False
+            i = 0
+            for item in newcap:
+                for cp in cap:
+                    if cp.endswith(item[1]):
+                        newcap[i] = cp
+                        break
+                i += 1
+            self.cap[side] = newcap
+            self.display_komadai(side)
 
     # called from board.py in edit board mode when the user left clicks
     # on a piece in the komadai to reduce the count of the piece by 1.
     def decrement_cap_piece(self, y, colour):
+        cap = self.cap[colour]
         if colour == BLACK:
-            cap = self.bcap
             y = 6 - y
-        else:
-            cap = self.wcap
-
         ct = int(cap[y][0])
         ct -= 1
         if ct < 0:
             ct = 0
         cap[y] = str(ct) + cap[y][1]
-        if colour == BLACK:
-            self.display_capturedb(self.bcap)
-        else:
-            self.display_capturedw(self.wcap)
+        self.display_komadai(colour)
 
     # called from board.py in edit board mode when the user right clicks
     # on a piece in the komadai to increase the count of the piece by 1.
     def increment_cap_piece(self, y, colour):
+        cap = self.cap[colour]
         if colour == BLACK:
-            cap = self.bcap
             y = 6 - y
-        else:
-            cap = self.wcap
-
         ct = int(cap[y][0])
         ct += 1
         if ct > 9:
             ct = 9
         cap[y] = str(ct) + cap[y][1]
-        if colour == BLACK:
-            self.display_capturedb(self.bcap)
-        else:
-            self.display_capturedw(self.wcap)
+        self.display_komadai(colour)
 
     #
     # set the piece image on a board square to the supplied pixbuf
@@ -558,43 +474,12 @@ class Board:
         self.myimage[x][y].set_from_pixbuf(pixbuf)
 
     def get_capturedw(self):
-        return self.wcap
+        return self.cap[WHITE]
 
     def get_capturedb(self):
-        return self.bcap
+        return self.cap[BLACK]
 
     def get_piece(self, x, y):
         l = self.get_gs_loc(x, y)
         piece = self.board_position[l]
         return piece
-
-    """"
-    # Board position history
-    # self.board_pos contains a list of board positions
-    # 1 board position for each move
-    # This routine saves the board position after a move
-    def save_board(self, idx):
-
-        if (idx != len(self.board_hist)):
-            print "Error saving board in board.py - index incorrrect"
-            print "idx=",idx
-            print "len boardpos=",len(self.board_hist)
-
-        board_position = self.getboard()
-        wcap = engine.getcaptured(WHITE)
-        bcap = engine.getcaptured(BLACK)
-
-        self.board_hist.append( (board_position, wcap, bcap) )
-
-    # This reduces the number of saved boards if the user has restarted the
-    #  game from an earlier position
-    def reduce_board_history(self, movelist):
-        num_moves = len(movelist)
-        # no. of board positions saved should be 1 more than the number of
-        # moves
-        # Need to add 1 for the initial board position after zero moves
-        num_boards = num_moves + 1
-        while num_boards  < len(self.board_hist):
-            self.board_hist.pop()
-            print "popped"
-    """

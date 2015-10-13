@@ -35,14 +35,14 @@ class Psn:
         self.comments = comments.get_ref()
 
     def is_whitespace(self, ptr):
-        if (gv.gshogistr[ptr] == "\n" or gv.gshogistr[ptr] == "\r" or
-                gv.gshogistr[ptr] == "\t" or gv.gshogistr[ptr] == " "):
+        if (self.gamestr[ptr] == "\n" or self.gamestr[ptr] == "\r" or
+                self.gamestr[ptr] == "\t" or self.gamestr[ptr] == " "):
             return True
         return False
 
     def skip_whitespace(self, ptr):
         while 1:
-            if ptr >= gv.gshogi_len:
+            if ptr >= self.game_len:
                 return None
             if self.is_whitespace(ptr):
                 ptr += 1
@@ -59,19 +59,19 @@ class Psn:
 
         # Now pointing at none whitespace character
         # should be "[" if it is a header
-        if gv.gshogistr[ptr] != "[":
+        if self.gamestr[ptr] != "[":
             return None, None  # not a header
 
         ptr += 1  # step past "["
 
         hdr = ""
         while 1:
-            if ptr >= gv.gshogi_len:
+            if ptr >= self.game_len:
                 return None, None
-            if gv.gshogistr[ptr] == "]":
+            if self.gamestr[ptr] == "]":
                 ptr += 1   # step past "]"
                 break
-            hdr += gv.gshogistr[ptr]
+            hdr += self.gamestr[ptr]
             ptr += 1
         return hdr, ptr  # valid header found
 
@@ -105,8 +105,8 @@ class Psn:
 
         movecnt = 0
 
-        gv.gshogistr = gamestr
-        gv.gshogi_len = len(gv.gshogistr)
+        self.gamestr = gamestr
+        self.game_len = len(self.gamestr)
 
         self.comments.clear_comments()
 
@@ -118,7 +118,7 @@ class Psn:
 
         # Find "[" of first header
         while 1:
-            if ptr >= gv.gshogi_len or ptr > 2000:
+            if ptr >= self.game_len or ptr > 2000:
                 gv.gui.info_box("Error (1) loading file. No headers found")
                 gv.gshogi.new_game("NewGame")
                 gv.gui.set_status_bar_msg("Error loading game")
@@ -219,19 +219,19 @@ class Psn:
                 continue
 
             # comment
-            if gv.gshogistr[ptr] == "{":
+            if self.gamestr[ptr] == "{":
                 comment = ""
                 ptr += 1
                 while 1:
-                    if ptr >= gv.gshogi_len:
+                    if ptr >= self.game_len:
                         gv.gui.info_box("Error unterminated comment")
                         gv.gshogi.new_game("NewGame")
                         gv.gui.set_status_bar_msg("Error loading game")
                         return 1  # end of file before end of comment
-                    if gv.gshogistr[ptr] == "}":
+                    if self.gamestr[ptr] == "}":
                         ptr += 1
                         break
-                    comment += gv.gshogistr[ptr]
+                    comment += self.gamestr[ptr]
                     ptr += 1
 
                 # add comment
@@ -294,7 +294,7 @@ class Psn:
         gv.usib.set_newgame()
         gv.usiw.set_newgame()
         gv.gui.set_status_bar_msg("game loaded")
-        gv.gshogiover = False
+        self.gameover = False
 
         gv.gshogi.set_movelist(movelist)
         gv.gshogi.set_redolist(redolist)
@@ -316,7 +316,7 @@ class Psn:
     def get_word(self, ptr):
         word = ""
         while 1:
-            if ptr >= gv.gshogi_len:
+            if ptr >= self.game_len:
                 if word != "":
                     return word, ptr
                 else:
@@ -324,7 +324,7 @@ class Psn:
 
             if self.is_whitespace(ptr):
                 break
-            word += gv.gshogistr[ptr]
+            word += self.gamestr[ptr]
             ptr += 1
         return word, ptr
 
@@ -332,25 +332,25 @@ class Psn:
     def get_ignore_string(self, ptr):
 
         # ignore things enclosed in brackets such variations and timecodes
-        if gv.gshogistr[ptr] == "(":
+        if self.gamestr[ptr] == "(":
             ignore_str = "("
             ptr += 1
             nestcnt = 0
             while 1:
-                if ptr >= gv.gshogi_len:
+                if ptr >= self.game_len:
                     return None, None
-                if gv.gshogistr[ptr] == "(":
+                if self.gamestr[ptr] == "(":
                     nestcnt += 1
-                elif gv.gshogistr[ptr] == ")":
+                elif self.gamestr[ptr] == ")":
                     if nestcnt > 0:
                         # nested parentheses - just decrease count
                         nestcnt -= 1
                     else:
-                        ignore_str += gv.gshogistr[ptr]  # )
+                        ignore_str += self.gamestr[ptr]  # )
                         ptr += 1
                         # return with sting to ignore and new ptr
                         return ignore_str, ptr
-                ignore_str += gv.gshogistr[ptr]
+                ignore_str += self.gamestr[ptr]
                 ptr += 1
 
         # get next word in file
@@ -818,13 +818,13 @@ class Psn:
     def get_moveno(self, ptr):
         moveno = ""
         while 1:
-            if ptr >= gv.gshogi_len:
+            if ptr >= self.game_len:
                 return None, None
-            if gv.gshogistr[ptr] >= "0" and gv.gshogistr[ptr] <= "9":
-                moveno += gv.gshogistr[ptr]
+            if self.gamestr[ptr] >= "0" and self.gamestr[ptr] <= "9":
+                moveno += self.gamestr[ptr]
                 ptr += 1
                 continue
-            if gv.gshogistr[ptr] == ".":
+            if self.gamestr[ptr] == ".":
                 ptr += 1
                 break
             return None, None  # Not a move number

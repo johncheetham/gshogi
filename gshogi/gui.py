@@ -79,6 +79,9 @@ class Gui:
         self.builder.connect_signals(self)
 
         self.window = self.builder.get_object("main_window")
+        screen = self.window.get_screen()
+        self.screen_width = screen.get_width()
+        self.screen_height = screen.get_height()
         self.set_window_size()
 
         # self.window = Gtk.Window(Gtk.WindowType.TOPLEVEL)
@@ -102,7 +105,8 @@ class Gui:
 
         # connect to configure event so pieces can be resized when user
         # resizes the window
-        self.window.connect("configure_event", self.configure_event)
+        self.winconfid = self.window.connect(
+            "configure_event", self.configure_event)
 
         main_vbox = self.builder.get_object("main_vbox")
         # main_vbox = Gtk.VBox(False, 0)
@@ -715,94 +719,44 @@ class Gui:
         hbox.pack_start(al, True, True, 0)
         self.bcaptable.show()
 
-    def init_wcap_square(self, image, y, label):
-
+    def init_komadai_square(self, image, y, label, side):
         hb = Gtk.HBox(False, 0)
         hb.show()
-
-        label.modify_fg(
-            Gtk.StateType.NORMAL, Gdk.color_parse(self.board_text_colour))
-
-        fontdesc = Pango.FontDescription("Monospace 15")
-        label.modify_font(fontdesc)
-
-        label.show()
-        hb.pack_start(label, True, True, 0)
-        self.wcap_label[y] = label
-
         event_box = Gtk.EventBox()
         event_box.add(image)
+        label.modify_fg(
+            Gtk.StateType.NORMAL, Gdk.color_parse(self.board_text_colour))
+        fontdesc = Pango.FontDescription("Monospace 15")
+        label.modify_font(fontdesc)
+        label.show()
 
-        hb.pack_start(event_box, True, True, 0)
-        x = 0
-        self.wcaptable.attach(hb, x, x+1, y, y+1)
-
-        hb.show()
+        if side == WHITE:
+            hb.pack_start(label, True, True, 0)
+            self.wcap_label[y] = label
+            hb.pack_start(event_box, True, True, 0)
+            self.wcaptable.attach(hb, 0, 1, y, y+1)
+            self.web[y] = event_box
+            event_box.set_name("wcap_eb")
+        else:
+            hb.pack_end(label, True, True, 0)
+            self.bcap_label[y] = label
+            hb.pack_end(event_box, True, True, 0)
+            self.bcaptable.attach(hb, 0, 1, y, y+1)
+            self.beb[y] = event_box
+            event_box.set_name("bcap_eb")
 
         event_box.show()
         event_box.modify_bg(
             Gtk.StateType.NORMAL, Gdk.color_parse(self.board_komadai_colour))
         event_box.set_border_width(5)
-
         event_box.add_events(Gdk.EventMask.BUTTON_PRESS_MASK)
-        data = (x, y, WHITE)
-        event_box.connect(
-            "button_press_event", gv.gshogi.cap_square_clicked, data)
-        image.show()
-        self.web[y] = event_box
-
-        event_box.set_name("wcap_eb")
-
-        self.targets = [
-            ("text/plain", Gtk.TargetFlags.SAME_APP, TARGET_TYPE_TEXT)]
-
-        event_box.connect("drag_data_get", self.drag_and_drop.sendCallback)
-        event_box.connect_after(
-            "drag_begin", self.drag_and_drop.drag_begin, (x, y))
-        event_box.connect_after("drag_end", self.drag_and_drop.drag_end)
-
-    def init_bcap_square(self, image, y, label):
-
-        hb = Gtk.HBox(False, 0)
-        hb.show()
-
-        label.modify_fg(
-            Gtk.StateType.NORMAL, Gdk.color_parse(self.board_text_colour))
-        fontdesc = Pango.FontDescription("Monospace 15")
-        label.modify_font(fontdesc)
-
-        label.show()
-        hb.pack_end(label, True, True, 0)
-        self.bcap_label[y] = label
-
-        event_box = Gtk.EventBox()
-        event_box.add(image)
-
-        hb.pack_end(event_box, True, True, 0)
-
         x = 0
-        self.bcaptable.attach(hb, x, x+1, y, y+1)
-
-        hb.show()
-
-        event_box.show()
-        event_box.modify_bg(
-            Gtk.StateType.NORMAL, Gdk.color_parse(self.board_komadai_colour))
-        event_box.set_border_width(5)
-
-        event_box.add_events(Gdk.EventMask.BUTTON_PRESS_MASK)
-        data = (x, y, BLACK)
+        data = (x, y, side)
         event_box.connect(
             "button_press_event", gv.gshogi.cap_square_clicked, data)
-
         image.show()
-        self.beb[y] = event_box
-
-        event_box.set_name("bcap_eb")
-
         self.targets = [
             ("text/plain", Gtk.TargetFlags.SAME_APP, TARGET_TYPE_TEXT)]
-
         event_box.connect("drag_data_get", self.drag_and_drop.sendCallback)
         event_box.connect_after(
             "drag_begin", self.drag_and_drop.drag_begin, (x, y))
@@ -919,7 +873,16 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
     # call board.refresh_screen to resize the pieces
     #
     def configure_event(self, widget, event):
+        #print event.width, event.height
+        if (event.width > self.screen_width or
+            event.height > self.screen_height):
+            print "configure error:",
+            print event.width, event.height, \
+                    self.screen_width, self.screen_height
+            return
+        self.window.handler_block(self.winconfid)
         self.resize_pieces(event.width, event.height)
+        self.window.handler_unblock(self.winconfid)
 
     def resize_pieces(self, w, h):
         gv.board.refresh_screen(w, h)
@@ -1102,20 +1065,15 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
 
     # set the base window size at startup
     def set_window_size(self):
-        screen = self.window.get_screen()
-        screen_width = screen.get_width()
-        screen_height = screen.get_height()
-
-        if screen_width > 918 and screen_height > 724:
+        if self.screen_width > 918 and self.screen_height > 724:
             w = 918
             h = 724
-        elif screen_width > 658 and screen_height > 523:
+        elif self.screen_width > 658 and self.screen_height > 523:
             w = 658
             h = 523
         else:
             w = 511
             h = 406
-
         self.window.resize(w, h)
 
     def set_colours(self, bg_colour, komadai_colour, square_colour,

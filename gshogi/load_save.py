@@ -98,7 +98,7 @@ class Load_Save:
         gv.usib.set_newgame()
         gv.usiw.set_newgame()
         gv.gui.set_status_bar_msg("ready")
-        gv.gshogiover = False
+        self.gameover = False
 
         gv.gshogi.set_movelist([])
         gv.gshogi.set_redolist([])
@@ -158,7 +158,7 @@ class Load_Save:
         gv.usib.set_newgame()
         gv.usiw.set_newgame()
         gv.gui.set_status_bar_msg("game loaded")
-        gv.gshogiover = False
+        self.gameover = False
 
         gv.gshogi.set_movelist(movelist)
         gv.gshogi.set_redolist(redolist)

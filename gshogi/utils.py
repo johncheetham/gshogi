@@ -132,6 +132,9 @@ def get_settings_from_file(filepath):
         pass
     except Exception, exc:
         print "Cannot restore settings:", exc
+    if gv.verbose:
+        print "values read from settings file"
+        print "colour_settings:",s.colour_settings
     return s
 
 

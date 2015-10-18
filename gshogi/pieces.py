@@ -27,7 +27,6 @@ class Pieces:
 
     def __init__(self):
         self.pieceset = "eastern"     # eastern, western or custom
-        self.scale_factor = 1.0
         self.prefix = None
         self.custom_piece_pixbuf = None
         self.custom_piece_path = None
@@ -89,14 +88,15 @@ class Pieces:
         if self.prefix is None:
             self.prefix = prefix
 
+        # load builtin eastern/western pieces as pixbufs
         self.piece_pixbuf, errmsg = self.load_pixbufs("eastern", prefix)
-
         self.western_piece_pixbuf, errmsg = self.load_pixbufs(
             "western", prefix)
 
         self.piece_fill_colour, self.piece_outline_colour, \
             self.piece_kanji_colour = self.get_piece_default_colours()
 
+        # load custom piece pixbufs
         if self.custom_piece_path is not None:
             self.custom_piece_pixbuf, errmsg = self.load_custom_pixbufs(
                 self.custom_piece_path)
@@ -133,7 +133,6 @@ class Pieces:
             image = "images/" + piece_set + "/" + image + ".png"
             piece_pixbuf.append(
                 GdkPixbuf.Pixbuf.new_from_file(os.path.join(prefix, image)))
-
         return piece_pixbuf, None
 
     # function to load images of custom pieces provided by the user
@@ -363,11 +362,7 @@ class Pieces:
         else:
             print "invalid pieceset in getpixbuf in pieces.py:", self.pieceset
             pixbuf = self.piece_pixbuf[idx]   # eastern
-
-        width = int(self.scale_factor * 64)
-        height = int(self.scale_factor * 64)
-        spb = pixbuf.scale_simple(width, height, GdkPixbuf.InterpType.HYPER)
-        return spb
+        return pixbuf
 
     def get_pieceset(self):
         return self.pieceset
@@ -380,13 +375,3 @@ class Pieces:
 
     def set_custom_pieceset_path(self, path):
         self.custom_piece_path = path
-
-    def set_scale_factor(self, factor):
-        if factor < 0:
-            return
-        elif factor < 0.3:
-            factor = 0.3
-        elif factor > 3.0:
-            factor = 3.0
-
-        self.scale_factor = factor * 0.95

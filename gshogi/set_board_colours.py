@@ -43,6 +43,33 @@ class Set_Board_Colours:
         self.dialog = None
         self.text_colour_temp = None
 
+        """
+        try:
+            # get settings saved from previous game if any
+            (
+            self.bg_colour,
+            self.komadai_colour,
+            self.square_colour,
+            self.text_colour,
+            self.piece_fill_colour,
+            self.piece_outline_colour,
+            self.piece_kanji_colour,
+            self.border_colour,
+            self.grid_colour) = (
+                gv.gshogi.settings.colour_settings[0:9])
+        except AttributeError:
+            # default colour settings
+            self.bg_colour = "#645452"
+            self.komadai_colour = "#c5b358"
+            self.square_colour = "#ebdfb0"
+            self.text_colour = "#fffdd0"
+            self.piece_fill_colour = "#ffffd7"
+            self.piece_outline_colour = "#000000"
+            self.piece_kanji_colour = "#000001"
+            self.border_colour = "#ebdfb0"
+            self.grid_colour = "#000000"
+        """
+
         # default colour settings
         self.bg_colour = "#645452"
         self.komadai_colour = "#c5b358"
@@ -87,6 +114,7 @@ class Set_Board_Colours:
         if gv.verbose:
             print "set_board_colours - set_colours"
         self.bg_colour = board_bg_colour
+        print " board_komadai_colour=", board_komadai_colour
         self.komadai_colour = board_komadai_colour
         self.square_colour = board_square_colour
         self.text_colour = board_text_colour
@@ -406,6 +434,7 @@ class Set_Board_Colours:
     # starting up gshogi
     #
     def restore_colour_settings(self, colour_settings):
+        """
         (self.bg_colour,
          self.komadai_colour,
          self.square_colour,
@@ -417,7 +446,9 @@ class Set_Board_Colours:
          self.grid_colour,
          self.use_presets,
          self.combo_idx) = colour_settings
-
+        """
+        self.use_presets = True
+        self.combo_idx = 0
         self.apply_colour_settings()
 
     #

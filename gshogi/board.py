@@ -18,11 +18,17 @@
 #
 
 from gi.repository import Gtk
+from gi.repository import Gdk
 from gi.repository import GObject
+from gi.repository import GdkPixbuf
+import cairo
 
+import set_board_colours
 import engine
 from constants import WHITE, BLACK
 import gv
+
+SCALE = 0.8      # scale the pieces so they occupy 80% of the board square
 
 
 class Board:
@@ -82,7 +88,7 @@ class Board:
                 self.myimage[x][y].set_from_pixbuf(pb)
 
                 # call gui to show this square
-                gv.gui.init_board_square(self.myimage[x][y], x, y)
+                gv.gui.init_board_square(x, y)
 
         # initialise komadai (areas containing captured pieces)
         for y in range(7):
@@ -91,9 +97,12 @@ class Board:
                     gv.pieces.getpixbuf(" -"))
                 self.cap_label[side][y].set_text("   ")
                 # call gui to show this square
+                #gv.gui.init_komadai_square(
+                #    self.cap_image[side][y], y,
+                #        self.cap_label[side][y], side)
+
                 gv.gui.init_komadai_square(
-                    self.cap_image[side][y], y,
-                        self.cap_label[side][y], side)
+                    y, self.cap_label[side][y], side)
 
         GObject.idle_add(self.update)
 
@@ -210,10 +219,6 @@ class Board:
         return ""
 
     def display_board(self, w=None, h=None):
-
-        sf = self.get_scale_factor(w, h)
-        gv.pieces.set_scale_factor(sf)
-
         #
         # loop through the board squares and set the pieces
         # x, y = 0, 0 is the top left square of the board
@@ -226,6 +231,7 @@ class Board:
                 piece = self.board_position[l]
                 pb = gv.pieces.getpixbuf(piece)
                 self.myimage[x][y].set_from_pixbuf(pb)
+                self.set_image_cairo(x, y)
 
     def display_komadai(self, side):
         #
@@ -236,6 +242,7 @@ class Board:
         for i in range(7):
             self.cap_image[side][i].set_from_pixbuf(gv.pieces.getpixbuf(" -"))
             self.cap_label[side][i].set_text("   ")
+            self.set_image_cairo_komadai(i, " -", side)
 
         i = 0
         for c in self.cap[side]:
@@ -252,6 +259,7 @@ class Board:
                 self.cap_image[side][idx].set_from_pixbuf(gv.pieces.getpixbuf(z))
                 self.cap2[side][idx] = piece
                 self.cap_label[side][idx].set_text(" " + num + " ")
+                self.set_image_cairo_komadai(idx, z, side)
             i = i + 1
 
     #
@@ -336,18 +344,6 @@ class Board:
     def getboard(self):
         return engine.getboard()
 
-    # work out a factor to scale the pieces by
-    # this changes when the user resizes the board
-    def get_scale_factor(self, w=None, h=None):
-        square_size = gv.gui.get_square_size(w, h)
-        width = square_size
-        if width < 15:
-            factor = 1.0
-        else:
-            factor = width / 64.0
-
-        return factor
-
     def update(self, refresh_gui=True):
         self.board_position = self.getboard()
         self.cap[BLACK] = engine.getcaptured(BLACK)
@@ -365,16 +361,29 @@ class Board:
 
     #
     # return a pixbuf of the piece at the given square
-    # used by gshogi.py to get the drag and drop icon
+    # used by drag_and_drop.py to get the drag and drop icon
     #
     def get_piece_pixbuf(self, x, y):
         # convert the x, y square to the location value used by the engine
         l = self.get_gs_loc(x, y)
         piece = self.board_position[l]
-        return gv.pieces.getpixbuf(piece)
+        pb = gv.pieces.getpixbuf(piece)
+        spb = pb.scale_simple(
+            pb.get_width()*self.sfw, pb.get_height()*self.sfh, GdkPixbuf.InterpType.HYPER)
+        return spb
+
+    def get_piece_pixbuf_unscaled(self, x, y):
+        # convert the x, y square to the location value used by the engine
+        l = self.get_gs_loc(x, y)
+        piece = self.board_position[l]
+        pb = gv.pieces.getpixbuf(piece)
+        return pb
 
     def get_cap_pixbuf(self, y, stm):
-        return self.cap_image[stm][y].get_pixbuf()
+        pb = self.cap_image[stm][y].get_pixbuf()
+        spb = pb.scale_simple(
+            pb.get_width()*self.sfw, pb.get_height()*self.sfh, GdkPixbuf.InterpType.HYPER)
+        return spb
 
     #
     # called from gshogi.py to clear the source square when a drag of
@@ -393,6 +402,8 @@ class Board:
         self.board_position[l] = piece
         pb = gv.pieces.getpixbuf(piece)
         self.myimage[x][y].set_from_pixbuf(pb)
+
+        self.set_image_cairo(x, y)
 
     # called when user does a "clear board" in board edit
     def clear_board(self):
@@ -472,6 +483,86 @@ class Board:
     #
     def set_image(self, x, y, pixbuf):
         self.myimage[x][y].set_from_pixbuf(pixbuf)
+
+        self.set_image_cairo(x, y)
+
+    def get_cairo_colour(self, col):
+        p = Gdk.color_parse(col)
+        r = p.red / 65536.0
+        g = p.green / 65536.0
+        b = p.blue / 65536.0
+        return r, g, b
+
+    def set_image_cairo_komadai(self, y, piece, side):
+        if side == BLACK:
+            piece = piece.lower()
+        w = gv.gui.keb[side][y].get_window()
+        cr = w.cairo_create()
+
+        a = gv.gui.keb[side][y].get_allocation()
+
+        # clear square to bg colour
+        r, g, b = self.get_cairo_colour(
+            set_board_colours.get_ref().komadai_colour)
+        cr.set_source_rgb(r, g, b)
+        cr.rectangle(0, 0 , a.width, a.height)
+        cr.fill()
+
+        # set offset so piece is centered in the square
+        cr.translate(a.width*(1.0-SCALE)/2.0, a.height*(1.0-SCALE)/2.0)
+
+        # scale piece so it is smaller than the square
+        pb = gv.pieces.getpixbuf(piece)
+        sfw = (a.width * 1.0 / pb.get_width()) * SCALE
+        sfh = (a.height * 1.0 / pb.get_height()) * SCALE
+        cr.scale(sfw, sfh)
+
+        Gdk.cairo_set_source_pixbuf(cr, pb, 0, 0)
+        cr.paint()
+
+    def set_image_cairo(self, x, y, square_colour=None, cr=None, widget=None):
+
+        piece = self.get_piece(x, y)
+
+        if cr is None:
+            w = gv.gui.eb[x][y].get_window()
+            cr = w.cairo_create()
+
+        if widget is not None:
+            a = widget.get_allocation()
+        else:
+            a = gv.gui.eb[x][y].get_allocation()
+
+        # clear square to square colour
+        if square_colour is None:
+            square_colour = gv.gui.board_square_colour
+        r, g, b = self.get_cairo_colour(square_colour)
+        cr.set_source_rgb(r, g, b)
+        cr.rectangle(1, 1 , a.width-2, a.height-2)
+        cr.fill()
+
+        # set offset so piece is centered in the square
+        cr.translate(a.width*(1.0-SCALE)/2.0, a.height*(1.0-SCALE)/2.0)
+
+        # scale piece so it is smaller than the square
+        pb = self.get_piece_pixbuf_unscaled(x, y)
+        sfw = (a.width * 1.0 / pb.get_width()) * SCALE
+        sfh = (a.height * 1.0 / pb.get_height()) * SCALE
+        cr.scale(sfw, sfh)
+
+        self.sfw = sfw
+        self.sfh = sfh
+
+        #cr.set_source_pixbuf(pb, 0, 0)
+        Gdk.cairo_set_source_pixbuf(cr, pb, 0, 0)
+        #cr.set_source_surface(gv.gui.ims[x][y], 0, 0)
+        cr.paint()
+
+    def get_captured(self, y, side):
+        if side == WHITE:
+            return self.cap[WHITE][y]
+        else:
+            return self.cap[BLACK][y]
 
     def get_capturedw(self):
         return self.cap[WHITE]

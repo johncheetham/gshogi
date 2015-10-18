@@ -59,7 +59,7 @@ class Game:
         # set up .gshogi directory in the home directory
         self.gshogipath = utils.create_settings_dir()
         self.glade_dir = os.path.join(self.prefix, "glade")
-        settings = utils.get_settings_from_file(self.gshogipath)
+        self.settings = utils.get_settings_from_file(self.gshogipath)
 
         self.ask_before_promoting = False
         self.gameover = False
@@ -95,9 +95,9 @@ class Game:
         gv.engine_manager = engine_manager.Engine_Manager()
         gv.board = board.Board()
 
+        self.set_board_colours = set_board_colours.get_ref()
         gv.gui.build_gui()
         gv.board.build_board()
-        self.set_board_colours = set_board_colours.get_ref()
         self.engine_output = engine_output.get_ref()
 
         # set level
@@ -108,7 +108,7 @@ class Game:
             engine.command("beep")
 
         # restore users settings to values from previous game
-        self.restore_settings(settings)
+        self.restore_settings(self.settings)
 
         gv.usib.set_engine(self.player[BLACK], None)
         gv.usiw.set_engine(self.player[WHITE], None)
@@ -229,10 +229,12 @@ class Game:
         self.redolist = []
         # gv.board.save_board(len(self.movelist))
 
+        gv.board.update()
+
         # highlight the move by changing square colours
         self.hilite_move(move)
 
-        gv.board.update()
+
         # update move list in move list window
         self.move_list.update()
 
@@ -549,10 +551,6 @@ class Game:
                 if self.cmove != "":
                     self.movelist.append(self.cmove)
                     self.redolist = []
-                    # highlight the move by changing square colours
-                    Gdk.threads_enter()
-                    self.hilite_move(self.cmove)
-                    Gdk.threads_leave()
                 else:
                     # empty move is returned by gshogi engine when it is in
                     # checkmate
@@ -577,6 +575,8 @@ class Game:
                 Gdk.threads_enter()
                 gv.board.update()
                 self.move_list.update()
+                # highlight the move by changing square colours
+                self.hilite_move(self.cmove)
                 Gdk.threads_leave()
 
                 # if self.player[self.stm] != "gshogi"

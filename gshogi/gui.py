@@ -947,7 +947,7 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
              "No", Gtk.ResponseType.NO,
              "Cancel", Gtk.ResponseType.CANCEL))
 
-        dialog.vbox.pack_start(Gtk.Label("\nPromote piece?\n", True, True, 0))
+        dialog.vbox.pack_start(Gtk.Label("\nPromote piece?\n"), True, True, 0)
 
         dialog.show_all()
 

@@ -38,39 +38,11 @@ class Set_Board_Colours:
         if Set_Board_Colours.set_board_colours_ref is not None:
             print "error - already have a _set_board_colours instance"
         Set_Board_Colours.set_board_colours_ref = self
-        self.use_presets = True
-        self.combo_idx = 0
         self.dialog = None
         self.text_colour_temp = None
 
-        """
-        try:
-            # get settings saved from previous game if any
-            (
-            self.bg_colour,
-            self.komadai_colour,
-            self.square_colour,
-            self.text_colour,
-            self.piece_fill_colour,
-            self.piece_outline_colour,
-            self.piece_kanji_colour,
-            self.border_colour,
-            self.grid_colour) = (
-                gv.gshogi.settings.colour_settings[0:9])
-        except AttributeError:
-            # default colour settings
-            self.bg_colour = "#645452"
-            self.komadai_colour = "#c5b358"
-            self.square_colour = "#ebdfb0"
-            self.text_colour = "#fffdd0"
-            self.piece_fill_colour = "#ffffd7"
-            self.piece_outline_colour = "#000000"
-            self.piece_kanji_colour = "#000001"
-            self.border_colour = "#ebdfb0"
-            self.grid_colour = "#000000"
-        """
-
-        # default colour settings
+        # default settings
+        # these get overridden by settings from previous game (if any)
         self.bg_colour = "#645452"
         self.komadai_colour = "#c5b358"
         self.square_colour = "#ebdfb0"
@@ -80,8 +52,14 @@ class Set_Board_Colours:
         self.piece_kanji_colour = "#000001"
         self.border_colour = "#ebdfb0"
         self.grid_colour = "#000000"
+        self.use_presets = True
+        self.combo_idx = 0
 
     def get_colours(self):
+        if self.use_presets:
+            presets = self.get_presets()
+            theme = presets[self.combo_idx]
+            return theme[1]
         return \
             self.bg_colour, \
             self.komadai_colour, \
@@ -107,6 +85,20 @@ class Set_Board_Colours:
             # custom colours are in use
             return self.square_colour
 
+    def get_komadai_colour(self):
+        if self.use_presets:
+            # preset is in use
+            presets = self.get_presets()
+            theme = presets[self.combo_idx]
+            # (bg_colour, komadai_colour, square_colour, text_colour,
+            #  piece_fill_colour, piece_outline_colour, piece_kanji_colour)
+            #    = theme[1]
+            komadai_colour = theme[1][1]
+            return komadai_colour
+        else:
+            # custom colours are in use
+            return self.komadai_colour
+
     def set_colours(self, board_bg_colour, board_komadai_colour,
                     board_square_colour, board_text_colour, piece_fill_colour,
                     piece_outline_colour, piece_kanji_colour, border_colour,
@@ -114,7 +106,6 @@ class Set_Board_Colours:
         if gv.verbose:
             print "set_board_colours - set_colours"
         self.bg_colour = board_bg_colour
-        print " board_komadai_colour=", board_komadai_colour
         self.komadai_colour = board_komadai_colour
         self.square_colour = board_square_colour
         self.text_colour = board_text_colour
@@ -366,9 +357,9 @@ class Set_Board_Colours:
         #                    text_colour, piece_fill_colour,
         #                    piece_outline_colour, piece_kanji_colour,
         #                    border_colour, grid_colour)
-        gv.gui.set_colours(
-            bg_colour, komadai_colour, square_colour, text_colour,
-            border_colour, grid_colour)
+        #gv.gui.set_colours(
+        #    bg_colour, komadai_colour, square_colour, text_colour,
+        #    border_colour, grid_colour)
 
     def get_button_colour(self, colour_button):
         colour = colour_button.get_color()
@@ -401,9 +392,9 @@ class Set_Board_Colours:
         # gv.gui.set_colours(bg_colour, komadai_colour, square_colour,
         #   text_colour, piece_fill_colour, piece_outline_colour,
         #   piece_kanji_colour, border_colour, grid_colour)
-        gv.gui.set_colours(
-            bg_colour, komadai_colour, square_colour, text_colour,
-            border_colour, grid_colour)
+        #gv.gui.set_colours(
+        #    bg_colour, komadai_colour, square_colour, text_colour,
+        #    border_colour, grid_colour)
 
     # use presets radio button has been toggled
     def radio_button_changed(self, radio_button):
@@ -447,9 +438,34 @@ class Set_Board_Colours:
          self.use_presets,
          self.combo_idx) = colour_settings
         """
-        self.use_presets = True
-        self.combo_idx = 0
-        self.apply_colour_settings()
+
+        try:
+            # get settings saved from previous game if any
+            (self.bg_colour,
+             self.komadai_colour,
+             self.square_colour,
+             self.text_colour,
+             self.piece_fill_colour,
+             self.piece_outline_colour,
+             self.piece_kanji_colour,
+             self.border_colour,
+             self.grid_colour,
+             self.use_presets,
+             self.combo_idx) = colour_settings
+        except AttributeError:
+            # default colour settings
+            self.bg_colour = "#645452"
+            self.komadai_colour = "#c5b358"
+            self.square_colour = "#ebdfb0"
+            self.text_colour = "#fffdd0"
+            self.piece_fill_colour = "#ffffd7"
+            self.piece_outline_colour = "#000000"
+            self.piece_kanji_colour = "#000001"
+            self.border_colour = "#ebdfb0"
+            self.grid_colour = "#000000"
+            self.use_presets = True
+            self.combo_idx = 0
+        #self.apply_colour_settings()
 
     #
     # The following functions are for the set pieces dialog (not set board

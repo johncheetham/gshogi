@@ -59,6 +59,7 @@ class Game:
         # set up .gshogi directory in the home directory
         self.gshogipath = utils.create_settings_dir()
         self.glade_dir = os.path.join(self.prefix, "glade")
+        # get settings saved from previous game
         self.settings = utils.get_settings_from_file(self.gshogipath)
 
         self.ask_before_promoting = False
@@ -96,6 +97,10 @@ class Game:
         gv.board = board.Board()
 
         self.set_board_colours = set_board_colours.get_ref()
+        # set colours to previous game (if any)
+        if self.settings != "":
+            self.set_board_colours.restore_colour_settings(
+                self.settings.colour_settings)
         gv.gui.build_gui()
         gv.board.build_board()
         self.engine_output = engine_output.get_ref()
@@ -122,8 +127,8 @@ class Game:
         gv.gui.disable_stop_button()
 
         self.stm = self.get_side_to_move()
-
         self.timer_active = False
+        self.set_board_colours.apply_colour_settings()
 
     #
     # Process Human move
@@ -852,35 +857,14 @@ class Game:
                 if gv.verbose:
                     print e, ". time controls not restored"
 
-            # using Drag and Drop enabled
-            # try:
-            #     if x.dnd == True:
-            #         gv.gui.set_dnd()
-            # except Exception, e:
-            #     if gv.verbose: print e, ". DND setting not restored"
-
             # colour settings
-            try:
-                cs = x.colour_settings
-                #
-                # if settings file is from old version then need to add border
-                # colour and grid colour
-                # this code will only run once
-                #
-                if x.version == "0.4.3":
-                    print "converting old colour scheme to new version"
-                    lst = list(cs)
-                    # border colour - set same as square colour
-                    lst.insert(7, lst[2])
-                    # grid colour - set to black
-                    lst.insert(8, "#000000")
-                    cs = tuple(lst)
-                    print "colour scheme tuple is:", cs
-
-                self.set_board_colours.restore_colour_settings(cs)
-            except Exception, e:
-                if gv.verbose:
-                    print e, ". colour settings not restored"
+            # do this elsewhere
+            #try:
+            #    cs = x.colour_settings
+            #    self.set_board_colours.restore_colour_settings(cs)
+            #except Exception, e:
+            #    if gv.verbose:
+            #        print e, ". colour settings not restored"
 
             # hash value
             try:

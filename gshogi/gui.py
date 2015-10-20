@@ -62,26 +62,12 @@ class Gui:
         self.highlight_moves = True
 
         # Board Colours
-        #(self.board_bg_colour, self.board_komadai_colour,
-        # self.board_square_colour, self.board_text_colour,
-        # self.piece_fill_colour, self.piece_outline_colour,
-        # self.piece_kanji_colour, self.border_colour,
-        # self.grid_colour) = (
-        #    self.set_board_colours.get_colours())
-        try:
-            (self.board_bg_colour, self.board_komadai_colour,
-             self.board_square_colour, self.board_text_colour,
-             self.piece_fill_colour, self.piece_outline_colour,
-             self.piece_kanji_colour, self.border_colour,
-             self.grid_colour) = (
-                gv.gshogi.settings.colour_settings[0:9])
-        except AttributeError:
-            (self.board_bg_colour, self.board_komadai_colour,
-                self.board_square_colour, self.board_text_colour,
-                self.piece_fill_colour, self.piece_outline_colour,
-                self.piece_kanji_colour, self.border_colour,
-                self.grid_colour) = (
-                    self.set_board_colours.get_colours())
+        (self.board_bg_colour, self.board_komadai_colour,
+         self.board_square_colour, self.board_text_colour,
+         self.piece_fill_colour, self.piece_outline_colour,
+         self.piece_kanji_colour, self.border_colour,
+         self.grid_colour) = (
+            self.set_board_colours.get_colours())
 
         # Create Main Window
         glade_dir = gv.gshogi.get_glade_dir()
@@ -492,7 +478,7 @@ class Gui:
         self.context_id = self.status_bar.get_context_id("gshogi statusbar")
 
         self.actiongroup.get_action("MoveNow").set_sensitive(False)
-        self.actiongroup.get_action("SetBoardColours").set_sensitive(False)
+        #self.actiongroup.get_action("SetBoardColours").set_sensitive(False)
 
         self.window.show_all()
         self.side_to_move[WHITE].hide()
@@ -874,7 +860,7 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
             self.actiongroup.get_action("Undo").set_sensitive(False)
             self.actiongroup.get_action("Redo").set_sensitive(False)
             self.actiongroup.get_action("MoveNow").set_sensitive(True)
-            #self.actiongroup.get_action("SetBoardColours").set_sensitive(False)
+            self.actiongroup.get_action("SetBoardColours").set_sensitive(False)
             self.actiongroup.get_action("TimeControl").set_sensitive(False)
             self.actiongroup.get_action(
                 "ConfigureEngine1").set_sensitive(False)
@@ -908,7 +894,7 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
         self.actiongroup.get_action("TimeControl").set_sensitive(True)
         self.actiongroup.get_action("MoveNow").set_sensitive(False)
         self.actiongroup.get_action("CommonEngineSettings").set_sensitive(True)
-        #self.actiongroup.get_action("SetBoardColours").set_sensitive(True)
+        self.actiongroup.get_action("SetBoardColours").set_sensitive(True)
 
         self.actiongroup.get_action("Edit").set_sensitive(True)
         # edit menu
@@ -1054,12 +1040,12 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
             print "  border_colour=", border_colour
             print "  grid_colour=", grid_colour
 
-        self.window.modify_bg(
+        self.get_window().modify_bg(
             Gtk.StateType.NORMAL, Gdk.color_parse(bg_colour))
-        #self.komadaiw_eb.modify_bg(
-        #    Gtk.StateType.NORMAL, Gdk.color_parse(komadai_colour))
-        #self.komadaib_eb.modify_bg(
-        #    Gtk.StateType.NORMAL, Gdk.color_parse(komadai_colour))
+        self.komadaiw_eb.modify_bg(
+            Gtk.StateType.NORMAL, Gdk.color_parse(komadai_colour))
+        self.komadaib_eb.modify_bg(
+            Gtk.StateType.NORMAL, Gdk.color_parse(komadai_colour))
 
         for i in range(0, 7):
             #self.web[i].modify_bg(
@@ -1080,11 +1066,11 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
                 pass
 
         # border surrounds the board and contains the co-ordinates
-        #self.border_eb.modify_bg(
-        #    Gtk.StateType.NORMAL, Gdk.color_parse(border_colour))
+        self.border_eb.modify_bg(
+            Gtk.StateType.NORMAL, Gdk.color_parse(border_colour))
 
-        #self.grid_eb.modify_bg(
-        #    Gtk.StateType.NORMAL, Gdk.color_parse(grid_colour))
+        self.grid_eb.modify_bg(
+            Gtk.StateType.NORMAL, Gdk.color_parse(grid_colour))
 
         # gv.pieces.change_piece_colours2(
         #   piece_fill_colour, piece_outline_colour, piece_kanji_colour)

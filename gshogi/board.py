@@ -29,7 +29,7 @@ from constants import WHITE, BLACK
 import gv
 
 SCALE = 0.8      # scale the pieces so they occupy 80% of the board square
-
+LINEWIDTH = 2    # width of lines on the board
 
 class Board:
 
@@ -41,7 +41,7 @@ class Board:
         ]
 
     def build_board(self):
-        self.myimage = [[Gtk.Image() for x in range(9)] for x in range(9)]
+        #self.myimage = [[Gtk.Image() for x in range(9)] for x in range(9)]
         self.cap_image = [
             [Gtk.Image() for x in range(9)],
             [Gtk.Image() for x in range(9)]
@@ -78,14 +78,14 @@ class Board:
             for y in range(9):
                 # convert the x, y square to the location value
                 # used by the engine
-                l = self.get_gs_loc(x, y)
+                #l = self.get_gs_loc(x, y)
 
                 # get the piece at (x, y)
-                piece = self.board_position[l]
+                #piece = self.board_position[l]
 
                 # set the image on the board square to the required piece
-                pb = gv.pieces.getpixbuf(piece)
-                self.myimage[x][y].set_from_pixbuf(pb)
+                #pb = gv.pieces.getpixbuf(piece)
+                #self.myimage[x][y].set_from_pixbuf(pb)
 
                 # call gui to show this square
                 gv.gui.init_board_square(x, y)
@@ -227,10 +227,10 @@ class Board:
             for y in range(9):
                 # convert the x, y square to the location value
                 # used by the engine
-                l = self.get_gs_loc(x, y)
-                piece = self.board_position[l]
-                pb = gv.pieces.getpixbuf(piece)
-                self.myimage[x][y].set_from_pixbuf(pb)
+                #l = self.get_gs_loc(x, y)
+                #piece = self.board_position[l]
+                #pb = gv.pieces.getpixbuf(piece)
+                #self.myimage[x][y].set_from_pixbuf(pb)
                 self.set_image_cairo(x, y)
 
     def display_komadai(self, side):
@@ -400,8 +400,8 @@ class Board:
     def set_piece_at_square(self, x, y, piece):
         l = self.get_gs_loc(x, y)
         self.board_position[l] = piece
-        pb = gv.pieces.getpixbuf(piece)
-        self.myimage[x][y].set_from_pixbuf(pb)
+        #pb = gv.pieces.getpixbuf(piece)
+        #self.myimage[x][y].set_from_pixbuf(pb)
 
         self.set_image_cairo(x, y)
 
@@ -482,8 +482,7 @@ class Board:
     # used in gshogi.py drag and drop
     #
     def set_image(self, x, y, pixbuf):
-        self.myimage[x][y].set_from_pixbuf(pixbuf)
-
+        #self.myimage[x][y].set_from_pixbuf(pixbuf)
         self.set_image_cairo(x, y)
 
     def get_cairo_colour(self, col):
@@ -502,8 +501,10 @@ class Board:
         a = gv.gui.keb[side][y].get_allocation()
 
         # clear square to bg colour
+        #r, g, b = self.get_cairo_colour(
+        #    set_board_colours.get_ref().komadai_colour)
         r, g, b = self.get_cairo_colour(
-            set_board_colours.get_ref().komadai_colour)
+            set_board_colours.get_ref().get_komadai_colour())
         cr.set_source_rgb(r, g, b)
         cr.rectangle(0, 0 , a.width, a.height)
         cr.fill()
@@ -534,11 +535,17 @@ class Board:
             a = gv.gui.eb[x][y].get_allocation()
 
         # clear square to square colour
-        if square_colour is None:
-            square_colour = gv.gui.board_square_colour
-        r, g, b = self.get_cairo_colour(square_colour)
+        if square_colour is not None:
+            r, g, b = self.get_cairo_colour(square_colour)
+        else:
+            #square_colour = gv.gui.board_square_colour
+            #r, g, b = self.get_cairo_colour(
+            #    set_board_colours.get_ref().square_colour)
+            r, g, b = self.get_cairo_colour(
+                set_board_colours.get_ref().get_square_colour())
+
         cr.set_source_rgb(r, g, b)
-        cr.rectangle(1, 1 , a.width-2, a.height-2)
+        cr.rectangle(1, 1 , a.width-LINEWIDTH, a.height-LINEWIDTH)
         cr.fill()
 
         # set offset so piece is centered in the square

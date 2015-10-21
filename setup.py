@@ -66,6 +66,9 @@ setup(name="gshogi",
       package_data={
           "gshogi": ["data/opening.bbk"],
       },
+      data_files=[
+        (sys.prefix+'/share/applications',['gshogi.desktop']),
+        (sys.prefix+'/share/pixmaps', ['gshogi.png'])],
 
       entry_points={
           "gui_scripts": [

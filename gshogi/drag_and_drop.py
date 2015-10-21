@@ -28,33 +28,10 @@ class Drag_And_Drop:
 
     drag_and_drop_ref = None
 
-    """
-    def draw(self, cr, width, height):
-        # Fill the background with gray
-        cr.set_source_rgb(0.5, 0.5, 0.5)
-        cr.rectangle(0, 0, width, height)
-        cr.fill()
-    """
-
     #
     # user has begun to drag a piece
     #
     def drag_begin(self, widget, drag_context, data):
-
-        """
-        #cr = gv.gui.window.window.cairo_create()
-        gv.gui.af.window.set_opacity(0)
-        cr = gv.gui.af.window.cairo_create()
-
-        cr.rectangle(400, 400, 600, 600)
-
-        #cr.rectangle(event.area.x, event.area.y,
-        #        event.area.width, event.area.height)
-        cr.clip()
-
-        #self.draw(cr, *gv.gui.window.window.get_size())
-        self.draw(cr, *gv.gui.af.window.get_size())
-        """
 
         self.dnd_data_received = False
 

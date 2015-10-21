@@ -39,9 +39,6 @@ class Board:
             engine.getcaptured(BLACK),
             engine.getcaptured(WHITE)
         ]
-
-    def build_board(self):
-        #self.myimage = [[Gtk.Image() for x in range(9)] for x in range(9)]
         self.cap_image = [
             [Gtk.Image() for x in range(9)],
             [Gtk.Image() for x in range(9)]
@@ -50,11 +47,12 @@ class Board:
             [Gtk.Label() for x in range(9)],
             [Gtk.Label() for x in range(9)]
         ]
-        self.init_board()
 
-    def init_board(self):
+    def get_cap_label(self, side):
+        return self.cap_label[side]
+
+    def build_board(self):
         prefix = gv.gshogi.get_prefix()
-
         gv.pieces.load_pieces(prefix)
 
         # pieces captured by black (index 0) and white (index 1)
@@ -70,39 +68,12 @@ class Board:
             " K", "+P", "+L", "+N", "+S", "+B", "+R"
         ]
 
-        #
-        # loop through the board squares and set the pieces
-        # x, y = 0, 0 is the top left square of the board
-        #
-        for x in range(9):
-            for y in range(9):
-                # convert the x, y square to the location value
-                # used by the engine
-                #l = self.get_gs_loc(x, y)
-
-                # get the piece at (x, y)
-                #piece = self.board_position[l]
-
-                # set the image on the board square to the required piece
-                #pb = gv.pieces.getpixbuf(piece)
-                #self.myimage[x][y].set_from_pixbuf(pb)
-
-                # call gui to show this square
-                gv.gui.init_board_square(x, y)
-
         # initialise komadai (areas containing captured pieces)
         for y in range(7):
             for side in range(2):
                 self.cap_image[side][y].set_from_pixbuf(
                     gv.pieces.getpixbuf(" -"))
                 self.cap_label[side][y].set_text("   ")
-                # call gui to show this square
-                #gv.gui.init_komadai_square(
-                #    self.cap_image[side][y], y,
-                #        self.cap_label[side][y], side)
-
-                gv.gui.init_komadai_square(
-                    y, self.cap_label[side][y], side)
 
         GObject.idle_add(self.update)
 
@@ -225,12 +196,6 @@ class Board:
         #
         for x in range(9):
             for y in range(9):
-                # convert the x, y square to the location value
-                # used by the engine
-                #l = self.get_gs_loc(x, y)
-                #piece = self.board_position[l]
-                #pb = gv.pieces.getpixbuf(piece)
-                #self.myimage[x][y].set_from_pixbuf(pb)
                 self.set_image_cairo(x, y)
 
     def display_komadai(self, side):
@@ -258,6 +223,12 @@ class Board:
                     idx = 6 - i
                 self.cap_image[side][idx].set_from_pixbuf(gv.pieces.getpixbuf(z))
                 self.cap2[side][idx] = piece
+                # if more than 10 captured need to manipulate ordinal values
+                # since num only occupies 1 character.
+                # eg. if 10 captured num is set to ":" which is converted to
+                # "1" + chr(48) = "10"
+                if num > "9":
+                    num = "1" + chr(ord(num) - 10)
                 self.cap_label[side][idx].set_text(" " + num + " ")
                 self.set_image_cairo_komadai(idx, z, side)
             i = i + 1
@@ -282,8 +253,6 @@ class Board:
             ]
         ]
 
-        # black_pieces = [" p", " l", " n", " s", " g", " b", " r", " k", "+p",
-        # "+l", "+n", "+s", "+b", "+r"]
         try:
             idx = pieces[stm].index(piece)
         except ValueError, ve:
@@ -400,9 +369,6 @@ class Board:
     def set_piece_at_square(self, x, y, piece):
         l = self.get_gs_loc(x, y)
         self.board_position[l] = piece
-        #pb = gv.pieces.getpixbuf(piece)
-        #self.myimage[x][y].set_from_pixbuf(pb)
-
         self.set_image_cairo(x, y)
 
     # called when user does a "clear board" in board edit
@@ -482,7 +448,6 @@ class Board:
     # used in gshogi.py drag and drop
     #
     def set_image(self, x, y, pixbuf):
-        #self.myimage[x][y].set_from_pixbuf(pixbuf)
         self.set_image_cairo(x, y)
 
     def get_cairo_colour(self, col):
@@ -495,14 +460,13 @@ class Board:
     def set_image_cairo_komadai(self, y, piece, side):
         if side == BLACK:
             piece = piece.lower()
-        w = gv.gui.keb[side][y].get_window()
+        keb = gv.gui.get_komadai_event_box(side, y)
+        w = keb.get_window()
         cr = w.cairo_create()
 
-        a = gv.gui.keb[side][y].get_allocation()
+        a = keb.get_allocation()
 
         # clear square to bg colour
-        #r, g, b = self.get_cairo_colour(
-        #    set_board_colours.get_ref().komadai_colour)
         r, g, b = self.get_cairo_colour(
             set_board_colours.get_ref().get_komadai_colour())
         cr.set_source_rgb(r, g, b)
@@ -535,12 +499,10 @@ class Board:
             a = gv.gui.eb[x][y].get_allocation()
 
         # clear square to square colour
+        # square colour is set if called from gui.py hilite_squares
         if square_colour is not None:
             r, g, b = self.get_cairo_colour(square_colour)
         else:
-            #square_colour = gv.gui.board_square_colour
-            #r, g, b = self.get_cairo_colour(
-            #    set_board_colours.get_ref().square_colour)
             r, g, b = self.get_cairo_colour(
                 set_board_colours.get_ref().get_square_colour())
 
@@ -560,9 +522,7 @@ class Board:
         self.sfw = sfw
         self.sfh = sfh
 
-        #cr.set_source_pixbuf(pb, 0, 0)
         Gdk.cairo_set_source_pixbuf(cr, pb, 0, 0)
-        #cr.set_source_surface(gv.gui.ims[x][y], 0, 0)
         cr.paint()
 
     def get_captured(self, y, side):

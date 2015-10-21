@@ -61,14 +61,6 @@ class Gui:
         self.show_coords = True
         self.highlight_moves = True
 
-        # Board Colours
-        (self.board_bg_colour, self.board_komadai_colour,
-         self.board_square_colour, self.board_text_colour,
-         self.piece_fill_colour, self.piece_outline_colour,
-         self.piece_kanji_colour, self.border_colour,
-         self.grid_colour) = (
-            self.set_board_colours.get_colours())
-
         # Create Main Window
         glade_dir = gv.gshogi.get_glade_dir()
         self.glade_file = os.path.join(glade_dir, "main_window.glade")
@@ -86,27 +78,17 @@ class Gui:
 
         # self.window = Gtk.Window(Gtk.WindowType.TOPLEVEL)
         self.window.set_title(NAME + " " + VERSION)
-        self.window.modify_bg(
-            Gtk.StateType.NORMAL, Gdk.color_parse(self.board_bg_colour))
 
         # 1 eventbox per board square
         self.eb = [[Gtk.EventBox() for x in range(9)] for x in range(9)]
+
+        # 1 eventbox per komadai board square
         self.keb = [[Gtk.EventBox() for x in range(7)] for x in range(2)]
-
-        # 1 eventbox per white komadai board square
-        self.web = [Gtk.EventBox() for x in range(7)]
-        self.wcap_label = [Gtk.Label() for x in range(7)]
-
-        # 1 eventbox per black komadai board square
-        self.beb = [Gtk.EventBox() for x in range(7)]
-        self.bcap_label = [Gtk.Label() for x in range(7)]
 
         # Set a handler for delete_event that immediately exits GTK.
         self.window.connect("delete_event", gv.gshogi.delete_event)
 
         main_vbox = self.builder.get_object("main_vbox")
-        # main_vbox = Gtk.VBox(False, 0)
-        # self.window.add(main_vbox)
         main_vbox.show()
 
         # menu
@@ -364,17 +346,10 @@ class Gui:
         hb = Gtk.HBox(False, 0)
         self.gobutton = Gtk.ToolButton(Gtk.STOCK_YES)
         self.gobutton.connect("clicked", gv.gshogi.go_clicked)
-
         self.stopbutton = Gtk.ToolButton(Gtk.STOCK_NO)
         self.stopbutton.connect("clicked", gv.gshogi.stop_clicked)
-
-        # set_tooltip_text needs PyGTK 2.12 and above.
-        try:
-            self.gobutton.set_tooltip_text("go")
-            self.stopbutton.set_tooltip_text("stop")
-        except AttributeError, ae:
-            pass
-
+        self.gobutton.set_tooltip_text("go")
+        self.stopbutton.set_tooltip_text("stop")
         hb.pack_start(self.stopbutton, False, True, 0)
         hb.pack_start(self.gobutton, False, True, 0)
 
@@ -421,21 +396,29 @@ class Gui:
         toolitem.add(hb)
         toolbar.insert(toolitem, -1)
 
-        ###
-        #main_hbox = self.builder.get_object("main_hbox")
         main_grid = self.builder.get_object("grid1")
         main_grid.set_row_homogeneous(True)
         main_grid.set_column_homogeneous(True)
         # main_hbox = Gtk.HBox(False, 0)
 
-        # Create a 7x1 table for pieces captured by the white side
-        self.setup_white_komadai(main_grid)
+        # Create komadai grids for captured pieces
+        self.setup_komadai(WHITE, main_grid)
+        self.setup_komadai(BLACK, main_grid)
 
         # Create a 9x9 table for the main board
         self.boardgrid = Gtk.Grid.new()
         self.boardgrid.set_row_homogeneous(True)
         self.boardgrid.set_column_homogeneous(True)
         self.boardgrid.set_border_width(1)
+
+        #
+        # init board squares (add event box, set up drag and drop,
+        # button clicks)
+        # x, y = 0, 0 is the top left square of the board
+        #
+        for x in range(9):
+            for y in range(9):
+                self.init_board_square(x, y)
 
         eb2 = Gtk.EventBox()
 
@@ -444,8 +427,6 @@ class Gui:
         eb = Gtk.EventBox()
         eb.add(eb2)
         eb.show()
-        eb.modify_bg(
-            Gtk.StateType.NORMAL, Gdk.color_parse(self.board_square_colour))
 
         aspect_frame = Gtk.AspectFrame(label=None, xalign=0.5, yalign=0.5,
                                        ratio=1.0, obey_child=False)
@@ -459,9 +440,6 @@ class Gui:
 
         eb.connect_after("draw", self.draw_coords)
         self.border_eb = eb
-
-        # Create a 7x1 table for pieces captured by the black side
-        self.setup_black_komadai(main_grid)
 
         # status bar
         self.status_bar = self.builder.get_object("status_bar")
@@ -478,7 +456,6 @@ class Gui:
         self.context_id = self.status_bar.get_context_id("gshogi statusbar")
 
         self.actiongroup.get_action("MoveNow").set_sensitive(False)
-        #self.actiongroup.get_action("SetBoardColours").set_sensitive(False)
 
         self.window.show_all()
         self.side_to_move[WHITE].hide()
@@ -514,47 +491,26 @@ class Gui:
         gv.board.set_image_cairo(x, y, cr=cr, widget=widget)
 
     def init_board_square(self, x, y):
-        event_box = Gtk.EventBox()
+        event_box = self.eb[x][y]
         event_box.connect("draw", self.draw_board_square, x, y)
         self.boardgrid.attach(event_box, x, y, 1, 1)
         event_box.set_hexpand(True)
         event_box.set_vexpand(True)
         event_box.show()
-        #event_box.modify_bg(Gtk.StateType.NORMAL,
-        #                    Gdk.color_parse(self.board_square_colour))
-        #print Gdk.color_parse(self.board_square_colour)
-        #event_box.set_border_width(1)
         event_box.add_events(Gdk.EventMask.BUTTON_PRESS_MASK)
         data = (x, y)
         event_box.connect("button_press_event", gv.gshogi.square_clicked, data)
-
-        # set up square as a source square for sending out drag data
-        # from a drag & drop action
-        # self.targets =
-        #   [( "text/plain", Gtk.TargetFlags.SAME_APP, TARGET_TYPE_TEXT ) ]
-
         event_box.connect("drag_data_get", self.drag_and_drop.sendCallback)
         event_box.connect_after(
             "drag_begin", self.drag_and_drop.drag_begin, (x, y))
-        # event_box.emit_stop_by_name("drag_begin")
         event_box.connect_after("drag_end", self.drag_and_drop.drag_end)
-        # event_box.drag_source_set(
-        #   Gdk.ModifierType.BUTTON1_MASK, self.targets, Gdk.DragAction.COPY)
 
         # set up square as a destination square to receive drag data
         # from a drag & drop action
-
         event_box.connect(
             "drag_data_received", self.drag_and_drop.receiveCallback, (x, y))
-        # event_box.drag_dest_set(
-        #     Gtk.DestDefaults.MOTION |
-        #     Gtk.DestDefaults.HIGHLIGHT |
-        #     Gtk.DestDefaults.DROP, self.targets, Gdk.DragAction.COPY)
-        self.eb[x][y] = event_box
 
     def dnd_set_source_square(self, x, y):
-        # self.targets = [
-        #   ( "text/plain", Gtk.TargetFlags.SAME_APP, TARGET_TYPE_TEXT ) ]
         self.targets = [
             Gtk.TargetEntry.new(
                 "text/plain", Gtk.TargetFlags.SAME_APP, TARGET_TYPE_TEXT)]
@@ -565,8 +521,6 @@ class Gui:
         self.eb[x][y].drag_source_unset()
 
     def dnd_set_dest_square(self, x, y):
-        # self.targets =
-        #   [( "text/plain", Gtk.TargetFlags.SAME_APP, TARGET_TYPE_TEXT ) ]
         self.targets = [
             Gtk.TargetEntry.new(
                 "text/plain", Gtk.TargetFlags.SAME_APP, TARGET_TYPE_TEXT)]
@@ -579,43 +533,36 @@ class Gui:
     def dnd_unset_dest_square(self, x, y):
         self.eb[x][y].drag_dest_unset()
 
-    def dnd_unset_source_bcap_square(self, y):
-        self.beb[y].drag_source_unset()
-
-    def dnd_unset_source_wcap_square(self, y):
-        self.web[y].drag_source_unset()
+    def dnd_unset_source_komadai_square(self, y):
+        self.keb[BLACK][y].drag_source_unset()
+        self.keb[WHITE][y].drag_source_unset()
 
     def dnd_set_source_bcap_square(self, y):
-        # self.targets = [
-        #    "text/plain", Gtk.TargetFlags.SAME_APP, TARGET_TYPE_TEXT ) ]
         self.targets = [
             Gtk.TargetEntry.new("text/plain", Gtk.TargetFlags.SAME_APP,
                                 TARGET_TYPE_TEXT)]
-        self.beb[y].drag_source_set(
+        self.keb[BLACK][y].drag_source_set(
             Gdk.ModifierType.BUTTON1_MASK, self.targets, Gdk.DragAction.COPY)
 
     def dnd_set_source_wcap_square(self, y):
-        # self.targets = [
-        #   ( "text/plain", Gtk.TargetFlags.SAME_APP, TARGET_TYPE_TEXT ) ]
         self.targets = [
             Gtk.TargetEntry.new(
                 "text/plain", Gtk.TargetFlags.SAME_APP, TARGET_TYPE_TEXT)]
-        self.web[y].drag_source_set(
+        self.keb[WHITE][y].drag_source_set(
             Gdk.ModifierType.BUTTON1_MASK, self.targets, Gdk.DragAction.COPY)
 
     # set all squares so they cannot be used for drag and drop
     def unset_all_drag_and_drop_squares(self):
         # main board
-        for x in range(0, 9):
-            for y in range(0, 9):
+        for x in range(9):
+            for y in range(9):
                 self.dnd_unset_source_square(x, y)
                 self.dnd_unset_dest_square(x, y)
 
         # komadai
-        for y in range(0, 7):
+        for y in range(7):
             # set default to unset (no square can be dragged)
-            self.dnd_unset_source_bcap_square(y)
-            self.dnd_unset_source_wcap_square(y)
+            self.dnd_unset_source_komadai_square(y)
 
     #
     # Look at each board square and set it as a valid drag and drop
@@ -632,8 +579,8 @@ class Gui:
             self.unset_all_drag_and_drop_squares
             return
 
-        for x in range(0, 9):
-            for y in range(0, 9):
+        for x in range(9):
+            for y in range(9):
                 # set default to unset (no square can be dragged or dropped
                 self.dnd_unset_source_square(x, y)
                 self.dnd_unset_dest_square(x, y)
@@ -659,10 +606,9 @@ class Gui:
         bcap = gv.board.get_capturedb()
 
         # komadai
-        for y in range(0, 7):
+        for y in range(7):
             # set default to unset (no square can be dragged)
-            self.dnd_unset_source_bcap_square(y)
-            self.dnd_unset_source_wcap_square(y)
+            self.dnd_unset_source_komadai_square(y)
             if player != "Human":
                 continue
 
@@ -675,60 +621,38 @@ class Gui:
                     self.dnd_set_source_bcap_square(y)
 
     #
-    # set up the komadai for white. this is a column on the left of the board
-    # to hold pieces captured by white
+    # set up the komadai. This is a an area on the left of the screen
+    # for white (right for black) to hold captured pieces
     #
-    def setup_white_komadai(self, grid):
-        self.wcaptable = Gtk.Grid()
-        self.wcaptable.set_row_homogeneous(True)
+    def setup_komadai(self, side, grid):
+        komgrid = Gtk.Grid()
+        komgrid.set_row_homogeneous(True)
+        cap_label = gv.board.get_cap_label(side)
 
         eb2 = Gtk.EventBox()
         eb2.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse("#000000"))
 
         eb = Gtk.EventBox()
-        eb.modify_bg(
-            Gtk.StateType.NORMAL, Gdk.color_parse(self.board_komadai_colour))
-        eb.add(self.wcaptable)
+        eb.add(komgrid)
         eb.show()
-        self.komadaiw_eb = eb
         eb.set_border_width(3)
         eb2.add(eb)
-        grid.attach(eb2, 0, 0, 4, 14)
-        self.wcaptable.show()
+        if side == WHITE:
+            grid.attach(eb2, 0, 0, 4, 14)
+            self.komadaiw_eb = eb
+        else:
+            grid.attach(eb2, 28, 6, 4, 14)
+            self.komadaib_eb = eb
+        komgrid.show()
 
-    #
-    # set up the komadai for black. this is a column on the right of the board
-    # to hold pieces captured by black
-    #
-    def setup_black_komadai(self, grid):
-        self.bcaptable = Gtk.Grid()
-        self.bcaptable.set_row_homogeneous(True)
+        for y in range(7):
+            self.init_komadai_square(
+                y, cap_label[y], side, komgrid)
 
-        eb2 = Gtk.EventBox()
-        eb2.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse("#000000"))
-
-        eb = Gtk.EventBox()
-        eb.modify_bg(
-            Gtk.StateType.NORMAL, Gdk.color_parse(self.board_komadai_colour))
-        eb.add(self.bcaptable)
-        eb.show()
-        self.komadaib_eb = eb
-        eb.set_border_width(3)
-        eb2.add(eb)
-        grid.attach(eb2, 28, 6, 4, 14)
-        self.bcaptable.show()
-
-    def draw_komadai_square(self, wid, cr, y, side):
-        piece = gv.board.get_cap_piece(y, side)
-        if piece ==  "0":
-            piece = "-"
-        piece = " " + piece
-        gv.board.set_image_cairo_komadai(y, piece, side)
-
-    def init_komadai_square(self, y, label, side):
+    def init_komadai_square(self, y, label, side, komgrid):
         hb = Gtk.HBox(False, 0)
         hb.show()
-        event_box = Gtk.EventBox()
+        event_box = self.keb[side][y]
         event_box.set_vexpand(True)
         event_box.set_hexpand(True)
 
@@ -738,33 +662,24 @@ class Gui:
         aspect_frame.add(event_box)
 
         event_box.connect("draw", self.draw_komadai_square, y, side)
-        label.modify_fg(
-            Gtk.StateType.NORMAL, Gdk.color_parse(self.board_text_colour))
+
         fontdesc = Pango.FontDescription("Monospace 15")
         label.modify_font(fontdesc)
         label.show()
 
         if side == WHITE:
             hb.pack_start(label, False, False, 0)
-            self.wcap_label[y] = label
-            #hb.pack_start(event_box, True, True, 0)
             hb.pack_start(aspect_frame, True, True, 0)
-            self.wcaptable.attach(hb, 0, y, 1, 1)
-            self.web[y] = event_box
+            komgrid.attach(hb, 0, y, 1, 1)
             event_box.set_name("wcap_eb")
         else:
             hb.pack_end(label, False, False, 0)
-            self.bcap_label[y] = label
-            #hb.pack_end(event_box, True, True, 0)
             hb.pack_end(aspect_frame, True, True, 0)
-            self.bcaptable.attach(hb, 0, y, 1, 1)
-            self.beb[y] = event_box
+            komgrid.attach(hb, 0, y, 1, 1)
             event_box.set_name("bcap_eb")
 
         event_box.show()
         aspect_frame.show()
-        #event_box.modify_bg(
-        #    Gtk.StateType.NORMAL, Gdk.color_parse(self.board_komadai_colour))
         #event_box.set_border_width(5)
         event_box.add_events(Gdk.EventMask.BUTTON_PRESS_MASK)
         x = 0
@@ -778,7 +693,16 @@ class Gui:
         event_box.connect_after(
             "drag_begin", self.drag_and_drop.drag_begin, (x, y))
         event_box.connect_after("drag_end", self.drag_and_drop.drag_end)
-        self.keb[side][y] = event_box
+
+    def draw_komadai_square(self, wid, cr, y, side):
+        piece = gv.board.get_cap_piece(y, side)
+        if piece ==  "0":
+            piece = "-"
+        piece = " " + piece
+        gv.board.set_image_cairo_komadai(y, piece, side)
+
+    def get_komadai_event_box(self, side, y):
+        return self.keb[side][y]
 
     # about box
     def about_box(self, widget):
@@ -1023,11 +947,6 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
 
     def set_colours(self, bg_colour, komadai_colour, square_colour,
                     text_colour, border_colour, grid_colour):
-        #return
-        # stack = inspect.stack()
-        # for item in stack:
-        #     print item
-        # print "stack:",inspect.stack()
         if gv.verbose:
             print "in gui set_colours with these parms:"
             print "  bg_colour=", bg_colour
@@ -1047,23 +966,8 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
         self.komadaib_eb.modify_bg(
             Gtk.StateType.NORMAL, Gdk.color_parse(komadai_colour))
 
-        for i in range(0, 7):
-            #self.web[i].modify_bg(
-            #    Gtk.StateType.NORMAL, Gdk.color_parse(komadai_colour))
-            #self.beb[i].modify_bg(
-            #    Gtk.StateType.NORMAL, Gdk.color_parse(komadai_colour))
-
-            #self.wcap_label[i].modify_fg(
-            #    Gtk.StateType.NORMAL, Gdk.color_parse(text_colour))
-            #self.bcap_label[i].modify_fg(
-            #    Gtk.StateType.NORMAL, Gdk.color_parse(text_colour))
-            pass
-
-        for i in range(0, 9):
-            for j in range(0, 9):
-                #self.eb[i][j].modify_bg(
-                #    Gtk.StateType.NORMAL, Gdk.color_parse(square_colour))
-                pass
+        # square/komadai square colours are set in board.py in
+        # set_image_cairo_komadai and set_image_cairo
 
         # border surrounds the board and contains the co-ordinates
         self.border_eb.modify_bg(
@@ -1113,9 +1017,6 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
         for sq in square_list:
             # highlight the square
             x, y = sq
-            #self.eb[x][y].modify_bg(
-            #    Gtk.StateType.NORMAL, Gdk.color_parse(hilite_colour))
-
             gv.board.set_image_cairo(x, y, hilite_colour)
 
             # add to list of highlighted squares

@@ -232,13 +232,11 @@ class Game:
     def human_move(self, move):
         self.movelist.append(move)
         self.redolist = []
-        # gv.board.save_board(len(self.movelist))
 
         gv.board.update()
 
         # highlight the move by changing square colours
         self.hilite_move(move)
-
 
         # update move list in move list window
         self.move_list.update()
@@ -254,10 +252,6 @@ class Game:
             self.thinking = False
             return
 
-        # gv.gui.set_status_bar_msg("Thinking ...")
-        # if gv.verbose:
-        #     print "---------------------------------------------------------"
-        # print "whites move"
         self.stm = self.get_side_to_move()
         gv.gui.set_side_to_move(self.stm)
         if gv.verbose:
@@ -385,7 +379,6 @@ class Game:
             self.src = self.piece + "*"
         else:
             self.src = ""
-        # print "self.src=",self.src
 
     def get_prefix(self):
         return self.prefix
@@ -791,7 +784,6 @@ class Game:
         s.player_white = self.player[WHITE]
         s.player_black = self.player[BLACK]
         s.clock_settings = gv.tc.get_clock_settings()
-        # s.dnd = gv.gui.get_dnd()
         s.colour_settings = self.set_board_colours.get_settings()
         s.hash_value = gv.engine_manager.get_hash_value()
         s.ponder = gv.engine_manager.get_ponder()
@@ -905,8 +897,6 @@ class Game:
         except:
             pass
         self.gameover = False
-        # print "move is",move
-        # print "movelist len is",len(self.movelist)
         if move_idx < len(self.movelist):
             while move_idx < len(self.movelist):
                 self.undo_move()
@@ -1049,11 +1039,6 @@ class Game:
             pass
 
     def redo_all(self, toolbutton):
-        # try:
-        #     gv.usib.stop_engine()
-        #     gv.usiw.stop_engine()
-        # except:
-        #     pass
         while len(self.redolist) != 0:
             self.redo_move()
         self.stm = self.get_side_to_move()
@@ -1065,7 +1050,6 @@ class Game:
         move = None
         try:
             move = self.movelist[len(self.movelist) - 1]
-            # print "move ",move
         except IndexError:
             pass
 
@@ -1220,62 +1204,6 @@ class Game:
         gv.gui.update_toolbar(self.player)
 
         dialog.destroy()
-
-    """
-    def set_level(self, b):
-
-        dialog = Gtk.MessageDialog(
-            None,
-            Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
-            Gtk.MessageType.QUESTION,
-            Gtk.ButtonsType.OK_CANCEL,
-            None)
-        dialog.set_title("Configure Engine")
-        markup = "<b>gShogi</b>"
-        dialog.set_markup(markup)
-
-        adj = Gtk.Adjustment(float(self.search_depth),
-                             float(0), float(39), 1, 5, 0)
-        spinner = Gtk.SpinButton(adj, 1.0, 0)
-        al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
-        al.add(spinner)
-        al.show()
-        spinner.show()
-
-        tbl = Gtk.Table(1, 2, True)
-        tbl.attach(Gtk.Label(label="Search Depth:"), 0, 1, 0, 1)
-        tbl.attach(al, 1, 2, 0, 1)
-
-        #some secondary text
-        markup = "Configure Options"
-
-        dialog.format_secondary_markup(markup)
-
-        dialog.vbox.add(tbl)
-
-        dialog.show_all()
-
-        # If user hasn't clicked on OK then exit now
-        if dialog.run() != Gtk.ResponseType.OK:
-            dialog.destroy()
-            return
-
-        # user clicked OK so update with the values entered
-        depth = adj.get_value()
-        dialog.destroy()
-
-        # set search depth if valid
-        try:
-            idepth = int(depth)
-            if (idepth >= 0 and idepth <= 39):
-                self.search_depth = idepth
-                engine.depth(self.search_depth)
-        except ValueError:
-                pass
-
-    def get_search_depth(self):
-        return self.search_depth
-    """
 
     def get_startpos(self):
         return self.startpos

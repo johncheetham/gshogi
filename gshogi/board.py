@@ -39,10 +39,6 @@ class Board:
             engine.getcaptured(BLACK),
             engine.getcaptured(WHITE)
         ]
-        self.cap_image = [
-            [Gtk.Image() for x in range(9)],
-            [Gtk.Image() for x in range(9)]
-        ]
         self.cap_label = [
             [Gtk.Label() for x in range(9)],
             [Gtk.Label() for x in range(9)]
@@ -57,8 +53,8 @@ class Board:
 
         # pieces captured by black (index 0) and white (index 1)
         self.cap2 = [
-            ["0", "0", "0", "0", "0", "0", "0"],
-            ["0", "0", "0", "0", "0", "0", "0"]
+            ["-", "-", "-", "-", "-", "-", "-"],
+            ["-", "-", "-", "-", "-", "-", "-"]
         ]
 
         # pieces contains the list of possible pieces in self.board_position
@@ -71,8 +67,6 @@ class Board:
         # initialise komadai (areas containing captured pieces)
         for y in range(7):
             for side in range(2):
-                self.cap_image[side][y].set_from_pixbuf(
-                    gv.pieces.getpixbuf(" -"))
                 self.cap_label[side][y].set_text("   ")
 
         GObject.idle_add(self.update)
@@ -203,9 +197,8 @@ class Board:
         # cap contains a list of captured pieces  e.g.
         # 0P 0L 0N 0S 0G 0B 0R 0P 0L 0N 0S 0B 0R 0K
         #
-        self.cap2[side] = ["0", "0", "0", "0", "0", "0", "0"]
+        self.cap2[side] = ["-", "-", "-", "-", "-", "-", "-"]
         for i in range(7):
-            self.cap_image[side][i].set_from_pixbuf(gv.pieces.getpixbuf(" -"))
             self.cap_label[side][i].set_text("   ")
             self.set_image_cairo_komadai(i, " -", side)
 
@@ -221,7 +214,6 @@ class Board:
                 if side == BLACK:
                     z = z.lower()
                     idx = 6 - i
-                self.cap_image[side][idx].set_from_pixbuf(gv.pieces.getpixbuf(z))
                 self.cap2[side][idx] = piece
                 # if more than 10 captured need to manipulate ordinal values
                 # since num only occupies 1 character.
@@ -349,7 +341,11 @@ class Board:
         return pb
 
     def get_cap_pixbuf(self, y, stm):
-        pb = self.cap_image[stm][y].get_pixbuf()
+        piece = self.cap2[stm][y]
+        piece = " " + piece
+        if stm == BLACK:
+            piece = piece.lower()
+        pb = gv.pieces.getpixbuf(piece)
         spb = pb.scale_simple(
             pb.get_width()*self.sfw, pb.get_height()*self.sfh, GdkPixbuf.InterpType.HYPER)
         return spb

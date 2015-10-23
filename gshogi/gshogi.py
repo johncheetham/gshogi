@@ -375,7 +375,7 @@ class Game:
         self.src_y = y
         self.piece = gv.board.get_cap_piece(y, stm)
 
-        if (self.piece != "0"):
+        if (self.piece != "-"):
             self.src = self.piece + "*"
         else:
             self.src = ""

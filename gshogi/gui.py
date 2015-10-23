@@ -614,7 +614,7 @@ class Gui:
 
             # player is human so allow a square to be dragged if it
             # contains a piece for his side
-            if gv.board.get_cap_piece(y, stm) != "0":
+            if gv.board.get_cap_piece(y, stm) != "-":
                 if stm == WHITE:
                     self.dnd_set_source_wcap_square(y)
                 else:
@@ -696,8 +696,6 @@ class Gui:
 
     def draw_komadai_square(self, wid, cr, y, side):
         piece = gv.board.get_cap_piece(y, side)
-        if piece ==  "0":
-            piece = "-"
         piece = " " + piece
         gv.board.set_image_cairo_komadai(y, piece, side)
 

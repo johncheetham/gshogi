@@ -477,6 +477,8 @@ class Set_Board_Colours:
         self.builder.connect_signals(self)
         pieces_dialog = self.builder.get_object("pieces_dialog")
         pieces_dialog.set_transient_for(gv.gui.get_window())
+        self.gshogi_radio_button = self.builder.get_object(
+            "gshogi_radiobutton")
         self.eastern_radio_button = self.builder.get_object(
             "eastern_radiobutton")
         self.western_radio_button = self.builder.get_object(
@@ -485,7 +487,9 @@ class Set_Board_Colours:
             "custom_radiobutton")
 
         self.orig_pieceset = gv.pieces.get_pieceset()
-        if self.orig_pieceset == "eastern":
+        if self.orig_pieceset == "gshogi":
+            self.gshogi_radio_button.set_active(True)
+        elif self.orig_pieceset == "eastern":
             self.eastern_radio_button.set_active(True)
         elif self.orig_pieceset == "western":
             self.western_radio_button.set_active(True)
@@ -511,11 +515,13 @@ class Set_Board_Colours:
         if not pieces_radio_button.get_active():
             return
         name = pieces_radio_button.get_label()
-        if name == "Use Western Pieces":
+        if name == "gshogi":
+            pieceset = "gshogi"
+        elif name == "GNU Shogi western":
             pieceset = "western"
-        elif name == "Use Eastern Pieces":
+        elif name == "GNU Shogi eastern":
             pieceset = "eastern"
-        elif name == "Use Custom Pieces":
+        elif name == "Custom":
             pieceset = "custom"
         else:
             print "invalid pieceset in pieces_radio_button_changed in " \

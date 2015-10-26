@@ -28,7 +28,7 @@ import engine
 from constants import WHITE, BLACK
 import gv
 
-SCALE = 0.8      # scale the pieces so they occupy 80% of the board square
+SCALE = 0.9      # scale the pieces so they occupy 90% of the board square
 LINEWIDTH = 2    # width of lines on the board
 
 class Board:

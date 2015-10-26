@@ -26,7 +26,7 @@ import traceback
 class Pieces:
 
     def __init__(self):
-        self.pieceset = "eastern"     # eastern, western or custom
+        self.pieceset = "gshogi"     # gshogi, eastern, western or custom
         self.prefix = None
         self.custom_piece_pixbuf = None
         self.custom_piece_path = None
@@ -88,7 +88,9 @@ class Pieces:
         if self.prefix is None:
             self.prefix = prefix
 
-        # load builtin eastern/western pieces as pixbufs
+        # load builtin gshogi/eastern/western pieces as pixbufs
+        self.gshogi_piece_pixbuf, errmsg = self.load_gshogi_pixbufs(
+            "gshogi", prefix)
         self.piece_pixbuf, errmsg = self.load_pixbufs("eastern", prefix)
         self.western_piece_pixbuf, errmsg = self.load_pixbufs(
             "western", prefix)
@@ -106,13 +108,42 @@ class Pieces:
                 if errmsg is not None:
                     print errmsg
                 if self.pieceset == "custom":
-                    self.pieceset = "eastern"
+                    self.pieceset = "gshogi"
 
     def custom_pieces_loaded(self):
         if self.custom_piece_pixbuf is not None:
             return True
         else:
             return False
+
+    # function to load images of the builtin pieces
+    def load_gshogi_pixbufs(self, piece_set, prefix):
+        images = [
+            "pawnB", "lanceB", "knightB", "silverB", "goldB",
+            "bishopB", "rookB", "kingB", "pawnPB", "lancePB",
+            "knightPB", "silverPB", "bishopPB", "rookPB"
+            ]
+
+        piece_pixbuf = []
+        piece_pixbuf.append(
+            self.pb_empty.copy())  # first pixbuf in list is empty square
+
+        for image in images:
+            image = "images/" + piece_set + "/" + image + ".png"
+            piece_pixbuf.append(
+                GdkPixbuf.Pixbuf.new_from_file(os.path.join(prefix, image)))
+
+        # white pieces
+        for image in images:
+            # use the image for black and
+            # rotate it through 180 degrees
+            image = "images/" + piece_set + "/" + image + ".png"
+
+            pb = GdkPixbuf.Pixbuf.new_from_file(os.path.join(prefix, image))
+            pb = pb.rotate_simple(GdkPixbuf.PixbufRotation.UPSIDEDOWN)
+            piece_pixbuf.append(pb)
+        return piece_pixbuf, None
+
 
     # function to load images of the builtin pieces
     def load_pixbufs(self, piece_set, prefix):
@@ -348,7 +379,9 @@ class Pieces:
             traceback.print_exc()
             print "error piece not found, piece =", piece
 
-        if self.pieceset == "eastern":
+        if self.pieceset == "gshogi":
+            pixbuf = self.gshogi_piece_pixbuf[idx]
+        elif self.pieceset == "eastern":
             pixbuf = self.piece_pixbuf[idx]
         elif self.pieceset == "western":
             pixbuf = self.western_piece_pixbuf[idx]
@@ -358,7 +391,7 @@ class Pieces:
             except TypeError, te:
                 print "error loading custom pieces", te
                 pixbuf = self.piece_pixbuf[idx]
-                self.pieceset = "eastern"
+                self.pieceset = "gshogi"
         else:
             print "invalid pieceset in getpixbuf in pieces.py:", self.pieceset
             pixbuf = self.piece_pixbuf[idx]   # eastern

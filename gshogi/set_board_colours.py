@@ -193,16 +193,10 @@ class Set_Board_Colours:
         self.custom_colours_radio_button = self.builder.get_object(
             "custom_radiobutton")
         self.combobox = self.builder.get_object("sc_comboboxtext")
+        self.combobox.set_entry_text_column(0)
 
         self.custom_colours_table = self.builder.get_object(
             "custom_colours_table")
-
-        # make it equivalent of a "new_text" combobox
-        liststore = Gtk.ListStore(GObject.TYPE_STRING)
-        self.combobox.set_model(liststore)
-        cell = Gtk.CellRendererText()
-        self.combobox.pack_start(cell, True)
-        self.combobox.add_attribute(cell, "text", 0)
 
         # get buttons used to set custom colours
         self.bg_colour_button = self.builder.get_object("BGcolorbutton")

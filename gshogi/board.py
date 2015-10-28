@@ -48,9 +48,6 @@ class Board:
         return self.cap_label[side]
 
     def build_board(self):
-        prefix = gv.gshogi.get_prefix()
-        gv.pieces.load_pieces(prefix)
-
         # pieces captured by black (index 0) and white (index 1)
         self.cap2 = [
             ["-", "-", "-", "-", "-", "-", "-"],

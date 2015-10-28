@@ -85,7 +85,14 @@ class Game:
         engine.init(opening_book_path, gv.verbose)
 
         gv.gui = gui.Gui()
+
         gv.pieces = pieces.Pieces()
+        # custom pieceset path
+        if self.settings != "":
+            gv.pieces.set_custom_pieceset_path(
+                self.settings.custom_pieceset_path)
+        gv.pieces.load_pieces(self.prefix)
+
         # usiw is the instance that plays white (gote)
         # usib is the instance that plays black (sente)
         gv.usib = usi.Usi("b")
@@ -680,7 +687,8 @@ class Game:
 
     # This callback quits the program
     def delete_event(self, widget, event, data=None):
-        gv.testnames()
+        if gv.verbose:
+            gv.testnames()
         self.quit()
         return False
 
@@ -824,15 +832,6 @@ class Game:
                 if gv.verbose:
                     print e, ". pieceset setting not restored"
 
-            # custom pieceset path
-            try:
-                gv.pieces.set_custom_pieceset_path(x.custom_pieceset_path)
-                if x.custom_pieceset_path is not None:
-                    gv.pieces.load_pieces(self.get_prefix())
-            except Exception, e:
-                if gv.verbose:
-                    print e, ". custom pieceset path setting not restored"
-
             # set the engine or human for each player
             try:
                 self.player[WHITE] = x.player_white
@@ -848,15 +847,6 @@ class Game:
             except Exception, e:
                 if gv.verbose:
                     print e, ". time controls not restored"
-
-            # colour settings
-            # do this elsewhere
-            #try:
-            #    cs = x.colour_settings
-            #    self.set_board_colours.restore_colour_settings(cs)
-            #except Exception, e:
-            #    if gv.verbose:
-            #        print e, ". colour settings not restored"
 
             # hash value
             try:

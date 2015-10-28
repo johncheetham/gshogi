@@ -974,9 +974,6 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
         self.grid_eb.modify_bg(
             Gtk.StateType.NORMAL, Gdk.color_parse(grid_colour))
 
-        # gv.pieces.change_piece_colours2(
-        #   piece_fill_colour, piece_outline_colour, piece_kanji_colour)
-
         gv.board.refresh_screen()
 
     # add inc to a hexstring

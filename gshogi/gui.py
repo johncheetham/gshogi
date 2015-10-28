@@ -713,12 +713,12 @@ class Gui:
         except AttributeError:
             pass
         about.set_version(VERSION)
-        about.set_copyright(u"Copyright \u00A9 2010-2012 John Cheetham")
+        about.set_copyright(u"Copyright \u00A9 2010-2015 John Cheetham")
         about.set_comments(
             "gshogi is a program to play shogi (Japanese Chess).")
         about.set_authors(["John Cheetham"])
         about.set_website(
-            "http://www.johncheetham.com/projects/gshogi/index.shtml")
+            "http://www.johncheetham.com/projects/gshogi/index.html")
         about.set_logo(
             GdkPixbuf.Pixbuf.new_from_file(
                 os.path.join(gv.gshogi.prefix, "images/logo.png")))

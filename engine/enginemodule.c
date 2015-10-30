@@ -31,12 +31,10 @@
 static PyObject *
 engine_init(PyObject *self, PyObject *args)
 {
-    int rc;
-
     if (!PyArg_ParseTuple(args, "sh", &binbookfile, &verbose))
         return NULL;
 
-    rc = InitMain();
+    InitMain();
 
     Py_RETURN_NONE;
 }
@@ -398,20 +396,10 @@ engine_getboard(PyObject *self, PyObject *args)
 {
 
     PyObject *lst = PyList_New(81);
-    char pos[81];
 
     char cpos[81][3] = { "aa", "bb", "cc", "dd"};
 
     int r,c,l;
-    for (r = (NO_ROWS - 1); r >= 0; r--)
-    {
-        for (c = 0; c <= (NO_COLS - 1); c++)
-        {
-            l = locn(r, c);
-            pos[l] = board[l];
-        }
-
-    }
 
     for (r = (NO_ROWS - 1); r >= 0; r--)
     {

@@ -78,7 +78,7 @@ extern short pscore[];
 void
 ClearScreen(void)
 {
-    if (!barebones && !XSHOGI)
+    if (!barebones)
         printf("\n");
 }
 
@@ -87,7 +87,7 @@ ClearScreen(void)
 void
 PromptForMove(void)
 {
-    if (!barebones && !XSHOGI)
+    if (!barebones)
     {
         /* printf("\nYour move is? "); */
         printf("%s", CP[124]);
@@ -104,7 +104,7 @@ ShowCurrentMove(short pnt, short f, short t)
 void
 ShowDepth(char ch)
 {
-    if (!barebones && !XSHOGI)
+    if (!barebones)
     {
         printf(CP[53], Sdepth, ch);   /* Depth = %d%c */
         printf("\n");
@@ -133,7 +133,7 @@ ShowLine(unsigned short *bstline)
 void
 ShowMessage(char *s)
 {
-    if (!XSHOGI && verbose)
+    if (verbose)
         printf("%s\n", s);
 }
 
@@ -155,7 +155,7 @@ ShowResponseTime(void)
 void
 ShowResults(short score, unsigned short *bstline, char ch)
 {
-    if (flag.post  && !XSHOGI)
+    if (flag.post)
     {
         ElapsedTime(2);
         printf("%2d%c %6d %4ld %8ld  ",
@@ -188,20 +188,6 @@ void
 Initialize(void)
 {
     mycnt1 = mycnt2 = 0;
-
-    if (XSHOGI)
-    {
-#ifdef HAVE_SETLINEBUF
-        setlinebuf(stdout);
-#else
-#  ifdef HAVE_SETVBUF
-        setvbuf(stdout, NULL, _IOLBF, BUFSIZ);
-#  else
-#    error "Need setlinebuf() or setvbuf() to compile gnushogi!"
-#  endif
-#endif
-        /* printf("GNU Shogi %sp%s\n", version, patchlevel); */
-    }
 
     if (hard_time_limit)
     {
@@ -317,174 +303,6 @@ help(void)
            TCadd/100, MaxSearchDepth);
 
     signal(SIGINT, TerminateSearch);
-    signal(SIGQUIT, TerminateSearch);
-}
-
-
-
-/*
- * Set up a board position. Pieces are entered by typing the piece followed
- * by the location. For example, Nf3 will place a knight on square f3.
- */
-
-void
-EditBoard(void)
-{
-    short a, r, c, sq, i, found;
-    char s[80];
-    int rc;
-
-    flag.regularstart = true;
-    Book = BOOKFAIL;
-    ClearScreen();
-    UpdateDisplay(0, 0, 1, 0);
-    /* printf(".   exit to main\n"); */
-    printf("%s", CP[29]);
-    /* printf("#   clear board\n"); */
-    printf("%s", CP[28]);
-    /* printf("c   change sides\n"); */
-    printf("%s", CP[136]);
-    /* printf("enter piece & location: \n"); */
-    printf("%s", CP[155]);
-
-    a = black;
-
-    do
-    {
-        rc = scanf("%s", s);
-        found = 0;
-
-        if (s[0] == CP[28][0])  /*#*/
-        {
-            for (sq = 0; sq < NO_SQUARES; sq++)
-            {
-                board[sq] = no_piece;
-                color[sq] = neutral;
-            }
-
-            ClearCaptured();
-        }
-
-        if (s[0] == CP[136][0]) /*c*/
-            a = otherside[a];
-
-        if (s[1] == '*')
-        {
-            for (i = pawn; i <= king; i++)
-            {
-                if ((s[0] == pxx[i]) || (s[0] == qxx[i]))
-                {
-                    Captured[a][i]++;
-                    found = 1;
-                    break;
-                }
-            }
-
-            c = -1;
-            r = -1;
-        }
-        else
-        {
-            c = '9' - s[1];
-            r = 'i' - s[2];
-        }
-
-        if ((c >= 0) && (c < NO_COLS) && (r >= 0) && (r < NO_ROWS))
-        {
-            sq = locn(r, c);
-            color[sq] = a;
-            board[sq] = no_piece;
-
-            for (i = no_piece; i <= king; i++)
-            {
-                if ((s[0] == pxx[i]) || (s[0] == qxx[i]))
-                {
-                    if (s[3] == '+')
-                        board[sq] = promoted[i];
-                    else
-                        board[sq] = i;
-
-                    found = 1;
-                    break;
-                }
-            }
-
-            if (found == 0)
-                color[sq] = neutral;
-        }
-    }
-    while (s[0] != CP[29][0]);
-
-    for (sq = 0; sq < NO_SQUARES; sq++)
-        Mvboard[sq] = ((board[sq] != Stboard[sq]) ? 10 : 0);
-
-    GameCnt = 0;
-    Game50 = 1;
-    ZeroRPT();
-    Sdepth = 0;
-    InitializeStats();
-    ClearScreen();
-    UpdateDisplay(0, 0, 1, 0);
-}
-
-
-
-
-/*
- * Set up a board position.
- * Nine lines of nine characters are used to setup the board. 9a-1a is the
- * first line. White pieces are  represented  by  uppercase characters.
- */
-
-void
-SetupBoard(void)
-{
-    short r, c, sq, i;
-    char ch;
-    char s[80];
-    char *rcc;
-
-    NewGame();
-
-    rcc = fgets(s, 80, stdin);            /* skip "setup" command */
-
-    for (r = NO_ROWS - 1; r >= 0; r--)
-    {
-        rcc = fgets(s, 80, stdin);
-
-        for (c = 0; c <= (NO_COLS - 1); c++)
-        {
-            ch = s[c];
-            sq = locn(r, c);
-            color[sq] = neutral;
-            board[sq] = no_piece;
-
-            for (i = no_piece; i <= king; i++)
-            {
-                if (ch == pxx[i])
-                {
-                    color[sq] = white;
-                    board[sq] = i;
-                    break;
-                }
-                else if (ch == qxx[i])
-                {
-                    color[sq] = black;
-                    board[sq] = i;
-                    break;
-                }
-            }
-        }
-    }
-
-    for (sq = 0; sq < NO_SQUARES; sq++)
-        Mvboard[sq] = ((board[sq] != Stboard[sq]) ? 10 : 0);
-
-    InitializeStats();
-    ClearScreen();
-    UpdateDisplay(0, 0, 1, 0);
-    /* printf("Setup successful\n"); */
-    printf("%s", CP[106]);
 }
 
 
@@ -492,7 +310,6 @@ void
 SearchStartStuff(short side)
 {
     signal(SIGINT, TerminateSearch);
-    signal(SIGQUIT, TerminateSearch);
 
     if (flag.post)
     {
@@ -516,18 +333,9 @@ OutputMove(void)
     if (mvstr[0][0] == '\0')
         goto nomove;
 
-    if (XSHOGI)
+    if (verbose)
     {
-        /* add remaining time in milliseconds to xshogi */
-        printf("%d. ... %s %ld\n", ++mycnt1, mvstr[0],
-               (TimeControl.clock[player] - et) * 10);
-    }
-    else
-    {
-        if (verbose)
-        {
-            printf("%d. ... %s\n", ++mycnt1, mvstr[0]);
-        }
+        printf("%d. ... %s\n", ++mycnt1, mvstr[0]);
     }
 
  nomove:
@@ -567,18 +375,16 @@ OutputMove(void)
 
     UpdateDisplay(root->f, root->t, 0, root->flags);
 
-    if (!XSHOGI)
+    /* printf("My move is: %s\n", mvstr[0]); */
+    if (verbose)
     {
-        /* printf("My move is: %s\n", mvstr[0]); */
-        if (verbose)
-        {
-            printf(CP[83], mvstr[0]);
-        }
-
-        /*
-        if (flag.beep)
-            printf("%c", 7);*/
+        printf(CP[83], mvstr[0]);
     }
+
+    /*
+    if (flag.beep)
+        printf("%c", 7);*/
+
 
  summary:
     if (root->flags & draw)
@@ -618,7 +424,7 @@ UpdateDisplay(short f, short t, short redraw, short isspec)
 
     short r, c, l, m;
 
-    if (redraw && !XSHOGI && verbose)
+    if (redraw && verbose)
     {
         printf("\n");
         r = (short)(TimeControl.clock[black] / 6000);
@@ -787,12 +593,6 @@ SelectLevel(char *sx)
     TimeControl.clock[black] = TimeControl.clock[white] = 0;
     SetTimeControl();
 
-    if (XSHOGI)
-    {
-        printf("Clocks: %ld %ld\n",
-               TimeControl.clock[black] * 10,
-               TimeControl.clock[white] * 10);
-    }
 }
 
 

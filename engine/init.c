@@ -81,13 +81,6 @@ short nolist          = 0;  /* List the game after exit. */
 short nolist          = 1;  /* Don't list the game after exit. */
 #endif
 
-/*
- * The default display type can be DISPLAY_RAW, DISPLAY_CURSES,
- * or DISPLAY_X; set to DISPLAY_RAW for gshogi.
- */
-
-display_t display_type = DISPLAY_RAW;
-
 unsigned int ttbllimit;
 
 /* .... MOVE GENERATION VARIABLES AND INITIALIZATIONS .... */
@@ -1298,25 +1291,9 @@ InitMain(void)
     XC = 0;
     MaxResponseTime = 0;
 
-    if (XSHOGI)
-    {
-        signal(SIGINT, TerminateSearch);
-
-        TCmoves      = 40;
-        TCminutes    = 5;
-        TCseconds    = 0;
-        TCadd        = 0;
-
-        TCflag       = true;
-        OperatorTime = 0;
-        barebones    = 1;
-    }
-    else
-    {
-        TCflag       = false;
-        OperatorTime = 0;
-        barebones    = 1; /* set for gshogi to suppress msgs */
-    }
+    TCflag       = false;
+    OperatorTime = 0;
+    barebones    = 1; /* set for gshogi to suppress msgs */
 
     Initialize();
     Initialize_dist();
@@ -1340,7 +1317,6 @@ InitMain(void)
 #if ttblsz
 #ifdef HASHFILE
     hashfile = fopen(HASHFILE, RWA_ACC);
-
     if (hashfile)
     {
         fseek(hashfile, 0L, SEEK_END);

@@ -66,7 +66,6 @@ void ChangeSearchDepth(void);
 void ChangeXwindow(void);
 void ClearScreen(void);
 void DoDebug(void);
-void EditBoard(void);
 void ExitShogi(void);
 void GiveHint(void);
 void Initialize(void);
@@ -93,6 +92,5 @@ void help(void);
 /* The following are only found in rawdsp.h: */
 
 void PromptForMove(void);
-void SetupBoard(void);
 
 #endif /* _RAWDSP_H_ */

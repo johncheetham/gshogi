@@ -56,25 +56,9 @@
 
 #include "gnushogi.h"
 
-#if HAVE_UNISTD_H
-#include <unistd.h>
-#endif
-
-#if HAVE_SYS_FILIO_H
-/* Definition of FIONREAD */
-#include <sys/filio.h>
-#endif
-
-#if HAVE_ERRNO_H
-/* Definition of errno(). */
-#include <errno.h>
-#endif
-
 /* Forward declarations. */
 
 void ElapsedTime_NOFIONREAD(ElapsedTime_mode iop);
-void ElapsedTime_FIONREAD(ElapsedTime_mode iop);
-
 
 /*
  * Determine the time that has passed since the search was started. If the
@@ -94,132 +78,8 @@ void ElapsedTime_FIONREAD(ElapsedTime_mode iop);
 void
 ElapsedTime(ElapsedTime_mode iop)
 {
-    switch (display_type)
-    {
-    case DISPLAY_RAW:
-        ElapsedTime_NOFIONREAD(iop);
-        break;
-
-    default:
-        ElapsedTime_FIONREAD(iop);
-        break;
-    }
+    ElapsedTime_NOFIONREAD(iop);
 }
-
-
-
-#ifdef HAVE_GETTIMEOFDAY
-void
-ElapsedTime_FIONREAD(ElapsedTime_mode iop)
-{
-    long current_time;
-    int  i;
-    int  nchar;
-
-    struct timeval tv;
-
-    if ((i = ioctl((int) 0, FIONREAD, &nchar)))
-    {
-        perror("FIONREAD");
-        fprintf(stderr,
-                "You probably have a non-ANSI <ioctl.h>; "
-                "see README. %d %d %x\n",
-                i, errno, FIONREAD);
-        exit(1);
-    }
-
-    if (nchar)
-    {
-        if (!flag.timeout)
-            flag.back = true;
-
-        flag.bothsides = false;
-    }
-
-    gettimeofday(&tv, NULL);
-    current_time = tv.tv_sec*100 + (tv.tv_usec/10000);
-
-#  ifdef INTERRUPT_TEST
-    if (iop == INIT_INTERRUPT_MODE)
-    {
-        itime0 = current_time;
-    }
-    else if (iop == COMPUTE_INTERRUPT_MODE)
-    {
-        it = current_time - itime0;
-    }
-    else
-#  endif
-    {
-        et = current_time - time0;
-        ETnodes = NodeCnt + znodes;
-
-        if (et < 0)
-        {
-#  ifdef INTERRUPT_TEST
-            printf("elapsed time %ld not positive\n", et);
-#  endif
-            et = 0;
-        }
-
-        if (iop == COMPUTE_AND_INIT_MODE)
-        {
-            if ((et > ResponseTime + ExtraTime) && (Sdepth > MINDEPTH))
-                flag.timeout = true;
-
-            time0 = current_time;
-        }
-
-    }
-}
-
-
-void
-ElapsedTime_NOFIONREAD(ElapsedTime_mode iop)
-{
-    struct timeval tv;
-    long current_time;
-
-    gettimeofday(&tv, NULL);
-    current_time = tv.tv_sec*100 + (tv.tv_usec/10000);
-
-#  ifdef INTERRUPT_TEST
-    if (iop == INIT_INTERRUPT_MODE)
-    {
-        itime0 = current_time;
-    }
-    else if (iop == COMPUTE_INTERRUPT_MODE)
-    {
-        it = current_time - itime0;
-    }
-    else
-#  endif
-    {
-        et = current_time - time0;
-        ETnodes = NodeCnt + znodes;
-
-        if (et < 0)
-        {
-#  ifdef INTERRUPT_TEST
-            printf("elapsed time %ld not positive\n", et);
-#  endif
-            et = 0;
-        }
-
-        if (iop == COMPUTE_AND_INIT_MODE)
-        {
-            if ((et > ResponseTime + ExtraTime) && (Sdepth > MINDEPTH))
-                flag.timeout = true;
-
-            time0 = current_time;
-        }
-
-    }
-}
-
-
-#else /* !HAVE_GETTIMEOFDAY */
-
 
 /*
  * Determine the time that has passed since the search was started.  If the
@@ -232,67 +92,6 @@ ElapsedTime_NOFIONREAD(ElapsedTime_mode iop)
  */
 
 void
-ElapsedTime_FIONREAD(ElapsedTime_mode iop)
-{
-    long current_time;
-    int  nchar;
-    int  i;
-
-    if ((i = ioctl((int) 0, FIONREAD, &nchar)))
-    {
-        perror("FIONREAD");
-        fprintf(stderr,
-                "You probably have a non-ANSI <ioctl.h>; "
-                "see README. %d %d %x\n",
-                i, errno, FIONREAD);
-        exit(1);
-    }
-
-    if (nchar)
-    {
-        if (!flag.timeout)
-            flag.back = true;
-        flag.bothsides = false;
-    }
-
-    et = ((current_time = time((long *) 0)) - time0) * 100;
-
-#ifdef INTERRUPT_TEST
-    if (iop == INIT_INTERRUPT_MODE)
-    {
-        itime0 = current_time;
-    }
-    else if (iop == COMPUTE_INTERRUPT_MODE)
-    {
-        it = current_time - itime0;
-    }
-    else
-#endif
-    {
-        ETnodes = NodeCnt + znodes;
-
-        if (et < 0)
-        {
-#ifdef INTERRUPT_TEST
-            printf("elapsed time %ld not positive\n", et);
-#endif
-            et = 0;
-        }
-
-        if (iop == COMPUTE_AND_INIT_MODE)
-        {
-            if ((et > (ResponseTime + ExtraTime)) && (Sdepth > MINDEPTH))
-                flag.timeout = true;
-
-            time0 = current_time;
-        }
-
-    }
-}
-
-
-
-void
 ElapsedTime_NOFIONREAD(ElapsedTime_mode iop)
 {
     long current_time;
@@ -331,6 +130,3 @@ ElapsedTime_NOFIONREAD(ElapsedTime_mode iop)
 
     }
 }
-
-
-#endif /* HAVE_GETTIMEOFDAY */

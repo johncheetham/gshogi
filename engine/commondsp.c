@@ -1187,11 +1187,6 @@ SetOppTime(char *s)
 
     ElapsedTime(COMPUTE_AND_INIT_MODE);
 
-    if (XSHOGI)
-    {
-        /* just to inform xshogi about availability of otime command */
-        printf("otime %d %d\n", t, m);
-    }
 }
 
 
@@ -1222,11 +1217,6 @@ SetMachineTime(char *s)
 
     ElapsedTime(COMPUTE_AND_INIT_MODE);
 
-    if (XSHOGI)
-    {
-        /* just to inform xshogi about availability of time command */
-        printf("time %d %d\n", t, m);
-    }
 }
 
 
@@ -1410,17 +1400,8 @@ InputCommand(char *command)
 
         if (strcmp(s, CP[131]) == 0)   /* bd -- display board */
         {
-            /* FIXME: Hack alert! */
-            short old_xshogi = XSHOGI;
-
-            if (old_xshogi)
-                display_type = DISPLAY_RAW;
-
             ClearScreen();
             UpdateDisplay(0, 0, 1, 0);
-
-            if (old_xshogi)
-                display_type = DISPLAY_X;
         }
         else if (strcmp(s, "post") == 0)
         {
@@ -1441,15 +1422,6 @@ InputCommand(char *command)
             flag.post = !flag.post;
         }
 #endif
-        else if ((strcmp(s, CP[191]) == 0)
-                 || (strcmp(s, CP[154]) == 0))  /* set edit */
-        {
-            EditBoard();
-        }
-        else if (strcmp(s, CP[190]) == 0)  /* setup */
-        {
-            SetupBoard();
-        }
         else if (strcmp(s, CP[156]) == 0)  /* first */
         {
             ok = true;
@@ -1480,16 +1452,8 @@ InputCommand(char *command)
         }
         else if (strcmp(s, CP[157]) == 0)  /* force */
         {
-            if (XSHOGI)
-            {
-                flag.force = true;
-                flag.bothsides = false;
-            }
-            else
-            {
-                flag.force = !flag.force;
-                flag.bothsides = false;
-            }
+            flag.force = !flag.force;
+            flag.bothsides = false;
         }
         else if (strcmp(s, CP[134]) == 0)  /* book */
         {
@@ -1669,7 +1633,7 @@ InputCommand(char *command)
             flag.stars = !flag.stars;
             UpdateDisplay(0, 0, 1, 0);
         }
-        else if (!XSHOGI && strcmp(s, CP[5]) == 0)          /* moves */
+        else if (strcmp(s, CP[5]) == 0)          /* moves */
         {
             short temp;
 
@@ -1696,7 +1660,7 @@ InputCommand(char *command)
             ExaminePosition(opponent);
             TestPSpeed(ScorePosition, 1);
         }
-        else if (!XSHOGI && strcmp(s, CP[196]) == 0)    /* test */
+        else if (strcmp(s, CP[196]) == 0)    /* test */
         {
 #ifdef SLOW_CPU
             ShowMessage(CP[108]); /* test movelist */
@@ -1716,11 +1680,11 @@ InputCommand(char *command)
             TestPSpeed(ScorePosition, 15000);
 #endif
         }
-        else if (!XSHOGI && strcmp(s, CP[179]) == 0) /* p */
+        else if (strcmp(s, CP[179]) == 0) /* p */
         {
             ShowPostnValues();
         }
-        else if (!XSHOGI && strcmp(s, CP[148]) == 0)    /* debug */
+        else if (strcmp(s, CP[148]) == 0)    /* debug */
         {
             DoDebug();
         }
@@ -1759,35 +1723,6 @@ InputCommand(char *command)
     {
         computer = opponent;
         opponent = computer ^ 1;
-    }
-
-    if (XSHOGI)
-    {
-        /* add remaining time in milliseconds for xshogi */
-        if (is_move)
-        {
-            printf("%d. %s %ld\n",
-                   ++mycnt2, s, TimeControl.clock[player] * 10);
-        }
-
-#ifdef notdef /* optional pass best line to frontend with move */
-#  if !defined NOPOST
-
-        if (flag.post && !flag.mate)
-        {
-            int i;
-
-            printf(" %6d ", MSCORE);
-
-            for (i = 1; MV[i] > 0; i++)
-            {
-                algbr((short) (MV[i] >> 8), (short) (MV[i] & 0xFF), false);
-                printf("%5s ", mvstr[0]);
-            }
-        }
-#  endif
-        printf("\n");
-#endif
     }
 
     signal(SIGINT, TerminateSearch);

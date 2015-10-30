@@ -65,18 +65,6 @@
 #include "debug.h"
 #include "opts.h"          /* Various option-setting #defines.  */
 
-/*
- * Display options.
- */
-
-typedef enum { DISPLAY_RAW, DISPLAY_CURSES, DISPLAY_X } display_t;
-extern display_t display_type;
-
-#define XSHOGI     (display_type == DISPLAY_X)
-#define NOT_CURSES ((display_type == DISPLAY_X) \
-  || (display_type == DISPLAY_RAW))
-
-
 /* Miscellaneous globals. */
 
 extern short hard_time_limit; /* If you exceed time limit, you lose.   */
@@ -1064,7 +1052,6 @@ extern void  ShowDepth(char ch);
 extern void  TerminateSearch(int);
 extern void  ShowResults(short score, unsigned short *bstline, char ch);
 extern void  PromptForMove(void);
-extern void  SetupBoard(void);
 extern void  algbr(short f, short t, short flag);
 extern void  OutputMove(void);
 extern void  ShowCurrentMove(short pnt, short f, short t);
@@ -1083,7 +1070,6 @@ extern void  ChangeHashDepth(void);
 extern void  ChangeBetaWindow(void);
 extern void  GiveHint(void);
 extern void  ShowPrompt(void);
-extern void  EditBoard(void);
 extern void  help(void);
 extern void  ChangeSearchDepth(void);
 extern void  skip(void);

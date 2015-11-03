@@ -55,7 +55,9 @@
  */
 
 /* Hack for anal-retentive ANSI-compliance if desired: */
+#ifndef __MINGW32__
 #define inline
+#endif
 
 /* FIXME: this file needs to be reorganized in some rational manner. */
 
@@ -133,12 +135,16 @@ typedef unsigned long  ULONG;
 #include <assert.h>
 #include <string.h>
 
+#if !defined(_WIN32)
 #include <sys/param.h>
-#include <sys/types.h>
 #include <sys/times.h>
 #include <sys/ioctl.h>
+#endif
+
+#include <sys/types.h>
 
 
+#if !defined(_WIN32)
 #if TIME_WITH_SYS_TIME
 #  include <sys/time.h>
 #  include <time.h>
@@ -149,6 +155,9 @@ typedef unsigned long  ULONG;
 #    include <time.h>
 #  endif
 #endif
+#else
+#    include <time.h>
+#endif   /* !defined(_WIN32) */
 
 #ifdef HAVE_SETLINEBUF
 /* Not necessarily included in <stdio.h> */

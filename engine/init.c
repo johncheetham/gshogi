@@ -768,7 +768,11 @@ NewGame(void)
     gettimeofday(&tv, NULL);
     time0 = tv.tv_sec*100 + tv.tv_usec/10000;
 #else
+#if defined(__MINGW64__) || defined(_WIN64)
+    time0 = time((long long *) 0);
+#else
     time0 = time((long *) 0);
+#endif
 #endif
 
     /* resetting reference time */
@@ -1269,7 +1273,11 @@ InitConst(char *lang)
 int
 InitMain(void)
 {
+#if defined( __MINGW64__) || defined(_WIN64)
+    gsrand(starttime = ((unsigned int)time((long long *)0)));    /* init urand */
+#else
     gsrand(starttime = ((unsigned int)time((long *)0)));    /* init urand */
+#endif
 
     NodeCntLimit = 0;
 
@@ -1316,7 +1324,11 @@ InitMain(void)
 
 #if ttblsz
 #ifdef HASHFILE
+#if defined(__MINGW32__) || defined(_WIN32)
+    hashfile = NULL;
+#else
     hashfile = fopen(HASHFILE, RWA_ACC);
+#endif
     if (hashfile)
     {
         fseek(hashfile, 0L, SEEK_END);

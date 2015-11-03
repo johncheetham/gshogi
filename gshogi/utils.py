@@ -132,9 +132,9 @@ def get_settings_from_file(filepath):
         pass
     except Exception, exc:
         print "Cannot restore settings:", exc
-    if gv.verbose:
-        print "values read from settings file"
-        print "colour_settings:",s.colour_settings
+    #if gv.verbose:
+    #    print "values read from settings file"
+    #    print "colour_settings:",s.colour_settings
     return s
 
 
@@ -148,7 +148,8 @@ def get_prefix():
 
 def create_settings_dir():
     # set up gshogi directory under home directory
-    gshogipath = os.path.expanduser("~") + "/.gshogi"
+    home = os.path.expanduser("~")
+    gshogipath = os.path.join(home, ".gshogi")
     if not os.path.exists(gshogipath):
         try:
             os.makedirs(gshogipath)

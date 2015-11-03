@@ -56,6 +56,10 @@
 
 #define O_BINARY 0
 
+#if defined(_WIN32)
+#include <io.h>
+#endif
+
 #if HAVE_UNISTD_H
 /* Declarations of read(), write(), close(), and lseek(). */
 #include <unistd.h>
@@ -676,7 +680,7 @@ GetOpenings(void)
     LONG collisions = 0;
     char msg[80];
     int rc;
-
+#if !defined( __MINGW32__) && !defined(_WIN32)
     FILE *fd;
 
     if ((fd = fopen(bookfile, "r")) == NULL)
@@ -903,6 +907,7 @@ GetOpenings(void)
         sprintf(msg, CP[213], B.bookcount, B.booksize);
         ShowMessage(msg);
     }
+#endif /* !defined(MINGW32) && !defined(_WIN32)
 
     /* Set everything back to start the game. */
     Book = BOOKFAIL;
@@ -937,7 +942,12 @@ OpeningBook(unsigned short *hint, short side)
     unsigned short r, m;
     int possibles = TrPnt[2] - TrPnt[1];
 
+#if defined(__MINGW64__) || defined(_WIN64)
+    gsrand((unsigned int) time((long long *) 0));
+#else
     gsrand((unsigned int) time((long *) 0));
+#endif
+
     m = 0;
 
     /*

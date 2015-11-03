@@ -3,6 +3,7 @@ ez_setup.use_setuptools()
 from setuptools import setup, Extension
 
 import os
+import platform
 import sys
 import string
 
@@ -16,6 +17,26 @@ if (sys.argv[1] == "install"):
         print "you must run 'python setup.py build' first to build the " \
               "opening book"
         sys.exit()
+
+macros = [
+        ("HAVE_BCOPY", "1"),
+        ("HAVE_ERRNO_H", "1"),
+        ("HAVE_FCNTL_H", "1"),
+        ("HAVE_MEMCPY", "1"),
+        ("HAVE_MEMSET", "1"),
+        ("HAVE_SETLINEBUF", "1"),
+        ]
+
+if os.name == "nt":
+    # windows
+    # add this for mingw64
+    # not needed for ms vc for python 2.7
+    #macros.append(("MS_WIN64","1"))
+    macros.append(("HASHFILE", "1"))
+else:
+    # linux
+    macros.append(("HAVE_UNISTD_H", "1"))
+    macros.append(("HASHFILE", "\"data/gnushogi.hsh\""))
 
 module1 = Extension("gshogi.engine", sources=[
     "engine/enginemodule.c",
@@ -33,16 +54,7 @@ module1 = Extension("gshogi.engine", sources=[
     "engine/tcontrl.c",
     "engine/sysdeps.c",
     ],
-    define_macros=[(
-        "HASHFILE", "\"data/gnushogi.hsh\""),
-        ("HAVE_BCOPY", "1"),
-        ("HAVE_ERRNO_H", "1"),
-        ("HAVE_FCNTL_H", "1"),
-        ("HAVE_MEMCPY", "1"),
-        ("HAVE_MEMSET", "1"),
-        ("HAVE_SETLINEBUF", "1"),
-        ("HAVE_UNISTD_H", "1"),
-    ],
+    define_macros=macros,
 )
 
 
@@ -96,16 +108,35 @@ if (sys.argv[1] != "build"):
 # build the opening book
 #
 
-(osname, host, release, version, machine) = os.uname()
-osname = string.lower(osname)
-osname = string.replace(osname, "/", "")
-machine = string.replace(machine, " ", "_")
-machine = string.replace(machine, "/", "-")
-plat_name = "%s-%s" % (osname, machine)
+def get_plat():
+    if os.name == 'nt':
+        prefix = " bit ("
+        i = sys.version.find(prefix)
+        if i == -1:
+            return sys.platform
+        j = sys.version.find(")", i)
+        look = sys.version[i+len(prefix):j].lower()
+        if look == 'amd64':
+            return 'win-amd64'
+        if look == 'itanium':
+            return 'win-ia64'
+        return sys.platform
+
+    # linux
+    (osname, host, release, version, machine) = os.uname()
+    osname = string.lower(osname)
+    osname = string.replace(osname, "/", "")
+    machine = string.replace(machine, " ", "_")
+    machine = string.replace(machine, "/", "-")
+    if osname[:5] != "linux":
+        print "OS not supported"
+    plat_name = "%s-%s" % (osname, machine)
+    return plat_name
+
+plat_name = get_plat()
 plat_specifier = ".%s-%s" % (plat_name, sys.version[0:3])
 build_lib = "lib" + plat_specifier
-pypath = os.path.join("build", build_lib)
-pypath = os.path.join(pypath, "gshogi")
+pypath = os.path.join("build", build_lib, "gshogi")
 sys.path.append(pypath)
 
 import engine

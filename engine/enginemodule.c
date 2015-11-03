@@ -582,16 +582,15 @@ COL 0 1 2 3 4 5 6 7 8
 */
 
     char *fen;
-
-    if (!PyArg_ParseTuple(args, "s", &fen))
-        return NULL;
-
     char *p;
     int c, i, j, z;
     short sq;
     short side, isp;
     char ch;
     char num[3];
+
+    if (!PyArg_ParseTuple(args, "s", &fen))
+        return NULL;
 
     p = fen;
     NewGame();
@@ -720,7 +719,7 @@ COL 0 1 2 3 4 5 6 7 8
             }
 
             ch = *p;
-            if isupper(ch)
+            if (isupper(ch))
             {
                 side = black;
                 ch = tolower(ch);
@@ -782,14 +781,17 @@ engine_getlegalmoves(PyObject *self, PyObject *args)
     struct leaf  *node;
     PyObject *lst = PyList_New(GameCnt);
     int nummoves, len, maxlen;
-
+#if defined(_WIN32)
+    char legalmoves[10000];
+#endif
     MoveList(opponent, 2, -1, true);
     generate_move_flags = false;
     pnt = TrPnt[2];
 
     nummoves = (TrPnt[3] - TrPnt[2]);
-
+#if !defined(_WIN32)
     char legalmoves[nummoves * ((int)sizeof(mvstr[0]) + 1) * 4 + 1];
+#endif
     legalmoves[0] = '\0';
 
     while (pnt < TrPnt[3])
@@ -833,14 +835,18 @@ static PyObject *
 engine_getmovelist(PyObject *self, PyObject *args)
 {
     PyObject *lst = PyList_New(GameCnt);
+#if !defined(_WIN32)
     char movelist[GameCnt * 11 + 10];
-    movelist[0] = '\0';
+#else
+    char movelist[10000];
+#endif
     short i, f, t;
     int len, maxlen;
     char *p;
     char cap = ' ';
     char prm = ' ';
 
+    movelist[0] = '\0';
     for (i = 1; i <= GameCnt; i++)
     {
         struct GameRec  *g = &GameList[i];

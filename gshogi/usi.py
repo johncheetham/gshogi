@@ -478,11 +478,9 @@ class Usi:
                     self.op = []
 
                     # update time for last move
-                    Gdk.threads_enter()
                     # print "updating clock from usi.py"
-                    gv.tc.update_clock()
-                    gv.gui.set_side_to_move(side_to_move)
-                    Gdk.threads_leave()
+                    GLib.idle_add(gv.tc.update_clock)
+                    GLib.idle_add(gv.gui.set_side_to_move, side_to_move)
 
                     return bestmove, self.ponder_move
             self.op = []

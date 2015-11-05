@@ -29,9 +29,6 @@ macros = [
 
 if os.name == "nt":
     # windows
-    # add this for mingw64
-    # not needed for ms vc for python 2.7
-    #macros.append(("MS_WIN64","1"))
     macros.append(("HASHFILE", "1"))
 else:
     # linux

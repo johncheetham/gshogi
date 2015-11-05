@@ -697,10 +697,13 @@ class Gui:
     def draw_komadai_square(self, wid, cr, y, side):
         piece = gv.board.get_cap_piece(y, side)
         piece = " " + piece
-        gv.board.set_image_cairo_komadai(y, piece, side)
+        gv.board.set_image_cairo_komadai(y, piece, side, wid, cr)
 
     def get_komadai_event_box(self, side, y):
         return self.keb[side][y]
+
+    def get_event_box(self, x, y):
+        return self.eb[x][y]
 
     # about box
     def about_box(self, widget):
@@ -976,17 +979,8 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
 
         gv.board.refresh_screen()
 
-    # add inc to a hexstring
-    # e.g. "f0" + 5 returns "f5"
-    def addhex(self, h, inc):
-        dec = int(h, 16) + inc
-        if dec > 255:
-            dec = 255
-        hx1 = hex(dec)
-        hx = hx1[2:]
-        if len(hx) == 1:
-            hx = "0" + hx
-        return hx
+    def get_highlighted(self):
+        return self.highlighted
 
     def hilite_squares(self, square_list):
 
@@ -995,40 +989,15 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
         if not self.highlight_moves:
             return
 
-        square_colour = self.set_board_colours.get_square_colour()
-
-        # get r, g, b of square colour
-        r = square_colour[1:3]
-        g = square_colour[3:5]
-        b = square_colour[5:7]
-
-        # modify it a bit to get r, g, b of hilite colour
-        r = self.addhex(r, 30)
-        g = self.addhex(g, 30)
-        b = self.addhex(b, 30)
-        hilite_colour = "#" + r + g + b
-
         # square_list contains a list of squares to be highlighted
         for sq in square_list:
             # highlight the square
             x, y = sq
-            gv.board.set_image_cairo(x, y, hilite_colour)
-
             # add to list of highlighted squares
             self.highlighted.append(sq)
 
     # unhighlight existing highlighted squares
     def unhilite_squares(self):
-        square_colour = self.set_board_colours.get_square_colour()
-        # unhighlight existing highlighted squares
-        for sq in self.highlighted:
-            # unhighlight the square
-            x, y = sq
-            #self.eb[x][y].modify_bg(
-            #    Gtk.StateType.NORMAL, Gdk.color_parse(square_colour))
-
-            gv.board.set_image_cairo(x, y)
-
         self.highlighted = []
 
     def build_edit_popup(self):

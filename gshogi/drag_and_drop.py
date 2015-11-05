@@ -63,9 +63,6 @@ class Drag_And_Drop:
                                      pb,
                                      hot_x, hot_y)
 
-            # save the pixbuf for use in the drop (receivecallback) routines
-            self.dnd_pixbuf = pb
-
             # clear the square where the piece is being moved from
             gv.board.set_cap_as_unoccupied(y, self.piece, stm)
             gv.board.refresh_screen()
@@ -92,9 +89,6 @@ class Drag_And_Drop:
             Gtk.drag_set_icon_pixbuf(drag_context,
                                      gv.board.get_piece_pixbuf(x, y),
                                      hot_x, hot_y)
-
-            # save the pixbuf for use in the drop (receivecallback) routines
-            self.dnd_pixbuf = pb
 
             # clear the square where the piece is being moved from
             gv.board.set_square_as_unoccupied(x, y)
@@ -140,9 +134,6 @@ class Drag_And_Drop:
         if move is None:
             gv.board.update()
             return
-
-        # show the dropped piece on the board
-        gv.board.set_image(x, y, self.dnd_pixbuf)
 
         # display the move
         GObject.idle_add(gv.gshogi.human_move, move)

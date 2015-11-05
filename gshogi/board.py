@@ -21,6 +21,7 @@ from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GObject
 from gi.repository import GdkPixbuf
+from gi.repository import GLib
 import cairo
 
 import set_board_colours
@@ -180,14 +181,14 @@ class Board:
                 return p
         return ""
 
-    def display_board(self, w=None, h=None):
+    def display_board(self):
         #
         # loop through the board squares and set the pieces
         # x, y = 0, 0 is the top left square of the board
         #
         for x in range(9):
             for y in range(9):
-                self.set_image_cairo(x, y)
+                GLib.idle_add(gv.gui.get_event_box(x, y).queue_draw)
 
     def display_komadai(self, side):
         #
@@ -197,7 +198,6 @@ class Board:
         self.cap2[side] = ["-", "-", "-", "-", "-", "-", "-"]
         for i in range(7):
             self.cap_label[side][i].set_text("   ")
-            self.set_image_cairo_komadai(i, " -", side)
 
         i = 0
         for c in self.cap[side]:
@@ -219,9 +219,9 @@ class Board:
                 if num > "9":
                     num = "1" + chr(ord(num) - 10)
                 self.cap_label[side][idx].set_text(" " + num + " ")
-                self.set_image_cairo_komadai(idx, z, side)
             i = i + 1
-
+        for i in range(7):
+            GLib.idle_add(gv.gui.get_komadai_event_box(side, i).queue_draw)
     #
     # test if user has clicked on a valid source square
     # i.e. one that contains a black piece if side to move is black
@@ -309,8 +309,8 @@ class Board:
         if refresh_gui:
             self.refresh_screen()
 
-    def refresh_screen(self, w=None, h=None):
-        self.display_board(w, h)
+    def refresh_screen(self):
+        self.display_board()
         self.display_komadai(WHITE)
         self.display_komadai(BLACK)
 
@@ -362,7 +362,7 @@ class Board:
     def set_piece_at_square(self, x, y, piece):
         l = self.get_gs_loc(x, y)
         self.board_position[l] = piece
-        self.set_image_cairo(x, y)
+        GLib.idle_add(gv.gui.get_event_box(x, y).queue_draw)
 
     # called when user does a "clear board" in board edit
     def clear_board(self):
@@ -436,13 +436,6 @@ class Board:
         cap[y] = str(ct) + cap[y][1]
         self.display_komadai(colour)
 
-    #
-    # set the piece image on a board square to the supplied pixbuf
-    # used in gshogi.py drag and drop
-    #
-    def set_image(self, x, y, pixbuf):
-        self.set_image_cairo(x, y)
-
     def get_cairo_colour(self, col):
         p = Gdk.color_parse(col)
         r = p.red / 65536.0
@@ -450,14 +443,15 @@ class Board:
         b = p.blue / 65536.0
         return r, g, b
 
-    def set_image_cairo_komadai(self, y, piece, side):
+    def set_image_cairo_komadai(self, y, piece, side, wid=None, cr=None):
         if side == BLACK:
             piece = piece.lower()
         keb = gv.gui.get_komadai_event_box(side, y)
-        w = keb.get_window()
-        cr = w.cairo_create()
-
         a = keb.get_allocation()
+
+        if cr is None:
+            w = keb.get_window()
+            cr = w.cairo_create()
 
         # clear square to bg colour
         r, g, b = self.get_cairo_colour(
@@ -478,26 +472,47 @@ class Board:
         Gdk.cairo_set_source_pixbuf(cr, pb, 0, 0)
         cr.paint()
 
-    def set_image_cairo(self, x, y, square_colour=None, cr=None, widget=None):
+    # add inc to a hexstring
+    # e.g. "f0" + 5 returns "f5"
+    def addhex(self, h, inc):
+        dec = int(h, 16) + inc
+        if dec > 255:
+            dec = 255
+        hx1 = hex(dec)
+        hx = hx1[2:]
+        if len(hx) == 1:
+            hx = "0" + hx
+        return hx
+
+    def set_image_cairo(self, x, y, cr=None, widget=None):
 
         piece = self.get_piece(x, y)
 
         if cr is None:
-            w = gv.gui.eb[x][y].get_window()
+            w = gv.gui.get_event_box(x, y).get_window()
             cr = w.cairo_create()
 
         if widget is not None:
             a = widget.get_allocation()
         else:
-            a = gv.gui.eb[x][y].get_allocation()
+            a = gv.gui.get_event_box(x, y).get_allocation()
 
         # clear square to square colour
         # square colour is set if called from gui.py hilite_squares
-        if square_colour is not None:
-            r, g, b = self.get_cairo_colour(square_colour)
-        else:
-            r, g, b = self.get_cairo_colour(
-                set_board_colours.get_ref().get_square_colour())
+        square_colour = set_board_colours.get_ref().get_square_colour()
+        if (x, y) in gv.gui.get_highlighted():
+            # get r, g, b of square colour
+            r = square_colour[1:3]
+            g = square_colour[3:5]
+            b = square_colour[5:7]
+
+            # modify it a bit to get r, g, b of hilite colour
+            r = self.addhex(r, 30)
+            g = self.addhex(g, 30)
+            b = self.addhex(b, 30)
+            square_colour = "#" + r + g + b
+
+        r, g, b = self.get_cairo_colour(square_colour)
 
         cr.set_source_rgb(r, g, b)
         cr.rectangle(1, 1 , a.width-LINEWIDTH, a.height-LINEWIDTH)

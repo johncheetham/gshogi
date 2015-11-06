@@ -326,8 +326,9 @@ class Board:
         l = self.get_gs_loc(x, y)
         piece = self.board_position[l]
         pb = gv.pieces.getpixbuf(piece)
+        a = gv.gui.get_event_box(x, y).get_allocation()
         spb = pb.scale_simple(
-            pb.get_width()*self.sfw, pb.get_height()*self.sfh, GdkPixbuf.InterpType.HYPER)
+            int(a.width*SCALE), int(a.height*SCALE), GdkPixbuf.InterpType.HYPER)
         return spb
 
     def get_piece_pixbuf_unscaled(self, x, y):
@@ -343,8 +344,9 @@ class Board:
         if stm == BLACK:
             piece = piece.lower()
         pb = gv.pieces.getpixbuf(piece)
+        a = gv.gui.get_komadai_event_box(stm, y).get_allocation()
         spb = pb.scale_simple(
-            pb.get_width()*self.sfw, pb.get_height()*self.sfh, GdkPixbuf.InterpType.HYPER)
+            int(a.width*SCALE), int(a.height*SCALE), GdkPixbuf.InterpType.HYPER)
         return spb
 
     #
@@ -526,9 +528,6 @@ class Board:
         sfw = (a.width * 1.0 / pb.get_width()) * SCALE
         sfh = (a.height * 1.0 / pb.get_height()) * SCALE
         cr.scale(sfw, sfh)
-
-        self.sfw = sfw
-        self.sfh = sfh
 
         Gdk.cairo_set_source_pixbuf(cr, pb, 0, 0)
         cr.paint()

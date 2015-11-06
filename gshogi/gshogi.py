@@ -781,7 +781,7 @@ class Game:
         # pickle and save settings
         try:
             settings_file = os.path.join(self.gshogipath, "settings")
-            f = open(settings_file, "w")
+            f = open(settings_file, "wb")
             pickle.dump(s, f)
             f.close()
         except AttributeError, ae:

@@ -188,7 +188,7 @@ class Board:
         #
         for x in range(9):
             for y in range(9):
-                GLib.idle_add(gv.gui.get_event_box(x, y).queue_draw)
+                gv.gui.get_event_box(x, y).queue_draw()
 
     def display_komadai(self, side):
         #
@@ -221,7 +221,7 @@ class Board:
                 self.cap_label[side][idx].set_text(" " + num + " ")
             i = i + 1
         for i in range(7):
-            GLib.idle_add(gv.gui.get_komadai_event_box(side, i).queue_draw)
+            gv.gui.get_komadai_event_box(side, i).queue_draw()
     #
     # test if user has clicked on a valid source square
     # i.e. one that contains a black piece if side to move is black

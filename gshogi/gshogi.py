@@ -517,7 +517,7 @@ class Game:
 
                     # start the clock
                     # print "starting clock from gshogi.py"
-                    GLib.idle_add(gv.tc.start_clock, self.stm)
+                    gv.tc.start_clock(self.stm)
 
                     # set time limit/level for move in gshogi engine
                     gv.tc.set_gshogi_time_limit(self.stm)

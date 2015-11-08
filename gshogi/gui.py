@@ -20,6 +20,7 @@
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GObject
+from gi.repository import GLib
 from gi.repository import GdkPixbuf
 from gi.repository import Pango
 import os
@@ -878,7 +879,7 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
     def set_toolbar_time_control(self, txt, side_to_move):
         if side_to_move is None:
             return
-        self.tc_lbl[side_to_move].set_text(txt)
+        GLib.idle_add(self.tc_lbl[side_to_move].set_text, txt)
 
     def info_box(self, msg):
         dialog = Gtk.MessageDialog(

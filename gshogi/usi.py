@@ -252,7 +252,6 @@ class Usi:
             try:
                 e = ("<-" + self.side + "(" +
                      self.get_running_engine().strip() + "):")
-                self.p.stdout.flush()
                 line = self.p.stdout.readline()
                 if line == "":
                     if gv.verbose:

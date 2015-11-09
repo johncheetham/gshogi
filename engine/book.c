@@ -680,14 +680,17 @@ GetOpenings(void)
     LONG collisions = 0;
     char msg[80];
     int rc;
-#if !defined( __MINGW32__) && !defined(_WIN32)
+
     FILE *fd;
 
-    if ((fd = fopen(bookfile, "r")) == NULL)
+    fd = NULL;
+
+    if ((bookfile == NULL) || (fd = fopen(bookfile, "r")) == NULL)
         fd = fopen("gnushogi.tbk", "r");
 
     if (fd != NULL)
     {
+ 
         /* yes add to book */
         /* open book as writer */
         gfd = open(binbookfile, O_RDONLY | O_BINARY);
@@ -907,7 +910,6 @@ GetOpenings(void)
         sprintf(msg, CP[213], B.bookcount, B.booksize);
         ShowMessage(msg);
     }
-#endif /* !defined(MINGW32) && !defined(_WIN32)
 
     /* Set everything back to start the game. */
     Book = BOOKFAIL;

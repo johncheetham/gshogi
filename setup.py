@@ -30,10 +30,14 @@ macros = [
 if os.name == "nt":
     # windows
     macros.append(("HASHFILE", "1"))
+    data_files=[]
 else:
     # linux
     macros.append(("HAVE_UNISTD_H", "1"))
     macros.append(("HASHFILE", "\"data/gnushogi.hsh\""))
+    data_files=[
+      (sys.prefix+'/share/applications',['gshogi.desktop']),
+      (sys.prefix+'/share/pixmaps', ['gshogi.png'])]
 
 module1 = Extension("gshogi.engine", sources=[
     "engine/enginemodule.c",
@@ -75,10 +79,7 @@ setup(name="gshogi",
       package_data={
           "gshogi": ["data/opening.bbk"],
       },
-      data_files=[
-        (sys.prefix+'/share/applications',['gshogi.desktop']),
-        (sys.prefix+'/share/pixmaps', ['gshogi.png'])],
-
+      data_files=data_files,
       entry_points={
           "gui_scripts": [
               "gshogi = gshogi.gshogi:run",

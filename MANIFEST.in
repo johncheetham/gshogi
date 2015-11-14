@@ -26,6 +26,8 @@ include engine/sysdeps.c
 include engine/tcontrl.c
 include engine/util.c
 include engine/version.h
+include gshogi/images/wood1.png
+include gshogi/images/wood1_hl.png
 include gshogi/images/gshogi/bishopB.png
 include gshogi/images/gshogi/bishopPB.png
 include gshogi/images/gshogi/goldB.png

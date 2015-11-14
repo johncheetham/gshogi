@@ -34,6 +34,7 @@ board = None
 usib = None
 usiw = None
 engine_manager = None
+set_board_colours = None
 
 # Make sure no gv global variables have been created elsewhere
 # Only those above should be present
@@ -46,5 +47,5 @@ def testnames():
     for n in names:
         if n not in initial_namelist:
             print "unknown global variable in gv.py:", n
-initial_namelist = None
+initial_namelist = None     # don't remove this line
 initial_namelist = dir()

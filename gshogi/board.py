@@ -24,7 +24,6 @@ from gi.repository import GdkPixbuf
 from gi.repository import GLib
 import cairo
 
-import set_board_colours
 import engine
 from constants import WHITE, BLACK
 import gv
@@ -438,13 +437,6 @@ class Board:
         cap[y] = str(ct) + cap[y][1]
         self.display_komadai(colour)
 
-    def get_cairo_colour(self, col):
-        p = Gdk.color_parse(col)
-        r = p.red / 65536.0
-        g = p.green / 65536.0
-        b = p.blue / 65536.0
-        return r, g, b
-
     def set_image_cairo_komadai(self, y, piece, side, wid=None, cr=None):
         if side == BLACK:
             piece = piece.lower()
@@ -456,11 +448,7 @@ class Board:
             cr = w.cairo_create()
 
         # clear square to bg colour
-        r, g, b = self.get_cairo_colour(
-            set_board_colours.get_ref().get_komadai_colour())
-        cr.set_source_rgb(r, g, b)
-        cr.rectangle(0, 0 , a.width, a.height)
-        cr.fill()
+        gv.set_board_colours.set_komadai_square_colour(cr, a)
 
         # set offset so piece is centered in the square
         cr.translate(a.width*(1.0-SCALE)/2.0, a.height*(1.0-SCALE)/2.0)
@@ -473,18 +461,6 @@ class Board:
 
         Gdk.cairo_set_source_pixbuf(cr, pb, 0, 0)
         cr.paint()
-
-    # add inc to a hexstring
-    # e.g. "f0" + 5 returns "f5"
-    def addhex(self, h, inc):
-        dec = int(h, 16) + inc
-        if dec > 255:
-            dec = 255
-        hx1 = hex(dec)
-        hx = hx1[2:]
-        if len(hx) == 1:
-            hx = "0" + hx
-        return hx
 
     def set_image_cairo(self, x, y, cr=None, widget=None):
 
@@ -500,25 +476,11 @@ class Board:
             a = gv.gui.get_event_box(x, y).get_allocation()
 
         # clear square to square colour
-        # square colour is set if called from gui.py hilite_squares
-        square_colour = set_board_colours.get_ref().get_square_colour()
         if (x, y) in gv.gui.get_highlighted():
-            # get r, g, b of square colour
-            r = square_colour[1:3]
-            g = square_colour[3:5]
-            b = square_colour[5:7]
-
-            # modify it a bit to get r, g, b of hilite colour
-            r = self.addhex(r, 30)
-            g = self.addhex(g, 30)
-            b = self.addhex(b, 30)
-            square_colour = "#" + r + g + b
-
-        r, g, b = self.get_cairo_colour(square_colour)
-
-        cr.set_source_rgb(r, g, b)
-        cr.rectangle(1, 1 , a.width-LINEWIDTH, a.height-LINEWIDTH)
-        cr.fill()
+            hilite = True
+        else:
+            hilite = False
+        gv.set_board_colours.set_square_colour(cr, a, LINEWIDTH, hilite)
 
         # set offset so piece is centered in the square
         cr.translate(a.width*(1.0-SCALE)/2.0, a.height*(1.0-SCALE)/2.0)

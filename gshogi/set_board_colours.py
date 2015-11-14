@@ -20,6 +20,7 @@
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GObject
+import cairo
 import os
 
 import gv
@@ -27,19 +28,20 @@ import gv
 
 class Set_Board_Colours:
 
-    set_board_colours_ref = None
-
-    def __init__(self):
+    def __init__(self, prefix):
         if gv.verbose:
             print "set_board_colours - init"
         glade_dir = gv.gshogi.get_glade_dir()
         self.glade_file = os.path.join(glade_dir, "set_colours.glade")
         self.pieces_glade_file = os.path.join(glade_dir, "set_pieces.glade")
-        if Set_Board_Colours.set_board_colours_ref is not None:
-            print "error - already have a _set_board_colours instance"
-        Set_Board_Colours.set_board_colours_ref = self
         self.dialog = None
         self.text_colour_temp = None
+
+        # wood texture colour scheme
+        path = os.path.join(prefix, "images", "wood1.png")
+        self.wood1 = cairo.ImageSurface.create_from_png(path)
+        path = os.path.join(prefix, "images", "wood1_hl.png")
+        self.wood1_hl = cairo.ImageSurface.create_from_png(path)
 
         # default settings
         # these get overridden by settings from previous game (if any)
@@ -71,33 +73,155 @@ class Set_Board_Colours:
             self.border_colour, \
             self.grid_colour
 
-    def get_square_colour(self):
+    # add inc to a hexstring
+    # e.g. "f0" + 5 returns "f5"
+    def addhex(self, h, inc):
+        dec = int(h, 16) + inc
+        if dec > 255:
+            dec = 255
+        hx1 = hex(dec)
+        hx = hx1[2:]
+        if len(hx) == 1:
+            hx = "0" + hx
+        return hx
+
+    def get_cairo_colour(self, col):
+        p = Gdk.color_parse(col)
+        r = p.red / 65536.0
+        g = p.green / 65536.0
+        b = p.blue / 65536.0
+        return r, g, b
+
+    def set_square_colour(self, cr, a, linewidth, hilite):
         if self.use_presets:
             # preset is in use
+            if self.combo_idx == 0:
+                if hilite:
+                    image = self.wood1_hl
+                else:
+                    image = self.wood1
+                cr.set_source_surface(image, 0, 0)
+                cairo.Pattern.set_extend(cr.get_source(), cairo.EXTEND_REPEAT)
+                cr.rectangle(1, 1 , a.width-linewidth, a.height-linewidth)
+                cr.fill()
+                return
+
             presets = self.get_presets()
             theme = presets[self.combo_idx]
             # (bg_colour, komadai_colour, square_colour, text_colour,
             #  piece_fill_colour, piece_outline_colour, piece_kanji_colour)
             #    = theme[1]
             square_colour = theme[1][2]
-            return square_colour
+            if hilite:
+                # get r, g, b of square colour
+                r = square_colour[1:3]
+                g = square_colour[3:5]
+                b = square_colour[5:7]
+
+                # modify it a bit to get r, g, b of hilite colour
+                r = self.addhex(r, 30)
+                g = self.addhex(g, 30)
+                b = self.addhex(b, 30)
+                square_colour = "#" + r + g + b
+            #return square_colour
         else:
             # custom colours are in use
-            return self.square_colour
+            square_colour = self.square_colour
+            if hilite:
+                # get r, g, b of square colour
+                r = square_colour[1:3]
+                g = square_colour[3:5]
+                b = square_colour[5:7]
 
-    def get_komadai_colour(self):
+                # modify it a bit to get r, g, b of hilite colour
+                r = self.addhex(r, 30)
+                g = self.addhex(g, 30)
+                b = self.addhex(b, 30)
+                square_colour = "#" + r + g + b
+            #return square_colour
+        r, g, b = self.get_cairo_colour(square_colour)
+        cr.set_source_rgb(r, g, b)
+        cr.rectangle(1, 1 , a.width-linewidth, a.height-linewidth)
+        cr.fill()
+
+    def set_komadai_square_colour(self, cr, a):
         if self.use_presets:
             # preset is in use
+            if self.combo_idx == 0:
+                image = self.wood1
+                cr.set_source_surface(image, 0, 0)
+                cairo.Pattern.set_extend(cr.get_source(), cairo.EXTEND_REPEAT)
+                cr.rectangle(1, 1 , a.width, a.height)
+                cr.fill()
+                return
+
+            presets = self.get_presets()
+            theme = presets[self.combo_idx]
+            # (bg_colour, komadai_colour, square_colour, text_colour,
+            #  piece_fill_colour, piece_outline_colour, piece_kanji_colour)
+            #    = theme[1]
+            square_colour = theme[1][1]
+        else:
+            # custom colours are in use
+            square_colour = self.komadai_colour
+        r, g, b = self.get_cairo_colour(square_colour)
+        cr.set_source_rgb(r, g, b)
+        cr.rectangle(0, 0 , a.width, a.height)
+        cr.fill()
+
+    def set_komadai_colour(self, cr, a):
+        if self.use_presets:
+            # preset is in use
+            if self.combo_idx == 0:
+                image = self.wood1
+                cr.set_source_surface(image, 0, 0)
+                cairo.Pattern.set_extend(cr.get_source(), cairo.EXTEND_REPEAT)
+                cr.rectangle(0, 0 , a.width, a.height)
+                cr.fill()
+                return
             presets = self.get_presets()
             theme = presets[self.combo_idx]
             # (bg_colour, komadai_colour, square_colour, text_colour,
             #  piece_fill_colour, piece_outline_colour, piece_kanji_colour)
             #    = theme[1]
             komadai_colour = theme[1][1]
-            return komadai_colour
+            #return border_colour
         else:
             # custom colours are in use
-            return self.komadai_colour
+            komadai_colour = self.komadai_colour
+            #return self.border_colour
+        r, g, b = self.get_cairo_colour(komadai_colour)
+        cr.set_source_rgb(r, g, b)
+        cairo.Pattern.set_extend(cr.get_source(), cairo.EXTEND_REPEAT)
+        cr.rectangle(0, 0 , a.width, a.height)
+        cr.fill()
+
+    def set_border_colour(self, cr, a):
+        if self.use_presets:
+            # preset is in use
+            if self.combo_idx == 0:
+                image = self.wood1
+                cr.set_source_surface(image, 0, 0)
+                cairo.Pattern.set_extend(cr.get_source(), cairo.EXTEND_REPEAT)
+                cr.rectangle(0, 0 , a.width, a.height)
+                cr.fill()
+                return
+            presets = self.get_presets()
+            theme = presets[self.combo_idx]
+            # (bg_colour, komadai_colour, square_colour, text_colour,
+            #  piece_fill_colour, piece_outline_colour, piece_kanji_colour)
+            #    = theme[1]
+            border_colour = theme[1][7]
+            #return border_colour
+        else:
+            # custom colours are in use
+            border_colour = self.border_colour
+            #return self.border_colour
+        r, g, b = self.get_cairo_colour(border_colour)
+        cr.set_source_rgb(r, g, b)
+        cairo.Pattern.set_extend(cr.get_source(), cairo.EXTEND_REPEAT)
+        cr.rectangle(0, 0 , a.width, a.height)
+        cr.fill()
 
     def set_colours(self, board_bg_colour, board_komadai_colour,
                     board_square_colour, board_text_colour, piece_fill_colour,
@@ -148,6 +272,9 @@ class Set_Board_Colours:
         #      6           7          8          9
         presets = [
 
+          ["Wood",
+           ("#645452", "#C5B358", "#EBDFB0", "#000000",  "#FFFFD7", "#000000",
+            "#000001", "#EBDFB0", "#000000")],
           ["Standard",
            ("#645452", "#C5B358", "#EBDFB0", "#000000",  "#FFFFD7", "#000000",
             "#000001", "#EBDFB0", "#000000")],
@@ -552,9 +679,3 @@ class Set_Board_Colours:
             self.custom_radio_button.set_sensitive(True)
         else:
             self.custom_radio_button.set_sensitive(False)
-
-
-def get_ref():
-    if Set_Board_Colours.set_board_colours_ref is None:
-        Set_Board_Colours.set_board_colours_ref = Set_Board_Colours()
-    return Set_Board_Colours.set_board_colours_ref

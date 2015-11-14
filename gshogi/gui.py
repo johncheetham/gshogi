@@ -29,7 +29,6 @@ import cairo
 import engine_debug
 import engine_output
 import move_list
-import set_board_colours
 import drag_and_drop
 import load_save
 import utils
@@ -55,7 +54,6 @@ class Gui:
         self.engine_output = engine_output.get_ref()
         self.move_list = move_list.get_ref()
         self.gamelist = gamelist.get_ref()
-        self.set_board_colours = set_board_colours.get_ref()
         self.drag_and_drop = drag_and_drop.get_ref()
         self.enable_dnd = True
         self.load_save = load_save.get_ref()
@@ -153,9 +151,9 @@ class Gui:
             ("MoveNow", None, "_Move Now", "<Control>M",
              "Move Now", gv.gshogi.move_now),
             ("SetBoardColours", None, "_Set Board Colours", None,
-             "Set Board Colours", self.set_board_colours.show_dialog),
+             "Set Board Colours", gv.set_board_colours.show_dialog),
             ("SetPieces", None, "_Set Pieces", None,
-             "Set Pieces", self.set_board_colours.show_pieces_dialog),
+             "Set Pieces", gv.set_board_colours.show_pieces_dialog),
             ("TimeControl", None, "_Time Control", None,
              "Time Control", gv.tc.time_control),
             # ConfigureEngine1 - this name is used in engine_manager.
@@ -311,6 +309,9 @@ class Gui:
         tb.attach(lw, 1, 2, 0, 1)
         tb.attach(lb, 1, 2, 1, 2)
 
+        #pangoFont = Pango.FontDescription("Monospace bold 12")
+        #lw.modify_font(pangoFont)
+
         self.engines_lblw = Gtk.Label(label="gshogi")
         self.engines_lblw.set_use_markup(True)
         self.engines_lblw.set_alignment(0, 0.5)
@@ -439,7 +440,7 @@ class Gui:
         main_grid.attach(aspect_frame, 6, 0, 20, 20)
         aspect_frame.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse("black"))
 
-        eb.connect_after("draw", self.draw_coords)
+        eb.connect_after("draw", self.draw_border)
         self.border_eb = eb
 
         # status bar
@@ -641,9 +642,11 @@ class Gui:
         if side == WHITE:
             grid.attach(eb2, 0, 0, 4, 14)
             self.komadaiw_eb = eb
+            self.komadaiw_eb.connect("draw", self.draw_komadai)
         else:
             grid.attach(eb2, 28, 6, 4, 14)
             self.komadaib_eb = eb
+            self.komadaib_eb.connect("draw", self.draw_komadai)
         komgrid.show()
 
         for y in range(7):
@@ -963,17 +966,17 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
 
         self.get_window().modify_bg(
             Gtk.StateType.NORMAL, Gdk.color_parse(bg_colour))
-        self.komadaiw_eb.modify_bg(
-            Gtk.StateType.NORMAL, Gdk.color_parse(komadai_colour))
-        self.komadaib_eb.modify_bg(
-            Gtk.StateType.NORMAL, Gdk.color_parse(komadai_colour))
+        #self.komadaiw_eb.modify_bg(
+        #    Gtk.StateType.NORMAL, Gdk.color_parse(komadai_colour))
+        #self.komadaib_eb.modify_bg(
+        #    Gtk.StateType.NORMAL, Gdk.color_parse(komadai_colour))
 
         # square/komadai square colours are set in board.py in
         # set_image_cairo_komadai and set_image_cairo
 
         # border surrounds the board and contains the co-ordinates
-        self.border_eb.modify_bg(
-            Gtk.StateType.NORMAL, Gdk.color_parse(border_colour))
+        #self.border_eb.modify_bg(
+        #    Gtk.StateType.NORMAL, Gdk.color_parse(border_colour))
 
         self.grid_eb.modify_bg(
             Gtk.StateType.NORMAL, Gdk.color_parse(grid_colour))
@@ -1150,17 +1153,24 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
             self.wmenu.popup(None, None, None, None, event.button, event.time)
             self.wmenu.show_all()
 
-    # need to connect this routine to the expose event of what the co-ords are
-    # drawn on (i.e. the event box).
-    def draw_coords(self, widget, context):
+    # Fill in the colour or texture of the border that surrounds the board
+    # and add co-ordinates
+    def draw_komadai(self, widget, cr):
+        a = widget.get_allocation()
+        gv.set_board_colours.set_komadai_colour(cr, a)
 
+    # Fill in the colour or texture of the border that surrounds the board
+    # and add co-ordinates
+    def draw_border(self, widget, cr):
+        a = widget.get_allocation()
+        gv.set_board_colours.set_border_colour(cr, a)
         if not self.show_coords:
             return
 
         cr = widget.get_window().cairo_create()
 
         # cr.set_source_rgb(0.0, 0.0, 0.0)  # black
-        col = self.set_board_colours.get_text_colour()
+        col = gv.set_board_colours.get_text_colour()
         r = col[1:3]
         g = col[3:5]
         b = col[5:7]

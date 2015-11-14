@@ -104,10 +104,10 @@ class Game:
         gv.engine_manager = engine_manager.Engine_Manager()
         gv.board = board.Board()
 
-        self.set_board_colours = set_board_colours.get_ref()
+        gv.set_board_colours = set_board_colours.Set_Board_Colours(self.prefix)
         # set colours to previous game (if any)
         if self.settings != "":
-            self.set_board_colours.restore_colour_settings(
+            gv.set_board_colours.restore_colour_settings(
                 self.settings.colour_settings)
         gv.gui.build_gui()
         gv.board.build_board()
@@ -136,7 +136,7 @@ class Game:
 
         self.stm = self.get_side_to_move()
         self.timer_active = False
-        self.set_board_colours.apply_colour_settings()
+        gv.set_board_colours.apply_colour_settings()
 
     #
     # Process Human move
@@ -772,7 +772,7 @@ class Game:
         s.player_white = self.player[WHITE]
         s.player_black = self.player[BLACK]
         s.clock_settings = gv.tc.get_clock_settings()
-        s.colour_settings = self.set_board_colours.get_settings()
+        s.colour_settings = gv.set_board_colours.get_settings()
         s.hash_value = gv.engine_manager.get_hash_value()
         s.ponder = gv.engine_manager.get_ponder()
         s.show_coords = gv.gui.get_show_coords()

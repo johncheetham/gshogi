@@ -440,7 +440,7 @@ class Gui:
         main_grid.attach(aspect_frame, 6, 0, 20, 20)
         aspect_frame.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse("black"))
 
-        eb.connect_after("draw", self.draw_border)
+        eb.connect("draw", self.draw_border)
         self.border_eb = eb
 
         # status bar

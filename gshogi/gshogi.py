@@ -78,6 +78,7 @@ class Game:
         self.thinking = False
         self.cmove = "none"
         self.movelist = []
+        self.lastmove = ""
         self.redolist = []
         self.player = ["Human", "gshogi"]
         self.pondermove = [None, None]
@@ -173,8 +174,6 @@ class Game:
             self.src_x = x
             self.src_y = y
             self.piece = gv.board.get_piece(x, y)
-            # self.hilite_move(sq)
-            gv.gui.hilite_squares([(x, y)])
             return
 
         # must have a valid source square before checking dest square
@@ -240,11 +239,9 @@ class Game:
     def human_move(self, move):
         self.movelist.append(move)
         self.redolist = []
+        self.lastmove = move
 
         gv.board.update()
-
-        # highlight the move by changing square colours
-        self.hilite_move(move)
 
         # update move list in move list window
         self.move_list.update()
@@ -542,6 +539,7 @@ class Game:
                 if self.cmove != "":
                     self.movelist.append(self.cmove)
                     self.redolist = []
+                    self.lastmove = self.cmove
                 else:
                     # empty move is returned by gshogi engine when it is in
                     # checkmate
@@ -565,8 +563,6 @@ class Game:
                 # show computer move
                 GLib.idle_add(gv.board.update)
                 GLib.idle_add(self.move_list.update)
-                # highlight the move by changing square colours
-                GLib.idle_add(self.hilite_move, self.cmove)
 
                 # if self.player[self.stm] != "gshogi"
                 #     and gv.engine_manager.get_ponder():
@@ -603,18 +599,6 @@ class Game:
         except:
             traceback.print_exc()
             return
-
-    # highlight the move by changing square colours
-    def hilite_move(self, move):
-        # if move is a drop then just highlight the dest square
-        if move[1] == "*":
-            dst = gv.board.get_gs_square_posn(move[2:4])
-            gv.gui.hilite_squares([dst])
-        else:
-            # not a drop so highlight source and dest squares
-            src = gv.board.get_gs_square_posn(move[0:2])
-            dst = gv.board.get_gs_square_posn(move[2:4])
-            gv.gui.hilite_squares([src, dst])
 
     def check_for_gameover(self):
         gameover = False
@@ -750,11 +734,10 @@ class Game:
         gv.usiw.set_newgame()
         self.movelist = []
         self.redolist = []
+        self.lastmove = ""
         gv.gui.set_status_bar_msg("")
         self.stm = self.get_side_to_move()
         gv.gui.set_side_to_move(self.stm)
-        gv.gui.unhilite_squares()
-
         gv.tc.reset_clock()
 
     #
@@ -882,17 +865,15 @@ class Game:
         move = None
         try:
             move = self.movelist[len(self.movelist) - 1]
+            self.lastmove = move
             # print "move ",move
         except IndexError:
             pass
 
         if move is not None:
             gv.gui.set_status_bar_msg(move)
-            # highlight the move by changing square colours
-            self.hilite_move(move)
         else:
             gv.gui.set_status_bar_msg(" ")
-            gv.gui.unhilite_squares()
 
     #
     # called from gui.py when undo button click on toolbar (passed widget is
@@ -905,6 +886,7 @@ class Game:
         try:
             move = self.movelist.pop()
             self.redolist.append(move)
+            self.lastmove = move
             self.stm = self.get_side_to_move()
             gv.gui.set_side_to_move(self.stm)
         except IndexError:
@@ -921,10 +903,6 @@ class Game:
         self.move_list.set_move(len(self.movelist))
         if move is not None:
             gv.gui.set_status_bar_msg("(" + move + ")")
-            # highlight the move by changing square colours
-            self.hilite_move(move)
-        else:
-            gv.gui.unhilite_squares()
 
     # undo a move without updating the gui
     def undo_move(self):
@@ -945,6 +923,7 @@ class Game:
         self.gameover = False
         while len(self.movelist) != 0:
             self.undo_move()
+        self.lastmove = ""
 
         self.stm = self.get_side_to_move()
         gv.gui.set_side_to_move(self.stm)
@@ -953,7 +932,6 @@ class Game:
         # set move list window to initial position
         self.move_list.set_move(0)
         gv.gui.set_status_bar_msg(" ")
-        gv.gui.unhilite_squares()
 
     #
     # called from gui.py when redo button click on toolbar (passed widget is
@@ -964,10 +942,10 @@ class Game:
         move = None
         try:
             move = self.redolist.pop()
-
             # get side to move before appending to movelist
             self.stm = self.get_side_to_move()
             self.movelist.append(move)
+            self.lastmove = move
 
             # do the move in gshogi engine
             engine.setplayer(self.stm)
@@ -989,8 +967,6 @@ class Game:
         self.move_list.set_move(len(self.movelist))
         if move is not None:
             gv.gui.set_status_bar_msg(move)
-            # highlight the move by changing square colours
-            self.hilite_move(move)
 
     # redo a move without updating the gui
     def redo_move(self):
@@ -1025,8 +1001,7 @@ class Game:
 
         if move is not None:
             gv.gui.set_status_bar_msg(move)
-            # highlight the move by changing square colours
-            self.hilite_move(move)
+            self.lastmove = move
 
     def set_movelist(self, movelist):
         self.movelist = movelist
@@ -1107,6 +1082,12 @@ class Game:
 
     def get_redolist(self):
         return self.redolist
+
+    def get_lastmove(self):
+        return self.lastmove
+
+    def set_lastmove(self, lastmove):
+        self.lastmove = lastmove
 
     def set_players(self, b):
         dialog = Gtk.Dialog(

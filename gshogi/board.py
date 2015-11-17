@@ -475,11 +475,22 @@ class Board:
         else:
             a = gv.gui.get_event_box(x, y).get_allocation()
 
+        # if user has set hilite moves on then check if this square is
+        # in last move and if so hilight it
+        hilite = False
+        if gv.gui.get_highlight_moves():
+            lastmove = gv.gshogi.get_lastmove()
+            if lastmove != "":
+                movesquares = []
+                src = lastmove[0:2]
+                dst = lastmove[2:4]
+                if src[1] != "*":
+                    movesquares.append(self.get_gs_square_posn(lastmove[0:2]))
+                movesquares.append(self.get_gs_square_posn(lastmove[2:4]))
+                if (x, y) in movesquares:
+                    hilite = True
+
         # clear square to square colour
-        if (x, y) in gv.gui.get_highlighted():
-            hilite = True
-        else:
-            hilite = False
         gv.set_board_colours.set_square_colour(cr, a, LINEWIDTH, hilite)
 
         # set offset so piece is centered in the square

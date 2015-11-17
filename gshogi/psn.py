@@ -189,6 +189,7 @@ class Psn:
             hdr, newptr = self.get_header(ptr)
 
         # Moves
+        lastmove = ""
         while 1:
 
             if gv.verbose:
@@ -268,6 +269,7 @@ class Psn:
                     return 1
                 movecnt += 1
                 movelist.append(move)
+                lastmove = move
                 if gv.verbose:
                     engine.command("bd")
 
@@ -299,6 +301,7 @@ class Psn:
         gv.gshogi.set_movelist(movelist)
         gv.gshogi.set_redolist(redolist)
         gv.gshogi.set_startpos(startpos)
+        gv.gshogi.set_lastmove(lastmove)
 
         gv.board.update()
 
@@ -307,7 +310,6 @@ class Psn:
         stm = gv.gshogi.get_side_to_move()
         gv.gshogi.set_side_to_move(stm)
         gv.gui.set_side_to_move(stm)
-        gv.gui.unhilite_squares()
 
         gv.tc.reset_clock()
 

@@ -45,7 +45,6 @@ class Gui:
         if Gui.gui_ref is not None:
             raise RuntimeError("Attempt to create second gui instance")
         Gui.gui_ref = self
-        self.highlighted = []  # list of highlighted squares
 
     def build_gui(self):
 
@@ -982,27 +981,6 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
             Gtk.StateType.NORMAL, Gdk.color_parse(grid_colour))
 
         gv.board.refresh_screen()
-
-    def get_highlighted(self):
-        return self.highlighted
-
-    def hilite_squares(self, square_list):
-
-        self.unhilite_squares()
-
-        if not self.highlight_moves:
-            return
-
-        # square_list contains a list of squares to be highlighted
-        for sq in square_list:
-            # highlight the square
-            x, y = sq
-            # add to list of highlighted squares
-            self.highlighted.append(sq)
-
-    # unhighlight existing highlighted squares
-    def unhilite_squares(self):
-        self.highlighted = []
 
     def build_edit_popup(self):
         self.edit_mode = False

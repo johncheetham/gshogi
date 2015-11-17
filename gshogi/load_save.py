@@ -112,7 +112,7 @@ class Load_Save:
         stm = gv.gshogi.get_side_to_move()
         gv.gshogi.set_side_to_move(stm)
         gv.gui.set_side_to_move(stm)
-        gv.gui.unhilite_squares()
+        gv.gshogi.set_lastmove("")
 
         gv.tc.reset_clock()
 
@@ -170,7 +170,7 @@ class Load_Save:
         stm = gv.gshogi.get_side_to_move()
         gv.gshogi.set_side_to_move(stm)
         gv.gui.set_side_to_move(stm)
-        gv.gui.unhilite_squares()
+        gv.gshogi.set_lastmove("")
         utils.get_gamelist_ref().set_game_list([])
 
         gv.tc.reset_clock()

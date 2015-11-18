@@ -525,6 +525,16 @@ class Game:
                     # update time for last move
                     # print "updating clock from gshogi.py"
                     GLib.idle_add(gv.tc.update_clock)
+
+                    # if the engine moved very fast then wait a bit
+                    # before displaying the move. The time to wait
+                    # is in MIN_MOVETIME in constants.py
+                    t_end = time.time()
+                    move_t = t_end - t_start
+                    if move_t < MIN_MOVETIME:
+                        diff = MIN_MOVETIME - move_t
+                        time.sleep(diff)
+
                     GLib.idle_add(gv.gui.set_side_to_move, self.stm)
 
                     if self.quitting:
@@ -545,15 +555,6 @@ class Game:
                     # checkmate
                     if gv.verbose:
                         print "empty move returned by engine"
-
-                # if the engine moved very fast then wait a bit
-                # before displaying the move. The time to wait
-                # is in MIN_MOVETIME in constants.py
-                t_end = time.time()
-                move_t = t_end - t_start
-                if move_t < MIN_MOVETIME:
-                    diff = MIN_MOVETIME - move_t
-                    time.sleep(diff)
 
                 # if program is exitting then quit this thread asap
                 if self.quitting:

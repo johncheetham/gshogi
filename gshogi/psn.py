@@ -17,12 +17,15 @@
 #   along with gshogi.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import engine
+from . import gv
+if gv.installed:
+    from gshogi import engine
+else:
+    import engine
 from . import gamelist
 from . import comments
 from . import move_list
 from .constants import WHITE, BLACK
-from . import gv
 
 
 class Psn:

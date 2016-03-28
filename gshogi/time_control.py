@@ -20,9 +20,12 @@
 from gi.repository import Gtk
 import time
 
-import engine
-from .constants import WHITE, BLACK
 from . import gv
+if gv.installed:
+    from gshogi import engine
+else:
+    import engine
+from .constants import WHITE, BLACK
 
 
 class Time_Control:

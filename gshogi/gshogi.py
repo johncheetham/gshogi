@@ -34,7 +34,11 @@ import os
 import pickle
 import time
 
-import engine
+from . import gv
+if gv.installed:
+    from gshogi import engine
+else:
+    import engine
 from . import utils
 from . import gui
 from . import usi
@@ -46,12 +50,13 @@ from . import board
 from . import pieces
 from . import engine_output
 from .constants import WHITE, BLACK, NEUTRAL, NAME, VERSION, BEEP, MIN_MOVETIME
-from . import gv
+
 
 
 class Game:
 
     def __init__(self):
+
         gv.gshogi = self
         # set global variables for debug messages
         gv.verbose, gv.verbose_usi = utils.get_verbose()

@@ -12,6 +12,8 @@ import string
 
 assert sys.version_info >= (3,0)
 
+import gshogi.gv
+
 def get_plat():
     if os.name == 'nt':
         prefix = " bit ("
@@ -43,6 +45,7 @@ build_lib = "lib" + plat_specifier
 pypath = os.path.join("build", build_lib, "gshogi")
 
 sys.path.append(pypath)
+gshogi.gv.installed = False
 
 import gshogi.gshogi
 gshogi.gshogi.run()

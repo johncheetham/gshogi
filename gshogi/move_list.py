@@ -21,9 +21,12 @@ from gi.repository import Gtk
 from gi.repository import GObject
 import os
 
-import engine
-from . import comments
 from . import gv
+if gv.installed:
+    from gshogi import engine
+else:
+    import engine
+from . import comments
 
 
 class Move_List:

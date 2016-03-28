@@ -24,9 +24,12 @@ from gi.repository import GdkPixbuf
 from gi.repository import GLib
 import cairo
 
-import engine
-from .constants import WHITE, BLACK
 from . import gv
+if gv.installed:
+    from gshogi import engine
+else:
+    import engine
+from .constants import WHITE, BLACK
 
 SCALE = 0.9      # scale the pieces so they occupy 90% of the board square
 LINEWIDTH = 2    # width of lines on the board

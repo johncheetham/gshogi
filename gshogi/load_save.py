@@ -21,12 +21,15 @@ from gi.repository import Gtk
 import os
 from datetime import date
 
-import engine
+from . import gv
+if gv.installed:
+    from gshogi import engine
+else:
+    import engine
 from . import move_list
 from . import comments
 from . import psn
 from .constants import WHITE, BLACK
-from . import gv
 
 
 class Load_Save:

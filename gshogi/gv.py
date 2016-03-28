@@ -21,6 +21,9 @@ import sys
 
 # Global variables
 
+# set in run.py
+installed = True
+
 # set in gshogi.py
 verbose = False
 verbose_usi = False

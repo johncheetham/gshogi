@@ -876,7 +876,6 @@ class Time_Control:
             #
             # time limit of 10 moves in 2 minutes
             # level 10 2
-            print("zzz=",command)
             engine.command(command)
         # classical
         elif self.type == 1:

@@ -12,14 +12,14 @@ at Linux users.
 It was based originally on GNU Shogi version 1.3.2 and uses GNU Shogi
 code for the built in engine and board pieces.
 
-This version was tested on on CentOS 7 64 bit using Python 2.7.5,
+This version was tested on on CentOS 7 64 bit using Python 3.3.2,
 pygobject 3.8.2, gtk 3.8.8 and gcc 4.8.3.
 
 See the project homepage for more information on gshogi and USI engines.
 
 Requirements
 ------------
-Python2, pygobject, GTK3, C.
+Python3, pygobject, GTK3, C.
 
 
 Installation

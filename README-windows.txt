@@ -1,3 +1,6 @@
+Note these instructions are out of date. They refer to python 2.7 and
+the requirement is now for python 3.
+
 You can run gshogi on windows by following these steps.
 
 Install Prerequisites

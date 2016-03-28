@@ -22,8 +22,8 @@ from gi.repository import GObject
 import os
 
 import engine
-import comments
-import gv
+from . import comments
+from . import gv
 
 
 class Move_List:

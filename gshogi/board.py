@@ -25,8 +25,8 @@ from gi.repository import GLib
 import cairo
 
 import engine
-from constants import WHITE, BLACK
-import gv
+from .constants import WHITE, BLACK
+from . import gv
 
 SCALE = 0.9      # scale the pieces so they occupy 90% of the board square
 LINEWIDTH = 2    # width of lines on the board
@@ -243,7 +243,7 @@ class Board:
 
         try:
             idx = pieces[stm].index(piece)
-        except ValueError, ve:
+        except ValueError as ve:
             return False
 
         return True
@@ -289,7 +289,7 @@ class Board:
 
         try:
             idx = promotable_pieces[stm].index(piece)
-        except ValueError, ve:
+        except ValueError as ve:
             return 0
 
         return 1

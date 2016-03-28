@@ -21,7 +21,7 @@ from gi.repository import Gtk
 from gi.repository import Pango
 import os
 
-import gv
+from . import gv
 
 
 class Engine_Output:
@@ -96,10 +96,10 @@ class Engine_Output:
             ms = int(ztime)
         except:
             return ztime
-        secs = ms / 1000
+        secs = int(ms / 1000)
         mins = 0
         if secs > 60:
-            mins = secs / 60
+            mins = int(secs / 60)
             secs = secs - mins * 60
         smins = str(mins)
         if mins < 10:

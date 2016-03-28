@@ -23,9 +23,9 @@ import os
 import sys
 import pickle
 
-import load_save
-import psn
-import gv
+from . import load_save
+from . import psn
+from . import gv
 
 
 # Copy the board position to the clipboard in std SFEN format
@@ -63,12 +63,12 @@ def validate_sfen(sfen):
     # board_state
     ranks = board_state.split("/")
     if len(ranks) != 9:
-        print "board state does not have 9 ranks"
+        print("board state does not have 9 ranks")
         return False
 
     # side_to_move
     if side_to_move != "w" and side_to_move != "b":
-        print "invalid side to move"
+        print("invalid side to move")
         return False
 
     # pieces in hand
@@ -77,7 +77,7 @@ def validate_sfen(sfen):
     try:
         mc = int(move_count)
     except ValueError:
-        print "invalid move count"
+        print("invalid move count")
         return False
 
     return True
@@ -92,7 +92,7 @@ def copy_game_to_clipboard(action):
 def paste_game_from_clipboard(action):
     gamestr = get_text_from_clipboard()
     if gamestr is None:
-        print "Error invalid game data"
+        print("Error invalid game data")
         return
     psn_ref = psn.get_ref()
     psn_ref.load_game_psn_from_str(gamestr)
@@ -122,16 +122,16 @@ def get_settings_from_file(filepath):
         f = open(settings_file, "rb")
         s = pickle.load(f)
         f.close()
-    except EOFError, eofe:
-        print "eof error:", eofe
-    except pickle.PickleError, pe:
-        print "pickle error:", pe
-    except IOError, ioe:
+    except EOFError as eofe:
+        print("eof error:", eofe)
+    except pickle.PickleError as pe:
+        print("pickle error:", pe)
+    except IOError as ioe:
         # Normally this error means it is the 1st run and the settings file
         # does not exist
         pass
-    except Exception, exc:
-        print "Cannot restore settings:", exc
+    except Exception as exc:
+        print("Cannot restore settings:", exc)
     #if gv.verbose:
     #    print "values read from settings file"
     #    print "colour_settings:",s.colour_settings
@@ -142,7 +142,7 @@ def get_prefix():
     # prefix to find package files/folders
     prefix = os.path.abspath(os.path.dirname(__file__))
     if gv.verbose:
-        print "base directory (prefix) =", prefix
+        print("base directory (prefix) =", prefix)
     return prefix
 
 
@@ -153,7 +153,7 @@ def create_settings_dir():
     if not os.path.exists(gshogipath):
         try:
             os.makedirs(gshogipath)
-        except OSError, exc:
+        except OSError as exc:
             raise
     return gshogipath
 

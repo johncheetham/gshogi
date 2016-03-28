@@ -21,8 +21,8 @@ from gi.repository import Gtk
 from gi.repository import GObject
 import os
 
-from constants import WHITE, BLACK
-import gv
+from .constants import WHITE, BLACK
+from . import gv
 
 
 class Engine_Debug:

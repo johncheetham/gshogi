@@ -18,11 +18,11 @@
 #
 
 import engine
-import gamelist
-import comments
-import move_list
-from constants import WHITE, BLACK
-import gv
+from . import gamelist
+from . import comments
+from . import move_list
+from .constants import WHITE, BLACK
+from . import gv
 
 
 class Psn:
@@ -193,8 +193,8 @@ class Psn:
         while 1:
 
             if gv.verbose:
-                print
-                print "Processing move number (ply):" + str(movecnt + 1)
+                print()
+                print("Processing move number (ply):" + str(movecnt + 1))
 
             newptr = self.skip_whitespace(ptr)
             if newptr is None:
@@ -254,7 +254,7 @@ class Psn:
                 engine.setplayer(stm)
                 stm = stm ^ 1
                 if gv.verbose:
-                    print "move=", move
+                    print("move=", move)
                 validmove = engine.hmove(move)
                 if (not validmove):
                     # Should never get this message since get_move has already
@@ -405,9 +405,9 @@ class Psn:
         move = word
 
         if gv.verbose:
-            print
-            print "In get_move in psn.py"
-            print "get_move has been passed this possible move:", move
+            print()
+            print("In get_move in psn.py")
+            print("get_move has been passed this possible move:", move)
 
         # Parse move and return its component parts
         (promoted_piece, piece, source_square, dest_square,
@@ -415,14 +415,14 @@ class Psn:
                                                                   movelist)
         if piece is None:
             if gv.verbose:
-                print "Unable to parse move:", move
+                print("Unable to parse move:", move)
             return None, None
 
         # Get list of legal moves
         engine.setplayer(stm)
         legal_move_list = self.get_legal_move_list(piece)
         if gv.verbose:
-            print "legal_move_list=", legal_move_list
+            print("legal_move_list=", legal_move_list)
 
         # Create move by concat of component parts
         if (self.validate_square(source_square) and
@@ -440,23 +440,23 @@ class Psn:
             # suitable for gshogi
             # e.g. S7b -> 7a7b
             if gv.verbose:
-                print "Search succeeded and returned move:", move2
+                print("Search succeeded and returned move:", move2)
             return move2, newptr  # found a valid move
 
         # Search failed
         if gv.verbose:
-            print "Search did not find move"
+            print("Search did not find move")
 
         # try a drop
         if move_type == 1 and len(move) == 3:
             rmove = move[0] + "*" + move[1:]
             if gv.verbose:
-                print "trying a drop. move changed from", move, "to", rmove
+                print("trying a drop. move changed from", move, "to", rmove)
             move2 = self.search_legal_moves(rmove, legal_move_list)
             if move2 is not None:
                 # Move Found
                 if gv.verbose:
-                    print "Search succeeded and returned move:", move2
+                    print("Search succeeded and returned move:", move2)
             return move2, newptr  # found a valid move
 
         # No valid move found
@@ -465,7 +465,7 @@ class Psn:
     # get list of legal moves
     def get_legal_move_list(self, piece):
         if gv.verbose:
-            print "in get legal movelist with piece:", piece
+            print("in get legal movelist with piece:", piece)
         # Make sure board is up to date so that when we do a "get_piece"
         # it will return the correct value
         gv.board.update(refresh_gui=False)
@@ -515,9 +515,9 @@ class Psn:
         error_return = None, None, None, None, None, None, None
 
         if gv.verbose:
-            print
-            print "In parse_move in psn.py"
-            print "move passed in=", orig_move
+            print()
+            print("In parse_move in psn.py")
+            print("move passed in=", orig_move)
 
         # orig_move : move passed in
         # move0     : latest modified version of the move
@@ -534,8 +534,8 @@ class Psn:
 
             if not self.validate_piece(piece):
                 if gv.verbose:
-                    print "Move invalid (1). Drop Move has invalid " \
-                          "piece. ", move0
+                    print("Move invalid (1). Drop Move has invalid " \
+                          "piece. ", move0)
                 return error_return
 
             source_square = "*"
@@ -543,8 +543,8 @@ class Psn:
             dest_square = move[2:4]
             if not self.validate_square(dest_square):
                 if gv.verbose:
-                    print "Move invalid (1). Drop Move has invalid dest " \
-                          "square. ", move0
+                    print("Move invalid (1). Drop Move has invalid dest " \
+                          "square. ", move0)
                 return error_return
 
             move_promotes = ""
@@ -570,8 +570,8 @@ class Psn:
             # validate piece
             if not self.validate_piece(pce):
                 if gv.verbose:
-                    print "Move invalid (6). Move has invalid " \
-                          "piece. ", orig_move, move0, pce
+                    print("Move invalid (6). Move has invalid " \
+                          "piece. ", orig_move, move0, pce)
                 return error_return
 
             # check if move promotes
@@ -587,7 +587,7 @@ class Psn:
             move = move.rstrip("=")
             move0 = move[1:] + "x" + prom
             if gv.verbose:
-                print "move reformatted from", move1, "to", move0
+                print("move reformatted from", move1, "to", move0)
 
         # If move ends in x (i.e. no dest square specified) then get dest
         # square from the previous move
@@ -598,7 +598,7 @@ class Psn:
             prevmove = prevmove.rstrip("+")
             move0 = move.replace("x", prevmove[-2:])
             if gv.verbose:
-                print "move reformatted from", move, "to", move0
+                print("move reformatted from", move, "to", move0)
 
         # set promoted_piece, move_promotes, capture
         # e.g. +Bx7f
@@ -635,7 +635,7 @@ class Psn:
 
         if move0 != move:
             if gv.verbose:
-                print "move reformatted from", move0, "to", move
+                print("move reformatted from", move0, "to", move)
             move0 = move
 
         # move0 now has leading/trailing "+" and "-" and "x" symbols removed
@@ -653,7 +653,7 @@ class Psn:
 
             if not self.validate_piece(piece):
                 if gv.verbose:
-                    print "Move invalid (2). Move has invalid piece. ", move0
+                    print("Move invalid (2). Move has invalid piece. ", move0)
                 return error_return
 
             source_square = ""
@@ -661,8 +661,8 @@ class Psn:
             dest_square = move[1:3]
             if not self.validate_square(dest_square):
                 if gv.verbose:
-                    print "Move invalid (2). Move has invalid dest " \
-                          "square. ", move0
+                    print("Move invalid (2). Move has invalid dest " \
+                          "square. ", move0)
                 return error_return
 
             move_type = 1  # Move type is piece + dest square
@@ -677,7 +677,7 @@ class Psn:
             piece = move[0]
             if not self.validate_piece(piece):
                 if gv.verbose:
-                    print "Move invalid (3). Move has invalid piece. ", move0
+                    print("Move invalid (3). Move has invalid piece. ", move0)
                 return error_return
 
             # just search on e.g. 5h6g to get match in legal move list
@@ -686,15 +686,15 @@ class Psn:
             source_square = move[1:3]
             if not self.validate_square(source_square):
                 if gv.verbose:
-                    print "Move invalid (3). Move has invalid source" \
-                          " square. ", move0
+                    print("Move invalid (3). Move has invalid source" \
+                          " square. ", move0)
                 return error_return
 
             dest_square = move[3:5]
             if not self.validate_square(dest_square):
                 if gv.verbose:
-                    print "Move invalid (3). Move has invalid dest square. ", \
-                          move0
+                    print("Move invalid (3). Move has invalid dest square. ", \
+                          move0)
                 return error_return
 
             return (promoted_piece, piece, source_square, dest_square,
@@ -706,7 +706,7 @@ class Psn:
             piece = move[0]
             if not self.validate_piece(piece):
                 if gv.verbose:
-                    print "Move invalid (4). Move has invalid piece. ", move0
+                    print("Move invalid (4). Move has invalid piece. ", move0)
                 return error_return
 
             # in this format the 2nd char is either a row (a to i) or
@@ -714,15 +714,15 @@ class Psn:
             source_square = move[1]
             if "123456789abcdefghi".find(source_square) == -1:
                 if gv.verbose:
-                    print "Move invalid (4). Move has invalid source square", \
-                          move0
+                    print("Move invalid (4). Move has invalid source square", \
+                          move0)
                 return error_return
 
             dest_square = move[2:4]
             if not self.validate_square(dest_square):
                 if gv.verbose:
-                    print "Move invalid (4). Move has invalid dest square. ", \
-                          move0
+                    print("Move invalid (4). Move has invalid dest square. ", \
+                          move0)
                 return error_return
 
             return (promoted_piece, piece, source_square, dest_square,
@@ -730,7 +730,7 @@ class Psn:
 
         # Fallen through without formatting a valid move
         if gv.verbose:
-            print "Move invalid (5).", move0
+            print("Move invalid (5).", move0)
 
         return error_return
 
@@ -767,7 +767,7 @@ class Psn:
 
     def search_legal_moves(self, move, legal_move_list):
         if gv.verbose:
-            print "searching for move", move
+            print("searching for move", move)
 
         check_for_dupes = True
         hit_cnt = 0
@@ -812,7 +812,7 @@ class Psn:
         elif hit_cnt == 1:
             return hit_list[0]
         else:
-            print "Duplicate hits for move:", move, "-", hit_list
+            print("Duplicate hits for move:", move, "-", hit_list)
             return None
 
     # move number is numeric digits followed by a fullstop

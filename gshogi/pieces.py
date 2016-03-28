@@ -71,21 +71,21 @@ class Pieces:
         path = os.path.join(prefix, "images", "gshogi")
         self.gshogi_piece_pixbuf, errmsg = self.load_pixbufs(path)
         if errmsg is not None:
-            print "Error loading gshogi pieces:",errmsg
+            print("Error loading gshogi pieces:",errmsg)
             return 1
 
         # load builtin gnushogi eastern pieces as pixbufs
         path = os.path.join(prefix, "images", "eastern")
         self.eastern_piece_pixbuf, errmsg = self.load_pixbufs(path)
         if errmsg is not None:
-            print "Error loading eastern pieces:",errmsg
+            print("Error loading eastern pieces:",errmsg)
             return 1
 
         # load builtin gnushogi western pieces as pixbufs
         path = os.path.join(prefix, "images", "western")
         self.western_piece_pixbuf, errmsg = self.load_pixbufs(path)
         if errmsg is not None:
-            print "Error loading western pieces:",errmsg
+            print("Error loading western pieces:",errmsg)
             return 1
 
         # load custom piece pixbufs if any
@@ -96,7 +96,7 @@ class Pieces:
             # eastern
             if self.custom_piece_pixbuf is None:
                 if errmsg is not None:
-                    print errmsg
+                    print(errmsg)
                 if self.pieceset == "custom":
                     self.pieceset = "gshogi"
 
@@ -180,9 +180,9 @@ class Pieces:
 
         try:
             idx = pieces.index(piece)
-        except ValueError, ve:
+        except ValueError as ve:
             traceback.print_exc()
-            print "error piece not found, piece =", piece
+            print("error piece not found, piece =", piece)
 
         if self.pieceset == "gshogi":
             pixbuf = self.gshogi_piece_pixbuf[idx]
@@ -193,12 +193,12 @@ class Pieces:
         elif self.pieceset == "custom":
             try:
                 pixbuf = self.custom_piece_pixbuf[idx]
-            except TypeError, te:
-                print "error loading custom pieces", te
+            except TypeError as te:
+                print("error loading custom pieces", te)
                 pixbuf = self.gshogi_piece_pixbuf[idx]
                 self.pieceset = "gshogi"
         else:
-            print "invalid pieceset in getpixbuf in pieces.py:", self.pieceset
+            print("invalid pieceset in getpixbuf in pieces.py:", self.pieceset)
             self.pieceset = "gshogi"
             pixbuf = self.gshogi_piece_pixbuf[idx]   # default to gshogi pieces
         return pixbuf

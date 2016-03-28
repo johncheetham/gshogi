@@ -20,8 +20,8 @@
 from gi.repository import Gtk
 import os
 
-import psn
-import gv
+import gshogi.psn
+from . import gv
 
 
 class Gamelist:
@@ -103,9 +103,9 @@ class Gamelist:
                 i += 1
             try:
                 gameno = int(gameno)
-            except ValueError, ve:
+            except ValueError as ve:
                 return
-            psnref = psn.get_ref()
+            psnref = gshogi.psn.get_ref()
             psnref.load_game_from_multigame_file(gameno)
 
 

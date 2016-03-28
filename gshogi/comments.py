@@ -20,8 +20,8 @@
 from gi.repository import Gtk
 import os
 
-import move_list
-import gv
+import gshogi.move_list
+from . import gv
 
 
 class Comments:
@@ -32,7 +32,7 @@ class Comments:
 
         glade_dir = gv.gshogi.get_glade_dir()
         self.glade_file = os.path.join(glade_dir, "comments.glade")
-        self.move_list = move_list.get_ref()
+        self.move_list = gshogi.move_list.get_ref()
 
         # create comments window
         self.builder = Gtk.Builder()

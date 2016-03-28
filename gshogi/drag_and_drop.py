@@ -20,8 +20,8 @@
 from gi.repository import Gtk
 from gi.repository import GObject
 
-from constants import TARGET_TYPE_TEXT
-import gv
+from .constants import TARGET_TYPE_TEXT
+from . import gv
 
 
 class Drag_And_Drop:
@@ -39,10 +39,10 @@ class Drag_And_Drop:
         x, y = data
 
         if gv.verbose:
-            print "in drag begin"
-            print "data=", data
-            print "widget_name=", widget.get_name()
-            print "source sq=", x, y
+            print("in drag begin")
+            print("data=", data)
+            print("widget_name=", widget.get_name())
+            print("source sq=", x, y)
 
         stm = gv.gshogi.get_side_to_move()
 
@@ -57,8 +57,8 @@ class Drag_And_Drop:
 
             pb = gv.board.get_cap_pixbuf(y, stm)
 
-            hot_x = pb.get_width() / 2
-            hot_y = pb.get_height() / 2
+            hot_x = int(pb.get_width() / 2)
+            hot_y = int(pb.get_height() / 2)
             Gtk.drag_set_icon_pixbuf(drag_context,
                                      pb,
                                      hot_x, hot_y)
@@ -74,7 +74,7 @@ class Drag_And_Drop:
 
             self.src = sq
             if gv.verbose:
-                print "source square: (x, y) = (", x, ",",  y, ") ", sq
+                print("source square: (x, y) = (", x, ",",  y, ") ", sq)
             self.src_x = x
             self.src_y = y
 
@@ -83,8 +83,8 @@ class Drag_And_Drop:
             self.piece = gv.board.get_piece(x, y)
             pb = gv.board.get_piece_pixbuf(x, y)
 
-            hot_x = pb.get_width() / 2
-            hot_y = pb.get_height() / 2
+            hot_x = int(pb.get_width() / 2)
+            hot_y = int(pb.get_height() / 2)
 
             Gtk.drag_set_icon_pixbuf(drag_context,
                                      gv.board.get_piece_pixbuf(x, y),
@@ -101,13 +101,13 @@ class Drag_And_Drop:
     def receiveCallback(self, widget, context, x, y, selection, targetType,
                         time, data):
         if gv.verbose:
-            print "in receive callback"
-            print "x=", x
-            print "y=", y
-            print "selection.data=", selection.get_text()
-            print "targetType=", targetType
-            print "time=", time
-            print "data=", data
+            print("in receive callback")
+            print("x=", x)
+            print("y=", y)
+            print("selection.data=", selection.get_text())
+            print("targetType=", targetType)
+            print("time=", time)
+            print("data=", data)
 
         self.dnd_data_received = True
 
@@ -121,13 +121,13 @@ class Drag_And_Drop:
         # set destination square
         dst = sq
         if gv.verbose:
-            print "dst =", dst
+            print("dst =", dst)
 
         move = gv.gshogi.get_move(self.piece, self.src, dst, self.src_x,
                                   self.src_y, x, y)
         if gv.verbose:
-            print "move=", move
-            print
+            print("move=", move)
+            print()
 
         # if drag and drop failed then reinstate the piece where it
         # was dragged from

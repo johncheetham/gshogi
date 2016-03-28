@@ -10,6 +10,8 @@ import os
 import platform
 import string
 
+assert sys.version_info >= (3,0)
+
 def get_plat():
     if os.name == 'nt':
         prefix = " bit ("
@@ -26,12 +28,12 @@ def get_plat():
 
     # linux
     (osname, host, release, version, machine) = os.uname()
-    osname = string.lower(osname)
-    osname = string.replace(osname, "/", "")
-    machine = string.replace(machine, " ", "_")
-    machine = string.replace(machine, "/", "-")
+    osname = osname.lower()
+    osname = osname.replace("/", "")
+    machine = machine.replace(" ", "_")
+    machine = machine.replace("/", "-")
     if osname[:5] != "linux":
-        print "OS not supported"
+        print("OS not supported")
     plat_name = "%s-%s" % (osname, machine)
     return plat_name
 

@@ -21,8 +21,8 @@ from gi.repository import Gtk
 import time
 
 import engine
-from constants import WHITE, BLACK
-import gv
+from .constants import WHITE, BLACK
+from . import gv
 
 
 class Time_Control:
@@ -832,7 +832,7 @@ class Time_Control:
                 gs_movetime = self.btime
             gs_byoyomi = self.byo_byoyomi * 1000
             if gs_movetime > 0:
-                gs_movetime = gs_movetime / 80
+                gs_movetime = int(gs_movetime / 80)
             elif gs_byoyomi > 0:
                 gs_movetime = gs_byoyomi
             else:
@@ -843,8 +843,8 @@ class Time_Control:
             if gs_movetime < 1000:
                 gs_movetime = 1000
 
-            gs_secs = gs_movetime / 1000
-            gs_mins = gs_secs / 60
+            gs_secs = int(gs_movetime / 1000)
+            gs_mins = int(gs_secs / 60)
             if gs_mins > 59:
                 gs_mins = 59
                 gs_secs = 59
@@ -864,9 +864,9 @@ class Time_Control:
             gs_level = gs_mins_str + ":" + gs_secs_str
 
             if gv.verbose:
-                print("using byoyomi TC - wtime:", self.wtime, ", btime:",
+                print(("using byoyomi TC - wtime:", self.wtime, ", btime:",
                       self.btime, ", byoyomi:", self.byo_byoyomi * 1000,
-                      ", stm:", stm, ", time for move (ms):", gs_movetime)
+                      ", stm:", stm, ", time for move (ms):", gs_movetime))
             command = "level 0 " + gs_level
             # print "gshogi time limit:",command
 
@@ -876,7 +876,7 @@ class Time_Control:
             #
             # time limit of 10 moves in 2 minutes
             # level 10 2
-
+            print("zzz=",command)
             engine.command(command)
         # classical
         elif self.type == 1:
@@ -888,8 +888,8 @@ class Time_Control:
             if gs_movetime < 1000:
                 gs_movetime = 1000
 
-            gs_secs = gs_movetime / 1000
-            gs_mins = gs_secs / 60
+            gs_secs = int(gs_movetime / 1000)
+            gs_mins = int(gs_secs / 60)
             if gs_mins > 0:
                 gs_secs = gs_secs % (gs_mins * 60)
 
@@ -905,12 +905,12 @@ class Time_Control:
 
             gs_level = gs_mins_str + ":" + gs_secs_str
             if gv.verbose:
-                print("using classical TC - wtime:", self.wtime, ", btime:",
+                print(("using classical TC - wtime:", self.wtime, ", btime:",
                       self.btime, ", movestogo:", str(self.wmoves_to_go),
-                      ", stm:", stm, ", time for move (ms):", gs_movetime)
-                print("                   - ", str(self.wmoves_to_go),
+                      ", stm:", stm, ", time for move (ms):", gs_movetime))
+                print(("                   - ", str(self.wmoves_to_go),
                       " moves in ", gs_mins_str, "minutes", gs_secs_str,
-                      " seconds")
+                      " seconds"))
 
             if self.wmoves_to_go == 1:
                 command = "level 0 " + gs_level
@@ -925,13 +925,13 @@ class Time_Control:
                 gs_movetime = self.btime
 
             if gs_movetime > 0:
-                gs_movetime = gs_movetime / 80
+                gs_movetime = int(gs_movetime / 80)
             else:
                 # no time left - set to 1 second
                 gs_movetime = 1000
 
-            gs_secs = gs_movetime / 1000
-            gs_mins = gs_secs / 60
+            gs_secs = int(gs_movetime / 1000)
+            gs_mins = int(gs_secs / 60)
             if gs_mins > 0:
                 gs_secs = gs_secs % (gs_mins * 60)
 
@@ -950,9 +950,9 @@ class Time_Control:
 
             gs_level = gs_mins_str + ":" + gs_secs_str
             if gv.verbose:
-                print("using incremental TC - wtime:", self.wtime, ", btime:",
+                print(("using incremental TC - wtime:", self.wtime, ", btime:",
                       self.btime, ", winc/binc:", str(self.inc_bonus * 1000),
-                      ", stm:", stm, ", time for move (ms):", gs_movetime)
+                      ", stm:", stm, ", time for move (ms):", gs_movetime))
 
             command = "level 0 " + gs_level
             engine.command(command)
@@ -960,8 +960,8 @@ class Time_Control:
         elif self.type == 3:
             gs_movetime = self.ftpm_seconds * 1000
 
-            gs_secs = gs_movetime / 1000
-            gs_mins = gs_secs / 60
+            gs_secs = int(gs_movetime / 1000)
+            gs_mins = int(gs_secs / 60)
             if gs_mins > 0:
                 gs_secs = gs_secs % (gs_mins * 60)
 
@@ -980,9 +980,9 @@ class Time_Control:
 
             gs_level = gs_mins_str + ":" + gs_secs_str
             if gv.verbose:
-                print("using fixed time per move TC - wtime:", self.wtime,
+                print(("using fixed time per move TC - wtime:", self.wtime,
                       ", btime:", self.btime, " stm:", stm,
-                      ", time for move (ms):", gs_movetime)
+                      ", time for move (ms):", gs_movetime))
 
             command = "level 0 " + gs_level
             engine.command(command)
@@ -991,19 +991,19 @@ class Time_Control:
             idepth = self.dpth_depth
             if idepth > 39:
                 if gv.verbose:
-                    print("search depth (", idepth,
-                          ") exceeds max for gshogi engine, setting to 39")
+                    print(("search depth (", idepth,
+                          ") exceeds max for gshogi engine, setting to 39"))
                 idepth = 39
             if gv.verbose:
-                print "setting depth for gshogi engine to", idepth
+                print("setting depth for gshogi engine to", idepth)
             engine.depth(idepth)
         # fixed nodes search
         elif self.type == 6:
             inodes = self.nodes_nodes
 
             if gv.verbose:
-                print "setting nodes for gshogi engine to", inodes
-                print "time=", time.time()
+                print("setting nodes for gshogi engine to", inodes)
+                print("time=", time.time())
             engine.nodes(inodes)
             command = "level 0 59:59"
             engine.command(command)
@@ -1023,7 +1023,7 @@ class Time_Control:
         elif tc_type == 4 or tc_type == 5 or tc_type == 6:
             self.set_toolbar_time_control4(move_time, stm)
         else:
-            print "invalid tc type", tc_type
+            print("invalid tc type", tc_type)
 
     # update gui clock for byoyomi TC
     def set_toolbar_time_control0(self, move_time, side_to_move):

@@ -22,12 +22,12 @@ from gi.repository import Gdk
 from gi.repository import GObject
 import os
 import subprocess
-import thread
+import _thread
 import time
 
-import engine_debug
-import engine_output
-import gv
+from . import engine_debug
+from . import engine_output
+from . import gv
 
 
 class Usi:
@@ -55,7 +55,7 @@ class Usi:
 
         # path is the path to the USI engine executable
         if not os.path.isfile(path):
-            print "invalid usipath:", path
+            print("invalid usipath:", path)
             return False
 
         #
@@ -63,18 +63,19 @@ class Usi:
         #
         orig_cwd = os.getcwd()
         if gv.verbose:
-            print "current working directory is", orig_cwd
+            print("current working directory is", orig_cwd)
 
         engine_wdir = os.path.dirname(path)
         if gv.verbose:
-            print "engine working directory is", engine_wdir
+            print("engine working directory is", engine_wdir)
 
         # Attempt to start the engine as a subprocess
         if gv.verbose:
-            print "starting engine with path:", path
+            print("starting engine with path:", path)
         p = subprocess.Popen(
             path, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE, cwd=engine_wdir)
+            stderr=subprocess.PIPE, cwd=engine_wdir,
+            universal_newlines=True)
         self.p = p
 
         # check process is running
@@ -82,15 +83,15 @@ class Usi:
         while (p.poll() is not None):
             i += 1
             if i > 40:
-                print "unable to start engine process"
+                print("unable to start engine process")
                 return False
             time.sleep(0.25)
 
         if gv.verbose:
-            print "pid=", p.pid
+            print("pid=", p.pid)
         # start thread to read stdout
         self.op = []
-        self.soutt = thread.start_new_thread(self.read_stdout, ())
+        self.soutt = _thread.start_new_thread(self.read_stdout, ())
 
         # Tell engine to use the USI (universal shogi interface).
         self.command("usi\n")
@@ -112,7 +113,7 @@ class Usi:
                 break
             i += 1
             if i > 40:
-                print "error - usiok not returned from engine"
+                print("error - usiok not returned from engine")
                 return False
             time.sleep(0.25)
 
@@ -147,7 +148,7 @@ class Usi:
                 break
             i += 1
             if i > 40:
-                print "error - readyok not returned from engine"
+                print("error - readyok not returned from engine")
                 return False
             time.sleep(0.25)
 
@@ -161,9 +162,10 @@ class Usi:
     def command(self, cmd):
         e = self.side + "(" + self.get_running_engine().strip() + "):"
         if gv.verbose or gv.verbose_usi:
-            print "->" + e + cmd.strip()
+            print("->" + e + cmd.strip())
         GObject.idle_add(self.engine_debug.add_to_log, "->" + e + cmd.strip())
         try:
+            # write as string (not bytes) since universal_newlines=True
             self.p.stdin.write(cmd)
         except AttributeError:
             GObject.idle_add(
@@ -183,7 +185,7 @@ class Usi:
 
         try:
             if gv.verbose:
-                print "stopping engine"
+                print("stopping engine")
 
             self.command("quit\n")
 
@@ -196,13 +198,13 @@ class Usi:
                 i += 1
                 if i > 8:
                     if gv.verbose:
-                        print "engine has not terminated after quit command"
+                        print("engine has not terminated after quit command")
                     break
                 time.sleep(0.25)
 
             if not engine_stopped:
                 if gv.verbose:
-                    print "terminating engine subprocess pid ", self.p.pid
+                    print("terminating engine subprocess pid ", self.p.pid)
                 # SIGTERM
                 self.p.terminate()
                 i = 0
@@ -213,14 +215,14 @@ class Usi:
                     i += 1
                     if i > 8:
                         if gv.verbose:
-                            print "engine has not responded to terminate " \
-                                  "command"
+                            print("engine has not responded to terminate " \
+                                  "command")
                         break
                     time.sleep(0.25)
 
             if not engine_stopped:
                 if gv.verbose:
-                    print "killing engine subprocess pid ", self.p.pid
+                    print("killing engine subprocess pid ", self.p.pid)
                 # SIGKILL
                 self.p.kill()
                 i = 0
@@ -231,18 +233,18 @@ class Usi:
                     i += 1
                     if i > 16:
                         if gv.verbose:
-                            print "engine has not responded to kill command"
-                        print "unable to stop engine pid", self.p.pid
+                            print("engine has not responded to kill command")
+                        print("unable to stop engine pid", self.p.pid)
                         break
                     time.sleep(0.25)
         except:
             pass
 
         if gv.verbose:
-            print
+            print()
         if engine_stopped:
             if gv.verbose:
-                print "engine stopped ok"
+                print("engine stopped ok")
         self.engine_running = False
         self.stop_pending = False
         self.running_engine = ""
@@ -252,25 +254,26 @@ class Usi:
             try:
                 e = ("<-" + self.side + "(" +
                      self.get_running_engine().strip() + "):")
+                #self.p.stdout.flush()
                 line = self.p.stdout.readline()
                 if line == "":
                     if gv.verbose:
-                        print e + "eof reached"
+                        print(e + "eof reached")
                     if gv.verbose:
-                        print e + "stderr:", self.p.stderr.read()
+                        print(e + "stderr:", self.p.stderr.read())
                     break
                 line = line.strip()
                 if gv.verbose or gv.verbose_usi:
-                    print e + line
+                    print(e + line)
                 GObject.idle_add(self.engine_debug.add_to_log, e+line)
                 if line.startswith("info"):
                     GObject.idle_add(
                         self.engine_output.add_to_log, self.side,
                         self.get_running_engine().strip(), line)
                 self.op.append(line)
-            except Exception, e:
+            except Exception as e:
                 # line = e + "error"
-                print "subprocess error in usi.py read_stdout:", e
+                print("subprocess error in usi.py read_stdout:", e)
 
     def check_running(self):
         # check if engine has changed since last use
@@ -284,8 +287,8 @@ class Usi:
             self.start_engine(None)
         else:
             if self.p.poll() is not None:
-                print "warning engine has stopped running - attempting " \
-                      "to restart"
+                print("warning engine has stopped running - attempting " \
+                      "to restart")
                 self.start_engine(None)
 
     def set_newgame(self):
@@ -366,7 +369,7 @@ class Usi:
                 if l.startswith("bestmove"):
                     bestmove = l[9:].strip()
                     if gv.verbose:
-                        print "bestmove is ", bestmove
+                        print("bestmove is ", bestmove)
 
                     # get ponder move if present
                     self.ponder_move = None
@@ -416,7 +419,7 @@ class Usi:
                 if l.startswith("bestmove"):
                     bestmove = l[9:].strip()
                     if gv.verbose:
-                        print "ponder bestmove is ", bestmove
+                        print("ponder bestmove is ", bestmove)
 
                     # get ponder move if present
                     ponder_move = None
@@ -458,7 +461,7 @@ class Usi:
                 if l.startswith("bestmove"):
                     bestmove = l[9:].strip()
                     if gv.verbose:
-                        print "bestmove is ", bestmove
+                        print("bestmove is ", bestmove)
 
                     # get ponder move if present
                     self.ponder_move = None
@@ -548,8 +551,9 @@ class Usi:
         try:
             p = subprocess.Popen(
                 path, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE, cwd=engine_wdir)
-        except OSError, oe:
+                stderr=subprocess.PIPE, cwd=engine_wdir,
+                universal_newlines=True)
+        except OSError as oe:
             msg = "error starting engine: " + "OSError" + str(oe)
             return msg, name
         self.p = p
@@ -565,7 +569,7 @@ class Usi:
 
         # start thread to read stdout
         self.op = []
-        self.soutt = thread.start_new_thread(self.read_stdout, ())
+        self.soutt = _thread.start_new_thread(self.read_stdout, ())
 
         # Tell engine to use the USI (universal shogi interface).
         self.command("usi\n")
@@ -643,13 +647,13 @@ class Usi:
                 w = words.pop(0)
                 if w != "option":
                     if gv.verbose:
-                        print "invalid option line ignored:", option
+                        print("invalid option line ignored:", option)
                     continue
 
                 w = words.pop(0)
                 if w != "name":
                     if gv.verbose:
-                        print "invalid option line ignored:", option
+                        print("invalid option line ignored:", option)
                     continue
 
                 name = words.pop(0)
@@ -657,7 +661,7 @@ class Usi:
                 w = words.pop(0)
                 if w != "type":
                     if gv.verbose:
-                        print "invalid option line ignored:", option
+                        print("invalid option line ignored:", option)
                     continue
 
                 otype = words.pop(0)
@@ -678,7 +682,7 @@ class Usi:
                         userval = w2
                     else:
                         if gv.verbose:
-                            print "error parsing option:", option
+                            print("error parsing option:", option)
 
             except IndexError:
                 pass
@@ -829,7 +833,7 @@ class Usi:
                 hb.show()
             else:
                 if gv.verbose:
-                    print "type ignored - ", otype
+                    print("type ignored - ", otype)
 
         dialog.set_default_response(Gtk.ResponseType.OK)
         response = dialog.run()
@@ -849,7 +853,7 @@ class Usi:
                     av = widge.get_active_text()
                 else:
                     if gv.verbose:
-                        print "unknown type", otype
+                        print("unknown type", otype)
                 # setoption name <id> [value <x>]
                 # usi.set_option(
                 #   "option name LimitDepth type spin default 10 min 4 max 10")

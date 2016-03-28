@@ -22,11 +22,11 @@ import os
 from datetime import date
 
 import engine
-import move_list
-import comments
-import psn
-from constants import WHITE, BLACK
-import gv
+from . import move_list
+from . import comments
+from . import psn
+from .constants import WHITE, BLACK
+from . import gv
 
 
 class Load_Save:
@@ -87,7 +87,7 @@ class Load_Save:
         sfenlst = sfen.split()
         if sfenlst[1] == "b":
             if gv.verbose:
-                print "setting stm to black"
+                print("setting stm to black")
             stm = BLACK
         elif sfenlst[1] == "w":
             stm = WHITE
@@ -138,7 +138,7 @@ class Load_Save:
             if line.startswith("startpos"):
                 startpos = line[9:].strip()
                 if gv.verbose:
-                    print "startpos set to", startpos
+                    print("startpos set to", startpos)
                 continue
             if startmoves:
                 l = line.strip()

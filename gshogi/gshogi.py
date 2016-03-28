@@ -28,25 +28,25 @@ from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GObject
 from gi.repository import GLib
-import thread
+import _thread
 import traceback
 import os
 import pickle
 import time
 
 import engine
-import utils
-import gui
-import usi
-import engine_manager
-import time_control
-import set_board_colours
-import move_list
-import board
-import pieces
-import engine_output
-from constants import WHITE, BLACK, NEUTRAL, NAME, VERSION, BEEP, MIN_MOVETIME
-import gv
+from . import utils
+from . import gui
+from . import usi
+from . import engine_manager
+from . import time_control
+from . import set_board_colours
+from . import move_list
+from . import board
+from . import pieces
+from . import engine_output
+from .constants import WHITE, BLACK, NEUTRAL, NAME, VERSION, BEEP, MIN_MOVETIME
+from . import gv
 
 
 class Game:
@@ -170,7 +170,7 @@ class Game:
         if gv.board.valid_source_square(x, y, self.stm):
             self.src = sq
             if gv.verbose:
-                print "source square: (x, y) = (", x, ",",  y, ") ", sq
+                print("source square: (x, y) = (", x, ",",  y, ") ", sq)
             self.src_x = x
             self.src_y = y
             self.piece = gv.board.get_piece(x, y)
@@ -194,13 +194,13 @@ class Game:
     # format human move
     def get_move(self, piece, src, dst, src_x, src_y, dst_x, dst_y):
         if gv.verbose:
-            print "in get move"
-            print "src=", src
-            print "dst=", dst
-            print "src_x=", src_x
-            print "src_y=", src_y
-            print "dst_x=", dst_x
-            print "dst_y=", dst_y
+            print("in get move")
+            print("src=", src)
+            print("dst=", dst)
+            print("src_x=", src_x)
+            print("src_y=", src_y)
+            print("dst_x=", dst_x)
+            print("dst_y=", dst_y)
 
         move = self.src + dst
         # check for promotion
@@ -226,7 +226,7 @@ class Game:
                     move = move + "+"
 
         if gv.verbose:
-            print "move=", move
+            print("move=", move)
 
         engine.setplayer(self.stm)
         validmove = engine.hmove(move)
@@ -260,9 +260,9 @@ class Game:
         self.stm = self.get_side_to_move()
         gv.gui.set_side_to_move(self.stm)
         if gv.verbose:
-            print "#"
-            print "# " + self.get_side_to_move_string(self.stm) + " to move"
-            print "#"
+            print("#")
+            print("# " + self.get_side_to_move_string(self.stm) + " to move")
+            print("#")
         gv.gui.set_status_bar_msg(" ")
 
         self.src = ""
@@ -288,7 +288,7 @@ class Game:
 
         # it's the computers turn to move. Kick off a separate thread for
         # computers move so that gui is still useable
-        self.ct = thread.start_new_thread(self.computer_move, ())
+        self.ct = _thread.start_new_thread(self.computer_move, ())
 
         return
 
@@ -332,9 +332,9 @@ class Game:
         self.stopped = False
 
         if gv.verbose:
-            print "#"
-            print "# " + self.get_side_to_move_string(self.stm) + " to move"
-            print "#"
+            print("#")
+            print("# " + self.get_side_to_move_string(self.stm) + " to move")
+            print("#")
 
         gv.gui.apply_drag_and_drop_settings(self.player[self.stm], self.stm)
 
@@ -349,7 +349,7 @@ class Game:
         gv.gui.set_status_bar_msg("Thinking ...")
         # it's the computers turn to move. kick off a separate thread for
         # computers move so that gui is still useable
-        self.ct = thread.start_new_thread(self.computer_move, ())
+        self.ct = _thread.start_new_thread(self.computer_move, ())
 
     def cap_square_clicked(self, widget, event, data):
 
@@ -406,10 +406,10 @@ class Game:
                 # gv.tc.start_clock(self.stm)
 
                 if gv.verbose:
-                    print "#"
-                    print("# " + self.get_side_to_move_string(self.stm) +
-                          " to move")
-                    print "#"
+                    print("#")
+                    print(("# " + self.get_side_to_move_string(self.stm) +
+                          " to move"))
+                    print("#")
 
                 if self.player[self.stm] == "Human":
                     GLib.idle_add(gv.gui.apply_drag_and_drop_settings,
@@ -471,11 +471,11 @@ class Game:
                         return
 
                     if gv.verbose:
-                        print "computer move is", self.cmove
+                        print("computer move is", self.cmove)
                     # check if player resigned
                     if self.cmove == "resign":
                         if gv.verbose:
-                            print "computer resigned"
+                            print("computer resigned")
                         self.gameover = True
                         self.thinking = False
                         colour = self.get_side_to_move_string(self.stm)
@@ -500,7 +500,7 @@ class Game:
                 else:
 
                     if gv.verbose:
-                        print "using gshogi builtin engine"
+                        print("using gshogi builtin engine")
                     #
                     # We are using the builtin gshogi engine (not a USI engine)
                     #
@@ -554,7 +554,7 @@ class Game:
                     # empty move is returned by gshogi engine when it is in
                     # checkmate
                     if gv.verbose:
-                        print "empty move returned by engine"
+                        print("empty move returned by engine")
 
                 # if program is exitting then quit this thread asap
                 if self.quitting:
@@ -575,7 +575,7 @@ class Game:
                     engine.command("bd")
 
                 if gv.verbose:
-                    print "move=", self.cmove
+                    print("move=", self.cmove)
                 msg = self.cmove
 
                 self.gameover, gmsg = self.check_for_gameover()
@@ -615,7 +615,7 @@ class Game:
             elif (winner == NEUTRAL):
                 msg = "game over - match drawn"
             else:
-                print "invalid value returned from engine getwinner function"
+                print("invalid value returned from engine getwinner function")
         return gameover, msg
 
     def set_promotion_mode(self, mode):
@@ -768,14 +768,14 @@ class Game:
             f = open(settings_file, "wb")
             pickle.dump(s, f)
             f.close()
-        except AttributeError, ae:
-            print "attribute error:", ae
-        except pickle.PickleError, pe:
-            print "PickleError:", pe
-        except pickle.PicklingError, pe2:
-            print "PicklingError:", pe2
-        except Exception, exc:
-            print "cannot save settings:", exc
+        except AttributeError as ae:
+            print("attribute error:", ae)
+        except pickle.PickleError as pe:
+            print("PickleError:", pe)
+        except pickle.PicklingError as pe2:
+            print("PicklingError:", pe2)
+        except Exception as exc:
+            print("cannot save settings:", exc)
 
     #
     # restore users settings at program start-up
@@ -785,64 +785,64 @@ class Game:
             # engine list
             try:
                 gv.engine_manager.set_engine_list(x.engine_list)
-            except Exception, e:
+            except Exception as e:
                 if gv.verbose:
-                    print e, ". engine list not restored"
+                    print(e, ". engine list not restored")
 
             # pieceset "eastern", "western" or "custom"
             try:
                 gv.pieces.set_pieceset(x.pieceset)
-            except Exception, e:
+            except Exception as e:
                 if gv.verbose:
-                    print e, ". pieceset setting not restored"
+                    print(e, ". pieceset setting not restored")
 
             # set the engine or human for each player
             try:
                 self.player[WHITE] = x.player_white
                 self.player[BLACK] = x.player_black
-            except Exception, e:
+            except Exception as e:
                 if gv.verbose:
-                    print e, ". player setting not restored"
+                    print(e, ". player setting not restored")
 
             # time controls
             try:
                 cs = x.clock_settings
                 gv.tc.restore_clock_settings(cs)
-            except Exception, e:
+            except Exception as e:
                 if gv.verbose:
-                    print e, ". time controls not restored"
+                    print(e, ". time controls not restored")
 
             # hash value
             try:
                 hash_value = x.hash_value
                 gv.engine_manager.set_hash_value(hash_value)
-            except Exception, e:
+            except Exception as e:
                 if gv.verbose:
-                    print e, ". hash value not restored"
+                    print(e, ". hash value not restored")
 
             # ponder (true/false)
             try:
                 ponder = x.ponder
                 gv.engine_manager.set_ponder(ponder)
-            except Exception, e:
+            except Exception as e:
                 if gv.verbose:
-                    print e, ". ponder not restored"
+                    print(e, ". ponder not restored")
 
             # show coordinates (true/false)
             try:
                 show_coords = x.show_coords
                 gv.gui.set_show_coords(show_coords)
-            except Exception, e:
+            except Exception as e:
                 if gv.verbose:
-                    print e, ". show_coords not restored"
+                    print(e, ". show_coords not restored")
 
             # highlight moves (true/false)
             try:
                 highlight_moves = x.highlight_moves
                 gv.gui.set_highlight_moves(highlight_moves)
-            except Exception, e:
+            except Exception as e:
                 if gv.verbose:
-                    print e, ". highlight_moves not restored"
+                    print(e, ". highlight_moves not restored")
 
     def goto_move(self, move_idx):
         try:

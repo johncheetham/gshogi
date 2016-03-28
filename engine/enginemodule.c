@@ -918,8 +918,8 @@ engine_getmovelist(PyObject *self, PyObject *args)
     return lst;
 }
 
-
 static PyMethodDef EngineMethods[] = {
+//    PyModuleDef_HEAD_INIT,
     {"init", engine_init, METH_VARARGS, "Initialise the engine."},
     {"hmove", engine_hmove, METH_VARARGS, "Human move."},
     {"cmove", engine_cmove, METH_VARARGS, "Computer move."},
@@ -943,8 +943,19 @@ static PyMethodDef EngineMethods[] = {
     {NULL, NULL, 0, NULL}        /* Sentinel */
 };
 
-PyMODINIT_FUNC
-initengine(void)
+static struct PyModuleDef enginedef = {
+    PyModuleDef_HEAD_INIT,
+    "enginemodule",      /* m_name */
+    "This is the engine module",  /* m_doc */
+    -1,                  /* m_size */
+    EngineMethods,       /* m_methods */
+    NULL,                /* m_reload */
+    NULL,                /* m_traverse */
+    NULL,                /* m_clear */
+    NULL,                /* m_free */
+};
+
+PyMODINIT_FUNC PyInit_engine(void)
 {
-    (void) Py_InitModule("engine", EngineMethods);
+    return PyModule_Create(&enginedef);
 }

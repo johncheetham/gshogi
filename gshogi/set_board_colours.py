@@ -23,14 +23,14 @@ from gi.repository import GObject
 import cairo
 import os
 
-import gv
+from . import gv
 
 
 class Set_Board_Colours:
 
     def __init__(self, prefix):
         if gv.verbose:
-            print "set_board_colours - init"
+            print("set_board_colours - init")
         glade_dir = gv.gshogi.get_glade_dir()
         self.glade_file = os.path.join(glade_dir, "set_colours.glade")
         self.pieces_glade_file = os.path.join(glade_dir, "set_pieces.glade")
@@ -228,7 +228,7 @@ class Set_Board_Colours:
                     piece_outline_colour, piece_kanji_colour, border_colour,
                     grid_colour):
         if gv.verbose:
-            print "set_board_colours - set_colours"
+            print("set_board_colours - set_colours")
         self.bg_colour = board_bg_colour
         self.komadai_colour = board_komadai_colour
         self.square_colour = board_square_colour
@@ -424,7 +424,7 @@ class Set_Board_Colours:
 
     def apply_colour_settings(self):
         if gv.verbose:
-            print "set_board_colours - apply_colour_settings"
+            print("set_board_colours - apply_colour_settings")
         self.text_colour_temp = None
         if self.use_presets:
             presets = self.get_presets()
@@ -449,8 +449,8 @@ class Set_Board_Colours:
             gv.gui.set_colours(
                 bg_colour, komadai_colour, square_colour, text_colour,
                 border_colour, grid_colour)
-        except Exception, e:
-            print "set_board_colours.py - call to gui set_colours failed: ", e
+        except Exception as e:
+            print("set_board_colours.py - call to gui set_colours failed: ", e)
 
     # Callback called when the user has selected a custom colour
     def custom_colour_changed(self, colour_button):
@@ -645,8 +645,8 @@ class Set_Board_Colours:
         elif name == "Custom":
             pieceset = "custom"
         else:
-            print "invalid pieceset in pieces_radio_button_changed in " \
-                  "set_board_colours.py:", name
+            print("invalid pieceset in pieces_radio_button_changed in " \
+                  "set_board_colours.py:", name)
             pieceset = "eastern"
 
         gv.board.use_pieceset(pieceset)

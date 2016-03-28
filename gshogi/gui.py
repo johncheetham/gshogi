@@ -26,15 +26,15 @@ from gi.repository import Pango
 import os
 import cairo
 
-import engine_debug
-import engine_output
-import move_list
-import drag_and_drop
-import load_save
-import utils
-import gamelist
-from constants import WHITE, BLACK, NAME, VERSION, TARGET_TYPE_TEXT
-import gv
+from . import engine_debug
+from . import engine_output
+from . import move_list
+from . import drag_and_drop
+from . import load_save
+from . import utils
+from . import gamelist
+from .constants import WHITE, BLACK, NAME, VERSION, TARGET_TYPE_TEXT
+from . import gv
 
 
 class Gui:
@@ -572,7 +572,7 @@ class Gui:
     def apply_drag_and_drop_settings(self, player, stm):
 
         if gv.verbose:
-            print "in apply_drag_and_drop_settings"
+            print("in apply_drag_and_drop_settings")
 
         # If drag and drop not enabled then exit
         # if not self.ta_action_group.get_action("enableDND").get_active():
@@ -719,7 +719,7 @@ class Gui:
         except AttributeError:
             pass
         about.set_version(VERSION)
-        about.set_copyright(u"Copyright \u00A9 2010-2015 John Cheetham")
+        about.set_copyright("Copyright \u00A9 2010-2015 John Cheetham")
         about.set_comments(
             "gshogi is a program to play shogi (Japanese Chess).")
         about.set_authors(["John Cheetham"])
@@ -952,16 +952,16 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
     def set_colours(self, bg_colour, komadai_colour, square_colour,
                     text_colour, border_colour, grid_colour):
         if gv.verbose:
-            print "in gui set_colours with these parms:"
-            print "  bg_colour=", bg_colour
-            print "  komadai_colour=", komadai_colour
-            print "  square_colour=", square_colour
-            print "  text_colour=", text_colour
+            print("in gui set_colours with these parms:")
+            print("  bg_colour=", bg_colour)
+            print("  komadai_colour=", komadai_colour)
+            print("  square_colour=", square_colour)
+            print("  text_colour=", text_colour)
             # print "  piece_fill_colour=", piece_fill_colour
             # print "  piece_outline_colour=", piece_outline_colour
             # print "  piece_kanji_colour=", piece_kanji_colour
-            print "  border_colour=", border_colour
-            print "  grid_colour=", grid_colour
+            print("  border_colour=", border_colour)
+            print("  grid_colour=", grid_colour)
 
         self.get_window().modify_bg(
             Gtk.StateType.NORMAL, Gdk.color_parse(bg_colour))
@@ -1045,7 +1045,7 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
 
         try:
             piece_name = menuitem.get_label()
-        except AttributeError, ae:
+        except AttributeError as ae:
             self.info_box(
                 "Unable to edit board - you need a newer version of pygtk"
                 "(version 2.16 or above)")
@@ -1166,7 +1166,7 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
         tb_width = self.boardgrid.get_allocation().width
         tb_height = self.boardgrid.get_allocation().height
 
-        sq_size = tb_width / 9
+        sq_size = int(tb_width / 9)
 
         if sq_size > 75:
             font_size = 11
@@ -1182,9 +1182,9 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
         cr.set_font_size(font_size)
 
         # xpos = event.area.x + (event.area.width - tb_width) / 2 + sq_size / 2
-        xpos = widget.get_allocation().x + (
-            widget.get_allocation().width - tb_width) / 2 + sq_size / 2
-        xpos = (widget.get_allocation().width - tb_width) / 2 + sq_size / 2
+        #xpos = widget.get_allocation().x + (
+        #    widget.get_allocation().width - tb_width) / 2 + sq_size / 2
+        xpos = int((widget.get_allocation().width - tb_width) / 2) + int(sq_size / 2)
         # ypos = event.area.y + 14
         # ypos = widget.get_allocation().y + 14
         ypos = 14
@@ -1202,7 +1202,7 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
         #   event.area.height - tb_height) / 2 + sq_size / 2
         # ypos = widget.get_allocation().y + (
         #   widget.get_allocation().height - tb_height) / 2 + sq_size / 2
-        ypos = (widget.get_allocation().height - tb_height) / 2 + sq_size / 2
+        ypos = int((widget.get_allocation().height - tb_height) / 2) + int(sq_size / 2)
         let = "abcdefghi"
         for num in range(1, 10):
             cr.move_to(xpos, ypos)

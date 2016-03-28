@@ -22,9 +22,9 @@ from gi.repository import Gdk
 from gi.repository import GObject
 import os
 
-import usi
-from constants import WHITE, BLACK
-import gv
+from . import usi
+from .constants import WHITE, BLACK
+from . import gv
 
 
 class Engine_Manager:

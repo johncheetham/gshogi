@@ -969,6 +969,8 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
         #    Gtk.StateType.NORMAL, Gdk.color_parse(komadai_colour))
         #self.komadaib_eb.modify_bg(
         #    Gtk.StateType.NORMAL, Gdk.color_parse(komadai_colour))
+        self.komadaiw_eb.queue_draw()
+        self.komadaib_eb.queue_draw()
 
         # square/komadai square colours are set in board.py in
         # set_image_cairo_komadai and set_image_cairo
@@ -976,6 +978,7 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
         # border surrounds the board and contains the co-ordinates
         #self.border_eb.modify_bg(
         #    Gtk.StateType.NORMAL, Gdk.color_parse(border_colour))
+        self.border_eb.queue_draw()
 
         self.grid_eb.modify_bg(
             Gtk.StateType.NORMAL, Gdk.color_parse(grid_colour))

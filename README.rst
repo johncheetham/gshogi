@@ -9,30 +9,26 @@ on GTK3 (PyGI) desktops.
 It's licensed under the GPL v3+ (see the file named LICENSE) and aimed mainly
 at Linux users.
 
-It was based originally on GNU Shogi version 1.3.2 and uses GNU Shogi
-code for the built in engine and board pieces.
+It uses GTK3 for the gui and C for the engine code. The engine code comes
+from GNU Shogi.
 
 This version was tested on on CentOS 7 64 bit using Python 3.3.2,
-pygobject 3.8.2, gtk 3.8.8 and gcc 4.8.3.
+python3-gobject 3.8.2, gtk 3.14.13 and gcc 4.8.5.
 
 See the project homepage for more information on gshogi and USI engines.
-
-Requirements
-------------
-Python3, pygobject, GTK3, C.
 
 
 Installation
 ------------
-To build it you will need python-devel and gcc packages installed.
+If you are using a system that uses python 2 as default (do python -V to check)
+then you need to use python3 for commands and package names. For example
+the package name will be python3-cairo instead of python-cairo and the
+build command will be python3 setup.py build.
 
-You can install these on Fedora 17 with:
 
-    yum install python-devel gcc
+You need to install these packages first:
 
-For Ubuntu 12.04 do:
-
-    sudo apt-get install build-essential python-dev python-glade2
+    gcc python python-devel python-cairo python-gobject gtk3
 
 
 Running gshogi from the Source Directory
@@ -44,7 +40,7 @@ Running gshogi from the Source Directory
 
         Enter 'python setup.py build' to build it.
 
-        Then execute 'run.py' to start gshogi
+        Then 'python run.py' to run it.
 
 
 Installing on the system
@@ -75,6 +71,76 @@ Note that the binary opening book (data/opening.bbk) has a different format
 on 32 bit and 64 bit systems. You cannot use the 32 bit book on a 64 bit
 system and vice versa. For this reason the opening book is created during the
 install when you do 'python setup.py build'.
+
+Here is some help for installing on specific distros.
+
+For Fedora 23:
+
+    Install packages (as root user)
+
+        dnf install gcc redhat-rpm-config 
+        dnf install python3 python3-devel python3-cairo python3-gobject
+
+    build (as normal user)
+
+        python3 setup.py build
+
+    run from the source directory
+
+        python3 run.py
+
+    Install on the system (as root user)
+
+        python3 setup.py install
+
+    run the installed version
+
+        gshogi
+    
+
+For Debian 8 Jessie:
+
+    Install packages
+
+        sudo apt-get install gcc python3-dev python3-gi-cairo
+
+    build
+
+        python3 setup.py build
+
+    run from the source directory
+
+        python3 run.py
+
+    Install on the system
+
+        sudo python3 setup.py install
+
+    run the installed version
+
+        gshogi
+
+For Arch:
+
+    Install packages (as root user)
+
+        pacman -S python python-gobject python-cairo gcc
+
+    build (as normal user)
+
+        python setup.py build
+
+    run from the source directory
+
+        python run.py
+
+    Install on the system (as root user)
+
+        python setup.py install
+
+    run the installed version
+
+        gshogi
 
 
 Usage
@@ -247,4 +313,4 @@ See the project homepage to download an example.
 
 Acknowledgements
 ----------------
-gshogi uses C engine code and board graphics from GNU Shogi.
+gshogi uses C engine code and board graphics from GNU Shogi (version 1.3.2).

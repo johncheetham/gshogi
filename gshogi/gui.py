@@ -65,6 +65,7 @@ class Gui:
         self.glade_file_preferences = os.path.join(
             glade_dir, "preferences.glade")
         self.builder = Gtk.Builder()
+        self.builder.set_translation_domain(gv.domain)
         self.builder.add_from_file(self.glade_file)
         self.builder.connect_signals(self)
 
@@ -104,7 +105,7 @@ class Gui:
         # action group for toggleactions
         ta_action_group = Gtk.ActionGroup("AGPromoteMode")
         ta_action_group.add_toggle_actions([(
-            "promotemode", None, "_Ask Before Promoting", None, None,
+            "promotemode", None, _("_Ask Before Promoting"), None, None,
             self.promote_mode)])
 
         self.ta_action_group = ta_action_group
@@ -113,85 +114,85 @@ class Gui:
         actiongroup.add_actions([
             # NewGame and the handicap names are used in gshogi.py NewGame
             # routine. don't change them.
-            ("NewGame", Gtk.STOCK_NEW, "_New Game", None, "New Game",
+            ("NewGame", Gtk.STOCK_NEW, _("_New Game"), None, _("New Game"),
              gv.gshogi.new_game_cb),
-            ("LanceHandicap", None, "_Lance", None,
-             "Lance Handicap", gv.gshogi.new_game_cb),
-            ("BishopHandicap", None, "_Bishop", None,
-             "Bishop Handicap", gv.gshogi.new_game_cb),
-            ("RookHandicap", None, "_Rook", None,
-             "Rook Handicap", gv.gshogi.new_game_cb),
-            ("RookandLanceHandicap", None, "_Rook and Lance", None,
-             "Rook and Lance Handicap", gv.gshogi.new_game_cb),
-            ("TwoPieceHandicap", None, "_2 Pieces", None,
-             "Two Piece Handicap", gv.gshogi.new_game_cb),
-            ("FourPieceHandicap", None, "_4 Pieces", None,
-             "Four Piece Handicap", gv.gshogi.new_game_cb),
-            ("SixPieceHandicap", None, "_6 Pieces", None,
-             "Six Piece Handicap", gv.gshogi.new_game_cb),
-            ("EightPieceHandicap", None, "_8 Pieces", None,
-             "Eight Piece Handicap", gv.gshogi.new_game_cb),
-            ("TenPieceHandicap", None, "_10 Pieces", None,
-             "Ten Piece Handicap", gv.gshogi.new_game_cb),
-            ("NewHandicapGame", None, "_New Handicap Game"),
+            ("LanceHandicap", None, _("_Lance"), None,
+             _("Lance Handicap"), gv.gshogi.new_game_cb),
+            ("BishopHandicap", None, _("_Bishop"), None,
+             _("Bishop Handicap"), gv.gshogi.new_game_cb),
+            ("RookHandicap", None, _("_Rook"), None,
+             _("Rook Handicap"), gv.gshogi.new_game_cb),
+            ("RookandLanceHandicap", None, _("_Rook and Lance"), None,
+             _("Rook and Lance Handicap"), gv.gshogi.new_game_cb),
+            ("TwoPieceHandicap", None, _("_2 Pieces"), None,
+             _("Two Piece Handicap"), gv.gshogi.new_game_cb),
+            ("FourPieceHandicap", None, _("_4 Pieces"), None,
+             _("Four Piece Handicap"), gv.gshogi.new_game_cb),
+            ("SixPieceHandicap", None, _("_6 Pieces"), None,
+             _("Six Piece Handicap"), gv.gshogi.new_game_cb),
+            ("EightPieceHandicap", None, _("_8 Pieces"), None,
+             _("Eight Piece Handicap"), gv.gshogi.new_game_cb),
+            ("TenPieceHandicap", None, _("_10 Pieces"), None,
+             _("Ten Piece Handicap"), gv.gshogi.new_game_cb),
+            ("NewHandicapGame", None, _("_New Handicap Game")),
             #
-            ("Quit", Gtk.STOCK_QUIT, "_Quit", None,
-             "Quit the Program", gv.gshogi.quit_game),
-            ("LoadGame", Gtk.STOCK_OPEN, "_Load Game", None,
-             "Load Game", self.load_save.load_game),
-            ("SaveGame", Gtk.STOCK_SAVE, "_Save Game", None,
-             "Save Game", self.load_save.save_game),
-            ("File", None, "_File"),
-            ("Edit", None, "_Edit"),
-            ("Undo", Gtk.STOCK_UNDO, "_Undo Move", "<Control>U",
-             "Undo Move", gv.gshogi.undo_single_move),
-            ("Redo", Gtk.STOCK_REDO, "_Redo Move", "<Control>R",
-             "Redo Move", gv.gshogi.redo_single_move),
-            ("MoveNow", None, "_Move Now", "<Control>M",
-             "Move Now", gv.gshogi.move_now),
-            ("SetBoardColours", None, "_Set Board Colours", None,
-             "Set Board Colours", gv.set_board_colours.show_dialog),
-            ("SetPieces", None, "_Set Pieces", None,
-             "Set Pieces", gv.set_board_colours.show_pieces_dialog),
-            ("TimeControl", None, "_Time Control", None,
-             "Time Control", gv.tc.time_control),
+            ("Quit", Gtk.STOCK_QUIT, _("_Quit"), None,
+             _("Quit the Program"), gv.gshogi.quit_game),
+            ("LoadGame", Gtk.STOCK_OPEN, _("_Load Game"), None,
+             _("Load Game"), self.load_save.load_game),
+            ("SaveGame", Gtk.STOCK_SAVE, _("_Save Game"), None,
+             _("Save Game"), self.load_save.save_game),
+            ("File", None, _("_File")),
+            ("Edit", None, _("_Edit")),
+            ("Undo", Gtk.STOCK_UNDO, _("_Undo Move"), "<Control>U",
+             _("Undo Move"), gv.gshogi.undo_single_move),
+            ("Redo", Gtk.STOCK_REDO, _("_Redo Move"), "<Control>R",
+             _("Redo Move"), gv.gshogi.redo_single_move),
+            ("MoveNow", None, _("_Move Now"), "<Control>M",
+             _("Move Now"), gv.gshogi.move_now),
+            ("SetBoardColours", None, _("_Set Board Colours"), None,
+             _("Set Board Colours"), gv.set_board_colours.show_dialog),
+            ("SetPieces", None, _("_Set Pieces"), None,
+             _("Set Pieces"), gv.set_board_colours.show_pieces_dialog),
+            ("TimeControl", None, _("_Time Control"), None,
+             _("Time Control"), gv.tc.time_control),
             # ConfigureEngine1 - this name is used in engine_manager.
             # don't change it.
-            ("ConfigureEngine1", None, "_Configure Engine 1", None,
-             "Configure Engine 1", gv.engine_manager.configure_engine),
-            ("ConfigureEngine2", None, "_Configure Engine 2", None,
-             "Configure Engine 2", gv.engine_manager.configure_engine),
-            ("Players", None, "_Players", None,
-             "Players", gv.gshogi.set_players),
-            ("Engines", None, "_Engines", None,
-             "Engines", gv.engine_manager.engines),
-            ("CommonEngineSettings", None, "_Common Engine Settings", None,
-             "Common Engine Settings", gv.engine_manager.common_settings),
-            ("MoveList", None, "_Move List", None,
-             "Move List", self.move_list.show_movelist_window),
-            ("GameList", None, "_Game List", None,
-             "Game List", self.gamelist.show_gamelist_window_cb),
-            ("EngineOutput", None, "_Engine Output", None,
-             "Engine Output", self.engine_output.show_engine_output_window),
-            ("EngineDebug", None, "_Engine Debug", None,
-             "Engine Debug", self.engine_debug.show_debug_window),
-            ("Options", None, "_Options"),
-            ("View", None, "_View"),
-            ("About", Gtk.STOCK_ABOUT, "_About", None,
-             "Show About Box", self.about_box),
-            ("Help", None, "_Help"),
-            ("CopyPosition", None, "_Copy Position", None,
-             "Copy Position", utils.copy_SFEN_to_clipboard),
-            ("PastePosition", None, "_Paste Position", None,
-             "Paste Position", utils.paste_clipboard_to_SFEN),
-            ("CopyGame", None, "_Copy Game", None,
-             "Copy Game", utils.copy_game_to_clipboard),
-            ("PasteGame", None, "_Paste Game", None,
-             "Paste Game", utils.paste_game_from_clipboard),
-            ("EditPosition", None, "_Edit Position", None,
-             "Edit Position", self.enable_edit_mode),
-            ("Preferences", None, "_Preferences", None,
-             "Preferences", self.preferences),
+            ("ConfigureEngine1", None, _("_Configure Engine 1"), None,
+             _("Configure Engine 1"), gv.engine_manager.configure_engine),
+            ("ConfigureEngine2", None, _("_Configure Engine 2"), None,
+             _("Configure Engine 2"), gv.engine_manager.configure_engine),
+            ("Players", None, _("_Players"), None,
+             _("Players"), gv.gshogi.set_players),
+            ("Engines", None, _("_Engines"), None,
+             _("Engines"), gv.engine_manager.engines),
+            ("CommonEngineSettings", None, _("_Common Engine Settings"), None,
+             _("Common Engine Settings"), gv.engine_manager.common_settings),
+            ("MoveList", None, _("_Move List"), None,
+             _("Move List"), self.move_list.show_movelist_window),
+            ("GameList", None, _("_Game List"), None,
+             _("Game List"), self.gamelist.show_gamelist_window_cb),
+            ("EngineOutput", None, _("_Engine Output"), None,
+             _("Engine Output"), self.engine_output.show_engine_output_window),
+            ("EngineDebug", None, _("_Engine Debug"), None,
+             _("Engine Debug"), self.engine_debug.show_debug_window),
+            ("Options", None, _("_Options")),
+            ("View", None, _("_View")),
+            ("About", Gtk.STOCK_ABOUT, _("_About"), None,
+             _("Show About Box"), self.about_box),
+            ("Help", None, _("_Help")),
+            ("CopyPosition", None, _("_Copy Position"), None,
+             _("Copy Position"), utils.copy_SFEN_to_clipboard),
+            ("PastePosition", None, _("_Paste Position"), None,
+             _("Paste Position"), utils.paste_clipboard_to_SFEN),
+            ("CopyGame", None, _("_Copy Game"), None,
+             _("Copy Game"), utils.copy_game_to_clipboard),
+            ("PasteGame", None, _("_Paste Game"), None,
+             _("Paste Game"), utils.paste_game_from_clipboard),
+            ("EditPosition", None, _("_Edit Position"), None,
+             _("Edit Position"), self.enable_edit_mode),
+            ("Preferences", None, _("_Preferences"), None,
+             _("Preferences"), self.preferences),
             ]
         )
 
@@ -301,8 +302,8 @@ class Gui:
         tb.attach(self.side_to_move[WHITE], 0, 1, 0, 1)
         tb.attach(self.side_to_move[BLACK], 0, 1, 1, 2)
 
-        lw = Gtk.Label(label="White: ")
-        lb = Gtk.Label(label="Black: ")
+        lw = Gtk.Label(label=_("White") + ": ")
+        lb = Gtk.Label(label=_("Black") + ": ")
         lw.set_alignment(0, 0.5)
         lb.set_alignment(0, 0.5)
         tb.attach(lw, 1, 2, 0, 1)
@@ -315,7 +316,7 @@ class Gui:
         self.engines_lblw.set_use_markup(True)
         self.engines_lblw.set_alignment(0, 0.5)
 
-        self.engines_lblb = Gtk.Label(label="human")
+        self.engines_lblb = Gtk.Label(label=_("human"))
         self.engines_lblb.set_use_markup(True)
         self.engines_lblb.set_alignment(0, 0.5)
 
@@ -349,8 +350,8 @@ class Gui:
         self.gobutton.connect("clicked", gv.gshogi.go_clicked)
         self.stopbutton = Gtk.ToolButton(Gtk.STOCK_NO)
         self.stopbutton.connect("clicked", gv.gshogi.stop_clicked)
-        self.gobutton.set_tooltip_text("go")
-        self.stopbutton.set_tooltip_text("stop")
+        self.gobutton.set_tooltip_text(_("go"))
+        self.stopbutton.set_tooltip_text(_("stop"))
         hb.pack_start(self.stopbutton, False, True, 0)
         hb.pack_start(self.gobutton, False, True, 0)
 
@@ -854,14 +855,14 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
     def promote_popup(self):
 
         dialog = Gtk.Dialog(
-            "Promotion",
+            _("Promotion"),
             None,
             Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
-            ("Yes", Gtk.ResponseType.YES,
-             "No", Gtk.ResponseType.NO,
-             "Cancel", Gtk.ResponseType.CANCEL))
+            (_("Yes"), Gtk.ResponseType.YES,
+             _("No"), Gtk.ResponseType.NO,
+             _("Cancel"), Gtk.ResponseType.CANCEL))
 
-        dialog.vbox.pack_start(Gtk.Label("\nPromote piece?\n"), True, True, 0)
+        dialog.vbox.pack_start(Gtk.Label("\n" + _("Promote piece?") + "\n"), True, True, 0)
 
         dialog.show_all()
 
@@ -894,7 +895,7 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
         # markup = "<b>" + msg + "</b>"
         markup = msg
         dialog.set_markup(markup)
-        dialog.set_title("Info")
+        dialog.set_title(_("Info"))
 
         # some secondary text
         markup = msg
@@ -916,7 +917,7 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
         # markup = "<b>" + msg + "</b>"
         markup = msg
         dialog.set_markup(markup)
-        dialog.set_title("Ok/Cancel")
+        dialog.set_title(_("Ok/Cancel"))
 
         # some secondary text
         markup = msg
@@ -989,34 +990,34 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
         self.edit_mode = False
 
         popup_items = ["Separator",
-                       "Empty",
-                       "Pawn",
-                       "Bishop",
-                       "Rook",
-                       "Lance",
-                       "Knight",
-                       "Silver",
-                       "Gold",
-                       "King",
+                       _("Empty"),
+                       _("Pawn"),
+                       _("Bishop"),
+                       _("Rook"),
+                       _("Lance"),
+                       _("Knight"),
+                       _("Silver"),
+                       _("Gold"),
+                       _("King"),
                        "Separator",
-                       "+Pawn",
-                       "+Bishop",
-                       "+Rook",
-                       "+Lance",
-                       "+Knight",
-                       "+Silver",
+                       _("+Pawn"),
+                       _("+Bishop"),
+                       _("+Rook"),
+                       _("+Lance"),
+                       _("+Knight"),
+                       _("+Silver"),
                        "Separator",
-                       "Black to Move",
-                       "White to Move",
+                       _("Black to Move"),
+                       _("White to Move"),
                        "Separator",
-                       "Clear Board",
+                       _("Clear Board"),
                        "Separator",
-                       "Cancel",
-                       "End"]
+                       _("Cancel"),
+                       _("End")]
 
         # set up menu for black
         self.bmenu = Gtk.Menu()
-        menuitem = Gtk.MenuItem("Black")
+        menuitem = Gtk.MenuItem(_("Black"))
         menuitem.set_sensitive(False)
         self.bmenu.append(menuitem)
         # self.bmenu.append(Gtk.SeparatorMenuItem())
@@ -1030,7 +1031,7 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
 
         # set up menu for white
         self.wmenu = Gtk.Menu()
-        menuitem = Gtk.MenuItem("White")
+        menuitem = Gtk.MenuItem(_("White"))
         menuitem.set_sensitive(False)
         self.wmenu.append(menuitem)
         # self.wmenu.append(Gtk.SeparatorMenuItem())
@@ -1054,21 +1055,21 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
                 "(version 2.16 or above)")
             return
 
-        if piece_name == "Clear Board":
+        if piece_name == _("Clear Board"):
             gv.board.clear_board()
             return
 
-        if piece_name == "Black to Move":
+        if piece_name == _("Black to Move"):
             gv.gshogi.set_side_to_move(BLACK)
             self.set_side_to_move(BLACK)   # update ind in gui
             return
 
-        if piece_name == "White to Move":
+        if piece_name == _("White to Move"):
             gv.gshogi.set_side_to_move(WHITE)
             self.set_side_to_move(WHITE)   # update ind in gui
             return
 
-        if piece_name == "Cancel":
+        if piece_name == _("Cancel"):
             self.edit_mode = False
             gv.gshogi.set_side_to_move(self.orig_stm)
             self.set_side_to_move(self.orig_stm)
@@ -1076,7 +1077,7 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
             self.enable_menu_items(mode="editmode")
             return
 
-        if piece_name == "End":
+        if piece_name == _("End"):
             self.end_edit()
             return
 
@@ -1087,10 +1088,10 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
         #    " K", "+P", "+L", "+N", "+S", "+B", "+R"]
 
         piece_dict = {
-            "Empty": " -", "Pawn": " p", "Lance": " l", "Knight": " n",
-            "Silver": " s", "Gold": " g", "Bishop": " b", "Rook": " r",
-            "King": " k", "+Pawn": "+p", "+Lance": "+l", "+Knight": "+n",
-            "+Silver": "+s", "+Bishop": "+b", "+Rook": "+r"}
+            _("Empty"): " -", _("Pawn"): " p", _("Lance"): " l", _("Knight"): " n",
+            _("Silver"): " s", _("Gold"): " g", _("Bishop"): " b", _("Rook"): " r",
+            _("King"): " k", _("+Pawn"): "+p", _("+Lance"): "+l", _("+Knight"): "+n",
+            _("+Silver"): "+s", _("+Bishop"): "+b", _("+Rook"): "+r"}
 
         piece = piece_dict[piece_name]
         if colour == WHITE:
@@ -1214,6 +1215,7 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
 
     def preferences(self, action):
         self.builder = Gtk.Builder()
+        self.builder.set_translation_domain(gv.domain)
         self.builder.add_from_file(self.glade_file_preferences)
         self.builder.connect_signals(self)
         dialog = self.builder.get_object("preferences")

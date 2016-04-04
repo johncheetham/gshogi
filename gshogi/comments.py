@@ -36,6 +36,7 @@ class Comments:
 
         # create comments window
         self.builder = Gtk.Builder()
+        self.builder.set_translation_domain(gv.domain)
         self.builder.add_from_file(self.glade_file)
         self.builder.connect_signals(self)
 
@@ -89,7 +90,7 @@ class Comments:
         self.tb.set_text(self.comment_list[moveno])
 
         # show the moveno the comment relates to in the window title
-        self.window.set_title("Comment for Move " + str(moveno))
+        self.window.set_title(_("Comment for Move ") + str(moveno))
 
         # self.moveno = moveno
 
@@ -127,7 +128,7 @@ class Comments:
         self.moveno = 0
         self.comment_list = [""]
         self.tb.set_text("")
-        self.window.set_title("Comment for Move 0")
+        self.window.set_title(_("Comment for Move ") + "0")
 
     # called by load_save.py when loading file in PSN format
     def set_comment(self, moveno, comment):

@@ -45,7 +45,7 @@ class Load_Save:
     def load_game(self, b):
 
         dialog = Gtk.FileChooserDialog(
-            "Load..", gv.gui.get_window(), Gtk.FileChooserAction.OPEN,
+            _("Load.."), gv.gui.get_window(), Gtk.FileChooserAction.OPEN,
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
              Gtk.STOCK_OPEN, Gtk.ResponseType.OK))
         dialog.set_default_response(Gtk.ResponseType.OK)
@@ -100,7 +100,7 @@ class Load_Save:
 
         gv.usib.set_newgame()
         gv.usiw.set_newgame()
-        gv.gui.set_status_bar_msg("ready")
+        gv.gui.set_status_bar_msg(_("ready"))
         self.gameover = False
 
         gv.gshogi.set_movelist([])
@@ -252,7 +252,7 @@ class Load_Save:
     def save_game(self, b):
 
         dialog = Gtk.FileChooserDialog(
-            "Save..", gv.gui.get_window(), Gtk.FileChooserAction.SAVE,
+            _("Save.."), gv.gui.get_window(), Gtk.FileChooserAction.SAVE,
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
              Gtk.STOCK_SAVE, Gtk.ResponseType.OK))
         dialog.set_default_response(Gtk.ResponseType.OK)
@@ -292,8 +292,8 @@ class Load_Save:
             # If file already exists then ask before overwriting
             if os.path.isfile(filename):
                 resp = gv.gui.ok_cancel_box(
-                    "Warning - file already exists and will be replaced.\n"
-                    "Press Cancel if you do not want to overwrite it.")
+                    _("Warning - file already exists and will be replaced.\n"
+                      "Press Cancel if you do not want to overwrite it."))
                 if resp == Gtk.ResponseType.CANCEL:
                     dialog.destroy()
                     return
@@ -329,7 +329,7 @@ class Load_Save:
                 for i in range(0, redo_count):
                     gv.gshogi.undo_move()
 
-            gv.gui.set_status_bar_msg("game saved")
+            gv.gui.set_status_bar_msg(_("game saved"))
 
         dialog.destroy()
 

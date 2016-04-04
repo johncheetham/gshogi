@@ -43,6 +43,7 @@ class Move_List:
 
         # create move list window
         self.builder = Gtk.Builder()
+        self.builder.set_translation_domain(gv.domain)
         self.builder.add_from_file(self.glade_file)
         self.builder.connect_signals(self)
 
@@ -62,7 +63,7 @@ class Move_List:
 
         cell1 = Gtk.CellRendererText()
         # cell1.set_property("cell-background", Gdk.color_parse("#F8F8FF"))
-        tvcolumn1 = Gtk.TreeViewColumn("Move")
+        tvcolumn1 = Gtk.TreeViewColumn(_("Move"))
         self.treeview.append_column(tvcolumn1)
         tvcolumn1.pack_start(cell1, True)
         tvcolumn1.set_min_width(100)
@@ -70,7 +71,7 @@ class Move_List:
 
         cell2 = Gtk.CellRendererText()
         # cell1.set_property("cell-background", Gdk.color_parse("#F8F8FF"))
-        tvcolumn2 = Gtk.TreeViewColumn("Cmt")
+        tvcolumn2 = Gtk.TreeViewColumn(_("Cmt"))
         self.treeview.append_column(tvcolumn2)
         tvcolumn2.pack_start(cell2, True)
         tvcolumn2.set_min_width(20)
@@ -99,7 +100,7 @@ class Move_List:
 
         # update liststore
         self.liststore.clear()
-        self.liststore.append(("0.", "Start Pos", " "))
+        self.liststore.append(("0.", _("Start Pos"), " "))
         mvstr = engine.getmovelist()
 
         if mvstr != "":

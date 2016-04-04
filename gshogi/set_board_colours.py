@@ -310,6 +310,7 @@ class Set_Board_Colours:
         self.text_colour_temp = None
 
         self.builder = Gtk.Builder()
+        self.builder.set_translation_domain(gv.domain)
         self.builder.add_from_file(self.glade_file)
         self.builder.connect_signals(self)
 
@@ -594,6 +595,7 @@ class Set_Board_Colours:
     #
     def show_pieces_dialog(self, gtkaction):
         self.builder = Gtk.Builder()
+        self.builder.set_translation_domain(gv.domain)
         self.builder.add_from_file(self.pieces_glade_file)
         self.builder.connect_signals(self)
         pieces_dialog = self.builder.get_object("pieces_dialog")

@@ -1,0 +1,744 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: gshogi\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-04-04 07:25+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: gshogi/glade/comments.glade:7 gshogi/comments.py:131
+msgid "Comment for Move 0"
+msgstr ""
+
+#: gshogi/glade/comments.glade:39
+msgid "Clear"
+msgstr ""
+
+#: gshogi/glade/common_engine_settings.glade:13 gshogi/gui.py:170
+msgid "Common Engine Settings"
+msgstr ""
+
+#: gshogi/glade/common_engine_settings.glade:29
+msgid "cancel"
+msgstr ""
+
+#: gshogi/glade/common_engine_settings.glade:43
+#: gshogi/glade/preferences.glade:36 gshogi/glade/set_colours.glade:38
+#: gshogi/glade/set_pieces.glade:37
+msgid "OK"
+msgstr ""
+
+#: gshogi/glade/common_engine_settings.glade:65
+msgid "ponder"
+msgstr ""
+
+#: gshogi/glade/common_engine_settings.glade:87
+msgid "Hash (MB)"
+msgstr ""
+
+#: gshogi/glade/engine_debug.glade:7
+msgid "Usi Engine Log"
+msgstr ""
+
+#: gshogi/glade/engine_debug.glade:39
+msgid "Clear Window"
+msgstr ""
+
+#: gshogi/glade/engine_debug.glade:60
+msgid "command:"
+msgstr ""
+
+#: gshogi/glade/engine_debug.glade:96
+msgid "Send to Engine 1"
+msgstr ""
+
+#: gshogi/glade/engine_debug.glade:111
+msgid "Send to Engine 2"
+msgstr ""
+
+#: gshogi/glade/engine_output.glade:7 gshogi/gui.py:176
+msgid "Engine Output"
+msgstr ""
+
+#: gshogi/glade/engine_output.glade:28 gshogi/glade/engine_output.glade:125
+msgid "Engine"
+msgstr ""
+
+#: gshogi/glade/engine_output.glade:40 gshogi/glade/engine_output.glade:137
+#: gshogi/engine_output.py:203 gshogi/engine_output.py:205
+msgid "Ponder"
+msgstr ""
+
+#: gshogi/glade/engine_output.glade:52 gshogi/glade/engine_output.glade:149
+#: gshogi/engine_output.py:184
+msgid "Current Move"
+msgstr ""
+
+#: gshogi/glade/engine_output.glade:64 gshogi/glade/engine_output.glade:161
+msgid "NPS"
+msgstr ""
+
+#: gshogi/glade/gamelist.glade:13 gshogi/gui.py:174
+msgid "Game List"
+msgstr ""
+
+#: gshogi/glade/gamelist.glade:49 gshogi/gui.py:142
+msgid "Load Game"
+msgstr ""
+
+#: gshogi/glade/move_list.glade:17 gshogi/gui.py:172
+msgid "Move List"
+msgstr ""
+
+#: gshogi/glade/move_list.glade:56
+msgid "Comments"
+msgstr ""
+
+#: gshogi/glade/preferences.glade:8 gshogi/gui.py:195
+msgid "Preferences"
+msgstr ""
+
+#: gshogi/glade/preferences.glade:22 gshogi/glade/set_colours.glade:23
+#: gshogi/glade/set_pieces.glade:22 gshogi/gui.py:863 gshogi/gui.py:1015
+#: gshogi/gui.py:1072
+msgid "Cancel"
+msgstr ""
+
+#: gshogi/glade/preferences.glade:58
+msgid "Show Coordinates"
+msgstr ""
+
+#: gshogi/glade/preferences.glade:74
+msgid "Highlight Moves"
+msgstr ""
+
+#: gshogi/glade/set_colours.glade:9 gshogi/gui.py:154
+msgid "Set Board Colours"
+msgstr ""
+
+#: gshogi/glade/set_colours.glade:64
+msgid "Preset Colours"
+msgstr ""
+
+#: gshogi/glade/set_colours.glade:104
+msgid "Custom Colours"
+msgstr ""
+
+#: gshogi/glade/set_colours.glade:135
+msgid "BG Colour"
+msgstr ""
+
+#: gshogi/glade/set_colours.glade:142
+msgid "Komadai Colour"
+msgstr ""
+
+#: gshogi/glade/set_colours.glade:153
+msgid "Square Colour"
+msgstr ""
+
+#: gshogi/glade/set_colours.glade:164
+msgid "Text Colour"
+msgstr ""
+
+#: gshogi/glade/set_colours.glade:177
+msgid "Select BG Colour"
+msgstr ""
+
+#: gshogi/glade/set_colours.glade:192
+msgid "Select Komadai Colour"
+msgstr ""
+
+#: gshogi/glade/set_colours.glade:209
+msgid "Select Square Colour"
+msgstr ""
+
+#: gshogi/glade/set_colours.glade:226
+msgid "Select Text Colour"
+msgstr ""
+
+#: gshogi/glade/set_colours.glade:241
+msgid "Border Colour"
+msgstr ""
+
+#: gshogi/glade/set_colours.glade:268
+msgid "Grid Colour"
+msgstr ""
+
+#: gshogi/glade/set_colours.glade:297
+msgid "<b>custom colours</b>"
+msgstr ""
+
+#: gshogi/glade/set_pieces.glade:8 gshogi/gui.py:156
+msgid "Set Pieces"
+msgstr ""
+
+#: gshogi/glade/set_pieces.glade:59
+msgid "gshogi"
+msgstr ""
+
+#: gshogi/glade/set_pieces.glade:78
+msgid "GNU Shogi eastern"
+msgstr ""
+
+#: gshogi/glade/set_pieces.glade:96
+msgid "GNU Shogi western"
+msgstr ""
+
+#: gshogi/glade/set_pieces.glade:115
+msgid "Custom"
+msgstr ""
+
+#: gshogi/glade/set_pieces.glade:140
+msgid "Load Custom Pieces"
+msgstr ""
+
+#: gshogi/comments.py:93
+msgid "Comment for Move {}"
+msgstr ""
+
+#: gshogi/engine_manager.py:93 gshogi/gui.py:168
+msgid "Engines"
+msgstr ""
+
+#: gshogi/engine_manager.py:111
+msgid "Select an Engine:"
+msgstr ""
+
+#: gshogi/engine_manager.py:132
+msgid "Add"
+msgstr ""
+
+#: gshogi/engine_manager.py:137
+msgid "Delete"
+msgstr ""
+
+#: gshogi/engine_manager.py:144
+msgid "Rename"
+msgstr ""
+
+#: gshogi/engine_manager.py:200
+msgid "Add USI Engine.."
+msgstr ""
+
+#: gshogi/engine_manager.py:219
+msgid "Error Adding Engine"
+msgstr ""
+
+#: gshogi/engine_manager.py:248 gshogi/engine_manager.py:253
+msgid "No options to configure"
+msgstr ""
+
+#: gshogi/engine_manager.py:267 gshogi/engine_manager.py:292
+msgid "no engine selected"
+msgstr ""
+
+#: gshogi/engine_manager.py:274
+msgid "delete of gshogi engine not permitted"
+msgstr ""
+
+#: gshogi/engine_manager.py:299
+msgid "rename of gshogi engine not permitted"
+msgstr ""
+
+#: gshogi/engine_manager.py:309
+msgid "Rename Engine"
+msgstr ""
+
+#: gshogi/engine_manager.py:319
+msgid "Engine Name: "
+msgstr ""
+
+#: gshogi/engine_output.py:178 gshogi/engine_output.py:196
+#: gshogi/gshogi.py:1130 gshogi/gui.py:306 gshogi/gui.py:1020
+msgid "Black"
+msgstr ""
+
+#: gshogi/engine_output.py:180 gshogi/engine_output.py:198
+#: gshogi/gshogi.py:1108 gshogi/gui.py:305 gshogi/gui.py:1034
+msgid "White"
+msgstr ""
+
+#: gshogi/gshogi.py:240
+msgid "Illegal Move"
+msgstr ""
+
+#: gshogi/gshogi.py:269
+msgid " to move"
+msgstr ""
+
+#: gshogi/gshogi.py:317 gshogi/gshogi.py:550
+msgid "stopped"
+msgstr ""
+
+#: gshogi/gshogi.py:351 gshogi/load_save.py:103
+msgid "ready"
+msgstr ""
+
+#: gshogi/gshogi.py:354 gshogi/gshogi.py:515
+msgid "Thinking ..."
+msgstr ""
+
+#: gshogi/gshogi.py:487
+msgid "game over - "
+msgstr ""
+
+#: gshogi/gshogi.py:487
+msgid " resigned"
+msgstr ""
+
+#: gshogi/gshogi.py:499
+msgid " - computer made illegal Move!"
+msgstr ""
+
+#: gshogi/gshogi.py:617
+msgid "game over - black wins"
+msgstr ""
+
+#: gshogi/gshogi.py:619
+msgid "game over - white wins"
+msgstr ""
+
+#: gshogi/gshogi.py:621
+msgid "game over - match drawn"
+msgstr ""
+
+#: gshogi/gshogi.py:1043
+msgid "black"
+msgstr ""
+
+#: gshogi/gshogi.py:1045
+msgid "white"
+msgstr ""
+
+#: gshogi/gshogi.py:1100 gshogi/gui.py:166
+msgid "Players"
+msgstr ""
+
+#: gshogi/gshogi.py:1103
+msgid "Set Players"
+msgstr ""
+
+#: gshogi/gshogi.py:1115 gshogi/gshogi.py:1136
+msgid "Human"
+msgstr ""
+
+#: gshogi/gui.py:108
+msgid "_Ask Before Promoting"
+msgstr ""
+
+#: gshogi/gui.py:117
+msgid "_New Game"
+msgstr ""
+
+#: gshogi/gui.py:117
+msgid "New Game"
+msgstr ""
+
+#: gshogi/gui.py:119
+msgid "_Lance"
+msgstr ""
+
+#: gshogi/gui.py:120
+msgid "Lance Handicap"
+msgstr ""
+
+#: gshogi/gui.py:121
+msgid "_Bishop"
+msgstr ""
+
+#: gshogi/gui.py:122
+msgid "Bishop Handicap"
+msgstr ""
+
+#: gshogi/gui.py:123
+msgid "_Rook"
+msgstr ""
+
+#: gshogi/gui.py:124
+msgid "Rook Handicap"
+msgstr ""
+
+#: gshogi/gui.py:125
+msgid "_Rook and Lance"
+msgstr ""
+
+#: gshogi/gui.py:126
+msgid "Rook and Lance Handicap"
+msgstr ""
+
+#: gshogi/gui.py:127
+msgid "_2 Pieces"
+msgstr ""
+
+#: gshogi/gui.py:128
+msgid "Two Piece Handicap"
+msgstr ""
+
+#: gshogi/gui.py:129
+msgid "_4 Pieces"
+msgstr ""
+
+#: gshogi/gui.py:130
+msgid "Four Piece Handicap"
+msgstr ""
+
+#: gshogi/gui.py:131
+msgid "_6 Pieces"
+msgstr ""
+
+#: gshogi/gui.py:132
+msgid "Six Piece Handicap"
+msgstr ""
+
+#: gshogi/gui.py:133
+msgid "_8 Pieces"
+msgstr ""
+
+#: gshogi/gui.py:134
+msgid "Eight Piece Handicap"
+msgstr ""
+
+#: gshogi/gui.py:135
+msgid "_10 Pieces"
+msgstr ""
+
+#: gshogi/gui.py:136
+msgid "Ten Piece Handicap"
+msgstr ""
+
+#: gshogi/gui.py:137
+msgid "_New Handicap Game"
+msgstr ""
+
+#: gshogi/gui.py:139
+msgid "_Quit"
+msgstr ""
+
+#: gshogi/gui.py:140
+msgid "Quit the Program"
+msgstr ""
+
+#: gshogi/gui.py:141
+msgid "_Load Game"
+msgstr ""
+
+#: gshogi/gui.py:143
+msgid "_Save Game"
+msgstr ""
+
+#: gshogi/gui.py:144
+msgid "Save Game"
+msgstr ""
+
+#: gshogi/gui.py:145
+msgid "_File"
+msgstr ""
+
+#: gshogi/gui.py:146
+msgid "_Edit"
+msgstr ""
+
+#: gshogi/gui.py:147
+msgid "_Undo Move"
+msgstr ""
+
+#: gshogi/gui.py:148
+msgid "Undo Move"
+msgstr ""
+
+#: gshogi/gui.py:149
+msgid "_Redo Move"
+msgstr ""
+
+#: gshogi/gui.py:150
+msgid "Redo Move"
+msgstr ""
+
+#: gshogi/gui.py:151
+msgid "_Move Now"
+msgstr ""
+
+#: gshogi/gui.py:152
+msgid "Move Now"
+msgstr ""
+
+#: gshogi/gui.py:153
+msgid "_Set Board Colours"
+msgstr ""
+
+#: gshogi/gui.py:155
+msgid "_Set Pieces"
+msgstr ""
+
+#: gshogi/gui.py:157
+msgid "_Time Control"
+msgstr ""
+
+#: gshogi/gui.py:158
+msgid "Time Control"
+msgstr ""
+
+#: gshogi/gui.py:161
+msgid "_Configure Engine 1"
+msgstr ""
+
+#: gshogi/gui.py:162
+msgid "Configure Engine 1"
+msgstr ""
+
+#: gshogi/gui.py:163
+msgid "_Configure Engine 2"
+msgstr ""
+
+#: gshogi/gui.py:164
+msgid "Configure Engine 2"
+msgstr ""
+
+#: gshogi/gui.py:165
+msgid "_Players"
+msgstr ""
+
+#: gshogi/gui.py:167
+msgid "_Engines"
+msgstr ""
+
+#: gshogi/gui.py:169
+msgid "_Common Engine Settings"
+msgstr ""
+
+#: gshogi/gui.py:171
+msgid "_Move List"
+msgstr ""
+
+#: gshogi/gui.py:173
+msgid "_Game List"
+msgstr ""
+
+#: gshogi/gui.py:175
+msgid "_Engine Output"
+msgstr ""
+
+#: gshogi/gui.py:177
+msgid "_Engine Debug"
+msgstr ""
+
+#: gshogi/gui.py:178
+msgid "Engine Debug"
+msgstr ""
+
+#: gshogi/gui.py:179
+msgid "_Options"
+msgstr ""
+
+#: gshogi/gui.py:180
+msgid "_View"
+msgstr ""
+
+#: gshogi/gui.py:181
+msgid "_About"
+msgstr ""
+
+#: gshogi/gui.py:182
+msgid "Show About Box"
+msgstr ""
+
+#: gshogi/gui.py:183
+msgid "_Help"
+msgstr ""
+
+#: gshogi/gui.py:184
+msgid "_Copy Position"
+msgstr ""
+
+#: gshogi/gui.py:185
+msgid "Copy Position"
+msgstr ""
+
+#: gshogi/gui.py:186
+msgid "_Paste Position"
+msgstr ""
+
+#: gshogi/gui.py:187
+msgid "Paste Position"
+msgstr ""
+
+#: gshogi/gui.py:188
+msgid "_Copy Game"
+msgstr ""
+
+#: gshogi/gui.py:189
+msgid "Copy Game"
+msgstr ""
+
+#: gshogi/gui.py:190
+msgid "_Paste Game"
+msgstr ""
+
+#: gshogi/gui.py:191
+msgid "Paste Game"
+msgstr ""
+
+#: gshogi/gui.py:192
+msgid "_Edit Position"
+msgstr ""
+
+#: gshogi/gui.py:193
+msgid "Edit Position"
+msgstr ""
+
+#: gshogi/gui.py:194
+msgid "_Preferences"
+msgstr ""
+
+#: gshogi/gui.py:319
+msgid "human"
+msgstr ""
+
+#: gshogi/gui.py:353
+msgid "go"
+msgstr ""
+
+#: gshogi/gui.py:354
+msgid "stop"
+msgstr ""
+
+#: gshogi/gui.py:858
+msgid "Promotion"
+msgstr ""
+
+#: gshogi/gui.py:861
+msgid "Yes"
+msgstr ""
+
+#: gshogi/gui.py:862
+msgid "No"
+msgstr ""
+
+#: gshogi/gui.py:865
+msgid "Promote piece?"
+msgstr ""
+
+#: gshogi/gui.py:898
+msgid "Info"
+msgstr ""
+
+#: gshogi/gui.py:920
+msgid "Ok/Cancel"
+msgstr ""
+
+#: gshogi/gui.py:993 gshogi/gui.py:1091
+msgid "Empty"
+msgstr ""
+
+#: gshogi/gui.py:994 gshogi/gui.py:1091
+msgid "Pawn"
+msgstr ""
+
+#: gshogi/gui.py:995 gshogi/gui.py:1092
+msgid "Bishop"
+msgstr ""
+
+#: gshogi/gui.py:996 gshogi/gui.py:1092
+msgid "Rook"
+msgstr ""
+
+#: gshogi/gui.py:997 gshogi/gui.py:1091
+msgid "Lance"
+msgstr ""
+
+#: gshogi/gui.py:998 gshogi/gui.py:1091
+msgid "Knight"
+msgstr ""
+
+#: gshogi/gui.py:999 gshogi/gui.py:1092
+msgid "Silver"
+msgstr ""
+
+#: gshogi/gui.py:1000 gshogi/gui.py:1092
+msgid "Gold"
+msgstr ""
+
+#: gshogi/gui.py:1001 gshogi/gui.py:1093
+msgid "King"
+msgstr ""
+
+#: gshogi/gui.py:1003 gshogi/gui.py:1093
+msgid "+Pawn"
+msgstr ""
+
+#: gshogi/gui.py:1004 gshogi/gui.py:1094
+msgid "+Bishop"
+msgstr ""
+
+#: gshogi/gui.py:1005 gshogi/gui.py:1094
+msgid "+Rook"
+msgstr ""
+
+#: gshogi/gui.py:1006 gshogi/gui.py:1093
+msgid "+Lance"
+msgstr ""
+
+#: gshogi/gui.py:1007 gshogi/gui.py:1093
+msgid "+Knight"
+msgstr ""
+
+#: gshogi/gui.py:1008 gshogi/gui.py:1094
+msgid "+Silver"
+msgstr ""
+
+#: gshogi/gui.py:1010 gshogi/gui.py:1062
+msgid "Black to Move"
+msgstr ""
+
+#: gshogi/gui.py:1011 gshogi/gui.py:1067
+msgid "White to Move"
+msgstr ""
+
+#: gshogi/gui.py:1013 gshogi/gui.py:1058
+msgid "Clear Board"
+msgstr ""
+
+#: gshogi/gui.py:1016 gshogi/gui.py:1080
+msgid "End"
+msgstr ""
+
+#: gshogi/load_save.py:48
+msgid "Load.."
+msgstr ""
+
+#: gshogi/load_save.py:255
+msgid "Save.."
+msgstr ""
+
+#: gshogi/load_save.py:295
+msgid ""
+"Warning - file already exists and will be replaced.\n"
+"Press Cancel if you do not want to overwrite it."
+msgstr ""
+
+#: gshogi/load_save.py:332
+msgid "game saved"
+msgstr ""
+
+#: gshogi/move_list.py:66
+msgid "Move"
+msgstr ""
+
+#: gshogi/move_list.py:74
+msgid "Cmt"
+msgstr ""
+
+#: gshogi/move_list.py:103
+msgid "Start Pos"
+msgstr ""

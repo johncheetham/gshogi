@@ -42,6 +42,7 @@ class Engine_Manager:
         self.glade_file = os.path.join(glade_dir,
                                        "common_engine_settings.glade")
         self.builder = Gtk.Builder()
+        self.builder.set_translation_domain(gv.domain)
         self.builder.add_from_file(self.glade_file)
         self.builder.connect_signals(self)
 
@@ -89,7 +90,7 @@ class Engine_Manager:
         engine_list = self.get_engine_list()
 
         dialog = Gtk.Dialog(
-            "Engines", gv.gui.get_window(), 0,
+            _("Engines"), gv.gui.get_window(), 0,
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OK,
              Gtk.ResponseType.OK)
         )
@@ -107,7 +108,7 @@ class Engine_Manager:
 
         treeview = Gtk.TreeView(liststore)
         self.treeview = treeview
-        tvcolumn = Gtk.TreeViewColumn("Select an Engine:")
+        tvcolumn = Gtk.TreeViewColumn(_("Select an Engine:"))
         treeview.append_column(tvcolumn)
         cell = Gtk.CellRendererText()
         # cell.set_property("cell-background", Gdk.color_parse("#F8F8FF"))
@@ -128,19 +129,19 @@ class Engine_Manager:
         al.add(bb)
         al.show()
 
-        add_button = Gtk.Button("Add")
+        add_button = Gtk.Button(_("Add"))
         add_button.show()
         bb.add(add_button)
         add_button.connect("clicked", self.add_engine, "add engine")
 
-        self.delete_button = Gtk.Button("Delete")
+        self.delete_button = Gtk.Button(_("Delete"))
         self.delete_button.set_sensitive(False)
         self.delete_button.show()
         bb.add(self.delete_button)
         self.delete_button.connect("clicked",
                                    self.delete_engine, "delete engine")
 
-        self.rename_button = Gtk.Button("Rename")
+        self.rename_button = Gtk.Button(_("Rename"))
         self.rename_button.set_sensitive(False)
         self.rename_button.show()
         bb.add(self.rename_button)
@@ -196,7 +197,7 @@ class Engine_Manager:
 
     def add_engine(self, widget, data=None):
         dialog = Gtk.FileChooserDialog(
-            "Add USI Engine..",
+            _("Add USI Engine.."),
             gv.gui.get_window(),
             Gtk.FileChooserAction.OPEN,
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
@@ -215,7 +216,7 @@ class Engine_Manager:
             u.set_engine("addengine", path)
             errmsg, name = u.test_engine(path)
             if errmsg != "":
-                err_dialog = Gtk.Dialog("Error Adding Engine", None, 0,
+                err_dialog = Gtk.Dialog(_("Error Adding Engine"), None, 0,
                                         (Gtk.STOCK_OK, Gtk.ResponseType.OK))
                 err_dialog.set_default_size(380, -1)
                 lbl = Gtk.Label(label=errmsg)
@@ -244,12 +245,12 @@ class Engine_Manager:
 
         # If not an engine return
         if gv.gshogi.get_player(player) == "Human":
-            gv.gui.info_box("No options to configure")
+            gv.gui.info_box(_("No options to configure"))
             return
 
         if usi.get_engine() == "gshogi":
             # gv.gshogi.set_level(widget)
-            gv.gui.info_box("No options to configure")
+            gv.gui.info_box(_("No options to configure"))
             return
         else:
             usi.USI_options(widget)
@@ -263,14 +264,14 @@ class Engine_Manager:
         tm = self.treeview.get_model()
 
         if l_iter is None:
-            gv.gui.info_box("no engine selected")
+            gv.gui.info_box(_("no engine selected"))
             return
 
         name = tm.get_value(l_iter, 0)
         path = tm.get_value(l_iter, 1)
 
         if name == "gshogi":
-            gv.gui.info_box("delete of gshogi engine not permitted")
+            gv.gui.info_box(_("delete of gshogi engine not permitted"))
             return
 
         if not lso.remove(l_iter):
@@ -288,14 +289,14 @@ class Engine_Manager:
         tm = self.treeview.get_model()
 
         if l_iter is None:
-            gv.gui.info_box("no engine selected")
+            gv.gui.info_box(_("no engine selected"))
             return
 
         name = tm.get_value(l_iter, 0)
         path = tm.get_value(l_iter, 1)
 
         if name == "gshogi":
-            gv.gui.info_box("rename of gshogi engine not permitted")
+            gv.gui.info_box(_("rename of gshogi engine not permitted"))
             return
 
         dialog = Gtk.MessageDialog(
@@ -305,7 +306,7 @@ class Engine_Manager:
             Gtk.ButtonsType.OK_CANCEL,
             None)
 
-        markup = "<b>Rename Engine</b>"
+        markup = "<b>" + _("Rename Engine") + "</b>"
         dialog.set_markup(markup)
 
         # create the text input fields
@@ -315,7 +316,7 @@ class Engine_Manager:
         entry.set_width_chars(30)
 
         tbl = Gtk.Table(1, 2, True)
-        tbl.attach(Gtk.Label(label="Engine Name: "), 0, 1, 0, 1)
+        tbl.attach(Gtk.Label(label=_("Engine Name: ")), 0, 1, 0, 1)
         tbl.attach(entry, 1, 2, 0, 1)
 
         dialog.vbox.add(tbl)

@@ -97,6 +97,7 @@ class Engine_Debug:
         # This is the first time the user has opened the engine debug
         # window so need to create it.
         self.builder = Gtk.Builder()
+        self.builder.set_translation_domain(gv.domain)
         self.builder.add_from_file(self.glade_file)
         self.builder.connect_signals(self)
 

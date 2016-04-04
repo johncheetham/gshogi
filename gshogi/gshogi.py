@@ -237,7 +237,7 @@ class Game:
         validmove = engine.hmove(move)
         if (not validmove):
             # illegal move
-            gv.gui.set_status_bar_msg("Illegal Move")
+            gv.gui.set_status_bar_msg(_("Illegal Move"))
             return None
         return move
 
@@ -266,7 +266,7 @@ class Game:
         gv.gui.set_side_to_move(self.stm)
         if gv.verbose:
             print("#")
-            print("# " + self.get_side_to_move_string(self.stm) + " to move")
+            print("# " + self.get_side_to_move_string(self.stm) + _(" to move"))
             print("#")
         gv.gui.set_status_bar_msg(" ")
 
@@ -314,7 +314,7 @@ class Game:
         gv.usib.stop_engine()
         gv.usiw.stop_engine()
         engine.movenow()
-        gv.gui.set_status_bar_msg("stopped")
+        gv.gui.set_status_bar_msg(_("stopped"))
 
     def go_clicked(self, widget):
 
@@ -348,10 +348,10 @@ class Game:
         self.engine_output.clear("b", " ")
 
         if self.player[self.stm] == "Human":
-            gv.gui.set_status_bar_msg("ready")
+            gv.gui.set_status_bar_msg(_("ready"))
             return
 
-        gv.gui.set_status_bar_msg("Thinking ...")
+        gv.gui.set_status_bar_msg(_("Thinking ..."))
         # it's the computers turn to move. kick off a separate thread for
         # computers move so that gui is still useable
         self.ct = _thread.start_new_thread(self.computer_move, ())
@@ -484,7 +484,7 @@ class Game:
                         self.gameover = True
                         self.thinking = False
                         colour = self.get_side_to_move_string(self.stm)
-                        msg = "game over - " + colour + " resigned"
+                        msg = _("game over - ") + colour + _(" resigned")
                         GLib.idle_add(self.stop)
                         GLib.idle_add(gv.gui.set_status_bar_msg, msg)
                         self.thinking = False
@@ -496,7 +496,7 @@ class Game:
                     if (not validmove):
                         GLib.idle_add(self.stop)
                         GLib.idle_add(gv.gui.set_status_bar_msg,
-                            self.cmove + " - computer made illegal Move!")
+                            self.cmove + _(" - computer made illegal Move!"))
                         self.gameover = True
                         self.thinking = False
                         return
@@ -512,7 +512,7 @@ class Game:
 
                     if self.player[self.stm ^ 1] == "Human":
                         GLib.idle_add(gv.gui.set_status_bar_msg,
-                             "Thinking ...")
+                             _("Thinking ..."))
 
                     # set the computer to black or white
                     engine.setplayer(self.stm ^ 1)
@@ -547,7 +547,7 @@ class Game:
 
                     if self.stopped:
                         self.thinking = False
-                        GLib.idle_add(gv.gui.set_status_bar_msg, "stopped")
+                        GLib.idle_add(gv.gui.set_status_bar_msg, _("stopped"))
                         engine.command("undo")
                         return
 
@@ -614,11 +614,11 @@ class Game:
             gameover = True
             winner -= 1
             if (winner == BLACK):
-                msg = "game over - black wins"
+                msg = _("game over - black wins")
             elif (winner == WHITE):
-                msg = "game over - white wins"
+                msg = _("game over - white wins")
             elif (winner == NEUTRAL):
-                msg = "game over - match drawn"
+                msg = _("game over - match drawn")
             else:
                 print("invalid value returned from engine getwinner function")
         return gameover, msg
@@ -1040,9 +1040,9 @@ class Game:
 
     def get_side_to_move_string(self, stm):
         if stm == BLACK:
-            return "black"
+            return _("black")
         else:
-            return "white"
+            return _("white")
 
     def get_stm_from_sfen(self, sfen):
         if sfen == "startpos":
@@ -1097,22 +1097,22 @@ class Game:
 
     def set_players(self, b):
         dialog = Gtk.Dialog(
-            "Players", gv.gui.get_window(), 0,
+            _("Players"), gv.gui.get_window(), 0,
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
              Gtk.STOCK_OK, Gtk.ResponseType.OK))
-        dialog.set_title("Set Players")
+        dialog.set_title(_("Set Players"))
 
         elist = gv.engine_manager.get_engine_list()
 
         # White Player
-        fr = Gtk.Frame.new("White")
+        fr = Gtk.Frame.new(_("White"))
         dialog.vbox.pack_start(fr, True, True, 15)
         # dialog.vbox.set_spacing(20)
         vb = Gtk.VBox(False, 0)
         fr.add(vb)
 
         comboboxw = Gtk.ComboBoxText()
-        comboboxw.append_text("Human")
+        comboboxw.append_text(_("Human"))
 
         if self.player[WHITE] == "Human":
             comboboxw.set_active(0)
@@ -1127,13 +1127,13 @@ class Game:
         vb.pack_start(comboboxw, True, True, 15)
 
         # Black Player
-        fr = Gtk.Frame.new("Black")
+        fr = Gtk.Frame.new(_("Black"))
         dialog.vbox.pack_start(fr, True, True, 15)
         vb = Gtk.VBox(False, 0)
         fr.add(vb)
 
         comboboxb = Gtk.ComboBoxText()
-        comboboxb.append_text("Human")
+        comboboxb.append_text(_("Human"))
         if self.player[BLACK] == "Human":
             comboboxb.set_active(0)
 

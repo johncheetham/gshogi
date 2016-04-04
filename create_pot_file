@@ -1,0 +1,5 @@
+#!/bin/sh
+# create gshogi.pot file
+xgettext --package-name=gshogi -L Glade -o gshogi/locale/gshogi.pot gshogi/glade/*.glade
+xgettext --package-name=gshogi -L Python -j -o gshogi/locale/gshogi.pot gshogi/*.py
+

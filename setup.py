@@ -6,6 +6,7 @@ import os
 import platform
 import sys
 import string
+import shutil
 
 import gshogi.constants
 
@@ -40,6 +41,20 @@ else:
     data_files=[
       (sys.prefix+'/share/applications',['gshogi.desktop']),
       (sys.prefix+'/share/pixmaps', ['gshogi.png'])]
+
+# translations
+if shutil.which("msgfmt") is None:
+    print("msgfmt not found. Translations will not be built")
+else:
+    localedir = os.path.join("gshogi", "locale")
+    dirlist = os.listdir(localedir)
+    for d in dirlist:
+        pth = os.path.join(localedir, d)
+        if not os.path.isdir(pth):
+            continue
+        filein = os.path.join(pth, "LC_MESSAGES", "gshogi.po")
+        fileout = os.path.join(pth, "LC_MESSAGES", "gshogi.mo")
+        os.popen("msgfmt %s -o %s" % (filein, fileout))
 
 module1 = Extension("gshogi.engine", sources=[
     "engine/enginemodule.c",

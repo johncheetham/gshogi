@@ -34,6 +34,7 @@ class Engine_Output:
         Engine_Output.engine_output_ref = self
 
         self.builder = Gtk.Builder()
+        self.builder.set_translation_domain(gv.domain)
         self.builder.add_from_file(self.glade_file)
         self.builder.connect_signals(self)
 
@@ -174,13 +175,13 @@ class Engine_Output:
         # self.nps_lbl[idx].set_text("NPS: 1200")
 
         if side == "b":
-            s = "Black: "
+            s = _("Black") + ": "
         else:
-            s = "White: "
+            s = _("White") + ": "
         self.engine_name_lbl[idx].set_text(s + engine_name)
 
         if currmove != "":
-            self.currmove_lbl[idx].set_text("Current Move: " + currmove)
+            self.currmove_lbl[idx].set_text(_("Current Move") + ": " + currmove)
 
     def clear(self, side, engine_name):
         # Write to either the black or white split pane
@@ -192,16 +193,16 @@ class Engine_Output:
         self.tb[idx].set_text("")
 
         if side == "b":
-            s = "Black: "
+            s = _("Black") + ": "
         else:
-            s = "White: "
+            s = _("White") + ": "
         self.engine_name_lbl[idx].set_text(s + engine_name)
 
     def set_ponder_move(self, pondermove, side):
         if side == "b":
-            self.ponder_move_lbl[1].set_text("Ponder: " + pondermove)
+            self.ponder_move_lbl[1].set_text(_("Ponder") + ": " + pondermove)
         else:
-            self.ponder_move_lbl[0].set_text("Ponder: " + pondermove)
+            self.ponder_move_lbl[0].set_text(_("Ponder") + ": " + pondermove)
 
     def show_engine_output_window(self, b):
         self.window.present()

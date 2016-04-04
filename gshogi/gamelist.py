@@ -35,6 +35,7 @@ class Gamelist:
 
         # create gamelist window
         self.builder = Gtk.Builder()
+        self.builder.set_translation_domain(gv.domain)
         self.builder.add_from_file(self.glade_file)
         self.builder.connect_signals(self)
 

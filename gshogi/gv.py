@@ -21,6 +21,9 @@ import sys
 
 # Global variables
 
+# gettext/locale translation domain
+domain = "gshogi"
+
 # set in run.py
 installed = True
 

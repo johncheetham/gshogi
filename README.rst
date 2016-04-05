@@ -3,27 +3,26 @@ gshogi - John Cheetham - http://www.johncheetham.com/projects/gshogi
 Description
 -----------
 gshogi is a program to play Shogi (Japanese Chess). It has a builtin
-engine and can also use USI engines. It is written in python/C and runs
+engine and can also use USI engines. It is written in python3/C and runs
 on GTK3 (PyGI) desktops.
 
 It's licensed under the GPL v3+ (see the file named LICENSE) and aimed mainly
 at Linux users.
 
-It uses GTK3 for the gui and C for the engine code. The engine code comes
-from GNU Shogi.
+It uses GTK3 for the gui and C for the engine code.
 
 This version was tested on on CentOS 7 64 bit using Python 3.3.2,
-python3-gobject 3.8.2, gtk 3.14.13 and gcc 4.8.5.
+python3-gobject 3.10.2, gtk 3.14.13 and gcc 4.8.5.
 
 See the project homepage for more information on gshogi and USI engines.
 
 
 Installation
 ------------
-If you are using a system that uses python 2 as default (do python -V to check)
-then you need to use python3 for commands and package names. For example
-the package name will be python3-cairo instead of python-cairo and the
-build command will be python3 setup.py build.
+Python 3 is required. If you are using a system that uses python 2 as default
+(do python -V to check) then you need to use python3 for commands and package
+names. For example the package name will be python3-cairo instead of
+python-cairo and the build command will be python3 setup.py build.
 
 
 You need to install these packages first:
@@ -78,8 +77,7 @@ For Fedora 23:
 
     Install packages (as root user)
 
-        dnf install gcc redhat-rpm-config 
-        dnf install python3 python3-devel python3-cairo python3-gobject
+        dnf install gcc redhat-rpm-config python3 python3-devel python3-cairo python3-gobject
 
     build (as normal user)
 
@@ -313,4 +311,6 @@ See the project homepage to download an example.
 
 Acknowledgements
 ----------------
-gshogi uses C engine code and board graphics from GNU Shogi (version 1.3.2).
+gshogi uses C engine code and includes some board pieces from
+GNU Shogi (version 1.3.2).
+

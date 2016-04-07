@@ -1,23 +1,21 @@
-Note these instructions are out of date. They refer to python 2.7 and
-the requirement is now for python 3.
 
 You can run gshogi on windows by following these steps.
+I tested this on windows 10.
 
-Install Prerequisites
----------------------
+ 1. Install python 3.4
 
- 1. Install python2.7
+    Don't use Python 3.5 since pygobject for windows doesn't support it.    
 
     Download from https://www.python.org/downloads/
-    Select to install for all users, and select the default
-    installation location, c:\Python27
+    I used version 3.4.4 64 bit
 
-    Optionally Add to path
-        C:\Python27;C:\Python27\Scripts
-       (means you don't have to type full path to python, pip etc)
+    install for all users (which is the default)
 
-    I tested with python 2.7.10.
-    Note gshogi doesn't work with python 3.
+    Accept the default install directory
+        C:\Python34\
+
+    in customisations select
+        Add python.exe to path
 
 
  2. Install pygobject for windows
@@ -25,16 +23,16 @@ Install Prerequisites
     Download the latest version from
     http://sourceforge.net/projects/pygobjectwin32/files/latest/download
 
-    I used pygi-aio-3.14.0_rev22.setup.exe
+    I used pygi-aio-3.18.2_rev5-setup.exe
 
-    Install into c:\python27\lib\site-packages
+    Install into default location
 
     It will ask which packages you want to install.
 
     Choose these base packages:
 
-       Gdk-Pixbuf 2.31.6
-       GTK+ 3.14.15
+       Gdk-Pixbuf 2.32.3
+       GTK+ 3.18.8
        Pango 1.36.7
 
     choose non gnome libraries to install
@@ -44,30 +42,21 @@ Install Prerequisites
         none
 
 
-Install gshogi
---------------
-There are some prebuilt versions at this link:
-https://www.dropbox.com/sh/0z8pxbvaa927sd2/AAAsy2qpD_wglMXHdvapZOhga?dl=0
+ 3. Install Visual Studio 2015 Community Edition
 
-Double click the version for your system (32 or 64 bit) and install it.
-
-Finally you may want to create a shortcut on the desktop.
-To do this find c:\Python27\Scripts\gshogi.exe in explorer,
-right click it and select send to desktop (create shortcut).
+    Download from https://www.visualstudio.com/en-us/downloads/visual-studio-2015-downloads-vs.aspx
 
 
-Compile it yourself
--------------------
-To compile it go to http://aka.ms/vcpython27 and install
-Microsoft Visual C++ Compiler for Python 2.7.
+ 4. Install gshogi
 
-Then type c:\Python27\python.exe setup.py build.
-Then c:\Python27\python.exe run.py to run it.
+    Open a command prompt and CD into the gshogi folder.
 
-You can also compile using MinGW compiler.
-To use MinGW use this command:
-    c:\Python27\python.exe setup.py build --compiler=mingw32
+    # enter this command    
+    set VS100COMNTOOLS=%VS140COMNTOOLS%
 
-If you get libpython27.a: error adding symbols: File format not recognized
-with MinGW compiler then you need to create a new libpython27.a file
-using pexports/dlltool.
+    # build it
+    c:\Python34\python.exe setup.py build
+
+    # run it
+    c:\Python34\python.exe run.py
+

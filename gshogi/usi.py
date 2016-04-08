@@ -708,7 +708,8 @@ class Usi:
                 if userval != "":
                     default = userval
                 adj = Gtk.Adjustment(
-                    float(default), float(minimum), float(maximum), 1, 5, 0)
+                    value=default, lower=minimum, upper=maximum,
+                    step_increment=1, page_increment=5, page_size=0)
                 spinner = Gtk.SpinButton.new(adj, 1.0, 0)
                 # spinner.set_width_chars(14)
                 al = Gtk.Alignment.new(

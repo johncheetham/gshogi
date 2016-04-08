@@ -208,7 +208,8 @@ class Time_Control:
         maximum = 10
         default = self.byo_hours
         byo_adj_hours = Gtk.Adjustment(
-            float(default), float(minimum), float(maximum), 1, 5, 0)
+            value=default, lower=minimum, upper=maximum,
+            step_increment=1, page_increment=5, page_size=0)
         spinner = Gtk.SpinButton.new(byo_adj_hours, 1.0, 0)
         al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
         al.add(spinner)
@@ -222,7 +223,8 @@ class Time_Control:
         maximum = 59
         default = self.byo_minutes
         byo_adj_mins = Gtk.Adjustment(
-            float(default), float(minimum), float(maximum), 1, 5, 0)
+            value=default, lower=minimum, upper=maximum,
+            step_increment=1, page_increment=5, page_size=0)
         spinner = Gtk.SpinButton.new(byo_adj_mins, 1.0, 0)
         al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
         al.add(spinner)
@@ -238,7 +240,8 @@ class Time_Control:
         maximum = 60
         default = self.byo_byoyomi
         byo_adj_byoyomi = Gtk.Adjustment(
-            float(default), float(minimum), float(maximum), 1, 5, 0)
+            value=default, lower=minimum, upper=maximum,
+            step_increment=1, page_increment=5, page_size=0)
         spinner = Gtk.SpinButton.new(byo_adj_byoyomi, 1.0, 0)
         al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
         al.add(spinner)
@@ -288,7 +291,8 @@ class Time_Control:
             # else:
             #    default = 0
             adj_moves_to_go = Gtk.Adjustment(
-                float(default), float(minimum), float(maximum), 1, 5, 0)
+                value=default, lower=minimum, upper=maximum,
+                step_increment=1, page_increment=5, page_size=0)
             spinner = Gtk.SpinButton.new(adj_moves_to_go, 1.0, 0)
             al = Gtk.Alignment.new(
                 xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
@@ -308,7 +312,8 @@ class Time_Control:
             # else:
             #    default = 0
             adj_cls_mins = Gtk.Adjustment(
-                float(default), float(minimum), float(maximum), 1, 5, 0)
+                value=default, lower=minimum, upper=maximum,
+                step_increment=1, page_increment=5, page_size=0)
             spinner = Gtk.SpinButton.new(adj_cls_mins, 1.0, 0)
             al = Gtk.Alignment.new(
                 xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
@@ -328,7 +333,8 @@ class Time_Control:
             # else:
             #    default = 0
             adj_cls_repeat = Gtk.Adjustment(
-                float(default), float(minimum), float(maximum), 1, 5, 0)
+                value=default, lower=minimum, upper=maximum,
+                step_increment=1, page_increment=5, page_size=0)
             spinner = Gtk.SpinButton.new(adj_cls_repeat, 1.0, 0)
             al = Gtk.Alignment.new(
                 xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
@@ -368,7 +374,8 @@ class Time_Control:
         maximum = 10
         default = self.inc_hours
         inc_adj_hours = Gtk.Adjustment(
-            float(default), float(minimum), float(maximum), 1, 5, 0)
+            value=default, lower=minimum, upper=maximum,
+            step_increment=1, page_increment=5, page_size=0)
         spinner = Gtk.SpinButton.new(inc_adj_hours, 1.0, 0)
         al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
         al.add(spinner)
@@ -382,7 +389,8 @@ class Time_Control:
         maximum = 59
         default = self.inc_minutes
         inc_adj_mins = Gtk.Adjustment(
-            float(default), float(minimum), float(maximum), 1, 5, 0)
+            value=default, lower=minimum, upper=maximum,
+            step_increment=1, page_increment=5, page_size=0)
         spinner = Gtk.SpinButton.new(inc_adj_mins, 1.0, 0)
         al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
         al.add(spinner)
@@ -398,7 +406,8 @@ class Time_Control:
         maximum = 60
         default = self.inc_bonus
         inc_adj_bonus = Gtk.Adjustment(
-            float(default), float(minimum), float(maximum), 1, 5, 0)
+            value=default, lower=minimum, upper=maximum,
+            step_increment=1, page_increment=5, page_size=0)
         spinner = Gtk.SpinButton.new(inc_adj_bonus, 1.0, 0)
         al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
         al.add(spinner)
@@ -429,7 +438,8 @@ class Time_Control:
         maximum = 10000
         default = self.ftpm_seconds
         adj_ftpm_secs = Gtk.Adjustment(
-            float(default), float(minimum), float(maximum), 1, 5, 0)
+            value=default, lower=minimum, upper=maximum,
+            step_increment=1, page_increment=5, page_size=0)
         spinner = Gtk.SpinButton.new(adj_ftpm_secs, 1.0, 0)
         al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
         al.add(spinner)
@@ -457,7 +467,8 @@ class Time_Control:
         maximum = 999
         default = self.dpth_depth
         adj_dpth_depth = Gtk.Adjustment(
-            float(default), float(minimum), float(maximum), 1, 5, 0)
+            value=default, lower=minimum, upper=maximum,
+            step_increment=1, page_increment=5, page_size=0)
         spinner = Gtk.SpinButton.new(adj_dpth_depth, 1.0, 0)
         al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
         al.add(spinner)
@@ -493,7 +504,8 @@ class Time_Control:
         maximum = 2000000000
         default = self.nodes_nodes
         adj_nodes_nodes = Gtk.Adjustment(
-            float(default), float(minimum), float(maximum), 1, 5, 0)
+            value=default, lower=minimum, upper=maximum,
+            step_increment=1, page_increment=5, page_size=0)
         spinner = Gtk.SpinButton.new(adj_nodes_nodes, 1.0, 0)
         al = Gtk.Alignment.new(xalign=1.0, yalign=0.0, xscale=0.0, yscale=0.0)
         al.add(spinner)

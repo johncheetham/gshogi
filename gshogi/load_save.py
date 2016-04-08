@@ -198,8 +198,8 @@ class Load_Save:
 
         # sfen
         if startpos == "startpos":
-            zstr = '[SFEN "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP" \
-                   "/1B5R1/LNSGKGSNL b - 1"]\n'
+            zstr = '[SFEN "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP' \
+                   '/1B5R1/LNSGKGSNL b - 1"]\n'
             gamestr += zstr
         else:
             zstr = '[SFEN "' + startpos + '"]\n'
@@ -282,8 +282,7 @@ class Load_Save:
             # filename must end with .gshog or .psn
             #
             filename = dialog.get_filename()
-            if not (filename.endswith(".gshog") and not
-                    filename.endswith(".psn")):
+            if not filename.endswith('.gshog') and not filename.endswith('.psn'):
                 if dialog.get_filter().get_name() == "psn files":
                     filename = filename + ".psn"
                 else:

@@ -42,19 +42,29 @@ else:
       (sys.prefix+'/share/applications',['gshogi.desktop']),
       (sys.prefix+'/share/pixmaps', ['gshogi.png'])]
 
+package_data_list = ["data/opening.bbk"]
+
 # translations
 if shutil.which("msgfmt") is None:
     print("msgfmt not found. Translations will not be built")
 else:
-    localedir = os.path.join("gshogi", "locale")
+    localedir = "locale"
     dirlist = os.listdir(localedir)
     for d in dirlist:
         pth = os.path.join(localedir, d)
         if not os.path.isdir(pth):
             continue
         filein = os.path.join(pth, "LC_MESSAGES", "gshogi.po")
-        fileout = os.path.join(pth, "LC_MESSAGES", "gshogi.mo")
+        pthout = os.path.join("gshogi", pth, "LC_MESSAGES")
+        if not os.path.exists(pthout):
+            try:
+                os.makedirs(pthout)
+            except OSError as exc:
+                print("Unable to create locale folder", pthout)
+                sys.exit()
+        fileout = os.path.join(pthout, "gshogi.mo")
         os.popen("msgfmt %s -o %s" % (filein, fileout))
+        package_data_list.append(os.path.join(pth, "LC_MESSAGES", "gshogi.mo"))
 
 module1 = Extension("gshogi.engine", sources=[
     "engine/enginemodule.c",
@@ -94,7 +104,7 @@ setup(name="gshogi",
 
       packages=["gshogi"],
       package_data={
-          "gshogi": ["data/opening.bbk"],
+          "gshogi": package_data_list,
       },
       data_files=data_files,
       entry_points={

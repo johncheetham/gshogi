@@ -271,28 +271,18 @@ class Set_Board_Colours:
         #      0           1          2          3          4          5
         #      6           7          8          9
         presets = [
-
           ["Wood",
            ("#645452", "#C5B358", "#EBDFB0", "#000000",  "#FFFFD7", "#000000",
             "#000001", "#EBDFB0", "#000000")],
           ["Standard",
            ("#645452", "#C5B358", "#EBDFB0", "#000000",  "#FFFFD7", "#000000",
             "#000001", "#EBDFB0", "#000000")],
-          ["Black",
-           ("#BEBEBE", "#C0C0C0", "#C0C0C0", "#000000",  "#000000", "#FFFFFF",
-            "#FFFFFF", "#C0C0C0", "#000000")],
           ["Gold",
-           ("#50404D", "#E3A857", "#E3A857", "#FADA5E",  "#FADA5E", "#4B3621",
+           ("#50404D", "#E3A857", "#E3A857", "#FFFDD0",  "#FADA5E", "#4B3621",
             "#FE6F5E", "#E3A857", "#000000")],
-          ["Mint",
-           ("#2F4F4F", "#00A693", "#00A693", "#FFFFFF",  "#AAF0D1", "#465945",
-            "#195905", "#00A693", "#000000")],
           ["Brown",
            ("#645452", "#C19A6B", "#C19A6B", "#FFFDD0",  "#F5DEB3", "#000000",
-            "#1A1110", "#B5651D", "#000000")],
-          ["Custom1",
-           ("#645452", "#D7AD7C", "#D7AD7C", "#FFFDD0",  "#F5DEB3", "#000000",
-            "#1A1110", "#D7AD7C", "#000000")]
+            "#1A1110", "#B5651D", "#000000")]
         ]
         return presets
 
@@ -587,7 +577,12 @@ class Set_Board_Colours:
             self.grid_colour = "#000000"
             self.use_presets = True
             self.combo_idx = 0
-        #self.apply_colour_settings()
+        # check index in range
+        try:
+            presets = self.get_presets()
+            theme = presets[self.combo_idx]
+        except IndexError as ie:
+            self.combo_idx = 0        
 
     #
     # The following functions are for the set pieces dialog (not set board

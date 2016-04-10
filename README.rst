@@ -11,9 +11,6 @@ at Linux users.
 
 It uses GTK3 for the gui and C for the engine code.
 
-This version was tested on on CentOS 7 64 bit using Python 3.3.2,
-python3-gobject 3.10.2, gtk 3.14.13 and gcc 4.8.5.
-
 See the project homepage for more information on gshogi and USI engines.
 
 
@@ -98,11 +95,11 @@ For Fedora 23:
 
 For Debian 8 Jessie:
 
-    Install packages
+    Install packages (as root user)
 
-        sudo apt-get install gcc python3-dev python3-gi-cairo
+        apt-get install gcc python3-dev python3-gi-cairo
 
-    build
+    build (as normal user)
 
         python3 setup.py build
 
@@ -110,9 +107,9 @@ For Debian 8 Jessie:
 
         python3 run.py
 
-    Install on the system
+    Install on the system (as root user)
 
-        sudo python3 setup.py install
+        python3 setup.py install
 
     run the installed version
 

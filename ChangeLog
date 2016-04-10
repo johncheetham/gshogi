@@ -1,7 +1,15 @@
 Changes for 0.4.6.dev1
 ----------------------
 
-    * Port to PyGI
+    * Add i18n support
+
+    * Add new pieces and colour scheme
+
+    * Run on Windows
+
+    * Use cairo to add pieces to board
+
+    * Port to Python 3 / GTK 3 (PyGI)
 
     * Use setuptools instead of distutils
 

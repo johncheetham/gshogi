@@ -1,5 +1,7 @@
 include LICENSE
 include run.py
+include gshogi.desktop
+include gshogi.png
 include ez_setup.py
 include data/gnushogi.tbk
 include engine/attacks.c

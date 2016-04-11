@@ -720,7 +720,7 @@ class Gui:
         except AttributeError:
             pass
         about.set_version(VERSION)
-        about.set_copyright("Copyright \u00A9 2010-2015 John Cheetham")
+        about.set_copyright("Copyright \u00A9 2010-2016 John Cheetham")
         about.set_comments(
             "gshogi is a program to play shogi (Japanese Chess).")
         about.set_authors(["John Cheetham"])

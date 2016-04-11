@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gshogi 0.4.6.dev1\n"
+"Project-Id-Version: gshogi\n"
 "POT-Creation-Date: 2016-04-03 07:34+BST\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: John Cheetham <kaama12@yahoo.co.uk>\n"

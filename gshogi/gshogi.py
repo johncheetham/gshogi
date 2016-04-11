@@ -1,7 +1,7 @@
 #
-#   gshogi 0.4.6.dev1
+#   gshogi 0.5.0
 #
-#   Copyright (C) 2010-2012 John Cheetham
+#   Copyright (C) 2010-2016 John Cheetham
 #
 #   web   : http://www.johncheetham.com/projects/gshogi
 #   email : developer@johncheetham.com

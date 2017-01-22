@@ -84,7 +84,7 @@ class Load_Save:
         fname = dialog.get_filename()
 	self.gui.lastdir = os.path.dirname(fname)
 	#if self.verbose == True:	
-	#	print ("beim öffnen " + os.path.dirname(fname))
+	#	print ("beim oeffnen " + os.path.dirname(fname))
 	self.gui.window.set_title(NAME + " " + VERSION + "  " + os.path.basename(fname))
 	#self.context_id = self.gui.status_bar.get_context_id("gshogi statusbar") 
 	

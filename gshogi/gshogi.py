@@ -38,6 +38,7 @@ import time
 import engine
 import utils
 import gui, usi, engine_manager, time_control, set_board_colours
+
 import move_list
 import engine_output
 from constants import *
@@ -45,15 +46,28 @@ from constants import *
 class Game:    
 
     def __init__(self):
-
+	self.xname = ""
+	Filefound = False
         self.verbose = False
         self.verbose_usi = False
-        for arg in sys.argv:
-            if arg == '-v' or arg == '--verbose':
-                self.verbose = True
-            if arg == '-vusi':
-                self.verbose_usi = True
-
+        # Filename from command line
+        Startfilename = False
+        for arg in range(1, len(sys.argv)):
+                if (sys.argv[arg] != '-v' and sys.argv[arg] != '-vusi' and sys.argv[arg] !=""):
+                        if (sys.argv[arg].find(":")!= -1 or sys.argv[arg].startswith("/")) :
+                                Startfilename = True
+                        if Startfilename == True:
+                                self.xname = self.xname + " " + sys.argv[arg] #single file from command-line
+                                #print (sys.argv[arg] + "   "+ str(arg) +"    "+ self.xname)
+                                if sys.argv[arg].find(".psn") != -1:
+                                        Filefound = True
+                                        break
+                                if sys.argv[arg].find(".gshog") != -1:
+                                        Filefound = True
+                                        break
+        self.xname = self.xname.strip()
+        if self.verbose == True :
+        	print("Filename read:  " + self.xname + "  File:"+ str(Filefound) +"   "+VERSION)
         self.ask_before_promoting = False
         self.gameover = False       
         self.time_limit = '00:10'
@@ -131,7 +145,12 @@ class Game:
         self.stm = self.get_side_to_move()
         
         self.timer_active = False       
-
+	if Filefound==True:
+	    #if self.verbose == True:
+		#print(self.xname)
+ 	    # single file from command-line
+	    self.lastdir = os.path.dirname(self.xname)
+	    self.gui.load_save.load_game_parm(self.xname)		
 
     def set_data_paths(self):
         
@@ -811,6 +830,9 @@ class Game:
         s.ponder = self.engine_manager.get_ponder()
         s.show_coords = self.gui.get_show_coords()
         s.highlight_moves = self.gui.get_highlight_moves()
+	s.lastdir = self.gui.lastdir # bw: dir of last file used
+ 	#if self.verbose == True:
+		#print("gespeichert: " +s.lastdir)
 
         # pickle and save settings
         try:                        
@@ -933,6 +955,14 @@ class Game:
                 self.gui.set_highlight_moves(highlight_moves)
             except Exception, e:                        
                 if self.verbose: print e, ". highlight_moves not restored" 
+	    # lastdir
+	    try: 
+		lastdir = x.lastdir
+		self.gui.lastdir = lastdir
+		#if self.verbose == True:
+			#print("gelesen: " + lastdir)
+	    except Exception, e:
+		if self.verbose: print e, ". lastdir not restored"
 
 
     def goto_move(self, move_idx):
@@ -1048,7 +1078,7 @@ class Game:
             self.stm = self.get_side_to_move()
             self.movelist.append(move)
 
-            # do the move in gshogi engine
+            # do the move in gshogi engine 
             engine.setplayer(self.stm)            
             engine.hmove(move)            
 
@@ -1138,7 +1168,7 @@ class Game:
 
     def get_move_count(self):
         return len(self.movelist) + 1
-
+ 
          
     def get_side_to_move(self):
 
@@ -1161,7 +1191,7 @@ class Game:
 
     def get_stm_from_sfen(self, sfen):        
         if sfen == 'startpos':
-            # normal game
+            # normal game 
             stm = BLACK
         else:
             sp = sfen.split()            

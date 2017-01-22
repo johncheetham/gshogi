@@ -57,7 +57,10 @@ class Gui:
         self.load_save = load_save.get_ref()
         self.load_save.set_verbose(self.verbose)
         self.show_coords = True
-        self.highlight_moves = True                
+        self.highlight_moves = True
+	self.lastdir = os.path.expanduser("~") # reading to be implemented  
+	#if self.verbose == True:
+		#print ("initialisiert:" + self.lastdir)             
         
         # Board Colours
         self.board_bg_colour, \
@@ -419,9 +422,11 @@ class Gui:
 
         # status bar
         self.status_bar = self.builder.get_object('status_bar') 
-        #self.status_bar = gtk.Statusbar() 
-        #main_vbox.pack_start(self.status_bar, False, False, 0)        
-        self.context_id = self.status_bar.get_context_id("gshogi statusbar") 
+	## activated 2 lines:
+        self.status_bar = gtk.Statusbar() 
+        main_vbox.pack_start(self.status_bar, False, False, 0)        
+        self.status_context_id = self.status_bar.get_context_id("gshogi statusbar") 
+	#self.status_bar.modify_text(gtk.STATE_NORMAL,gtk.gdk.color_parse(self.board_square_colour)) ##Doesn't work
 
         self.actiongroup.get_action('MoveNow').set_sensitive(False)                
 
@@ -800,7 +805,8 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>.'''
 
     def set_status_bar_msg(self, msg):
         if self.game.quitting:
-            return        
+            return  
+	self.context_id = self.status_bar.get_context_id("gshogi statusbar")      
         self.status_bar.push(self.context_id, msg)
 
 

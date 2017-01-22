@@ -139,7 +139,7 @@ class Usi:
             i += 1
             if i > 40:         
                 print "error - readyok not returned from engine"
-                return False        
+		return False        
             time.sleep(0.25)
 
         # Tell engine we are starting new game

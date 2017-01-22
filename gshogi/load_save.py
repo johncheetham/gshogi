@@ -56,7 +56,10 @@ class Load_Save:
                                (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
                                 gtk.STOCK_OPEN, gtk.RESPONSE_OK))
         dialog.set_default_response(gtk.RESPONSE_OK)
-        dialog.set_current_folder(os.path.expanduser("~"))
+        #dialog.set_current_folder(os.path.expanduser("~"))
+	dialog.set_current_folder(self.gui.lastdir)
+	#if self.verbose == True:
+		#print("gefunden: " + self.gui.lastdir)
 
         filter = gtk.FileFilter()  
         filter.set_name("psn files") 
@@ -79,7 +82,14 @@ class Load_Save:
             return
 
         fname = dialog.get_filename()
-        dialog.destroy()            
+	self.gui.lastdir = os.path.dirname(fname)
+	#if self.verbose == True:	
+	#	print ("beim öffnen " + os.path.dirname(fname))
+	self.gui.window.set_title(NAME + " " + VERSION + "  " + os.path.basename(fname))
+	#self.context_id = self.gui.status_bar.get_context_id("gshogi statusbar") 
+	
+	#self.gui.status_bar.push(self.context_id,"File: " + os.path.dirname(fname) )
+	dialog.destroy()            
         
         if fname.endswith(".psn"):
             self.psn.load_game_psn(fname)
@@ -89,6 +99,23 @@ class Load_Save:
             self.load_game_gshog(fname)
             return
 
+     #loads filename from 1st argument in commandline
+    def load_game_parm(self,fname):        
+    
+	self.gui.lastdir = os.path.basename(fname)
+	self.gui.window.set_title(NAME + " " + VERSION + "  " + os.path.basename(fname))
+	#self.gui.set_status_bar_msg("File: " +os.path.basename(fname)) #!!
+	#if self.verbose == True:
+		#print("1. Parameter ", fname)
+              
+        
+        if fname.endswith(".psn"):
+            self.psn.load_game_psn(fname)
+            return
+
+        if fname.endswith(".gshog"):
+            self.load_game_gshog(fname)
+            return
 
     # this routine is called from utils.py (when doing paste position)
     # and from gui.py (when ending an edit board session).
@@ -115,6 +142,7 @@ class Load_Save:
         self.game.set_startpos(startpos)
 
         self.board.update()        
+	#self.gui.set_status_bar_msg("File: " + os.path.basename(filename))
 
         # update move list in move list window
         self.move_list.update()
@@ -166,7 +194,7 @@ class Load_Save:
                        
         self.usib.set_newgame()
         self.usiw.set_newgame()
-        self.gui.set_status_bar_msg("game loaded")
+        self.gui.set_status_bar_msg("game loaded:  " + fname)
         self.gameover = False            
 
         self.game.set_movelist(movelist)
@@ -264,7 +292,7 @@ class Load_Save:
                                (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
                                 gtk.STOCK_SAVE, gtk.RESPONSE_OK))
         dialog.set_default_response(gtk.RESPONSE_OK)
-        dialog.set_current_folder(os.path.expanduser("~"))
+        dialog.set_current_folder(self.gui.lastdir) # !!
 
         filter = gtk.FileFilter()  
         filter.set_name("psn files") 
@@ -290,6 +318,11 @@ class Load_Save:
             # filename must end with .gshog or .psn            
             #
             filename = dialog.get_filename()
+	    self.lastdir = os.path.dirname(filename) # !!
+	    #if self.verbose == True:
+		#print("beim Schliessen " + os.path.dirname(filename))
+	    self.gui.window.set_title(NAME + " " + VERSION + "  " + os.path.basename(filename))
+	    #self.gui.set_status_bar_msg("File: " + os.path.basename(filename))  #'!!
             if not filename.endswith('.gshog') and not filename.endswith('.psn'): 
                 if dialog.get_filter().get_name() == 'psn files':                    
                     filename = filename + '.psn'
@@ -333,7 +366,7 @@ class Load_Save:
                 for i in range(0, redo_count):                    
                     self.game.undo_move()
                
-            self.gui.set_status_bar_msg("game saved")
+            self.gui.set_status_bar_msg("game saved:  " + filename)
               
         dialog.destroy()
 

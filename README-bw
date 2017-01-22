@@ -1,0 +1,8 @@
+Hi,
+I am currently learning Shogi. As a consequence I am following Joseki an write games and positions to files to review and compare them. I introduced some modifications which make my life easier - see Changelog. As I do not give a ...  about Windows and I do not get external engines (Linux Mint, using wine or linux engines) to work under V 0.5.0 (which run under 0.4.5) so I am using 0.4.5 and made the modifications there.
+Perhaps someone can fix the engine-problem wiht V 0.5.0.
+
+This is the port to V 0.5
+Best regards 
+Bernd Wille January 18, 2017
+

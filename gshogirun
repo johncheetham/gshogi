@@ -1,0 +1,4 @@
+#!/bin/bash
+cd ~/Downloads/gshogi-GSHOGI_0_4_5
+python ~/Downloads/gshogi-GSHOGI_0_4_5/run.py $1 $2 $3 $4 $5 $6 $7 $8 $9 $10 
+

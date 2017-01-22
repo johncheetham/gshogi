@@ -20,7 +20,7 @@
 from gi.repository import Gtk
 import os
 from datetime import date
-
+import constants
 from . import gv
 if gv.installed:
     from gshogi import engine
@@ -29,7 +29,7 @@ else:
 from . import move_list
 from . import comments
 from . import psn
-from .constants import WHITE, BLACK
+from .constants import WHITE, BLACK,  VERSION,  NAME
 
 
 class Load_Save:
@@ -49,8 +49,8 @@ class Load_Save:
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
              Gtk.STOCK_OPEN, Gtk.ResponseType.OK))
         dialog.set_default_response(Gtk.ResponseType.OK)
-        dialog.set_current_folder(os.path.expanduser("~"))
-
+        #dialog.set_current_folder(os.path.expanduser("~"))
+        dialog.set_current_folder(gv.lastdir)
         filter = Gtk.FileFilter()
         filter.set_name("psn files")
         filter.add_pattern("*.psn")
@@ -72,8 +72,27 @@ class Load_Save:
             return
 
         fname = dialog.get_filename()
+        gv.lastdir = os.path.dirname(fname)
+        if gv.verbose == True:       
+               print ("opening: " + os.path.dirname(fname))
+        gv.gui.window.set_title(NAME + " " + VERSION + "  " + os.path.basename(fname))
         dialog.destroy()
 
+        if fname.endswith(".psn"):
+            self.psn.load_game_psn(fname)
+            return
+
+        if fname.endswith(".gshog"):
+            self.load_game_gshog(fname)
+            return
+
+         #loads filename from 1st argument in commandline
+
+    def load_game_parm(self,fname):        
+    
+        #gv.lastdir = os.path.dirname(fname)
+        gv.gui.window.set_title(NAME + " " + VERSION + "  " + os.path.basename(fname))
+        
         if fname.endswith(".psn"):
             self.psn.load_game_psn(fname)
             return
@@ -128,7 +147,7 @@ class Load_Save:
 
         self.comments.clear_comments()
 
-        # get movelist
+        # get movelistVERSION
         f = open(fname)
         startmoves = False
         movelist = []
@@ -160,7 +179,7 @@ class Load_Save:
 
         gv.usib.set_newgame()
         gv.usiw.set_newgame()
-        gv.gui.set_status_bar_msg("game loaded")
+        gv.gui.set_status_bar_msg("game loaded:  " + fname +"   " +VERSION)
         self.gameover = False
 
         gv.gshogi.set_movelist(movelist)
@@ -199,7 +218,7 @@ class Load_Save:
         # sfen
         if startpos == "startpos":
             zstr = '[SFEN "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP' \
-                   '/1B5R1/LNSGKGSNL b - 1"]\n'
+                   '/1B5R1/LNSGKGSNL b - 1"]beim รถffnen\n'
             gamestr += zstr
         else:
             zstr = '[SFEN "' + startpos + '"]\n'
@@ -256,7 +275,7 @@ class Load_Save:
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
              Gtk.STOCK_SAVE, Gtk.ResponseType.OK))
         dialog.set_default_response(Gtk.ResponseType.OK)
-        dialog.set_current_folder(os.path.expanduser("~"))
+        dialog.set_current_folder(gv.lastdir)
 
         filter = Gtk.FileFilter()
         filter.set_name("psn files")
@@ -282,6 +301,11 @@ class Load_Save:
             # filename must end with .gshog or .psn
             #
             filename = dialog.get_filename()
+            gv.lastdir = os.path.dirname(filename) # !!
+            if gv.verbose == True:
+                print("saving: " + gv.lastdir)
+            gv.gui.window.set_title(NAME + " " + VERSION + "  " + os.path.basename(filename))
+           
             if not filename.endswith('.gshog') and not filename.endswith('.psn'):
                 if dialog.get_filter().get_name() == "psn files":
                     filename = filename + ".psn"
@@ -328,7 +352,7 @@ class Load_Save:
                 for i in range(0, redo_count):
                     gv.gshogi.undo_move()
 
-            gv.gui.set_status_bar_msg(_("game saved"))
+            gv.gui.set_status_bar_msg(_("game saved:  " + filename) + "  "+ VERSION)
 
         dialog.destroy()
 

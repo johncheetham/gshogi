@@ -19,6 +19,7 @@
 
 from gi.repository import Gtk
 import os
+import errno
 from datetime import date
 import constants
 from . import gv
@@ -90,9 +91,16 @@ class Load_Save:
 
     def load_game_parm(self,fname):        
     
-        #gv.lastdir = os.path.dirname(fname)
+        try:
+                fp = open(fname)
+        except :
+                gv.gui.set_status_bar_msg(
+                "Error  loading game - file not found(2)  " + fname)
+                return
+        fp.close()
         gv.gui.window.set_title(NAME + " " + VERSION + "  " + os.path.basename(fname))
         
+       
         if fname.endswith(".psn"):
             self.psn.load_game_psn(fname)
             return
@@ -217,9 +225,9 @@ class Load_Save:
 
         # sfen
         if startpos == "startpos":
-            zstr = '[SFEN "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP' \
-                   '/1B5R1/LNSGKGSNL b - 1"]\n'
-            gamestr += zstr
+                zstr = '[SFEN "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP' \
+                '/1B5R1/LNSGKGSNL b - 1"]\n'
+                gamestr += zstr
         else:
             zstr = '[SFEN "' + startpos + '"]\n'
             gamestr += zstr

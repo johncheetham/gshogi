@@ -30,6 +30,7 @@ installed = True
 # set in gshogi.py
 verbose = False
 verbose_usi = False
+lastdir = ""
 
 # references to classes that have one instance
 gshogi = None

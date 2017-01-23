@@ -30,6 +30,7 @@ installed = True
 # set in gshogi.py
 verbose = False
 verbose_usi = False
+lastdir = ""
 
 # references to classes that have one instance
 gshogi = None
@@ -52,6 +53,6 @@ def testnames():
     names = dir(modulename)
     for n in names:
         if n not in initial_namelist:
-            print("unknown global variable in gv.py:", n)
+            print("unknown global variable in gv.py:  ",  n  )
 initial_namelist = None     # don't remove this line
 initial_namelist = dir()

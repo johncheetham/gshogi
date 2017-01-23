@@ -58,7 +58,7 @@ class Gui:
         self.load_save = load_save.get_ref()
         self.show_coords = True
         self.highlight_moves = True
-
+        self.lastdir = os.path.expanduser("~") # Filehandling
         # Create Main Window
         glade_dir = gv.gshogi.get_glade_dir()
         self.glade_file = os.path.join(glade_dir, "main_window.glade")
@@ -76,6 +76,7 @@ class Gui:
         self.set_window_size()
 
         # self.window = Gtk.Window(Gtk.WindowType.TOPLEVEL)
+        #print("aus gui.py: V" + VERSION)
         self.window.set_title(NAME + " " + VERSION)
 
         # 1 eventbox per board square
@@ -274,8 +275,7 @@ class Gui:
         # main_vbox.pack_start(vbox2, False)
         # main_vbox.pack_start(eb_1, False)
         eb_1.add(vbox2)
-        eb_1.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse("#EDECEB"))
-
+        eb_1.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse("#EDECEB"))##EDECEB
         # Create a MenuBar
         menubar = uimanager.get_widget("/MenuBar")
         vbox2.pack_start(menubar, False, True, 0)
@@ -452,9 +452,9 @@ class Gui:
         # Otherwise it uses the window bg colour which is not
         # correct. This was not needed on F17.
         eb_2 = self.builder.get_object("eb_2")
-        eb_2.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse("#EDECEB"))
-        # self.status_bar = Gtk.Statusbar()
-        # main_vbox.pack_start(self.status_bar, False, False, 0)
+        #eb_2.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(bg_colour)) ##EDECEB
+        self.status_bar = Gtk.Statusbar()
+        main_vbox.pack_start(self.status_bar, False, False, 0)
         self.context_id = self.status_bar.get_context_id("gshogi statusbar")
 
         self.actiongroup.get_action("MoveNow").set_sensitive(False)
@@ -632,7 +632,7 @@ class Gui:
         cap_label = gv.board.get_cap_label(side)
 
         eb2 = Gtk.EventBox()
-        eb2.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse("#000000"))
+        #eb2.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse("#000000"))
 
         eb = Gtk.EventBox()
         eb.add(komgrid)
@@ -750,6 +750,7 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
     def set_status_bar_msg(self, msg):
         if gv.gshogi.quitting:
             return
+        self.context_id = self.status_bar.get_context_id("gshogi statusbar") 
         self.status_bar.push(self.context_id, msg)
 
     # ask before promoting
@@ -966,6 +967,8 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
 
         self.get_window().modify_bg(
             Gtk.StateType.NORMAL, Gdk.color_parse(bg_colour))
+        eb_2 = self.builder.get_object("eb_2")
+        eb_2.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(bg_colour)) #modif 17.1.17
         #self.komadaiw_eb.modify_bg(
         #    Gtk.StateType.NORMAL, Gdk.color_parse(komadai_colour))
         #self.komadaib_eb.modify_bg(

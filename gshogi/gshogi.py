@@ -17,7 +17,7 @@
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #   GNU General Public License for more details.
-#
+#/home/bernd/Downloads/gshogi-0.5.0/B_3f gegen Spearing the sparrow-Quest.psn
 #   You should have received a copy of the GNU General Public License
 #   along with gshogi.  If not, see <http://www.gnu.org/licenses/>.
 #
@@ -31,6 +31,8 @@ from gi.repository import GLib
 import _thread
 import traceback
 import os
+import gv
+import sys
 import pickle
 import time
 
@@ -42,6 +44,7 @@ else:
 from . import utils
 from . import gui
 from . import usi
+#from . import  sys
 from . import engine_manager
 from . import time_control
 from . import set_board_colours
@@ -58,8 +61,11 @@ class Game:
     def __init__(self):
 
         gv.gshogi = self
+        self.xname = ""
+        Filefound = False
         # set global variables for debug messages
         gv.verbose, gv.verbose_usi = utils.get_verbose()
+        #print("verbose:   ", gv.verbose, "  ",  gv.verbose_usi)
         # prefix to find package files/folders
         self.prefix = utils.get_prefix()
         # set up .gshogi directory in the home directory
@@ -67,7 +73,24 @@ class Game:
         self.glade_dir = os.path.join(self.prefix, "glade")
         # get settings saved from previous game
         self.settings = utils.get_settings_from_file(self.gshogipath)
-
+        # Filename from command line
+        Startfilename = False
+        for arg in range(1, len(sys.argv)):
+                if (sys.argv[arg] != '-v' and sys.argv[arg] != '-vusi' and sys.argv[arg] !=""):
+                        if (sys.argv[arg].find(":")!= -1 or sys.argv[arg].startswith("/")) :
+                                Startfilename = True
+                        if Startfilename == True:
+                                self.xname = self.xname + " " + sys.argv[arg] #single file from command-line
+                                #print (sys.argv[arg] + "   "+ str(arg) +"    "+ self.xname)
+                                if sys.argv[arg].find(".psn") != -1:
+                                        Filefound = True
+                                        break
+                                if sys.argv[arg].find(".gshog") != -1:
+                                        Filefound = True
+                                        break
+        self.xname = self.xname.strip()
+        if gv.verbose == True :
+        	print("Filename read:  " + self.xname + "  File:"+ str(Filefound) +"   "+VERSION)
         self.ask_before_promoting = False
         self.gameover = False
         self.time_limit = "00:10"
@@ -143,6 +166,10 @@ class Game:
         self.stm = self.get_side_to_move()
         self.timer_active = False
         gv.set_board_colours.apply_colour_settings()
+        if Filefound==True:
+            gv.lastdir = os.path.dirname(self.xname)
+            # single file from command-line
+            gv.gui.load_save.load_game_parm(self.xname)
 
     #
     # Process Human move
@@ -766,7 +793,9 @@ class Game:
         s.ponder = gv.engine_manager.get_ponder()
         s.show_coords = gv.gui.get_show_coords()
         s.highlight_moves = gv.gui.get_highlight_moves()
-
+        s.lastdir = gv.lastdir # last dir used
+        if gv.verbose == True:
+                print(gv.lastdir + "  saved")
         # pickle and save settings
         try:
             settings_file = os.path.join(self.gshogipath, "settings")
@@ -848,6 +877,14 @@ class Game:
             except Exception as e:
                 if gv.verbose:
                     print(e, ". highlight_moves not restored")
+            # lastdir
+            try: 
+                gv.lastdir = x.lastdir
+                if gv.verbose == True:
+                        print("path read: " + gv.lastdir)
+            except Exception as e:
+                if gv.verbose: 
+                        print (e, ". lastdir not restored")
 
     def goto_move(self, move_idx):
         try:

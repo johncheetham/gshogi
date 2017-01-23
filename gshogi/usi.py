@@ -72,13 +72,15 @@ class Usi:
         # Attempt to start the engine as a subprocess
         if gv.verbose:
             print("starting engine with path:", path)
+        path = path.strip()
+        print("engine:" + path)
         p = subprocess.Popen(
-            path, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+            path,bufsize = 1,   stdin=subprocess.PIPE, stdout=subprocess.PIPE,
             stderr=subprocess.PIPE, cwd=engine_wdir,
             universal_newlines=True)
         self.p = p
-
-        # check process is running
+       
+        #check process is running
         i = 0
         while (p.poll() is not None):
             i += 1
@@ -91,7 +93,7 @@ class Usi:
             print("pid=", p.pid)
         # start thread to read stdout
         self.op = []
-        self.soutt = _thread.start_new_thread(self.read_stdout, ())
+        self.soutt = _thread.start_new_thread(self.read_stdout, ()) # commenting this line doesn't help
 
         # Tell engine to use the USI (universal shogi interface).
         self.command("usi\n")
@@ -549,8 +551,9 @@ class Usi:
         # Attempt to start the engine as a subprocess
         engine_wdir = os.path.dirname(path)
         try:
-            p = subprocess.Popen(
-                path, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                
+                p = subprocess.Popen(
+                path, bufsize = 1, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE, cwd=engine_wdir,
                 universal_newlines=True)
         except OSError as oe:
@@ -567,7 +570,7 @@ class Usi:
                 return msg, name
             time.sleep(0.25)
 
-        # start thread to read stdout
+        # start thread to read stdout commented out (double?)
         self.op = []
         self.soutt = _thread.start_new_thread(self.read_stdout, ())
 

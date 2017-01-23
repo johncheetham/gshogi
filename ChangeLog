@@ -1,3 +1,11 @@
+Minor modifications for 0.5.1
+----------------------------------
+2017-0-18 Bernd Wille
+	* Remember last used path for loaded games
+	* Show filename in Window-Titlebar
+	* take filename from command-line and enable starting games by double-click, use gshogirun-script (please edit paths).
+
+
 Changes for 0.5.0
 -----------------
 

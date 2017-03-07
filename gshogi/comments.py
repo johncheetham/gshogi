@@ -88,12 +88,39 @@ class Comments:
         # set the comment in the window to that of the newly selected
         # move
         self.tb.set_text(self.comment_list[moveno])
+        if gv.show_moves == True:
+            start, end =gv.gui.comment_view.get_buffer().get_bounds()
+            gv.gui.comment_view.get_buffer().delete(start,end)
+            gv.gui.comment_view.get_buffer().insert(start,text)
 
         # show the moveno the comment relates to in the window title
         self.window.set_title(_("Comment for Move ") + str(moveno))
 
         # self.moveno = moveno
+    def get_comment_text(self,moveno):
+        return self.comment_list[moveno]
+        
+    def automatic_comment(self,text,moveno):
+        max = moveno
+        if max < self.moveno:
+            max = self.moveno
+        # extend comment list if it is shorter than movelist
+        while len(self.comment_list) <= max:
+            self.comment_list.append("")        
+        # extend comment list if it is shorter than movelist
+        while len(self.comment_list) <= self.moveno:
+            self.comment_list.append("")
 
+        # save it
+        # print "saving to move;",self.moveno
+        # print "text=",text
+        text1 = self.comment_list[self.moveno]
+        self.comment_list[self.moveno] = text1 + text  #append comments
+        if text != "":
+            self.move_list.set_comment_ind(True)
+        else:
+            self.move_list.set_comment_ind(False)        
+    
     def text_changed(self, textbuffer):
         # get text
         start_iter = textbuffer.get_start_iter()
@@ -121,7 +148,10 @@ class Comments:
             self.comment_list.append("")
         self.comment_list[self.moveno] = text
         self.tb.set_text(text)
-
+        if gv.show_moves == True:
+            start, end =gv.gui.comment_view.get_buffer().get_bounds()
+            gv.gui.comment_view.get_buffer().delete(start,end)
+            gv.gui.comment_view.get_buffer().insert(start,"-")        
     # clear all comments.
     # Called from load_save.py when a new game is loaded
     def clear_comments(self):
@@ -129,7 +159,10 @@ class Comments:
         self.comment_list = [""]
         self.tb.set_text("")
         self.window.set_title(_("Comment for Move ") + "0")
-
+        if gv.show_moves == True:
+            start, end =gv.gui.comment_view.get_buffer().get_bounds()
+            gv.gui.comment_view.get_buffer().delete(start,end)
+            gv.gui.comment_view.get_buffer().insert(start,"-")           
     # called by load_save.py when loading file in PSN format
     def set_comment(self, moveno, comment):
         while len(self.comment_list) <= moveno:

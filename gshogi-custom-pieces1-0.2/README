@@ -1,0 +1,19 @@
+
+Project Homepage : http://www.johncheetham.com/projects/gshogi
+Date: August 2012
+
+These are shogi piece images for use in gshogi. They can be loaded into
+gshogi via the 'Load Custom Pieces' button on the 'set pieces' menu.  
+
+Image information:
+
+    Source:  http://commons.wikimedia.org/wiki/Category:Shogi_pieces
+    license: Creative Commons Attribution-Share Alike 3.0 Unported
+    Author:  13xforever
+
+For more information on using custom pieces see the README file in
+gshogi.
+
+Added white Piece-Set with different shading Bernd Wille Jan 2017
+
+

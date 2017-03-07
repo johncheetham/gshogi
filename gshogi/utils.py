@@ -26,6 +26,7 @@ import pickle
 from . import load_save
 from . import psn
 from . import gv
+from .constants import VERSION
 
 
 # Copy the board position to the clipboard in std SFEN format
@@ -149,7 +150,7 @@ def get_prefix():
 def create_settings_dir():
     # set up gshogi directory under home directory
     home = os.path.expanduser("~")
-    gshogipath = os.path.join(home, ".gshogi")
+    gshogipath = os.path.join(home, ".gshogi"+VERSION)
     if not os.path.exists(gshogipath):
         try:
             os.makedirs(gshogipath)
@@ -161,9 +162,18 @@ def create_settings_dir():
 def get_verbose():
     verbose = False
     verbose_usi = False
+    showmoves = False
+    showheader = False
     for arg in sys.argv:
         if arg == "-v" or arg == "--verbose":
             verbose = True
         if arg == "-vusi":
             verbose_usi = True
-    return verbose, verbose_usi
+        if arg == "-m":
+            showmoves = True
+        if arg == "-h":
+            showheader = True
+        if arg == "-mh" or arg == "-hm":
+            showmoves = True
+            showheader = True           
+    return verbose, verbose_usi, showmoves, showheader

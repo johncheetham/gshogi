@@ -14,4 +14,3 @@ try:
 except AttributeError as ae:
     # we get this on windows
     pass
-

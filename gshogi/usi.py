@@ -16,10 +16,11 @@
 #   You should have received a copy of the GNU General Public License
 #   along with gshogi.  If not, see <http://www.gnu.org/licenses/>.
 #
-
+# timeout in line 152 set to 60 bw 8.2.17
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GObject
+from gi.repository import GLib
 import os
 import subprocess
 import _thread
@@ -33,7 +34,7 @@ from . import gv
 class Usi:
 
     def __init__(self, side):
-
+#from gi.repository import GLib
         self.engine = "gshogi"
         self.path = ""
         self.engine_running = False
@@ -60,7 +61,7 @@ class Usi:
 
         #
         # get engine working directory
-        #
+        #from gi.repository import GLib
         orig_cwd = os.getcwd()
         if gv.verbose:
             print("current working directory is", orig_cwd)
@@ -72,13 +73,15 @@ class Usi:
         # Attempt to start the engine as a subprocess
         if gv.verbose:
             print("starting engine with path:", path)
+        path = path.strip()
+        #print("engine:" + path)
         p = subprocess.Popen(
-            path, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+            path,bufsize = 1,   stdin=subprocess.PIPE, stdout=subprocess.PIPE,
             stderr=subprocess.PIPE, cwd=engine_wdir,
             universal_newlines=True)
         self.p = p
-
-        # check process is running
+       
+        #check process is running
         i = 0
         while (p.poll() is not None):
             i += 1
@@ -91,7 +94,7 @@ class Usi:
             print("pid=", p.pid)
         # start thread to read stdout
         self.op = []
-        self.soutt = _thread.start_new_thread(self.read_stdout, ())
+        self.soutt = _thread.start_new_thread(self.read_stdout, ()) # commenting this line doesn't help
 
         # Tell engine to use the USI (universal shogi interface).
         self.command("usi\n")
@@ -147,7 +150,7 @@ class Usi:
             if ready_ok:
                 break
             i += 1
-            if i > 40:
+            if i > 60:
                 print("error - readyok not returned from engine")
                 return False
             time.sleep(0.25)
@@ -249,20 +252,30 @@ class Usi:
         self.stop_pending = False
         self.running_engine = ""
 
-    def read_stdout(self):
+    def read_stdout(self): 
         while True:
             try:
                 e = ("<-" + self.side + "(" +
                      self.get_running_engine().strip() + "):")
-                #self.p.stdout.flush()
+                line= ""
+                # python2 line = unicode(self.p.stdout.readline(), errors ='ignore')
+                    # or: 'your iso 8859-15 text'.decode('iso8859-15')
+                # python3 (doesn't work) lineb = self.p.stdout.readline().encode("utf-8", "ignore")
+                #print(lineb)
+                #line = str(lineb)
+                #print(line, "line")
                 line = self.p.stdout.readline()
+                
                 if line == "":
                     if gv.verbose:
                         print(e + "eof reached")
                     if gv.verbose:
                         print(e + "stderr:", self.p.stderr.read())
                     break
+                #line = line[2:-3]
+                #print(line)
                 line = line.strip()
+                
                 if gv.verbose or gv.verbose_usi:
                     print(e + line)
                 GObject.idle_add(self.engine_debug.add_to_log, e+line)
@@ -273,7 +286,8 @@ class Usi:
                 self.op.append(line)
             except Exception as e:
                 # line = e + "error"
-                print("subprocess error in usi.py read_stdout:", e)
+                print("subprocess error in usi.py read_stdout:", e, "at:", line)
+                
 
     def check_running(self):
         # check if engine has changed since last use
@@ -549,8 +563,9 @@ class Usi:
         # Attempt to start the engine as a subprocess
         engine_wdir = os.path.dirname(path)
         try:
-            p = subprocess.Popen(
-                path, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                
+                p = subprocess.Popen(
+                path, bufsize = 1, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE, cwd=engine_wdir,
                 universal_newlines=True)
         except OSError as oe:
@@ -567,7 +582,7 @@ class Usi:
                 return msg, name
             time.sleep(0.25)
 
-        # start thread to read stdout
+        # start thread to read stdout commented out (double?)
         self.op = []
         self.soutt = _thread.start_new_thread(self.read_stdout, ())
 
@@ -698,6 +713,7 @@ class Usi:
         wlist = []
         for w in wdgts:
             opt_i, name, otype, default, minimum, maximum, uvars, userval = w
+            #print(name)
             if otype == "spin":
                 if minimum == "":
                     minimum = 0
@@ -708,7 +724,7 @@ class Usi:
                 if userval != "":
                     default = userval
                 adj = Gtk.Adjustment(
-                    value=default, lower=minimum, upper=maximum,
+                    value=float(default), lower=float(minimum), upper=float(maximum),
                     step_increment=1, page_increment=5, page_size=0)
                 spinner = Gtk.SpinButton.new(adj, 1.0, 0)
                 # spinner.set_width_chars(14)

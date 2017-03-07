@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.0"
+   width="108.07086"
+   height="124.01575"
+   id="svg2166"
+   sodipodi:version="0.32"
+   inkscape:version="0.91 r"
+   sodipodi:docname="pawnPW.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   sodipodi:modified="true">
+  <metadata
+     id="metadata14">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+        <dc:date>2007-07-22</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>13xforever</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:language>ja</dc:language>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>tokin</rdf:li>
+            <rdf:li>と金</rdf:li>
+            <rdf:li>shougi</rdf:li>
+            <rdf:li>shogi</rdf:li>
+            <rdf:li>将棋</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:coverage>board game</dc:coverage>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-sa/3.0/" />
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-sa/3.0/">
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Reproduction" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Distribution" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/Notice" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/Attribution" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     inkscape:window-height="1053"
+     inkscape:window-width="1920"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     guidetolerance="10.0"
+     gridtolerance="10.0"
+     objecttolerance="10.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base"
+     inkscape:zoom="3.0399365"
+     inkscape:cx="-23.104338"
+     inkscape:cy="62.007874"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:current-layer="svg2166"
+     showgrid="false"
+     inkscape:window-maximized="1" />
+  <defs
+     id="defs2168">
+    <linearGradient
+       id="linearGradient10936">
+      <stop
+         style="stop-color:#fcf3e8;stop-opacity:1"
+         offset="0"
+         id="stop10938" />
+      <stop
+         style="stop-color:#ba6100;stop-opacity:1"
+         offset="1"
+         id="stop10940" />
+    </linearGradient>
+    <linearGradient
+       x1="17.523264"
+       y1="5.9785309"
+       x2="101.69292"
+       y2="113.38583"
+       id="linearGradient10942"
+       xlink:href="#linearGradient10936"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(3.1889734,0)" />
+    <linearGradient
+       x1="106.09147"
+       y1="124.85123"
+       x2="1.3715836"
+       y2="1.1388254"
+       id="linearGradient12957"
+       xlink:href="#linearGradient10936"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(3.1889734,0)" />
+  </defs>
+  <g
+     id="layer1"
+     transform="matrix(-1,0,0,-1,108.07087,142.84881)">
+    <g
+       transform="matrix(0.7836824,0,0,0.8440209,11.688814,23.574399)"
+       id="g12950">
+      <path
+         d="m 3.6843532,112.89045 100.7021568,0 L 87.439074,5.7639005 54.035433,0.49538136 20.63179,5.7639005 3.6843532,112.89045 Z"
+         style="fill:url(#linearGradient12957);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.22957027;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.49803922"
+         id="path9965"
+         inkscape:connector-curvature="0" />
+      <path
+         d="m 43.584086,31.109869 c 0.409828,-0.614728 1.332005,-0.614728 2.766533,0 1.434467,0.614841 2.561572,1.33209 3.381318,2.151748 0.614751,0.819767 0.614751,1.741944 0,2.766533 -0.614818,1.024692 -1.024675,2.664118 -1.22957,4.918281 -0.409889,2.254257 -0.307425,4.764627 0.307393,7.531118 0.614751,2.766569 1.84432,5.174476 3.688711,7.223726 6.352736,-2.868963 10.246371,-4.662085 11.680917,-5.37937 1.434449,-0.717212 2.254161,-1.383228 2.459141,-1.998052 0.204877,-0.819674 0.563501,-1.434458 1.075874,-1.844355 0.512268,-0.409816 1.383213,-0.102424 2.612836,0.922177 1.229515,1.024681 1.844299,2.100554 1.844356,3.227622 -5.7e-5,1.127142 -1.434554,2.203015 -4.303496,3.227622 -3.073975,0.819746 -5.789273,1.690691 -8.145903,2.612837 -2.356718,0.922208 -4.969552,2.100545 -7.838511,3.535015 -2.86903,1.434524 -5.533097,3.07395 -7.992206,4.918281 -2.459167,1.844376 -4.098592,3.893657 -4.918281,6.147851 -1.024665,2.254226 -1.075897,4.559668 -0.153697,6.916333 0.922154,2.356683 3.022668,4.047341 6.301548,5.071977 3.278821,0.819717 7.326153,1.075877 12.142006,0.768482 4.815771,-0.307389 8.453246,-0.870942 10.912436,-1.69066 2.254158,-0.819707 3.791119,-0.973403 4.610889,-0.461088 0.819656,0.512326 1.331976,1.178342 1.536963,1.998051 0.204869,0.819717 -0.666075,1.741893 -2.612837,2.766533 -1.946874,1.024642 -6.506526,1.639427 -13.678969,1.844356 -7.172529,0.204927 -12.705589,-0.614786 -16.599199,-2.459141 -3.893661,-1.844352 -6.147871,-4.405954 -6.762636,-7.684814 -0.819732,-3.48377 -0.409876,-6.865085 1.22957,-10.143955 1.639405,-3.278831 5.942897,-6.76261 12.910488,-10.451347 -2.254243,-3.278821 -3.637509,-6.608904 -4.1498,-9.990258 -0.512349,-3.381275 -0.666046,-6.096574 -0.461089,-8.145903 0.2049,-2.254162 0.0512,-4.098516 -0.461089,-5.533067 -0.512348,-1.434443 -0.56358,-2.35662 -0.153696,-2.766533 l 0,0 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:78.69249725px;line-height:100%;font-family:KaiTi;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#de0000;fill-opacity:1;stroke:#000000;stroke-width:1.22957027;stroke-miterlimit:4;stroke-opacity:0.49803922"
+         id="text11939"
+         inkscape:connector-curvature="0" />
+    </g>
+  </g>
+</svg>

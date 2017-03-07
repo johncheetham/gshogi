@@ -18,7 +18,7 @@
 #
 
 NAME = "gshogi"
-VERSION = "0.5.0"
+VERSION = "0.5.1"
 
 # Beep after move - not implemented yet
 BEEP = False

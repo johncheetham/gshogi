@@ -34,6 +34,7 @@ from .constants import WHITE, BLACK
 SCALE = 0.9      # scale the pieces so they occupy 90% of the board square
 LINEWIDTH = 2    # width of lines on the board
 
+
 class Board:
 
     def __init__(self):
@@ -228,6 +229,7 @@ class Board:
     # test if user has clicked on a valid source square
     # i.e. one that contains a black piece if side to move is black
     #      otherwise white piece
+
     #
     def valid_source_square(self, x, y, stm):
         l = self.get_gs_loc(x, y)

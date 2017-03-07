@@ -18,16 +18,18 @@
 #
 
 from gi.repository import Gtk
+from gi.repository import Gdk
 from gi.repository import GObject
 import os
 
 from . import gv
+#from . import gui
 if gv.installed:
     from gshogi import engine
 else:
     import engine
 from . import comments
-
+from . import gshogi
 
 class Move_List:
 
@@ -46,13 +48,20 @@ class Move_List:
         self.builder.set_translation_domain(gv.domain)
         self.builder.add_from_file(self.glade_file)
         self.builder.connect_signals(self)
-
+        
         self.window = self.builder.get_object("move_list_window")
-        self.treeview = self.builder.get_object("treeview1")
+        self.vbox = self.builder.get_object("vbox1") #man
+        self.treeview = Gtk.TreeView()  #man
         self.liststore = self.builder.get_object("liststore1")
-        self.scrolled_window = self.builder.get_object(
-            "move_list_scrolled_window")
-
+        
+        self.scrolled_window = Gtk.ScrolledWindow()
+        #self.scrolled_window.set_size_request(150,300)
+        self.treeview.set_model(self.liststore)
+        self.scrolled_window.add(self.treeview)           
+        self.vbox.add(self.scrolled_window)        
+        self.comments_button = self.builder.get_object("comments_button")
+        #self.builder.connect("button_press_event",self.comments_button_clicked_cb)
+        
         cell0 = Gtk.CellRendererText()
         # cell0.set_property("cell-background", Gdk.color_parse("#F8F8FF"))
         tvcolumn0 = Gtk.TreeViewColumn("#")
@@ -76,10 +85,11 @@ class Move_List:
         tvcolumn2.pack_start(cell2, True)
         tvcolumn2.set_min_width(20)
         tvcolumn2.set_attributes(cell2, text=2)
-
+        
+        
         self.tree_selection = self.treeview.get_selection()
-
-        self.window.hide()
+        self.treeview.connect("button_press_event", self.treeview_button_press)
+        self.treeview.connect("key_press_event", self.treeview_key_press)
         self.update()
 
     # user has closed the window
@@ -91,6 +101,7 @@ class Move_List:
     def show_movelist_window(self, b):
         # "present" will show the window if it is hidden
         # if not hidden it will raise it to the top
+        self.window.show_all()
         self.window.present()
         return
 
@@ -102,7 +113,9 @@ class Move_List:
         self.liststore.clear()
         self.liststore.append(("0.", _("Start Pos"), " "))
         mvstr = engine.getmovelist()
-
+        #
+        
+        moveno = 1
         if mvstr != "":
             mlst = mvstr.split(",")
             moveno = 1
@@ -117,14 +130,29 @@ class Move_List:
                     if ispromoted == "+":
                         move = "+" + move
                 comment = self.comments.get_comment(moveno)
+                if gv.show_moves == True:
+                    gv.gui.comment_view.get_buffer().set_text("-")
+                                    
                 if comment != "":
                     cind = "..."
                 else:
                     cind = " "
                 e = str(moveno) + ".", move, cind
+                e1 = str(moveno) + "." + " " + move +" " + cind #+"\n"
+                le = []
+                le.append(e1)
                 self.liststore.append(e)
+                if gv.show_moves == True:
+                    if moveno == 1:
+                        gv.gui.move_view.get_model().clear()
+                    gv.gui.move_view.get_model().append(le)
+                                     
+                     
                 moveno += 1
-
+        comment = self.comments.get_comment(moveno)
+        if comment != "":
+            if gv.show_moves == True:
+                    gv.gui.comment_view.get_buffer().set_text(comment)
         GObject.idle_add(self.scroll_to_end)
 
     # sets the move at move_idx as the selected line
@@ -133,6 +161,12 @@ class Move_List:
         path = (move_idx,)
         self.tree_selection.select_path(path)
         self.comments.set_moveno(move_idx)
+        if gv.show_moves == True:
+            if move_idx > 0:
+                path = str(move_idx-1)
+            gv.gui.move_view.set_cursor(path, None,False)  
+            GObject.idle_add(gv.gui.move_view.scroll_to_cell,path,None, False, 0,0)  #arguments must be in list
+            
         return
 
     def scroll_to_end(self):
@@ -157,6 +191,25 @@ class Move_List:
             GObject.idle_add(self.tree_selection.unselect_all)
 
     # set the board position at the move the user clicked on
+    def move_box_selection(self):
+        if gv.gshogi.get_stopped():
+                       
+            (treemodel, treeiter) = gv.gui.move_view.get_selection().get_selected()
+            if treeiter is not None:
+                k = gv.gui.movestore.get_value(treeiter,0).find(".")      
+                nmove = int(gv.gui.movestore.get_value(treeiter,0)[0:k])
+                self.comments.set_moveno(nmove)
+                # now call a method in gshogi.py to position it at the move
+                # clicked on
+                gv.gshogi.goto_move(nmove)  
+             
+                path = str(nmove)
+                self.treeview.set_cursor(path, None,False)  
+                GObject.idle_add(self.treeview.scroll_to_cell,path,None, False, 0,0)  #arguments must be in list
+                
+        else:
+            GObject.idle_add(gv.gui.move_view.unselect_all)            
+    
     def process_tree_selection(self):
         (treemodel, treeiter) = self.tree_selection.get_selected()
         if treeiter is not None:
@@ -167,6 +220,10 @@ class Move_List:
             # now call a method in gshogi.py to position it at the move
             # clicked on
             gv.gshogi.goto_move(move_idx)
+
+    def set_comment(self, index, text):
+        self.comments.set_comment(index,text)
+            
 
     def set_comment_ind(self, ind):
         if ind:

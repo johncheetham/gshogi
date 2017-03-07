@@ -25,6 +25,7 @@ from gi.repository import GdkPixbuf
 from gi.repository import Pango
 import os
 import cairo
+from datetime import date
 
 from . import engine_debug
 from . import engine_output
@@ -33,6 +34,7 @@ from . import drag_and_drop
 from . import load_save
 from . import utils
 from . import gamelist
+from . import comments
 from .constants import WHITE, BLACK, NAME, VERSION, TARGET_TYPE_TEXT
 from . import gv
 
@@ -58,7 +60,7 @@ class Gui:
         self.load_save = load_save.get_ref()
         self.show_coords = True
         self.highlight_moves = True
-
+        self.lastdir = os.path.expanduser("~") # Filehandling
         # Create Main Window
         glade_dir = gv.gshogi.get_glade_dir()
         self.glade_file = os.path.join(glade_dir, "main_window.glade")
@@ -75,7 +77,7 @@ class Gui:
         self.screen_height = screen.get_height()
         self.set_window_size()
 
-        # self.window = Gtk.Window(Gtk.WindowType.TOPLEVEL)
+     
         self.window.set_title(NAME + " " + VERSION)
 
         # 1 eventbox per board square
@@ -107,7 +109,7 @@ class Gui:
         ta_action_group.add_toggle_actions([(
             "promotemode", None, _("_Ask Before Promoting"), None, None,
             self.promote_mode)])
-
+             
         self.ta_action_group = ta_action_group
 
         # Create actions
@@ -274,8 +276,7 @@ class Gui:
         # main_vbox.pack_start(vbox2, False)
         # main_vbox.pack_start(eb_1, False)
         eb_1.add(vbox2)
-        eb_1.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse("#EDECEB"))
-
+        eb_1.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse("#EDECEB"))##EDECEB
         # Create a MenuBar
         menubar = uimanager.get_widget("/MenuBar")
         vbox2.pack_start(menubar, False, True, 0)
@@ -288,7 +289,7 @@ class Gui:
         toolitem = Gtk.ToolItem()
 
         # 2 rows, 4 columns, not homogeneous
-        tb = Gtk.Table(2, 5, False)
+        tb = Gtk.Table(5, 8, False)
 
         # Gtk.ShadowType.NONE, SHADOW_IN, SHADOW_OUT, SHADOW_ETCHED_IN,
         # SHADOW_ETCHED_OUT
@@ -299,19 +300,32 @@ class Gui:
         self.side_to_move[BLACK].set_alignment(0.5, 0.4)
         self.side_to_move[WHITE].set_alignment(0.5, 0.4)
 
-        tb.attach(self.side_to_move[WHITE], 0, 1, 0, 1)
-        tb.attach(self.side_to_move[BLACK], 0, 1, 1, 2)
+        tb.attach(self.side_to_move[WHITE], 0, 1, 1,2)
+        tb.attach(self.side_to_move[BLACK], 0, 1, 2,3)
+        #self.side_to_move.set_tooltip_text(_("Header from loaded file"))
 
-        lw = Gtk.Label(label=_("White") + ": ")
-        lb = Gtk.Label(label=_("Black") + ": ")
+        ue1 =Gtk.Label(label=_("Active:"))
+        lw = Gtk.Label(label=_("White ") + ": ")
+        lb = Gtk.Label(label=_("Black ") + ": ")
+        ue1.set_alignment(0, 0.5)
         lw.set_alignment(0, 0.5)
         lb.set_alignment(0, 0.5)
-        tb.attach(lw, 1, 2, 0, 1)
-        tb.attach(lb, 1, 2, 1, 2)
+        tb.attach(ue1, 1, 2, 0, 1)
+        tb.attach(lw, 1, 2, 1, 2)
+        tb.attach(lb, 1, 2, 2, 3)
 
-        #pangoFont = Pango.FontDescription("Monospace bold 12")
-        #lw.modify_font(pangoFont)
+        self.engines_lblw = Gtk.Label(label=" ") # This blank is mandatory, otherwise a fileheader will be written, reason not clear b.wille
+        self.engines_lblw.set_use_markup(True)
+        self.engines_lblw.set_alignment(0, 0.5)
 
+        self.engines_lblb = Gtk.Label(label=_(" "))
+        self.engines_lblb.set_use_markup(True)
+        self.engines_lblb.set_alignment(0, 0.5)
+
+        tb.attach(self.engines_lblw, 2, 3, 1, 2)
+        tb.attach(self.engines_lblb, 2, 3, 2, 3)
+        
+        #Engines
         self.engines_lblw = Gtk.Label(label="gshogi")
         self.engines_lblw.set_use_markup(True)
         self.engines_lblw.set_alignment(0, 0.5)
@@ -320,9 +334,8 @@ class Gui:
         self.engines_lblb.set_use_markup(True)
         self.engines_lblb.set_alignment(0, 0.5)
 
-        tb.attach(self.engines_lblw, 2, 3, 0, 1)
-        tb.attach(self.engines_lblb, 2, 3, 1, 2)
-
+        tb.attach(self.engines_lblw, 2, 3, 1, 2)
+        tb.attach(self.engines_lblb, 2, 3, 2, 3)
         # time control
         self.tc_lbl = [
             Gtk.Label(label="00:45:00 00/10"),
@@ -330,11 +343,58 @@ class Gui:
         self.tc_lbl[BLACK].set_alignment(0, 0.5)
         self.tc_lbl[WHITE].set_alignment(0, 0.5)
 
-        tb.attach(self.tc_lbl[WHITE], 3, 4, 0, 1)
-        tb.attach(self.tc_lbl[BLACK], 3, 4, 1, 2)
-
+        tb.attach(self.tc_lbl[WHITE], 3, 4, 1, 2)
+        tb.attach(self.tc_lbl[BLACK], 3, 4, 2, 3)
+        tb.set_tooltip_text(_("Side to move(>), engines and time"))
         toolitem.add(tb)
-        toolbar.insert(toolitem, -1)
+        toolbar.insert(toolitem, -1)          
+        if  gv.show_header == True:
+            # add a vertical separator
+            hb = Gtk.HBox(False, 0)
+            toolitem = Gtk.ToolItem()
+            vsep = Gtk.VSeparator()
+            hb.pack_start(vsep, True, True, 10)
+            toolitem.add(hb)
+            toolbar.insert(toolitem, -1)               
+
+              
+
+        # Header
+        tb = Gtk.Table(5, 8, False)
+        if  gv.show_header == True:                 
+    
+            self.header_lue = Gtk.Label(label=_("     From file: "))
+            self.header_lsente = Gtk.Label(label=_("     Sente(Blk)") + ": ")
+            self.header_lgote = Gtk.Label(label= _("     Gote (Whi)") + ": ")
+            self.header_levent = Gtk.Label(label=_("     Event") + ": ")
+            self.header_ldate = Gtk.Label(label=_("     Date") + ": ")
+            self.header_lue.set_alignment(0, 0.5)
+            self.header_lsente.set_alignment(0, 0.5)
+            self.header_lgote.set_alignment(0, 0.5)
+            self.header_levent.set_alignment(0, 0.5)
+            self.header_ldate.set_alignment(0, 0.5)
+            tb.attach(self.header_lue, 5, 6, 0, 1)
+            tb.attach(self.header_levent, 5, 6, 1, 2)
+            tb.attach(self.header_ldate, 5, 6, 2, 3)
+            tb.attach(self.header_lsente, 5, 6, 4,5)
+            tb.attach(self.header_lgote, 5,  6, 3, 4)
+            self.header_lblsente = Gtk.Label(label=_(" ") )
+            self.header_lblgote = Gtk.Label(label=_(" ")  )
+            self.header_lblevent = Gtk.Label(label=_("None"))
+            self.header_lbldate = Gtk.Label(label=str(date.today().day)+ _(".")+ str(date.today().month) + _(".") +str(date.today().year))
+            self.header_lblsente.set_alignment(0, 0.5)
+            self.header_lblgote.set_alignment(0, 0.5)
+            self.header_lblevent.set_alignment(0, 0.5)
+            self.header_lbldate.set_alignment(0, 0.5)
+            tb.attach(self.header_lblevent, 7, 8, 1, 2)
+            tb.attach(self.header_lbldate, 7, 8, 2, 3)
+            tb.attach(self.header_lblsente, 7,  8, 4, 5)
+            tb.attach(self.header_lblgote, 7, 8, 3, 4)
+            tb.set_tooltip_text(_("Header from loaded file"))
+            toolitem = Gtk.ToolItem()
+            toolitem.add(tb)
+            toolbar.insert(toolitem, -1)
+
 
         # add a vertical separator
         hb = Gtk.HBox(False, 0)
@@ -354,7 +414,7 @@ class Gui:
         self.stopbutton.set_tooltip_text(_("stop"))
         hb.pack_start(self.stopbutton, False, True, 0)
         hb.pack_start(self.gobutton, False, True, 0)
-
+        
         toolitem = Gtk.ToolItem()
         toolitem.add(hb)
         toolbar.insert(toolitem, -1)
@@ -380,7 +440,7 @@ class Gui:
 
         self.go_last = Gtk.ToolButton(Gtk.STOCK_GOTO_LAST)
         self.go_last.connect("clicked", gv.gshogi.redo_all)
-
+        hb.set_tooltip_text(_("Moves"))
         hb.pack_start(self.go_first, False, True, 0)
         hb.pack_start(self.go_back, False, True, 0)
         hb.pack_start(self.go_forward, False, True, 0)
@@ -401,8 +461,71 @@ class Gui:
         main_grid = self.builder.get_object("grid1")
         main_grid.set_row_homogeneous(True)
         main_grid.set_column_homogeneous(True)
-        # main_hbox = Gtk.HBox(False, 0)
-
+       #Insert comment-editing buttons
+        if gv.show_moves == True:
+            hb = Gtk.HBox(False, 0)
+            self.cedit = Gtk.ToolButton(Gtk.STOCK_EDIT)
+            self.cedit.connect("clicked", self.set_cedit)
+            hb.set_tooltip_text(_("Comments"))
+            self.csave = Gtk.ToolButton(Gtk.STOCK_SAVE)
+            self.csave.connect("clicked", self.set_csave)
+        
+            self.ccancel = Gtk.ToolButton(Gtk.STOCK_CANCEL)
+            self.ccancel.connect("clicked", self.set_ccancel)
+            #self.gobutton.set_tooltip_text(_("go"))
+            #self.gobutton.set_tooltip_text(_("go"))
+            hb.pack_start(self.cedit, False, True, 0)
+            hb.pack_start(self.ccancel, False, True, 0)
+            hb.pack_start(self.csave, False, True, 0)
+            #hb.gtk_widget_hide(self.ccancel)
+            #hb.gtk_widget_hide(self.csafe)
+               
+            toolitem = Gtk.ToolItem()
+            toolitem.add(hb)
+            toolbar.insert(toolitem, -1)
+            self.ccancel.set_sensitive(False)
+            self.csave.set_sensitive(True)
+          
+        main_grid = self.builder.get_object("grid1")
+        main_grid.set_row_homogeneous(True)
+        main_grid.set_column_homogeneous(True)       
+        # Insert Movebox
+        if gv.show_moves == True:
+            self.move_box = Gtk.ScrolledWindow()
+            self.move_view = Gtk.TreeView()
+            mlabel = Gtk.Label("Moves")
+            self.move_box.add(self.move_view)             #omitted viewport
+            main_grid.attach(self.move_box, 0, 15, 4, 5)  #Synthax: left, top, width, height
+            self.move_box.set_policy(1,1)
+            main_grid.attach(mlabel,0,14,4,1)
+            #model
+            self.movestore = Gtk.ListStore(GObject.TYPE_STRING)  #model for Treeview 
+            self.move_view.set_model(self.movestore)
+            self.move_view.set_tooltip_text(_("moves: double-click or click-enter to jump to"))
+            self.comment_box = Gtk.ScrolledWindow()
+            self.comment_view = Gtk.TextView()
+            clabel = Gtk.Label("Comments")
+            self.comment_box.add_with_viewport(self.comment_view)
+            
+            self.comment_view.set_wrap_mode(2)   #GTK_WRAP_WORD)
+            g = self.comment_view.get_wrap_mode()
+            self.comment_view.set_tooltip_text(_("comments")) 
+            
+            main_grid.attach(self.comment_box, 28, 1, 4, 5)        
+            main_grid.attach(clabel,28,0,4,1)
+            #self.move_view.set_editable(False)
+            cell0 = Gtk.CellRendererText()
+            # cell0.set_property("cell-background", Gdk.color_parse("#F8F8FF"))
+            mvcolumn0 = Gtk.TreeViewColumn("#")
+            self.move_view.append_column(mvcolumn0)
+            mvcolumn0.pack_start(cell0, True)
+            mvcolumn0.set_min_width(30)
+            mvcolumn0.set_attributes(cell0, text=0)            
+            self.comment_view.set_editable(False)
+            self.comment_view.set_cursor_visible(False)
+            #self.comment_view.connect("realized", self.realized)
+            #self.move_view.activate_on_single_click(False)
+            self.move_view.connect("row_activated", self.moves_clicked)   #"row_activated"
         # Create komadai grids for captured pieces
         self.setup_komadai(WHITE, main_grid)
         self.setup_komadai(BLACK, main_grid)
@@ -452,9 +575,9 @@ class Gui:
         # Otherwise it uses the window bg colour which is not
         # correct. This was not needed on F17.
         eb_2 = self.builder.get_object("eb_2")
-        eb_2.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse("#EDECEB"))
-        # self.status_bar = Gtk.Statusbar()
-        # main_vbox.pack_start(self.status_bar, False, False, 0)
+        #eb_2.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(bg_colour)) ##EDECEB
+        self.status_bar = Gtk.Statusbar()
+        main_vbox.pack_start(self.status_bar, False, False, 0)
         self.context_id = self.status_bar.get_context_id("gshogi statusbar")
 
         self.actiongroup.get_action("MoveNow").set_sensitive(False)
@@ -488,7 +611,54 @@ class Gui:
         #   height_inc=-1, min_aspect=-1.0, max_aspect=-1.0)
 
         self.build_edit_popup()
+    
+       
+    def moves_clicked(self, widget, event, data=None):
+        self.moves_clicked_(0)
+    
+    def moves_clicked_(self, incr):
+        model, triter = self.move_view.get_selection().get_selected()
+        #model, path = self.move_view.get_selection().get_selected_rows()  
+        #print(path[0], "   read")
+        k = self.movestore.get_value(triter,0).find(".")      
+        nmove = int(self.movestore.get_value(triter,0)[0:k])    # finds n
+        self.move_list.set_move(nmove)                                  # reading n             
+        self.move_list.move_box_selection()
+    
+    def set_cedit(self, widget):
+        self.cedit.set_sensitive(False)
+        self.ccancel.set_sensitive(True)
+        self.csave.set_sensitive(True)
+        self.comment_view.set_editable(True)
+        self.comment_view.cursor_visible = True
+        #self.comment_view.get_device_position()  #doesn't help
+        
+    
+    def set_csave(self, widget):
+        self.cedit.set_sensitive(True)
+        self.ccancel.set_sensitive(False)
+        self.csave.set_sensitive(False)
+        self.comment_view.set_editable(False)
+        self.comment_view.cursor_visible = False       
+        model, triter = self.move_view.get_selection().get_selected()
+        k = self.movestore.get_value(triter,0).find(".")      
+        nmove = int(self.movestore.get_value(triter,0)[0:k])
+        start = self.comment_view.get_buffer().get_start_iter()
+        end = self.comment_view.get_buffer().get_end_iter()
+        self.move_list.set_comment(nmove,self.comment_view.get_buffer().get_text(start, end, False))
+        self.move_list.set_comment_ind(True)
+        #print("comment ",nmove)
+        #save
+    
+    def set_ccancel(self, widget):   
+        self.cedit.set_sensitive(True)
+        self.ccancel.set_sensitive(False)
+        self.csave.set_sensitive(False) 
+        self.comment_view.set_editable(False)
+        self.comment_view.set_editable(False)
+        self.comment_view.cursor_visible = False          
 
+      
     def draw_board_square(self, widget, cr, x, y):
         gv.board.set_image_cairo(x, y, cr=cr, widget=widget)
 
@@ -632,7 +802,7 @@ class Gui:
         cap_label = gv.board.get_cap_label(side)
 
         eb2 = Gtk.EventBox()
-        eb2.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse("#000000"))
+        #eb2.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse("#000000"))
 
         eb = Gtk.EventBox()
         eb.add(komgrid)
@@ -750,8 +920,9 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
     def set_status_bar_msg(self, msg):
         if gv.gshogi.quitting:
             return
+        self.context_id = self.status_bar.get_context_id("gshogi statusbar")
         self.status_bar.push(self.context_id, msg)
-
+            
     # ask before promoting
     def promote_mode(self, w):
         if w.get_active():
@@ -872,8 +1043,8 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
         return response
 
     def update_toolbar(self, player):
-        self.engines_lblw.set_markup("<b>" + player[WHITE] + " </b>")
-        self.engines_lblb.set_markup("<b>" + player[BLACK] + " </b>")
+        self.engines_lblw.set_markup("<b>" + player[WHITE][:25] + " </b>")
+        self.engines_lblb.set_markup("<b>" + player[BLACK][:25] + " </b>")
 
     #
     # Update the clocks on the display
@@ -966,6 +1137,8 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
 
         self.get_window().modify_bg(
             Gtk.StateType.NORMAL, Gdk.color_parse(bg_colour))
+        eb_2 = self.builder.get_object("eb_2")
+        eb_2.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(bg_colour)) #modif 17.1.17
         #self.komadaiw_eb.modify_bg(
         #    Gtk.StateType.NORMAL, Gdk.color_parse(komadai_colour))
         #self.komadaib_eb.modify_bg(

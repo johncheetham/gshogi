@@ -272,17 +272,36 @@ class Set_Board_Colours:
         #      6           7          8          9
         presets = [
           ["Wood",
-           ("#645452", "#C5B358", "#EBDFB0", "#000000",  "#FFFFD7", "#000000",
+           ("#888a85", "#C5B358", "#EBDFB0", "#000000",  "#FFFFD7", "#000000",
             "#000001", "#EBDFB0", "#000000")],
           ["Standard",
            ("#645452", "#C5B358", "#EBDFB0", "#000000",  "#FFFFD7", "#000000",
             "#000001", "#EBDFB0", "#000000")],
           ["Gold",
-           ("#50404D", "#E3A857", "#E3A857", "#FFFDD0",  "#FADA5E", "#4B3621",
+           ("#50404D", "#C5B358", "#E3A857", "#FFFDD0",  "#FADA5E", "#4B3621",
             "#FE6F5E", "#E3A857", "#000000")],
           ["Brown",
            ("#645452", "#C19A6B", "#C19A6B", "#FFFDD0",  "#F5DEB3", "#000000",
-            "#1A1110", "#B5651D", "#000000")]
+            "#1A1110", "#B5651D", "#000000")],
+          [ "Peach",
+          ('#645452', '#D7AD7C', '#D7AD7C', '#FFFDD0',  '#F5DEB3', '#000000',
+          '#1A1110', '#D7AD7C', '#000000' )],  # peach                       
+          [ "Silver", 
+          ("#BEBEBE", "#ACE1AF", "#ACE1AF", "#195905", "#C0C0C0",
+          "#465945", "#A0785A", "#EBDFB0", "#000000") ],  # silver          
+          [ "new"   , 
+          ("#0000FF", "#FE6F5E", "#00FFFF", "#000000", "#FBAB60",
+          "#E30022", "#000001", "#EBDFB0", "#000000")],
+          [ "Gold2",  
+          ("#50404D", "#E3A857", "#E3A857", "#FADA5E",  "#FADA5E",
+          "#FE6F5E", "#4B3621", "#EBDFB0", "#000000") ],  # gold
+           [ "Blue", 
+           ("#00008B", "#ACE5EE", "#ACE5EE", "#FFFDD0", "#E6E8FA",
+           "#71A6D2", "#446CCF" ,"#EBDFB0", "#000000") ] ,   # blizzard bue
+             [ 'Mint',       ('#2F4F4F', '#00A693', '#00A693', '#FFFFFF',  '#AAF0D1',
+             '#465945', '#195905', '#00A693', '#000000') ],  # mint  
+           [ 'Black',      ('#BEBEBE', '#C0C0C0', '#C0C0C0', '#000000',  '#000000',
+           '#FFFFFF', '#FFFFFF', '#C0C0C0', '#000000') ],  # black     
         ]
         return presets
 
@@ -642,7 +661,7 @@ class Set_Board_Colours:
         elif name == "Custom":
             pieceset = "custom"
         else:
-            print("invalid pieceset in pieces_radio_button_changed in " \
+            print("invalid pieceset in pieces_radio_button_changed in "
                   "set_board_colours.py:", name)
             pieceset = "eastern"
 

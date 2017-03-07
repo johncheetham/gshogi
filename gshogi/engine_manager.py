@@ -192,7 +192,6 @@ class Engine_Manager:
             ts.select_iter(l_iter)
             name = tm.get_value(l_iter, 0)
             path = tm.get_value(l_iter, 1)
-
         return name, path
 
     def add_engine(self, widget, data=None):

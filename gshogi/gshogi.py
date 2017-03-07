@@ -17,7 +17,7 @@
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #   GNU General Public License for more details.
-#
+#/home/bernd/Downloads/gshogi-0.5.0/B_3f gegen Spearing the sparrow-Quest.psn
 #   You should have received a copy of the GNU General Public License
 #   along with gshogi.  If not, see <http://www.gnu.org/licenses/>.
 #
@@ -31,26 +31,30 @@ from gi.repository import GLib
 import _thread
 import traceback
 import os
+import gv
+import sys
 import pickle
 import time
+from datetime import date
 
 from . import gv
 if gv.installed:
-    from gshogi import engine
+   from gshogi import engine
 else:
-    import engine
+   import engine
 from . import utils
 from . import gui
 from . import usi
+#from . import  sys
 from . import engine_manager
 from . import time_control
 from . import set_board_colours
 from . import move_list
+from . import comments
 from . import board
 from . import pieces
 from . import engine_output
 from .constants import WHITE, BLACK, NEUTRAL, NAME, VERSION, BEEP, MIN_MOVETIME
-
 
 
 class Game:
@@ -58,8 +62,11 @@ class Game:
     def __init__(self):
 
         gv.gshogi = self
+        self.xname = ""
+        Filefound = False
         # set global variables for debug messages
-        gv.verbose, gv.verbose_usi = utils.get_verbose()
+        gv.verbose, gv.verbose_usi, gv.show_moves, gv.show_header = utils.get_verbose()
+    
         # prefix to find package files/folders
         self.prefix = utils.get_prefix()
         # set up .gshogi directory in the home directory
@@ -67,8 +74,26 @@ class Game:
         self.glade_dir = os.path.join(self.prefix, "glade")
         # get settings saved from previous game
         self.settings = utils.get_settings_from_file(self.gshogipath)
-
+        # Filename from command line
+        Startfilename = False
+        for arg in range(1, len(sys.argv)):
+                 if (sys.argv[arg] != '-v' and sys.argv[arg] != '-vusi' and sys.argv[arg] !=""):
+                        if (sys.argv[arg].find(":")!= -1 or sys.argv[arg].startswith("/")) :
+                                Startfilename = True
+                        if Startfilename == True:
+                                self.xname = self.xname + " " + sys.argv[arg] #single file from command-line
+                                #print (sys.argv[arg] + "   "+ str(arg) +"    "+ self.xname)
+                                if sys.argv[arg].find(".psn") != -1:
+                                        Filefound = True
+                                        break
+                                if sys.argv[arg].find(".gshog") != -1:
+                                        Filefound = True
+                                        break
+        self.xname = self.xname.strip()
+        if gv.verbose == True :
+                print("Filename read:  " + self.xname + "  File:"+ str(Filefound) +"   "+VERSION)
         self.ask_before_promoting = False
+       
         self.gameover = False
         self.time_limit = "00:10"
         self.stopped = True
@@ -143,6 +168,10 @@ class Game:
         self.stm = self.get_side_to_move()
         self.timer_active = False
         gv.set_board_colours.apply_colour_settings()
+        if Filefound==True:
+            gv.lastdir = os.path.dirname(self.xname)
+            # single file from command-line
+            gv.gui.load_save.load_game_parm(self.xname)
 
     #
     # Process Human move
@@ -487,6 +516,7 @@ class Game:
                         msg = _("game over - ") + colour + _(" resigned")
                         GLib.idle_add(self.stop)
                         GLib.idle_add(gv.gui.set_status_bar_msg, msg)
+                        self.move_list.comments.automatic_comment(self.cmove + _(msg),len(self.movelist))
                         self.thinking = False
                         return
 
@@ -499,6 +529,7 @@ class Game:
                             self.cmove + _(" - computer made illegal Move!"))
                         self.gameover = True
                         self.thinking = False
+                        self.move_list.comments.automatic_comment(self.cmove + _(" - computer made illegal Move!"),len(self.movelist))
                         return
                     if gv.verbose:
                         engine.command("bd")
@@ -590,15 +621,16 @@ class Game:
                     else:
                         msg = self.get_side_to_move_string(
                             self.stm) + ": " + msg
-                        msg = msg + ". " + gmsg
+                        msg = self.cmove + "." + msg + ". " + gmsg
                     self.thinking = False
                     self.stm = self.get_side_to_move()
                     GLib.idle_add(self.stop)
                     GLib.idle_add(gv.gui.set_side_to_move, self.stm)
                     GLib.idle_add(gv.gui.set_status_bar_msg, msg)
+                    self.move_list.comments.automatic_comment(self.cmove + _(msg + gmsg),len(self.movelist))
                     return
 
-                msg = self.get_side_to_move_string(self.stm) + ": " + msg
+                msg = self.get_side_to_move_string(self.stm) + ": " + str(len(self.movelist)) + ". " + msg                             
                 GLib.idle_add(gv.gui.set_status_bar_msg, msg)
 
             self.thinking = False
@@ -625,6 +657,8 @@ class Game:
 
     def set_promotion_mode(self, mode):
         self.ask_before_promoting = mode
+    
+    
 
     def promotion_zone(self, src, dst, stm):
         srclet = src[1:2]
@@ -733,6 +767,8 @@ class Game:
         gv.board.update()
         # update move list in move list window
         self.move_list.update()
+        # clean comments (bugfix)
+        self.move_list.comments.clear_comments()
         if not BEEP:
             engine.command("beep")
 
@@ -741,14 +777,30 @@ class Game:
         self.movelist = []
         self.redolist = []
         self.lastmove = ""
+        #clear comment-and move windows
+        #self.move_list.comments.automatic_comment("") # just a  Test
+        #print("test")
+        if gv.show_moves == True:
+           start, end =gv.gui.comment_view.get_buffer().get_bounds()
+           gv.gui.comment_view.get_buffer().delete(start,end)
+           gv.gui.comment_view.get_buffer().insert(start,"-")        
+           gv.gui.move_view.get_model().clear()
         gv.gui.set_status_bar_msg("")
         self.stm = self.get_side_to_move()
         gv.gui.set_side_to_move(self.stm)
         gv.tc.reset_clock()
-
+        gv.event = "##"
+        gv.gamedate = str(date.today().day) +"."+str(date.today().month)+"."+str(date.today().year)
+        gv.gote = self.player[BLACK]
+        gv.sente = self.player[WHITE]
+        GLib.idle_add(gv.gui.header_lblsente.set_text, "")
+        GLib.idle_add(gv.gui.header_lblgote.set_text,"")
+        GLib.idle_add(gv.gui.header_lblevent.set_text, "")
+        GLib.idle_add(gv.gui.header_lbldate.set_text, "")
     #
     # save users settings at program termination
     #
+
     def save_settings(self):
 
         # get settings
@@ -766,7 +818,14 @@ class Game:
         s.ponder = gv.engine_manager.get_ponder()
         s.show_coords = gv.gui.get_show_coords()
         s.highlight_moves = gv.gui.get_highlight_moves()
-
+        s.lastdir = gv.lastdir # last dir used
+        # Header not saved
+        s.event = "##"       #gv.event, mark for not read
+        s.gamedate = ""  #gv.gamedate
+        s.gote = "" #gv.gote
+        s.sente ="" #gv.sente
+        if gv.verbose == True:
+                print(gv.lastdir + "  saved")
         # pickle and save settings
         try:
             settings_file = os.path.join(self.gshogipath, "settings")
@@ -791,6 +850,12 @@ class Game:
             try:
                 gv.engine_manager.set_engine_list(x.engine_list)
             except Exception as e:
+                gv.gamedate = x.gamedate
+                if gv.verbose == True:
+                        print("date read: " + gv.gamedate)
+            except Exception as e:
+                if gv.verbose: 
+                        print (e, ". date not restored")
                 if gv.verbose:
                     print(e, ". engine list not restored")
 
@@ -823,7 +888,7 @@ class Game:
                 gv.engine_manager.set_hash_value(hash_value)
             except Exception as e:
                 if gv.verbose:
-                    print(e, ". hash value not restored")
+                    print(e, ". hash value not restoself.player[side]:red")
 
             # ponder (true/false)
             try:
@@ -848,7 +913,20 @@ class Game:
             except Exception as e:
                 if gv.verbose:
                     print(e, ". highlight_moves not restored")
-
+            # lastdir
+            try: 
+                gv.lastdir = x.lastdir
+                if gv.verbose == True:
+                        print("path read: " + gv.lastdir)
+            except Exception as e:
+                if gv.verbose: 
+                        print (e, ". lastdir not restored")
+            #header : werden nicht gelesen
+            gv.gamedate = ""
+            gv.event = "##"
+            gv.gote = ""
+            gv.sente = ""
+                
     def goto_move(self, move_idx):
         try:
             gv.usib.stop_engine()
@@ -877,7 +955,14 @@ class Game:
             pass
 
         if move is not None:
-            gv.gui.set_status_bar_msg(move)
+            gv.gui.set_status_bar_msg(str(move_idx) +"." +move)
+            if gv.show_moves == True:
+               nmoves = len(self.movelist)
+               path =(nmoves,)
+               sel = gv.gui.move_view.get_selection()
+               sel.select_path(path)
+               self.move_list.set_move(nmoves)
+               #print(nmoves, "goto move")             
         else:
             gv.gui.set_status_bar_msg(" ")
 
@@ -907,9 +992,14 @@ class Game:
         gv.board.update()
         # set move list window to last move
         self.move_list.set_move(len(self.movelist))
+        self.goto_move(len(self.movelist))
+        nmove = len(self.movelist) 
         if move is not None:
-            gv.gui.set_status_bar_msg("(" + move + ")")
-
+            gv.gui.set_status_bar_msg("back: (" + str(nmove) + ". " + move + ")")
+     
+          
+                   
+                   
     # undo a move without updating the gui
     def undo_move(self):
         engine.command("undo")
@@ -917,6 +1007,7 @@ class Game:
         try:
             move = self.movelist.pop()
             self.redolist.append(move)
+            #Lists?         
         except IndexError:
             pass
 
@@ -936,8 +1027,14 @@ class Game:
 
         gv.board.update()
         # set move list window to initial position
-        self.move_list.set_move(0)
+        self.move_list.set_move(1)
         gv.gui.set_status_bar_msg(" ")
+        if gv.show_moves == True:
+            start, end =gv.gui.comment_view.get_buffer().get_bounds()
+            gv.gui.comment_view.get_buffer().delete(start,end)
+            gv.gui.comment_view.get_buffer().insert(start,"-")        
+                  
+
 
     #
     # called from gui.py when redo button click on toolbar (passed widget is
@@ -960,6 +1057,7 @@ class Game:
             # side to move changes to opponent
             self.stm = self.get_side_to_move()
             gv.gui.set_side_to_move(self.stm)
+            #Lists?           
         except IndexError:
             pass
 
@@ -971,9 +1069,11 @@ class Game:
         gv.board.update()
         # set move list window to last move
         self.move_list.set_move(len(self.movelist))
+        self.goto_move(len(self.movelist))
+        nmove = len(self.movelist)
         if move is not None:
-            gv.gui.set_status_bar_msg(move)
-
+           gv.gui.set_status_bar_msg("forward: (" + str(nmove) + ". " + move + ")")
+            
     # redo a move without updating the gui
     def redo_move(self):
         move = None
@@ -983,7 +1083,7 @@ class Game:
             # get side to move before appending to movelist
             self.stm = self.get_side_to_move()
             self.movelist.append(move)
-
+            
             # do the move in gshogi engine
             engine.setplayer(self.stm)
             engine.hmove(move)
@@ -997,17 +1097,25 @@ class Game:
         gv.gui.set_side_to_move(self.stm)
         gv.board.update()
         # set move list window to last move
-        self.move_list.set_move(len(self.movelist))
-
+        self.move_list.set_move(len(self.movelist))                         
+        self.goto_move(len(self.movelist))
+        startc, endc =gv.gui.comment_view.get_buffer().get_bounds()
+        gv.gui.comment_view.get_buffer().delete(startc,endc)
+        gv.gui.comment_view.get_buffer().insert(startc,"-")        
+        gv.gui.move_view.get_selection().select_path(str(len(self.movelist)-1))
+        nmove = len(self.movelist)
         move = None
         try:
             move = self.movelist[len(self.movelist) - 1]
         except IndexError:
             pass
+       
+            
 
         if move is not None:
-            gv.gui.set_status_bar_msg(move)
+            gv.gui.set_status_bar_msg(" (" + str(nmove) + ". " + move + ")")
             self.lastmove = move
+            #Lists?         
 
     def set_movelist(self, movelist):
         self.movelist = movelist

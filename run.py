@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3.5
 
 #
 # start gshogi from within the source folder
@@ -7,14 +7,13 @@
 
 import sys
 import os
-import platform
-import string
 
 assert sys.version_info >= (3,0)
 
 import gshogi.gv
 
 def get_plat():
+
     if os.name == 'nt':
         prefix = " bit ("
         i = sys.version.find(prefix)

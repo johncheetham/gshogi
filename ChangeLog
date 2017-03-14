@@ -1,0 +1,207 @@
+Minor modifications for 0.5.1
+----------------------------------
+2017-03-01 Bernd Wille
+    * Bugfix hanging 3rd party engines during ponder
+    * Bugfix in engine configuration (floats in utils.py 771)
+
+    * works well with Spear 2009 v1.5, GPSShogi r2837, Laramie V3, Lesserkai 1.4.1. All Blunder-engines fail sending
+      characters I have not been able to convert to utf-8 in a safe way
+    * be sure to set the number of threads to number of cores of your machine -1. Otherwise they will block
+      the communication in the usi-interface and frequent blocks will result
+    * Command-line -m switches to a version with moves and comments in main window. 
+    * Command-line -h shows header of loaded files. -mh shows both
+    * resigns and checkmates written into comments by the program -- at least in many cases
+   
+2017-2-04  Bernd Wille
+	* Bugfix gshogi.py line 765: empty comment-list when starting new game
+
+2017-0-18 Bernd Wille
+	* Remember last used path for loaded games
+	* Show filename in Window-Titlebar
+	* take filename from command-line and enable starting games by double-click, use gshogirun-script (please edit paths).
+
+
+Changes for 0.5.0
+-----------------
+
+    * Add i18n support
+
+    * Add new pieces and colour scheme
+
+    * Run on Windows
+
+    * Use cairo to add pieces to board
+
+    * Port to Python 3 / GTK 3 (PyGI)
+
+    * Use setuptools instead of distutils
+
+    * Bugfixes
+
+
+Changes for 0.4.5
+-----------------
+2012-08-28  John Cheetham  developer@johncheetham.com
+
+    * Add new gamelist window and support for reading multi-game PSN files.
+
+    * Add a new comments window so you can add comments to the game.
+
+    * Allow loading of custom piece images
+
+    * Apply Fixes to make pondering work
+
+    * Add ponder move and current move to engine output window
+
+    * Remove the none.jpg for empty squares. Empty pixbuf now created in code.
+
+    * Add score and change time format in engine output.
+
+
+Changes for 0.4.4
+-----------------
+2012-07-23  John Cheetham  developer@johncheetham.com
+
+    * Add copy/paste of position/game to clipboard
+
+    * Add Edit Board function
+
+    * Add move highlighting
+
+    * Add co-ordinates for board squares
+
+    * Improve the look of the komadai
+
+    * Move code for drag and drop, load/save to separate modules
+
+    * Convert main window to glade - some widgets only
+
+    * Fix bug where side to move is shown wrong after clicking
+      a move in the movelist
+
+    * Fix bug - Fix AttributeError in gshogi.py and Drag_and_Drop.py
+
+    * Fix bug - connect delete-event signal in engine-output.py
+
+    * Fix bug - invalid textbuf iterator
+
+    * Delete duplicated function (get_startpos) in gshogi.py
+
+    * Fix bug in processing of position SFEN line
+
+
+Changes for 0.4.3
+-----------------
+2012-06-29  John Cheetham  developer@johncheetham.com
+
+    * Add a menu item to allow customisable colour schemes
+
+    * Add an engine debug window for USI engines
+
+    * Add a move list window
+
+    * Add an engine ourput window for USI engines
+
+    * Add a common engine settings dialog for ponder/hash size
+
+    * Now Uses glade for any new menus
+
+
+Changes for 0.4.2
+-----------------
+2011-04-10  John Cheetham  developer@johncheetham.com
+
+    * Add Game Navigation buttons to toolbar
+
+    * Allow Drag and Drop of pieces
+
+
+Changes for 0.4.1
+-----------------
+2011-04-03  John Cheetham  developer@johncheetham.com
+
+    * Make board resizing quicker after resizing the main window
+
+
+Changes for 0.4
+---------------
+2011-03-23  John Cheetham  developer@johncheetham.com
+
+    * Add Menu option to play handicap games
+
+    * Add new USI time controls - classical, incremental, depth, nodes,
+      fixed time per move and infinite
+
+    * Add support for loading/saving games in the PSN format
+
+    * suppress debugging console messages by default. Print them only
+      if the '-v' (verbose) command line switch is used.
+
+
+Changes for 0.3
+---------------
+2010-10-03  John Cheetham  developer@johncheetham.com
+
+    * New set player function to allow playing engine vs engine as
+      well as human vs engine and human vs human.
+
+    * Change Time Control to use available time and byoyomi
+
+    * Add toolbar showing players, clocks and stop/go buttons
+
+    * Remember the setting of Eastern/Western pieces, time controls
+      and engines
+
+    * set gameover to false when loading game
+
+    * fix abends in engine manager when you press delete/rename and
+      no engine was selected.
+
+    * Retract Move has been renamed as Undo move and undoes 1 move
+      and not a pair of moves.
+
+    * A redo move function has been added.
+
+
+Changes for 0.2.1
+-----------------
+2010-08-28  John Cheetham  developer@johncheetham.com
+
+    * Fix bug where some controls are unresponsive after black mates
+
+    * Improve combo boxes on USI configure screen
+      remember setting from previously
+      increase field width
+
+    * Cosmetic changes to configure dialogue boxes
+
+    * improve USI engine startup time
+
+
+Changes for 0.2
+---------------
+2010-08-20  John Cheetham  developer@johncheetham.com
+
+    * Add USI support
+
+    * Add Move Now option
+
+
+Changes for 0.1.1
+-----------------
+2010-07-29  John Cheetham  developer@johncheetham.com
+
+    * Make window resizable
+
+    * Remove warning messages that appear when compiling in Ubuntu 9.04
+
+    * fix eastern piece set transparent pngs
+
+    * suppress beeps after moves (you can turn them on in constants.py)
+
+
+Inital Version 0.1
+------------------
+2010-07-14  John Cheetham  developer@johncheetham.com
+
+    * Release the initial version (0.1)

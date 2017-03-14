@@ -10,10 +10,8 @@ Minor modifications for 0.5.1
       the communication in the usi-interface and frequent blocks will result
     * Command-line -m switches to a version with moves and comments in main window. 
     * Command-line -h shows header of loaded files. -mh shows both
-    * To add comments the original mechanism has to be used
-    * resigns and checkmates written into comments by the program
-    * modified versions of pieces (courtesy of wikimedia.commons: https://commons.wikimedia.org/wiki/Category:Shogi_pieces)
-
+    * resigns and checkmates written into comments by the program -- at least in many cases
+   
 2017-2-04  Bernd Wille
 	* Bugfix gshogi.py line 765: empty comment-list when starting new game
 

@@ -150,7 +150,7 @@ def get_prefix():
 def create_settings_dir():
     # set up gshogi directory under home directory
     home = os.path.expanduser("~")
-    gshogipath = os.path.join(home, ".gshogi"+VERSION)
+    gshogipath = os.path.join(home, ".gshogi")
     if not os.path.exists(gshogipath):
         try:
             os.makedirs(gshogipath)

@@ -525,7 +525,8 @@ class Gui:
             self.comment_view.set_cursor_visible(False)
             #self.comment_view.connect("realized", self.realized)
             #self.move_view.activate_on_single_click(False)
-            self.move_view.connect("row_activated", self.moves_clicked)   #"row_activated"
+            self.move_view.connect("cursor_changed", self.moves_clicked)
+            #self.move_view.connect("key_press_event", self.moves_clicked)           #("row_activated", self.moves_clicked)   #"row_activated"
         # Create komadai grids for captured pieces
         self.setup_komadai(WHITE, main_grid)
         self.setup_komadai(BLACK, main_grid)
@@ -613,16 +614,14 @@ class Gui:
         self.build_edit_popup()
     
        
-    def moves_clicked(self, widget, event, data=None):
+    def moves_clicked(self, widget, data=None):
         self.moves_clicked_(0)
     
     def moves_clicked_(self, incr):
         model, triter = self.move_view.get_selection().get_selected()
-        #model, path = self.move_view.get_selection().get_selected_rows()  
-        #print(path[0], "   read")
         k = self.movestore.get_value(triter,0).find(".")      
-        nmove = int(self.movestore.get_value(triter,0)[0:k])    # finds n
-        self.move_list.set_move(nmove)                                  # reading n             
+        nmove = int(self.movestore.get_value(triter,0)[0:k])   
+        self.move_list.set_move(nmove)                                            
         self.move_list.move_box_selection()
     
     def set_cedit(self, widget):
@@ -631,7 +630,7 @@ class Gui:
         self.csave.set_sensitive(True)
         self.comment_view.set_editable(True)
         self.comment_view.cursor_visible = True
-        #self.comment_view.get_device_position()  #doesn't help
+        
         
     
     def set_csave(self, widget):

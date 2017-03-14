@@ -958,9 +958,9 @@ class Game:
             gv.gui.set_status_bar_msg(str(move_idx) +"." +move)
             if gv.show_moves == True:
                nmoves = len(self.movelist)
-               path =(nmoves,)
+               path =(nmoves-1,)
                sel = gv.gui.move_view.get_selection()
-               sel.select_path(path)
+               sel.select_path(path)  # path has to be set to nmoves-1 to hit the right selection
                self.move_list.set_move(nmoves)
                #print(nmoves, "goto move")             
         else:
@@ -1007,7 +1007,7 @@ class Game:
         try:
             move = self.movelist.pop()
             self.redolist.append(move)
-            #Lists?         
+                  
         except IndexError:
             pass
 
@@ -1057,7 +1057,7 @@ class Game:
             # side to move changes to opponent
             self.stm = self.get_side_to_move()
             gv.gui.set_side_to_move(self.stm)
-            #Lists?           
+                    
         except IndexError:
             pass
 

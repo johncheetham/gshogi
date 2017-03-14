@@ -159,12 +159,12 @@ class Move_List:
     # called from gshogi.py for undo/redo move
     def set_move(self, move_idx):
         path = (move_idx,)
-        self.tree_selection.select_path(path)
+        #self.tree_selection.select_path(path)  to be bypasses if cursor_changed as event in moves_clicked
         self.comments.set_moveno(move_idx)
         if gv.show_moves == True:
             if move_idx > 0:
                 path = str(move_idx-1)
-            gv.gui.move_view.set_cursor(path, None,False)  
+            #gv.gui.move_view.set_cursor(path, None,False)  
             GObject.idle_add(gv.gui.move_view.scroll_to_cell,path,None, False, 0,0)  #arguments must be in list
             
         return

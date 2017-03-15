@@ -164,8 +164,9 @@ class Move_List:
         if gv.show_moves == True:
             if move_idx > 0:
                 path = str(move_idx-1)
-            #gv.gui.move_view.set_cursor(path, None,False)  
-            GObject.idle_add(gv.gui.move_view.scroll_to_cell,path,None, False, 0,0)  #arguments must be in list
+            #gv.gui.move_view.set_cursor(path, None,False) 
+            if path[0]!=0 and path!='0':
+                GObject.idle_add(gv.gui.move_view.scroll_to_cell,path,None, False, 0,0)  #arguments must be in list
             
         return
 

@@ -640,12 +640,13 @@ class Gui:
         self.comment_view.set_editable(False)
         self.comment_view.cursor_visible = False       
         model, triter = self.move_view.get_selection().get_selected()
-        k = self.movestore.get_value(triter,0).find(".")      
-        nmove = int(self.movestore.get_value(triter,0)[0:k])
-        start = self.comment_view.get_buffer().get_start_iter()
-        end = self.comment_view.get_buffer().get_end_iter()
-        self.move_list.set_comment(nmove,self.comment_view.get_buffer().get_text(start, end, False))
-        self.move_list.set_comment_ind(True)
+        if triter != None:
+            k = self.movestore.get_value(triter,0).find(".")      
+            nmove = int(self.movestore.get_value(triter,0)[0:k])
+            start = self.comment_view.get_buffer().get_start_iter()
+            end = self.comment_view.get_buffer().get_end_iter()
+            self.move_list.set_comment(nmove,self.comment_view.get_buffer().get_text(start, end, False))
+            self.move_list.set_comment_ind(True)
         #print("comment ",nmove)
         #save
     
@@ -1384,6 +1385,8 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
             cr.move_to(xpos, ypos)
             cr.show_text(let[num - 1])
             ypos = ypos + sq_size
+        a=1
+        #for debugging purposes
 
     def preferences(self, action):
         self.builder = Gtk.Builder()

@@ -972,10 +972,11 @@ class Game:
     # (or ctrl-u is pressed) (passed widget is Gtk.Action object)
     #
     def undo_single_move(self, b):
-        engine.command("undo")
+        
         move = None
         try:
             move = self.movelist.pop()
+            engine.command("undo")
             self.redolist.append(move)
             self.lastmove = move
             self.stm = self.get_side_to_move()
@@ -1099,10 +1100,12 @@ class Game:
         # set move list window to last move
         self.move_list.set_move(len(self.movelist))                         
         self.goto_move(len(self.movelist))
-        startc, endc =gv.gui.comment_view.get_buffer().get_bounds()
-        gv.gui.comment_view.get_buffer().delete(startc,endc)
-        gv.gui.comment_view.get_buffer().insert(startc,"-")        
-        gv.gui.move_view.get_selection().select_path(str(len(self.movelist)-1))
+        if gv.show_moves == True:
+         startc, endc =gv.gui.comment_view.get_buffer().get_bounds()
+         gv.gui.comment_view.get_buffer().delete(startc,endc)
+         gv.gui.comment_view.get_buffer().insert(startc,"-")   
+        if len(self.movelist) != 0:
+           gv.gui.move_view.get_selection().select_path(str(len(self.movelist)-1))
         nmove = len(self.movelist)
         move = None
         try:

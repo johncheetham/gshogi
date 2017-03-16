@@ -793,10 +793,11 @@ class Game:
         gv.gamedate = str(date.today().day) +"."+str(date.today().month)+"."+str(date.today().year)
         gv.gote = self.player[BLACK]
         gv.sente = self.player[WHITE]
-        GLib.idle_add(gv.gui.header_lblsente.set_text, "")
-        GLib.idle_add(gv.gui.header_lblgote.set_text,"")
-        GLib.idle_add(gv.gui.header_lblevent.set_text, "")
-        GLib.idle_add(gv.gui.header_lbldate.set_text, "")
+        if gv.show_header == True:
+         GLib.idle_add(gv.gui.header_lblsente.set_text, "")
+         GLib.idle_add(gv.gui.header_lblgote.set_text,"")
+         GLib.idle_add(gv.gui.header_lblevent.set_text, "")
+         GLib.idle_add(gv.gui.header_lbldate.set_text, "")
     #
     # save users settings at program termination
     #

@@ -29,7 +29,6 @@ if gv.installed:
 else:
     import engine
 from . import comments
-from . import gshogi
 
 class Move_List:
 

@@ -417,6 +417,14 @@ msgstr ""
 msgid "Ten Piece Handicap"
 msgstr ""
 
+#: gshogi/guy.py:139
+msgid "_3 Pawns"
+msgstr ""
+
+#: gshogi/guy.py:140
+msgid "Three Pawn Handicap"
+msgstr ""
+
 #: gshogi/gui.py:137
 msgid "_New Handicap Game"
 msgstr ""

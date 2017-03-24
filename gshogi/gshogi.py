@@ -757,6 +757,9 @@ class Game:
             elif menu_name == "TenPieceHandicap":
                 sfen = "4k4/9/ppppppppp/9/9/9/" \
                        "PPPPPPPPP/1B5R1/LNSGKGSNL w - 1"
+            elif menu_name == "ThreePawnHandicap":
+                sfen = "4k4/9/9/9/9/9/" \
+                       "PPPPPPPPP/1B5R1/LNSGKGSNL w 3p - 1"
             else:
                 gv.gui.info_box("Error. Invalid menu name:" + menu_name)
                 return

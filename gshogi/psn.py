@@ -185,6 +185,9 @@ class Psn:
                 elif handicap == "ten piece":
                     sfen = "4k4/9/ppppppppp/9/9/9/PPPPPPPPP/" \
                            "B5R1/LNSGKGSNL w - 1"
+                elif handicap == "three pawn":
+                    sfen = "4k4/9/9/9/9/9/" \
+                           "PPPPPPPPP/1B5R1/LNSGKGSNL w - 3p 1"
 
                 if sfen != "":
                     startpos, stm = self.process_sfen(sfen)

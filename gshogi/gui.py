@@ -136,6 +136,8 @@ class Gui:
              _("Eight Piece Handicap"), gv.gshogi.new_game_cb),
             ("TenPieceHandicap", None, _("_10 Pieces"), None,
              _("Ten Piece Handicap"), gv.gshogi.new_game_cb),
+            ("ThreePawnHandicap", None, _("_3 Pawns"), None,
+            _("Three Pawn Handicap"), gv.gshogi.new_game_cb),
             ("NewHandicapGame", None, _("_New Handicap Game")),
             #
             ("Quit", Gtk.STOCK_QUIT, _("_Quit"), None,
@@ -216,6 +218,7 @@ class Gui:
                     <menuitem action="SixPieceHandicap"/>
                     <menuitem action="EightPieceHandicap"/>
                     <menuitem action="TenPieceHandicap"/>
+                    <menuitem action="ThreePawnHandicap"/>
                 </menu>
                 <separator/>
                 <menuitem action="LoadGame"/>

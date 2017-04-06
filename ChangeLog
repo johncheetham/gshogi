@@ -1,5 +1,13 @@
 Minor modifications for 0.5.1
 ----------------------------------
+2017-04-06 Bernd Wille
+    * Bugfix: Header from Multigame-Files (*.psn) are read now correctly
+    * Move and Comment-Lists (-mh Options) look a little bit nicer now
+    * Game-List takes doubleclicks
+    * bug-fix in automatic comments on checkmates etc.
+    * had to change usi.py line 152 to 200 to have the program work with apery-engine (https://github.com/HiraokaTakuya/apery) on my slow old box
+    * start *.psn-Files out of filemanagers using gshogirun2 or gshogirun3 scripts. Please edit paths.
+
 2017-03-01 Bernd Wille
     * Bugfix hanging 3rd party engines during ponder
     * Bugfix in engine configuration (floats in utils.py 771)
@@ -18,7 +26,8 @@ Minor modifications for 0.5.1
 2017-0-18 Bernd Wille
 	* Remember last used path for loaded games
 	* Show filename in Window-Titlebar
-	* take filename from command-line and enable starting games by double-click, use gshogirun-script (please edit paths).
+	* take filename from command-line and enable starting games by double-click, if you use gshogirun3-script to start	 (please edit paths).
+
 
 
 Changes for 0.5.0

@@ -22,6 +22,7 @@ if gv.installed:
     from gshogi import engine
 else:
     import engine
+from gi.repository import GLib   
 from . import gamelist
 from . import comments
 from . import move_list
@@ -36,6 +37,7 @@ class Psn:
         self.move_list = move_list.get_ref()
         self.gamelist = gamelist.get_ref()
         self.comments = comments.get_ref()
+      
 
     def is_whitespace(self, ptr):
         if (self.gamestr[ptr] == "\n" or self.gamestr[ptr] == "\r" or
@@ -77,6 +79,48 @@ class Psn:
             hdr += self.gamestr[ptr]
             ptr += 1
         return hdr, ptr  # valid header found
+    
+    def get_header_from_string(self, f):
+        # sente,gote,event, date
+        myList = []
+        for line in f.split('\n'):
+                myList.append(line)
+        ff = False
+        eventfound = False
+        for line in myList:
+            if line != "":
+                if line[0] == "[":
+                        if line.find("Date") != -1:
+                                gv.gamedate = line[6:-2]
+                                #print("Date: ", gv.gamedate)
+                                ff = True
+                        if line.find("Event") !=-1:
+                                gv.event = line[7:-2]
+                                if gv.event=="" or gv.event=="##":
+                                        gv.event="none"
+                                #print(gv.event)
+                                ff = True
+                                eventfound = True
+                               
+                        if (line.find("Black")!=-1 or line.find("Sente")!=-1 ) and (line.find("SenteGrade")==-1) and (line.find("Black_grade")==-1):
+                                        gv.sente =  line[8:-2] #"Sente:" +
+                                        
+                                        ff = True
+                        if (line.find("White")!=-1 or line.find("Gote")!=-1) and (line.find("GoteGrade")==-1) and (line.find("White_grade")==-1):
+                                gv.gote = line[7:-2]  #"Gote:" +
+                                ff = True
+       
+        if ff == True:
+                # Header from file: mask in event removed
+                if gv.event.find("##")!=-1:
+                        gv.event = "no event"
+                if gv.show_header == True:
+                    GLib.idle_add( gv.gui.header_lbldate.set_text, gv.gamedate[:50])
+                    GLib.idle_add( gv.gui.header_lblgote.set_text,  gv.gote[:50])
+                    GLib.idle_add( gv.gui.header_lblsente.set_text, gv.sente[:50])
+                    GLib.idle_add( gv.gui.header_lblevent.set_text, gv.event[:50])
+        else:
+                gv.event = "##"  # marks file without header    
 
     # Note this can be called from 2 places
     # When and sfen header is read or when
@@ -185,6 +229,9 @@ class Psn:
                 elif handicap == "ten piece":
                     sfen = "4k4/9/ppppppppp/9/9/9/PPPPPPPPP/" \
                            "B5R1/LNSGKGSNL w - 1"
+                elif handicap == "three pawn":
+                    sfen = "4k4/9/9/9/9/9/" \
+                           "PPPPPPPPP/1B5R1/LNSGKGSNL w - 3p 1"
 
                 if sfen != "":
                     startpos, stm = self.process_sfen(sfen)
@@ -307,6 +354,7 @@ class Psn:
         gv.gshogi.set_lastmove(lastmove)
 
         gv.board.update()
+        
 
         # update move list in move list window
         self.move_list.update()
@@ -929,10 +977,13 @@ class Psn:
             line = f.readline()
 
         f.close()
-
+        hdr = self.get_header_from_string(gamestr)
         rc = self.load_game_psn_from_str(gamestr)
-        return rc
+        
+            
+        
 
+        
 
 def get_ref():
     if Psn.psn_ref is None:

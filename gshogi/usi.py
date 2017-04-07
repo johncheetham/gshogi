@@ -150,7 +150,7 @@ class Usi:
             if ready_ok:
                 break
             i += 1
-            if i > 60:
+            if i > 200:
                 print("error - readyok not returned from engine")
                 return False
             time.sleep(0.25)

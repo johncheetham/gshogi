@@ -63,6 +63,7 @@ class Game:
 
         gv.gshogi = self
         self.xname = ""
+        
         Filefound = False
         # set global variables for debug messages
         gv.verbose, gv.verbose_usi, gv.show_moves, gv.show_header = utils.get_verbose()
@@ -287,7 +288,8 @@ class Game:
         self.gameover, msg = self.check_for_gameover()
         if (self.gameover):
             self.stop()
-            gv.gui.set_status_bar_msg(msg)
+            gv.gui.set_status_bar_msg(msg)         
+            self.automatic_comment( msg,len(self.movelist))
             self.thinking = False
             return
 
@@ -325,6 +327,17 @@ class Game:
         self.ct = _thread.start_new_thread(self.computer_move, ())
 
         return
+     
+    def automatic_comment(self,text,moveno):
+       maxm = moveno
+       # extend comment list if it is shorter than movelist
+       while len(self.move_list.comments.comment_list) <= moveno:
+          self.move_list.comments.comment_list.append("")
+       text1 = self.move_list.comments.comment_list[moveno]
+       self.move_list.comments.comment_list[moveno] = text1 + text  #append comments
+       #print("Update")
+       #self.move_list.update()
+       #Do not call update here: leads to segfault from errors deep inside PyGtk
 
     def stop_clicked(self, widget):
         self.stop()
@@ -513,10 +526,10 @@ class Game:
                         self.gameover = True
                         self.thinking = False
                         colour = self.get_side_to_move_string(self.stm)
-                        msg = _("game over - ") + colour + _(" resigned")
+                        msg = _("  game over - ") + colour + _(" resigned")
                         GLib.idle_add(self.stop)
                         GLib.idle_add(gv.gui.set_status_bar_msg, msg)
-                        self.move_list.comments.automatic_comment(self.cmove + _(msg),len(self.movelist))
+                        self.automatic_comment(self.cmove + ":  "+ _(msg),len(self.movelist))
                         self.thinking = False
                         return
 
@@ -529,7 +542,7 @@ class Game:
                             self.cmove + _(" - computer made illegal Move!"))
                         self.gameover = True
                         self.thinking = False
-                        self.move_list.comments.automatic_comment(self.cmove + _(" - computer made illegal Move!"),len(self.movelist))
+                        self.automatic_comment(self.cmove + _(" - computer made illegal Move!"),len(self.movelist))
                         return
                     if gv.verbose:
                         engine.command("bd")
@@ -616,18 +629,14 @@ class Game:
 
                 self.gameover, gmsg = self.check_for_gameover()
                 if (self.gameover):
-                    if (msg == ""):
-                        msg = gmsg
-                    else:
-                        msg = self.get_side_to_move_string(
-                            self.stm) + ": " + msg
-                        msg = self.cmove + "." + msg + ". " + gmsg
+                    msg = self.get_side_to_move_string(self.stm) + ": " 
+                    msg = msg + gmsg
                     self.thinking = False
                     self.stm = self.get_side_to_move()
                     GLib.idle_add(self.stop)
                     GLib.idle_add(gv.gui.set_side_to_move, self.stm)
                     GLib.idle_add(gv.gui.set_status_bar_msg, msg)
-                    self.move_list.comments.automatic_comment(self.cmove + _(msg + gmsg),len(self.movelist))
+                    self.automatic_comment(msg,len(self.movelist))
                     return
 
                 msg = self.get_side_to_move_string(self.stm) + ": " + str(len(self.movelist)) + ". " + msg                             
@@ -964,9 +973,8 @@ class Game:
                nmoves = len(self.movelist)
                path =(nmoves-1,)
                sel = gv.gui.move_view.get_selection()
-               sel.select_path(path)  # path has to be set to nmoves-1 to hit the right selection
-               self.move_list.set_move(nmoves)
-               #print(nmoves, "goto move")             
+               sel.select_path(path)  
+               self.move_list.set_move(nmoves)          
         else:
             gv.gui.set_status_bar_msg(" ")
 

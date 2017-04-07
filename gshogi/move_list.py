@@ -110,6 +110,8 @@ class Move_List:
 
         # update liststore
         self.liststore.clear()
+        if gv.show_moves == True:
+            gv.gui.movestore.clear()
         self.liststore.append(("0.", _("Start Pos"), " "))
         mvstr = engine.getmovelist()
         #
@@ -139,19 +141,21 @@ class Move_List:
                 e = str(moveno) + ".", move, cind
                 e1 = str(moveno) + "." + " " + move +" " + cind #+"\n"
                 le = []
+                # to move_view box
                 le.append(e1)
+                # to move_list window
                 self.liststore.append(e)
-                if gv.show_moves == True:
-                    if moveno == 1:
-                        gv.gui.move_view.get_model().clear()
+                if gv.show_moves == True:                    
+                                      
                     gv.gui.move_view.get_model().append(le)
                                      
                      
                 moveno += 1
         comment = self.comments.get_comment(moveno)
-        if comment != "":
-            if gv.show_moves == True:
-                    gv.gui.comment_view.get_buffer().set_text(comment)
+        
+        if gv.show_moves == True:
+            #if gv.gui.comment_view.get_buffer() in not None:
+                gv.gui.comment_view.get_buffer().set_text(comment)
         GObject.idle_add(self.scroll_to_end)
 
     # sets the move at move_idx as the selected line
@@ -208,7 +212,7 @@ class Move_List:
                 GObject.idle_add(self.treeview.scroll_to_cell,path,None, False, 0,0)  #arguments must be in list
                 
         else:
-            GObject.idle_add(gv.gui.move_view.unselect_all)            
+            GObject.idle_add(gv.gui.move_view.get_selection().unselect_all)            
     
     def process_tree_selection(self):
         (treemodel, treeiter) = self.tree_selection.get_selected()
@@ -220,6 +224,8 @@ class Move_List:
             # now call a method in gshogi.py to position it at the move
             # clicked on
             gv.gshogi.goto_move(move_idx)
+        #else:
+            #self.tree_selection.unselect_all()
 
     def set_comment(self, index, text):
         self.comments.set_comment(index,text)

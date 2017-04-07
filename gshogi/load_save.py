@@ -46,8 +46,6 @@ class Load_Save:
 
     # Load game from a previously saved game
     def load_game(self, b):
- 
-                # Not a permission error.
         dialog = Gtk.FileChooserDialog(
             _("Load.."), gv.gui.get_window(), Gtk.FileChooserAction.OPEN,
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
@@ -100,14 +98,17 @@ class Load_Save:
 
         if fname.endswith(".gshog"):
             self.load_game_gshog(fname)
-            GLib.idle_add(gv.gui.header_lblsente.set_text, "")
-            GLib.idle_add(gv.gui.header_lblgote.set_text, "")
-            GLib.idle_add(gv.gui.header_lblevent.set_text, "")
-            GLib.idle_add(gv.gui.header_lbldate.set_text, "")
+            if gv.show_header == True:
+                GLib.idle_add(gv.gui.header_lblsente.set_text, "")
+                GLib.idle_add(gv.gui.header_lblgote.set_text, "")
+                GLib.idle_add(gv.gui.header_lblevent.set_text, "")
+                GLib.idle_add(gv.gui.header_lbldate.set_text, "")
             return
 
          #loads filename from 1st argument in commandline
-
+    
+    
+    
     def load_game_parm(self,fname):        
         try:
                 fp = open(fname)
@@ -163,9 +164,7 @@ class Load_Save:
                         if (line.find("White")!=-1 or line.find("Gote")!=-1) and (line.find("GoteGrade")==-1) and (line.find("White_grade")==-1):
                                 gv.gote = line[7:-2]  #"Gote:" +
                                 ff = True
-        #if eventfound == False and myList[0][0] == "[":
-         #       gv.event = myList[0][1:-1]              #educated guess
-        #print("header from file:", gv.gamedate,  gv.gote,  gv.sente,  gv.event)
+       
         if ff == True:
                 # Header from file: mask in event removed
                 if gv.event.find("##")!=-1:
@@ -178,6 +177,7 @@ class Load_Save:
         else:
                 gv.event = "##"  # marks file without header
                 
+    
                 
     # this routine is called from utils.py (when doing paste position)
     # and from gui.py (when ending an edit board session).

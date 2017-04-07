@@ -22,6 +22,7 @@ import os
 
 import gshogi.psn
 from . import gv
+from . import gui
 
 
 class Gamelist:
@@ -32,7 +33,8 @@ class Gamelist:
 
         glade_dir = gv.gshogi.get_glade_dir()
         self.glade_file = os.path.join(glade_dir, "gamelist.glade")
-
+        #self.gui = gui.Gui()
+        #gv.gui = gui.Gui()
         # create gamelist window
         self.builder = Gtk.Builder()
         self.builder.set_translation_domain(gv.domain)
@@ -50,7 +52,7 @@ class Gamelist:
         tvcolumn0.pack_start(cell0, True)
         tvcolumn0.set_min_width(50)
         tvcolumn0.set_attributes(cell0, text=0)
-
+        self.treeview.connect("row_activated", self.entry_clicked)
         self.tree_selection = self.treeview.get_selection()
 
         self.window.hide()
@@ -60,6 +62,11 @@ class Gamelist:
     def delete_event(self, widget, event):
         self.window.hide()
         return True  # do not propagate to other handlers
+    
+    def entry_clicked(self, widget, data=None, data2=None):
+        button = None
+        self.loadgame_button_clicked_cb(button)
+        
 
     # called from gui.py when doing view gamelist
     def show_gamelist_window_cb(self, action):
@@ -107,8 +114,13 @@ class Gamelist:
             except ValueError as ve:
                 return
             psnref = gshogi.psn.get_ref()
+            psnref.move_list.liststore.clear()
+            if gv.show_moves == True:
+                gv.gui.movestore.clear()
+                gv.gui.move_view.get_selection().unselect_all()
+            psnref.comments.comment_list = []
             psnref.load_game_from_multigame_file(gameno)
-
+                      
 
 def get_ref():
     if Gamelist.gamelist_ref is None:

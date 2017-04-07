@@ -24,6 +24,7 @@ import gshogi.move_list
 from . import gv
 
 
+
 class Comments:
 
     comments_ref = None
@@ -33,6 +34,7 @@ class Comments:
         glade_dir = gv.gshogi.get_glade_dir()
         self.glade_file = os.path.join(glade_dir, "comments.glade")
         self.move_list = gshogi.move_list.get_ref()
+ 
 
         # create comments window
         self.builder = Gtk.Builder()
@@ -94,32 +96,14 @@ class Comments:
             gv.gui.comment_view.get_buffer().insert(start,text)
 
         # show the moveno the comment relates to in the window title
-        self.window.set_title(_("Comment for Move ") + str(moveno))
+        self.window.set_title(_("Comment for Move ") + str(moveno))  
 
         # self.moveno = moveno
     def get_comment_text(self,moveno):
         return self.comment_list[moveno]
         
-    def automatic_comment(self,text,moveno):
-        max = moveno
-        if max < self.moveno:
-            max = self.moveno
-        # extend comment list if it is shorter than movelist
-        while len(self.comment_list) <= max:
-            self.comment_list.append("")        
-        # extend comment list if it is shorter than movelist
-        while len(self.comment_list) <= self.moveno:
-            self.comment_list.append("")
-
-        # save it
-        # print "saving to move;",self.moveno
-        # print "text=",text
-        text1 = self.comment_list[self.moveno]
-        self.comment_list[self.moveno] = text1 + text  #append comments
-        if text != "":
-            self.move_list.set_comment_ind(True)
-        else:
-            self.move_list.set_comment_ind(False)        
+    
+        
     
     def text_changed(self, textbuffer):
         # get text

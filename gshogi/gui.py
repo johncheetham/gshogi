@@ -31,6 +31,7 @@ from . import engine_debug
 from . import engine_output
 from . import move_list
 from . import drag_and_drop
+from . import set_board_colours
 from . import load_save
 from . import utils
 from . import gamelist
@@ -53,6 +54,10 @@ class Gui:
         self.gobactive = False
         self.engine_debug = engine_debug.get_ref()
         self.engine_output = engine_output.get_ref()
+        # has to be implemented before Move_list because of update()
+        if gv.show_moves == True:
+            self.comment_view = Gtk.TextView()
+            self.movestore = Gtk.ListStore(GObject.TYPE_STRING)  #model for Treeview 
         self.move_list = move_list.get_ref()
         self.gamelist = gamelist.get_ref()
         self.drag_and_drop = drag_and_drop.get_ref()
@@ -475,14 +480,11 @@ class Gui:
         
             self.ccancel = Gtk.ToolButton(Gtk.STOCK_CANCEL)
             self.ccancel.connect("clicked", self.set_ccancel)
-            #self.gobutton.set_tooltip_text(_("go"))
-            #self.gobutton.set_tooltip_text(_("go"))
+            
             hb.pack_start(self.cedit, False, True, 0)
             hb.pack_start(self.ccancel, False, True, 0)
             hb.pack_start(self.csave, False, True, 0)
-            #hb.gtk_widget_hide(self.ccancel)
-            #hb.gtk_widget_hide(self.csafe)
-               
+                          
             toolitem = Gtk.ToolItem()
             toolitem.add(hb)
             toolbar.insert(toolitem, -1)
@@ -496,26 +498,38 @@ class Gui:
         if gv.show_moves == True:
             self.move_box = Gtk.ScrolledWindow()
             self.move_view = Gtk.TreeView()
-            mlabel = Gtk.Label("Moves")
+            #mlabel = Gtk.Label("Moves")
+            mframe = Gtk.Frame()
+            mframe.set_label("Moves")
+            mframe.add(self.move_box)
             self.move_box.add(self.move_view)             #omitted viewport
-            main_grid.attach(self.move_box, 0, 15, 4, 5)  #Synthax: left, top, width, height
+            main_grid.attach(mframe, 0, 14, 4, 6)  #Synthax: left, top, width, height
             self.move_box.set_policy(1,1)
-            main_grid.attach(mlabel,0,14,4,1)
+            self.move_view.set_headers_visible(False)
+            #main_grid.attach(mlabel,0,14,4,1)
             #model
-            self.movestore = Gtk.ListStore(GObject.TYPE_STRING)  #model for Treeview 
+            #has to be implemented in init
+            #self.movestore = Gtk.ListStore(GObject.TYPE_STRING)  #model for Treeview 
             self.move_view.set_model(self.movestore)
-            self.move_view.set_tooltip_text(_("moves: double-click or click-enter to jump to"))
+            self.move_view.set_tooltip_text(_("Moves: click to jump to"))
             self.comment_box = Gtk.ScrolledWindow()
-            self.comment_view = Gtk.TextView()
-            clabel = Gtk.Label("Comments")
+            #has to be implemented in init
+            #self.comment_view = Gtk.TextView()
+            #clabel = Gtk.Label("Comments")
+            cframe = Gtk.Frame()
+            cframe.set_label("Comments")
+            cframe.add(self.comment_box)
             self.comment_box.add_with_viewport(self.comment_view)
-            
+            gv.gui.comment_view.modify_bg(
+                        Gtk.StateType.NORMAL, Gdk.color_parse(gv.set_board_colours.bg_colour))                        
+            gv.gui.move_view.modify_bg(
+                    Gtk.StateType.NORMAL, Gdk.color_parse(gv.set_board_colours.bg_colour))            #angleichen an grid                 
             self.comment_view.set_wrap_mode(2)   #GTK_WRAP_WORD)
             g = self.comment_view.get_wrap_mode()
-            self.comment_view.set_tooltip_text(_("comments")) 
+            self.comment_view.set_tooltip_text(_("Comments: Button in right part of menu to edit")) 
             
-            main_grid.attach(self.comment_box, 28, 1, 4, 5)        
-            main_grid.attach(clabel,28,0,4,1)
+            main_grid.attach(cframe, 28, 0, 4, 6)        
+            #main_grid.attach(clabel,28,0,4,1)
             #self.move_view.set_editable(False)
             cell0 = Gtk.CellRendererText()
             # cell0.set_property("cell-background", Gdk.color_parse("#F8F8FF"))
@@ -526,11 +540,8 @@ class Gui:
             mvcolumn0.set_attributes(cell0, text=0)            
             self.comment_view.set_editable(False)
             self.comment_view.set_cursor_visible(False)
-            #self.comment_view.connect("realized", self.realized)
-            #self.move_view.activate_on_single_click(False)
             self.move_view.connect("cursor_changed", self.moves_clicked)
-            #self.move_view.connect("key_press_event", self.moves_clicked)           #("row_activated", self.moves_clicked)   #"row_activated"
-        # Create komadai grids for captured pieces
+    # Create komadai grids for captured pieces
         self.setup_komadai(WHITE, main_grid)
         self.setup_komadai(BLACK, main_grid)
 
@@ -622,10 +633,11 @@ class Gui:
     
     def moves_clicked_(self, incr):
         model, triter = self.move_view.get_selection().get_selected()
-        k = self.movestore.get_value(triter,0).find(".")      
-        nmove = int(self.movestore.get_value(triter,0)[0:k])   
-        self.move_list.set_move(nmove)                                            
-        self.move_list.move_box_selection()
+        if triter != None: 
+            k = self.movestore.get_value(triter,0).find(".")      
+            nmove = int(self.movestore.get_value(triter,0)[0:k])   
+            self.move_list.set_move(nmove)                                            
+            self.move_list.move_box_selection()
     
     def set_cedit(self, widget):
         self.cedit.set_sensitive(False)

@@ -22,7 +22,6 @@ import os
 
 import gshogi.psn
 from . import gv
-from . import gui
 
 
 class Gamelist:

@@ -21,7 +21,6 @@ from gi.repository import Gtk
 import os
 import errno
 from datetime import date
-import constants
 from . import gv
 if gv.installed:
     from gshogi import engine

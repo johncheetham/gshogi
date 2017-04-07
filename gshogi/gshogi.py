@@ -31,7 +31,6 @@ from gi.repository import GLib
 import _thread
 import traceback
 import os
-import gv
 import sys
 import pickle
 import time

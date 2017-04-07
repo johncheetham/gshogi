@@ -150,13 +150,31 @@ USI engines.
 
 See http://en.wikipedia.org/wiki/Shogi for the rules of Shogi.
 
+You can specify some options on the command line.
+
 If you want to see the USI commands then start it from a terminal with:
 
     gshogi -vusi     (or ./run.py -vusi if not installed)
 
 For full debugging output use the command:
 
-        gshogi -v    (or ./run.py -v if not installed)
+    gshogi -v    (or ./run.py -v if not installed)
+
+You can specify a game file to open:
+
+    gshogi /path/to/gamefile.psn
+    
+Use -m to show moves and comments in the main window:
+
+    gshogi -m /path/to/gamefile.psn
+ 
+Use -h to show header of loaded files:
+
+    gshogi -h /path/to/gamefile.psn
+    
+Use -mh to show both:    
+    
+    gshogi -mh /path/to/gamefile.psn
 
 
 File Support

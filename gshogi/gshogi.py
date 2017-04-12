@@ -1115,8 +1115,8 @@ class Game:
          startc, endc =gv.gui.comment_view.get_buffer().get_bounds()
          gv.gui.comment_view.get_buffer().delete(startc,endc)
          gv.gui.comment_view.get_buffer().insert(startc,"-")   
-        if len(self.movelist) != 0:
-           gv.gui.move_view.get_selection().select_path(str(len(self.movelist)-1))
+         if len(self.movelist) != 0:
+            gv.gui.move_view.get_selection().select_path(str(len(self.movelist)-1))
         nmove = len(self.movelist)
         move = None
         try:

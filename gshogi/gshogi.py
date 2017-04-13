@@ -985,6 +985,7 @@ class Game:
     def undo_single_move(self, b):
         
         move = None
+        nmove = len(self.movelist)
         try:
             move = self.movelist.pop()
             engine.command("undo")
@@ -1004,8 +1005,7 @@ class Game:
         gv.board.update()
         # set move list window to last move
         self.move_list.set_move(len(self.movelist))
-        self.goto_move(len(self.movelist))
-        nmove = len(self.movelist) 
+        self.goto_move(len(self.movelist))         
         if move is not None:
             gv.gui.set_status_bar_msg("back: (" + str(nmove) + ". " + move + ")")
      

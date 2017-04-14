@@ -208,6 +208,8 @@ class Game:
             self.src_x = x
             self.src_y = y
             self.piece = gv.board.get_piece(x, y)
+            # hilite square clicked on
+            gv.board.update(squares_to_hilite=(self.src,))
             return
 
         # must have a valid source square before checking dest square
@@ -1010,7 +1012,7 @@ class Game:
             squares_to_hilite=(move[0:2], move[2:4])
         else:
             squares_to_hilite=None
-            self.lastmove = ""
+        self.lastmove = ""
         gv.board.update(squares_to_hilite=squares_to_hilite)
         if move is not None:
             gv.gui.set_status_bar_msg("back: (" + str(nmove) + ". " + move + ")")                   

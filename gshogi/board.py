@@ -184,7 +184,8 @@ class Board:
                 return p
         return ""
 
-    def display_board(self):
+    def display_board(self, squares_to_hilite=None):
+        self.squares_to_hilite = squares_to_hilite
         #
         # loop through the board squares and set the pieces
         # x, y = 0, 0 is the top left square of the board
@@ -306,15 +307,15 @@ class Board:
     def getboard(self):
         return engine.getboard()
 
-    def update(self, refresh_gui=True):
+    def update(self, refresh_gui=True, squares_to_hilite=None):
         self.board_position = self.getboard()
         self.cap[BLACK] = engine.getcaptured(BLACK)
         self.cap[WHITE] = engine.getcaptured(WHITE)
         if refresh_gui:
-            self.refresh_screen()
+            self.refresh_screen(squares_to_hilite=squares_to_hilite)
 
-    def refresh_screen(self):
-        self.display_board()
+    def refresh_screen(self, squares_to_hilite=None):
+        self.display_board(squares_to_hilite=squares_to_hilite)
         self.display_komadai(WHITE)
         self.display_komadai(BLACK)
 
@@ -484,16 +485,22 @@ class Board:
         # in last move and if so hilight it
         hilite = False
         if gv.gui.get_highlight_moves():
-            lastmove = gv.gshogi.get_lastmove()
-            if lastmove != "":
-                movesquares = []
-                src = lastmove[0:2]
-                dst = lastmove[2:4]
-                if src[1] != "*":
-                    movesquares.append(self.get_gs_square_posn(lastmove[0:2]))
-                movesquares.append(self.get_gs_square_posn(lastmove[2:4]))
-                if (x, y) in movesquares:
-                    hilite = True
+            movesquares = []            
+            if self.squares_to_hilite is not None:
+                for sq in self.squares_to_hilite:
+                    if sq[1] != "*":
+                        movesquares.append(self.get_gs_square_posn(sq)) 
+            else:
+                lastmove = gv.gshogi.get_lastmove()
+                if lastmove != "":
+                    movesquares = []
+                    src = lastmove[0:2]
+                    dst = lastmove[2:4]
+                    if src[1] != "*":
+                        movesquares.append(self.get_gs_square_posn(lastmove[0:2]))
+                    movesquares.append(self.get_gs_square_posn(lastmove[2:4]))
+            if (x, y) in movesquares:
+                hilite = True
 
         # clear square to square colour
         gv.set_board_colours.set_square_colour(cr, a, LINEWIDTH, hilite)

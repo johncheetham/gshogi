@@ -1002,15 +1002,18 @@ class Game:
         except:
             pass
         self.gameover = False
-        gv.board.update()
+        #gv.board.update()
         # set move list window to last move
         self.move_list.set_move(len(self.movelist))
-        self.goto_move(len(self.movelist))         
+        self.goto_move(len(self.movelist))
         if move is not None:
-            gv.gui.set_status_bar_msg("back: (" + str(nmove) + ". " + move + ")")
-     
-          
-                   
+            squares_to_hilite=(move[0:2], move[2:4])
+        else:
+            squares_to_hilite=None
+            self.lastmove = ""
+        gv.board.update(squares_to_hilite=squares_to_hilite)
+        if move is not None:
+            gv.gui.set_status_bar_msg("back: (" + str(nmove) + ". " + move + ")")                   
                    
     # undo a move without updating the gui
     def undo_move(self):

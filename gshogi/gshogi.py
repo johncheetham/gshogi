@@ -614,7 +614,7 @@ class Game:
                 # show computer move
                 GLib.idle_add(gv.board.update)
                 GLib.idle_add(self.move_list.update)
-
+        
                 # if self.player[self.stm] != "gshogi"
                 #     and gv.engine_manager.get_ponder():
                 #     self.usi.send_ponder()
@@ -642,7 +642,8 @@ class Game:
 
                 msg = self.get_side_to_move_string(self.stm) + ": " + str(len(self.movelist)) + ". " + msg                             
                 GLib.idle_add(gv.gui.set_status_bar_msg, msg)
-
+                # give gui time to update the board
+                time.sleep(0.1)
             self.thinking = False
         except:
             traceback.print_exc()

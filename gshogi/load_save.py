@@ -130,6 +130,11 @@ class Load_Save:
 
     def get_header_from_file(self, fname):
         # sente,gote,event, date
+        # initialize fields to be displayed
+        gv.gamedate=""
+        gv.gote=""
+        gv.sente=""
+        gv.event=""
         try:
                 f = open(fname)
         except:

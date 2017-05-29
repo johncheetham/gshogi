@@ -16,6 +16,9 @@
 #   You should have received a copy of the GNU General Public License
 #   along with gshogi.  If not, see <http://www.gnu.org/licenses/>.
 #
+#Remark on games read from files: number of move in SFEN-String is ignored since it would be too complicated to
+#correct all routines depending on number of records in movelist or length of movelist.
+#Repetition is read in when loaded from file bw 5'17
 
 from . import gv
 if gv.installed:
@@ -136,8 +139,14 @@ class Psn:
             stm = WHITE
         else:
             stm = BLACK
+        # only for malformed files:
+        if len(sfenlst)!=3:
+            if len(sfenlst) ==2:
+                move = int(sfenlst[2])
+        elif sfenlst[3]!="":
+            move = int(sfenlst[3])
         engine.setplayer(stm)
-        return startpos, stm
+        return startpos, stm, move
 
     # called from utils.py as well as this module
     def load_game_psn_from_str(self, gamestr):
@@ -149,7 +158,7 @@ class Psn:
         startpos = "startpos"
         engine.command("new")
         stm = BLACK
-
+        moveread = 0
         movecnt = 0
 
         self.gamestr = gamestr
@@ -195,7 +204,7 @@ class Psn:
                 return 1
             if prop == "SFEN":
                 # set board position, side to move
-                startpos, stm = self.process_sfen(value)
+                startpos, stm, moveread = self.process_sfen(value)  #moveread from position
             elif prop == "Handicap":
 
                 handicap = value.strip('"')
@@ -234,7 +243,7 @@ class Psn:
                            "PPPPPPPPP/1B5R1/LNSGKGSNL w - 3p 1"
 
                 if sfen != "":
-                    startpos, stm = self.process_sfen(sfen)
+                    startpos, stm, moveread= self.process_sfen(sfen)
 
             hdr, newptr = self.get_header(ptr)
 
@@ -314,9 +323,9 @@ class Psn:
                         "Error loading file, illegal move (possible "
                         "sennichite (repetition)):" + move + " move number:" +
                         str(movecnt + 1))
-                    gv.gshogi.new_game("NewGame")
-                    gv.gui.set_status_bar_msg("Error loading game")
-                    return 1
+                    #gv.gshogi.new_game("NewGame")
+                    #gv.gui.set_status_bar_msg("Error loading game")
+                    #return 1
                 movecnt += 1
                 movelist.append(move)
                 lastmove = move

@@ -1,5 +1,9 @@
 Minor modifications for 0.5.1
 ----------------------------------
+2017-05-28 Bernd Wille
+    * Bugfix initialisation of header fields
+    * Bugfix reads now games with repetition (sennichite)
+
 2017-04-06 Bernd Wille
     * Bugfix: Header from Multigame-Files (*.psn) are read now correctly
     * Move and Comment-Lists (-mh Options) look a little bit nicer now

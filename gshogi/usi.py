@@ -721,6 +721,15 @@ class Usi:
             diagtitle, gv.gui.get_window(), 0,
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
              Gtk.STOCK_OK, Gtk.ResponseType.OK))
+        sw = Gtk.ScrolledWindow.new(None, None)
+        dialog.vbox.pack_start(sw, True, True, 0)
+
+        vb=Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
+        sw.add(vb)
+
+        sw.show()
+        vb.show()
+
         wlist = []
         for w in wdgts:
             opt_i, name, otype, default, minimum, maximum, uvars, userval = w
@@ -749,7 +758,7 @@ class Usi:
                 hb.pack_start(lbl, False, False, 0)
                 hb.pack_start(al, True, True, 10)
 
-                dialog.vbox.pack_start(hb, False, True, 0)
+                vb.pack_start(hb, False, True, 0)
 
                 v = (opt_i, adj, name, otype)
                 wlist.append(v)
@@ -774,7 +783,7 @@ class Usi:
                 hb.pack_start(lbl, False, False, 0)
                 hb.pack_start(al, True, True, 10)
 
-                dialog.vbox.pack_start(hb, False, True, 0)
+                vb.pack_start(hb, False, True, 0)
 
                 v = (opt_i, ent, name, otype)
                 wlist.append(v)
@@ -800,7 +809,7 @@ class Usi:
                 hb.pack_start(lbl, False, False, 0)
                 hb.pack_start(al, True, True, 10)
 
-                dialog.vbox.pack_start(hb, False, True, 0)
+                vb.pack_start(hb, False, True, 0)
 
                 v = (opt_i, cb, name, otype)
                 wlist.append(v)
@@ -831,7 +840,7 @@ class Usi:
                 hb.pack_start(lbl, False, False, 0)
                 hb.pack_start(al, True, True, 10)
 
-                dialog.vbox.pack_start(hb, False, True, 0)
+                vb.pack_start(hb, False, True, 0)
 
                 v = (opt_i, combobox, name, otype)
                 wlist.append(v)
@@ -854,7 +863,7 @@ class Usi:
                 hb = Gtk.HBox(False, 0)
                 hb.pack_start(lbl, False, False, 0)
                 hb.pack_start(al, True, True, 10)
-                dialog.vbox.pack_start(hb, False, True, 0)
+                vb.pack_start(hb, False, True, 0)
                 lbl.show()
                 b.show()
                 al.show()
@@ -862,6 +871,10 @@ class Usi:
             else:
                 if gv.verbose:
                     print("type ignored - ", otype)
+                  
+        # set size of scrollwindow to size of child            
+        minsize, naturalsize = vb.get_preferred_size()
+        sw.set_size_request(minsize.width+20, min(minsize.height, 500))
 
         dialog.set_default_response(Gtk.ResponseType.OK)
         response = dialog.run()

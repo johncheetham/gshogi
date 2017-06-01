@@ -102,8 +102,9 @@ class Engine_Manager:
         fr.show()
         liststore = Gtk.ListStore(str, str)
         for e in engine_list:
-            engine_name, path = e
-            liststore.append(e)
+            engine_name, path, usioptions = e
+            #liststore.append(e)
+            liststore.append((engine_name, path))
         self.liststore = liststore
 
         treeview = Gtk.TreeView(liststore)
@@ -161,7 +162,7 @@ class Engine_Manager:
             while (l_iter is not None):
                 name = tm.get_value(l_iter, 0)
                 path = tm.get_value(l_iter, 1)
-                elist.append((name, path))
+                elist.append([name, path, {}])
                 l_iter = tm.iter_next(l_iter)
             self.set_engine_list(elist)
 
@@ -230,7 +231,7 @@ class Engine_Manager:
                 err_dialog.destroy()
             else:
                 self.liststore.append([name, path])
-                self.add_engine_to_list([name, path])
+                self.add_engine_to_list([name, path, {}])
 
         dialog.destroy()
 
@@ -339,10 +340,30 @@ class Engine_Manager:
         dialog.destroy()
 
     def get_path(self, engine_name):
-        for (ename, path) in self.engine_list:
+        for (ename, path, usioptions) in self.engine_list:
             if ename == engine_name:
                 return path
         return None
+
+    def get_uservalues(self, engine_name):
+        for (ename, path, usioptions) in self.engine_list:
+            if ename == engine_name:
+                return usioptions
+        return None
+
+    def set_uservalues(self, engine_name, options):
+        i = 0
+        for (ename, path, usioptions) in self.engine_list:
+            if ename == engine_name:
+                newdict = {}
+                for option in options:
+                    name = option[0]
+                    default = option[2]
+                    value = option[6]
+                    if value != default:
+                        newdict[name] =  value
+                self.engine_list[i][2] = newdict
+            i += 1
 
     def add_engine_to_list(self, engine_data):
         self.engine_list.append(engine_data)

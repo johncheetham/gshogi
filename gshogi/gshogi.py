@@ -863,16 +863,28 @@ class Game:
         if x:
             # engine list
             try:
+                if x.engine_list:
+                    # if old format of [(engine, path), ...] 
+                    # then reformat to [[engine, path, {}], ...]                    
+                    if len(x.engine_list[0]) != 3:
+                        print("reformatting engine list")
+                        new_engine_list = []
+                        for olde in x.engine_list:
+                            newe = [olde[0], olde[1], {}]
+                            new_engine_list.append(newe)
+                        x.engine_list = new_engine_list
                 gv.engine_manager.set_engine_list(x.engine_list)
             except Exception as e:
-                gv.gamedate = x.gamedate
-                if gv.verbose == True:
-                        print("date read: " + gv.gamedate)
-            except Exception as e:
-                if gv.verbose: 
-                        print (e, ". date not restored")
                 if gv.verbose:
                     print(e, ". engine list not restored")
+
+            try:
+                gv.gamedate = x.gamedate
+                if gv.verbose == True:
+                    print("date read: " + gv.gamedate)
+            except Exception as e:
+                if gv.verbose: 
+                    print (e, ". date not restored")
 
             # pieceset "eastern", "western" or "custom"
             try:
@@ -1251,7 +1263,7 @@ class Game:
             comboboxw.set_active(0)
 
         i = 1
-        for (engine_name, path) in elist:
+        for (engine_name, path, ucioptions) in elist:
             comboboxw.append_text(engine_name)
 
             if engine_name == self.player[WHITE]:
@@ -1271,7 +1283,7 @@ class Game:
             comboboxb.set_active(0)
 
         i = 1
-        for (engine_name, path) in elist:
+        for (engine_name, path, ucioptions) in elist:
             comboboxb.append_text(engine_name)
             if engine_name == self.player[BLACK]:
                 comboboxb.set_active(i)

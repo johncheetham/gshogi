@@ -98,8 +98,8 @@ class Engine_Manager:
         hb = Gtk.HBox(False, 20)
         hb.show()
 
-        fr = Gtk.Frame()
-        fr.show()
+        sw = Gtk.ScrolledWindow.new(None, None)
+        sw.show()
         liststore = Gtk.ListStore(str, str)
         for e in engine_list:
             engine_name, path, usioptions = e
@@ -118,8 +118,8 @@ class Engine_Manager:
         tvcolumn.set_min_width(200)
         tvcolumn.set_attributes(cell, text=0)
         treeview.show()
-        fr.add(treeview)
-        hb.pack_start(fr, True, True, 20)
+        sw.add(treeview)
+        hb.pack_start(sw, True, True, 10)
         treeview.connect("button-press-event", self.engine_changed)
 
         bb = Gtk.VButtonBox()
@@ -156,10 +156,14 @@ class Engine_Manager:
         self.configure_button.connect("clicked",
                              self.configure_engine, "configure engine")
 
-        hb.pack_start(al, False, True, 0)
+        hb.pack_start(al, False, True, 10)
 
         dialog.vbox.pack_start(hb, True, True, 15)
 
+        # set size of scrollwindow
+        minsize, naturalsize = treeview.get_preferred_size()
+        sw.set_size_request(minsize.width+20, 300)
+ 
         dialog.set_default_response(Gtk.ResponseType.OK)
         response = dialog.run()
         if response == Gtk.ResponseType.OK:

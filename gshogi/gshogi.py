@@ -1190,6 +1190,11 @@ class Game:
     def get_player(self, side):
         return self.player[side]
 
+    def set_player(self, side, player):
+        self.player[side] = player
+        gv.usib.set_engine(self.player[side], None)
+        gv.gui.update_toolbar(self.player)
+
     def move_now(self, b):
         if self.player[self.stm] == "Human":
             return

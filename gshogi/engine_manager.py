@@ -278,6 +278,12 @@ class Engine_Manager:
             l_iter = tm.get_iter_first()
 
         ts.select_iter(l_iter)
+        
+        # if the deleted engine is in use as one of the players
+        # then change that player to gshogi
+        for side in (WHITE, BLACK):
+            if name == gv.gshogi.get_player(side):
+                gv.gshogi.set_player(side, "gshogi")
 
     def rename_engine(self, widget, data=None):
 

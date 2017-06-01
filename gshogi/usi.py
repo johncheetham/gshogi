@@ -711,7 +711,7 @@ class Usi:
         else:
             return self.running_engine
 
-    def USI_options(self, b):
+    def USI_options(self):
         self.check_running()
         options = self.get_options()
         # option
@@ -922,3 +922,4 @@ class Usi:
             self.set_options(options)
             gv.engine_manager.set_uservalues(self.engine, options)
         dialog.destroy()
+        self.stop_engine()

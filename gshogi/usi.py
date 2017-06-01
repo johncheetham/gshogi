@@ -669,15 +669,22 @@ class Usi:
                         print("invalid option line ignored:", option)
                     continue
 
+                # get option name
                 w = words.pop(0)
                 if w != "name":
                     if gv.verbose:
                         print("invalid option line ignored:", option)
                     continue
 
-                name = words.pop(0)
-
+                # name can contain spaces
+                name = ''
                 w = words.pop(0)
+                while w != "type" and len(words) != 0:
+                    name += ' ' + w
+                    w = words.pop(0)
+                name=name.strip()
+
+                # get option type                
                 if w != "type":
                     if gv.verbose:
                         print("invalid option line ignored:", option)

@@ -129,6 +129,7 @@ class Psn:
     # When and sfen header is read or when
     # "1...." is encountered for move 1.
     def process_sfen(self, sfen):
+        move = 0
         sfen = sfen.strip('"')
         engine.setfen(sfen)
         startpos = sfen

@@ -30,8 +30,8 @@ from . import gv
 class Engine_Manager:
 
     def __init__(self):
-        # engine list is list of (name, path) pairs
-        self.engine_list = [("gshogi", "")]
+        # engine list is list of (name, path, usioption)
+        self.engine_list = [("gshogi", "", {})]
         self.glade_file = None
         self.hash_value = 256
         self.ponder = False

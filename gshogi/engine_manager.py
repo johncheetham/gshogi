@@ -440,7 +440,7 @@ class Engine_Manager:
         for (ename, path, usioptions) in self.engine_list:
             if ename == engine_name:
                 return usioptions
-        return None
+        return {}
 
     def set_uservalues(self, engine_name, options):
         i = 0

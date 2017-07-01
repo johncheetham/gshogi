@@ -180,14 +180,14 @@ class Usi:
             w = words.pop(0)
             if w != "option":
                 if gv.verbose:
-                    print("invalid option line ignored:", option)
+                    print("invalid option line ignored:", option_line)
                 return
 
             # get option name
             w = words.pop(0)
             if w != "name":
                 if gv.verbose:
-                    print("invalid option line ignored:", option)
+                    print("invalid option line ignored:", option_line)
                 return
             # name can contain spaces
             name = ''
@@ -200,7 +200,7 @@ class Usi:
             # get option type
             if w != "type":
                 if gv.verbose:
-                    print("invalid option line ignored:", option)
+                    print("invalid option line ignored:", option_line)
                 return
             otype = words.pop(0)
 
@@ -220,7 +220,7 @@ class Usi:
                     userval = w2
                 else:
                     if gv.verbose:
-                        print("error parsing option:", option)
+                        print("error parsing option:", option_line)
         except IndexError:
             pass
         userval = self.uservalues.get(name, default)
@@ -658,6 +658,7 @@ class Usi:
         self.command("usi\n")
 
         # wait for reply
+        self.uservalues=gv.engine_manager.get_uservalues(self.engine)
         self.usi_option = []
         usi_ok = False
         i = 0
@@ -672,8 +673,9 @@ class Usi:
                         for j in w:
                             name = name + j + " "
                         name.strip()
+                elif l.startswith("option"):    
                     self.usi_option.append(self.option_parse(l))
-                if l == "usiok":
+                elif l == "usiok":
                     usi_ok = True
             self.op = []
             if usi_ok:

@@ -1,3 +1,7 @@
+Windows downloads of gshogi are available on the website.
+
+These instructions are for developers or those who wish to compile it
+themselves.
 
 You can run gshogi on windows by following these steps.
 I tested this on windows 10.

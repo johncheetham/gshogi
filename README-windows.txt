@@ -46,14 +46,20 @@ I tested this on windows 10.
         none
 
 
- 3. Install Visual Studio 2015 Community Edition
+ 3. Install Visual Studio 2017 Community Edition
 
-    Download from https://www.visualstudio.com/en-us/downloads/visual-studio-2015-downloads-vs.aspx
+    Download from https://www.visualstudio.com/downloads/
+    
+    When installing select the Python development workload
+    and the Native development tools option.
 
 
  4. Install gshogi
-
-    Open a command prompt and CD into the gshogi folder.
+ 
+    Open x64 Native Tools Command prompt for VS 2017 from
+    the start menu
+    
+    CD into the gshogi folder.
 
     # enter this command    
     set VS100COMNTOOLS=%VS140COMNTOOLS%

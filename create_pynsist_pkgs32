@@ -27,7 +27,7 @@
 #    To get this compile gshogi or get it from:
 #    https://drive.google.com/drive/folders/0B91ZDRXsSFY9a3Zrckc5WXRjcms
 #
-#    Filename: enginemodule64.zip
+#    Filename: enginemodule.zip
 #    Extract the zip file.
 #
 # 4. run this script to extract packages
@@ -48,15 +48,16 @@ then
     exit
 fi
 
-if [ ! -e engine.pyd ]
+if [ ! -e engine32.pyd ]
 then
     echo "engine module not found"
     exit
 fi
 
+rm -fr pynsist_pkgs
 mkdir pynsist_pkgs
 
-cp engine.pyd pynsist_pkgs
+cp engine32.pyd pynsist_pkgs/engine.pyd
 
 # Unzip the bindings
 7za x pygi.exe -opygi

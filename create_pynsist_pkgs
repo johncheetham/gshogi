@@ -5,65 +5,94 @@
 # example (https://github.com/takluyver/pynsist)
 
 #
-# Instructions for building windows installer (64 bit)
+# Instructions for building windows installer
 #
-# Note this can be run on Linux
+# Note this script is intended to run on Linux.
+# It can build 32 bit and 64 bit installers for windows.
 #
-# 1. Install nsis and pynsist
+# 1. get files required by this script
 #  
-# 2. get gshogi
+#       pygi latest all in one file
 #
-#    git clone https://github.com/johncheetham/gshogi.git
-#    cd gshogi
+#           download from https://sourceforge.net/projects/pygobjectwin32/files/
+#           eg. pygi-aio-3.24.1_rev1   
+#           rename it to pygi.exe
+#           place it in the gshogi folder with this script
 #
-# 3. get latest pygi all in one file
+#       Get compiled engine module
 #
-#    download from https://sourceforge.net/projects/pygobjectwin32/files/
-#    eg. pygi-aio-3.24.1_rev1   
-#    rename it to pygi.exe (in the jcchess folder)
+#           To get this compile gshogi or get it from:
+#           https://drive.google.com/drive/folders/0B91ZDRXsSFY9a3Zrckc5WXRjcms
 #
-# 4. Get compiled engine module
+#           Filename: enginemodule.zip - Extract the zip file.
 #
-#    To get this compile gshogi or get it from:
-#    https://drive.google.com/drive/folders/0B91ZDRXsSFY9a3Zrckc5WXRjcms
+#           Place the files (engine64.pyd and engine32.pyd) in the
+#           gshogi folder with this script
 #
-#    Filename: enginemodule.zip
-#    Extract the zip file.
 #
-# 5. run this script to extract packages
+# 2. run this script to extract packages
 #
-#    ./create_pynsist_pkgs
-#    (or /create_pynsist_pkgs32 for 32 bit build)
+#    ./create_pynsist_pkgs 64
+#    (or ./create_pynsist_pkgs 32 for 32 bit build)
 #
-# 6. build the installer exe
 #
-#    python3 -m nsist installer.cfg
-#    (or python3 -m nsist installer32.cfg for 32 bit build)
+# 3. build the installer exe
 #
-# Once this is working you can just do steps 5 and 6 each time.
+#      Install nsis and pynsist packages
 #
+#        There may be an nsis package on your system
+#        On CentOS 7 it is called mingw32-nsis (in EPEL repo)
+#        pynsist can be installed with pip3
+#
+#      Create the installer
+#   
+#        Edit the installer64.cfg file and set the version number
+# 
+#        Run the command   
+#          python3 -m nsist installer64.cfg
+#          (or python3 -m nsist installer32.cfg for 32 bit build)
+#
+#      The installer will be created in the build/nsis64 folder
+#      (or build/nsis32 for 32 bit)
+#
+usage="Usage: create_pynsist_pkgs [32|64]"
+if [ $# -ne 1 ]; then
+    echo "$usage"
+    exit
+elif [ ! "$1" = "32" ] && [ ! "$1" = "64" ]; then
+    echo "$usage"
+    exit
+fi
+
+arch=$1
+    
 if [ ! -e pygi.exe ]
 then
     echo "pygi.exe not found"
     exit
 fi
 
-if [ ! -e engine64.pyd ]
+if [ ! -e engine"$arch".pyd ]
 then
     echo "engine module not found"
     exit
 fi
 
+if ! [ -x "$(command -v 7za)" ]; then
+  echo '7za command not available. Install p7zip.'
+  exit
+fi
+
 rm -fr pynsist_pkgs
 mkdir pynsist_pkgs
 
-cp engine64.pyd pynsist_pkgs/engine.pyd
+cp engine"$arch".pyd pynsist_pkgs/engine.pyd
 
 # Unzip the bindings
 7za x pygi.exe -opygi
 
 # Copy the PyGI packages into the pynsist_pkgs folder
-7za x pygi/binding/py3.4-64/py3.4-64.7z -obindings
+7za x pygi/binding/py3.4-"$arch"/py3.4-"$arch".7z -obindings
 cp -r bindings/* pynsist_pkgs
 rm -r bindings
 
@@ -77,7 +106,7 @@ do
     cp -r $i-noarch/gnome/* pynsist_pkgs/gnome
     rm -r $i-noarch
 
-    7za x pygi/rtvc10-64/$i/$i.bin.7z -o$i-arch
+    7za x pygi/rtvc10-"$arch"/$i/$i.bin.7z -o$i-arch
     cp -r $i-arch/gnome/* pynsist_pkgs/gnome
     rm -r $i-arch
 done

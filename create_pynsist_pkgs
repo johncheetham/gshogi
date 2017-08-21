@@ -21,14 +21,10 @@
 #
 #       Get compiled engine module
 #
-#           To get this compile gshogi or get it from:
-#           https://drive.google.com/drive/folders/0B91ZDRXsSFY9a3Zrckc5WXRjcms
-#
-#           Filename: enginemodule.zip - Extract the zip file.
-#
-#           Place the files (engine64.pyd and engine32.pyd) in the
-#           gshogi folder with this script
-#
+#           To get this compile gshogi on windows.
+#           Place the file (engine.pyd) in the gshogi folder with this script.
+#           Rename it as engine64.pyd or engine32.pyd depending on whether you
+#           are building 64 or 32 bit.
 #
 # 2. run this script to extract packages
 #

@@ -680,7 +680,7 @@ GetOpenings(void)
     LONG collisions = 0;
     char msg[80];
     int rc;
-#if !defined( __MINGW32__)
+#if !defined( __MINGW32__) && !defined( __MINGW64__)
     FILE *fd;
 
     fd = NULL;
@@ -910,7 +910,7 @@ GetOpenings(void)
         sprintf(msg, CP[213], B.bookcount, B.booksize);
         ShowMessage(msg);
     }
-#endif /* !defined(MINGW32)
+#endif /* !defined(MINGW32) && !defined(MINGW64)
 
     /* Set everything back to start the game. */
     Book = BOOKFAIL;

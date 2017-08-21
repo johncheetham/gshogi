@@ -55,7 +55,7 @@
  */
 
 /* Hack for anal-retentive ANSI-compliance if desired: */
-#ifndef __MINGW32__
+#if !defined( __MINGW32__) && !defined( __MINGW64__)
 #define inline
 #endif
 

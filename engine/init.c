@@ -1324,7 +1324,7 @@ InitMain(void)
 
 #if ttblsz
 #ifdef HASHFILE
-#if defined(__MINGW32__) || defined(_WIN32)
+#if defined(__MINGW32__) || defined(__MINGW64__) || defined(_WIN32)
     hashfile = NULL;
 #else
     hashfile = fopen(HASHFILE, RWA_ACC);

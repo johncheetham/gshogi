@@ -24,6 +24,9 @@ I tested this on windows 10.
 
  2. Install pygobject for windows
 
+    If you just want to build the engine module you can probably skip this 
+    step.
+
     Download the latest version from
     http://sourceforge.net/projects/pygobjectwin32/files/latest/download
 
@@ -46,27 +49,67 @@ I tested this on windows 10.
         none
 
 
- 3. Install Visual Studio 2017 Community Edition
+ 3. Compile gshogi
 
-    Download from https://www.visualstudio.com/downloads/
-    
-    When installing select the Python development workload
-    and the Native development tools option.
+    I have used visual studio 2017 and mingw32/mingw-w64.
 
+    For creating the windows installers I used mingw since Visual studio requires
+    that users install the Microsoft Visual C++ Redistributable for vs 2017.
 
- 4. Install gshogi
+    Using MinGW-W64 for 64 bit build
+
+        Install MinGW-W64 
+
+            Download from https://sourceforge.net/projects/mingw-w64/files/
+            Get and run MinGW-W64-install.exe
  
-    Open x64 Native Tools Command prompt for VS 2017 from
-    the start menu
+        Compile gshogi
+
+            From the windows menu select MinGW-W64 project/Run terminal
+            change directory into gshogi folder
+
+            compile it
+            "c:\Program Files\Common Files\Python\3.4\python.exe" setup.py build --compiler=mingw32
+
+
+    Using MinGW32 for 32 bit build
+
+        Install Mingw32 from mingw.org (filename: mingw-get-setup)
+        This installs into C:\MinGW
+
+        Launch MSYS terminal by clicking on C:\MinGW\msys\1.0\msys.bat
+
+        change directory into gshogi folder
+
+        compile it
+        /c/Program\ Files/Common\ Files/Python/3.4/python.exe setup.py build --compiler=mingw32
+
+
+    Using Visual Studio 2017
+
+        Install Visual Studio 2017 Community Edition
+
+            Download from https://www.visualstudio.com/downloads/
     
-    CD into the gshogi folder.
+            When installing select the Python development workload
+            and the Native development tools option.
 
-    # enter this command    
-    set VS100COMNTOOLS=%VS140COMNTOOLS%
+        compile gshogi
 
-    # build it
-    c:\Python34\python.exe setup.py build
+            Open x64 Native Tools Command prompt for VS 2017 from
+            the start menu
+    
+            CD into the gshogi folder.
 
-    # run it
-    c:\Python34\python.exe run.py
+            # enter this command    
+            set VS100COMNTOOLS=%VS140COMNTOOLS%
+
+            # build it
+            c:\Python34\python.exe setup.py build
+
+        run it
+
+            c:\Python34\python.exe run.py
+
+
 

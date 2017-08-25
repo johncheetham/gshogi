@@ -22,6 +22,7 @@
 #       Get compiled engine module
 #
 #           To get this compile gshogi on windows.
+#           I used Windows 7 with SDK 7.1.
 #           Place the file (engine.pyd) in the gshogi folder with this script.
 #           Rename it as engine64.pyd or engine32.pyd depending on whether you
 #           are building 64 or 32 bit.

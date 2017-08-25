@@ -8,7 +8,7 @@ I tested this on windows 10.
 
  1. Install python 3.4
 
-    Don't use Python 3.5 since pygobject for windows doesn't support it.    
+    Don't use later versions since pygobject for windows doesn't support it.
 
     Download from https://www.python.org/downloads/
     I used version 3.4.4 64 bit
@@ -17,9 +17,6 @@ I tested this on windows 10.
 
     Accept the default install directory
         C:\Python34\
-
-    in customisations select
-        Add python.exe to path
 
 
  2. Install pygobject for windows
@@ -30,86 +27,50 @@ I tested this on windows 10.
     Download the latest version from
     http://sourceforge.net/projects/pygobjectwin32/files/latest/download
 
-    I used pygi-aio-3.18.2_rev5-setup.exe
+    I used pygi-aio-3.24.1_rev1.
 
-    Install into default location
+    Enter 'No' to portable python installation.
 
-    It will ask which packages you want to install.
+    For choose python destination to install select version 3.4.
+    This will install into C:\Python34\Lib\site-packages
 
-    Choose these base packages:
+    For choose available GNOME/Freedesktop libraries to install select these packages
 
-       Gdk-Pixbuf 2.32.3
-       GTK+ 3.18.8
-       Pango 1.36.7
+       Base Packages
+       Gdk-Pixbuf 2.36.6
+       GTK+ 3.18.9
+       Pango 1.40.6
 
-    choose non gnome libraries to install
+    For choose available non gnome libraries to install
         none
 
-    choose development packages to install
+    For choose development packages to install
         none
 
 
  3. Compile gshogi
 
-    I have used visual studio 2017 and mingw32/mingw-w64.
+    Install Visual Studio 2017 Community Edition
 
-    For creating the windows installers I used mingw since Visual studio requires
-    that users install the Microsoft Visual C++ Redistributable for vs 2017.
+        Download from https://www.visualstudio.com/downloads/
 
-    Using MinGW-W64 for 64 bit build
+        When installing select the Python development workload
+        and the Native development tools option.
 
-        Install MinGW-W64 
+    compile gshogi
 
-            Download from https://sourceforge.net/projects/mingw-w64/files/
-            Get and run MinGW-W64-install.exe
- 
-        Compile gshogi
+        Open x64 Native Tools Command prompt for VS 2017 from
+        the start menu
 
-            From the windows menu select MinGW-W64 project/Run terminal
-            change directory into gshogi folder
+        CD into the gshogi folder.
 
-            compile it
-            "c:\Program Files\Common Files\Python\3.4\python.exe" setup.py build --compiler=mingw32
+        # enter this command    
+        set VS100COMNTOOLS=%VS140COMNTOOLS%
 
+        # build it
+        c:\Python34\python.exe setup.py build
 
-    Using MinGW32 for 32 bit build
+    run it
 
-        Install Mingw32 from mingw.org (filename: mingw-get-setup)
-        This installs into C:\MinGW
-
-        Launch MSYS terminal by clicking on C:\MinGW\msys\1.0\msys.bat
-
-        change directory into gshogi folder
-
-        compile it
-        /c/Program\ Files/Common\ Files/Python/3.4/python.exe setup.py build --compiler=mingw32
-
-
-    Using Visual Studio 2017
-
-        Install Visual Studio 2017 Community Edition
-
-            Download from https://www.visualstudio.com/downloads/
-    
-            When installing select the Python development workload
-            and the Native development tools option.
-
-        compile gshogi
-
-            Open x64 Native Tools Command prompt for VS 2017 from
-            the start menu
-    
-            CD into the gshogi folder.
-
-            # enter this command    
-            set VS100COMNTOOLS=%VS140COMNTOOLS%
-
-            # build it
-            c:\Python34\python.exe setup.py build
-
-        run it
-
-            c:\Python34\python.exe run.py
-
-
+        c:\Python34\python.exe run.py
 

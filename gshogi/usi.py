@@ -75,10 +75,22 @@ class Usi:
             print("starting engine with path:", path)
         path = path.strip()
         #print("engine:" + path)
-        p = subprocess.Popen(
-            path,bufsize = 1,   stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE, cwd=engine_wdir,
-            universal_newlines=True)
+        
+        # when gshogi is started on windows with pythonw
+        # a console window appears each time the engine starts
+        # Use STARTUPINFO to suppress this
+        if os.name == 'nt':
+            si = subprocess.STARTUPINFO()
+            si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+            p = subprocess.Popen(
+                path,bufsize = 1,   stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE, cwd=engine_wdir,
+                universal_newlines=True,startupinfo=si)
+        else:
+            p = subprocess.Popen(
+                path,bufsize = 1,   stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE, cwd=engine_wdir,
+                universal_newlines=True)
         self.p = p
        
         #check process is running
@@ -631,11 +643,18 @@ class Usi:
         # Attempt to start the engine as a subprocess
         engine_wdir = os.path.dirname(path)
         try:
-                
+            if os.name == 'nt':
+                si = subprocess.STARTUPINFO()
+                si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
                 p = subprocess.Popen(
-                path, bufsize = 1, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE, cwd=engine_wdir,
-                universal_newlines=True)
+                    path,bufsize = 1,   stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE, cwd=engine_wdir,
+                    universal_newlines=True,startupinfo=si)
+            else:
+                p = subprocess.Popen(
+                    path,bufsize = 1,   stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE, cwd=engine_wdir,
+                    universal_newlines=True)  
         except OSError as oe:
             msg = "error starting engine: " + "OSError" + str(oe)
             return msg, name

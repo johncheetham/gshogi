@@ -199,7 +199,7 @@ engine_nodes(PyObject *self, PyObject *args)
 
     if (verbose)
     {
-        printf("-> gshogi builtin node limit set to %ld\n", NodeCntLimit);
+        printf("-> gshogi builtin node limit set to %d\n", NodeCntLimit);
     }
 
     Py_RETURN_NONE;
@@ -242,7 +242,7 @@ engine_cmove(PyObject *self, PyObject *args)
             printf(" (black)\n");
         }
         printf("  - depth=%i\n",MaxSearchDepth);
-        printf("  - nodes=%ld",NodeCntLimit);
+        printf("  - nodes=%d",NodeCntLimit);
         if (NodeCntLimit > 0)
         {
             printf("\n");
@@ -254,7 +254,7 @@ engine_cmove(PyObject *self, PyObject *args)
         printf("  - tournament (classical) TC (true/false): %d\n", TCflag);
         printf("  - tournament TC minutes: %d\n", TCminutes);
         printf("  - tournament TC seconds: %d\n", TCseconds);
-        printf("  - max response time if not using tournament TC (centiseconds): %ld\n", MaxResponseTime);
+        printf("  - max response time if not using tournament TC (centiseconds): %d\n", MaxResponseTime);
     }
     winner = 0;
     compptr = (compptr + 1) % MINGAMEIN;

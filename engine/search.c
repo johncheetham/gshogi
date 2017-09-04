@@ -151,7 +151,7 @@ int bookflag = false;
 int Jscore = 0;
 
 int TCcount;
-long TCleft = 0;
+int TCleft = 0;
 
 
 
@@ -174,7 +174,7 @@ SelectMove(short side, SelectMove_mode iop)
     short sqking, in_check, blockable;
 
 #ifdef BOOKTEST
-    printf("hashbd = %ld (hashkey >> 16)|side = %d\n",
+    printf("hashbd = 0x%x (hashkey >> 16)|side = %d\n",
            hashbd, (hashkey >> 16)|side);
 #endif
 
@@ -561,7 +561,7 @@ search(short side,
     NodeCnt++;
     if (NodeCnt % 1000000 == 0 && verbose)
     {
-        printf("nodes searched:%ld\n",NodeCnt);
+        printf("nodes searched:%d\n",NodeCnt);
     }
 
     /* look every ZNODE nodes for a timeout */
@@ -1230,7 +1230,7 @@ drop(short side, short piece, short f, short t, short iop)
 int
 CheckHashKey()
 {
-    unsigned long chashkey, chashbd;
+    unsigned int chashkey, chashbd;
     short side, sq;
     chashbd = chashkey = 0;
 

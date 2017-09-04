@@ -55,7 +55,7 @@
  */
 
 /* Hack for anal-retentive ANSI-compliance if desired: */
-#if !defined( __MINGW32__) && !defined( __MINGW64__)
+#if !defined( __MINGW32__)
 #define inline
 #endif
 
@@ -101,13 +101,13 @@ typedef unsigned long  ULONG;
 #if !defined(HAVE_MEMCPY) && !defined(HAVE_BCOPY)
 #  define array_copy(src, dst, len) \
    { \
-       long i; \
+       int i; \
        char  *psrc = (char  *)src, *pdst = (char  *)dst; \
        for (i = len; i; pdst[--i] = psrc[i]); \
    }
 #  define array_zero(dst, len) \
   { \
-      long i; \
+      int i; \
       char  *pdst = (char  *)dst; \
       for (i = len; i; pdst[--i] = 0); \
   }
@@ -519,12 +519,12 @@ extern void movealgbr(short m, char *s);
 
 struct hashval
 {
-    unsigned long key, bd;
+    unsigned int key, bd;
 };
 
 struct hashentry
 {
-    unsigned long hashbd;
+    unsigned int hashbd;
     unsigned short mv;
     unsigned char depth; /* unsigned char saves some space */
     unsigned char flags;
@@ -540,7 +540,7 @@ struct hashentry
 #if defined HASHFILE || defined CACHE
 struct etable
 {
-    unsigned long ehashbd;
+    unsigned int ehashbd;
     short escore[2];
 #if !defined SAVE_SSCORE
     short sscore[NO_SQUARES];
@@ -597,21 +597,21 @@ struct GameRec
     unsigned short gmove;    /* this move */
     short score;             /* score after this move */
     short depth;             /* search depth this move */
-    long  time;               /* search time this move */
+    int   time;              /* search time this move */
     short fpiece;            /* moved or dropped piece */
     short piece;             /* piece captured */
     short color;             /* color */
     short flags;             /* move flags capture, promote, castle */
     short Game50;            /* flag for repetition */
-    long  nodes;              /* nodes searched for this move */
-    unsigned long hashkey, hashbd;   /* board key before this move */
+    int   nodes;             /* nodes searched for this move */
+    unsigned int hashkey, hashbd;   /* board key before this move */
 };
 
 
 struct TimeControlRec
 {
     short moves[2];
-    long  clock[2];
+    int   clock[2];
 };
 
 
@@ -658,7 +658,7 @@ extern short use_history;
 extern unsigned short  *history;
 #endif
 
-extern long znodes;
+extern int znodes;
 
 extern char ColorStr[2][10];
 
@@ -687,7 +687,7 @@ extern small_short Captured[2][NO_PIECES];
   }
 #else
 #  define ClearCaptured() \
-  memset((char *)Captured, 0, (unsigned long)sizeof(Captured))
+  memset((char *)Captured, 0, (unsigned int)sizeof(Captured))
 #endif /* HAVE_MEMSET */
 
 extern small_short Mvboard[];
@@ -704,16 +704,16 @@ extern short opponent, computer, INCscore;
 extern short WAwindow, BAwindow, WBwindow, BBwindow;
 extern short dither, player;
 extern short xwndw, contempt;
-extern long  ResponseTime, ExtraTime, TCleft,
+extern int   ResponseTime, ExtraTime, TCleft,
     MaxResponseTime, et, et0, time0, ft;
 extern int   TCcount;
 
 #ifdef INTERRUPT_TEST
-extern long itime0, it;
+extern int itime0, it;
 #endif
 
-extern long  reminus, replus;
-extern long  GenCnt, NodeCnt, ETnodes, EvalNodes, HashAdd, HashCnt,
+extern int   reminus, replus;
+extern int   GenCnt, NodeCnt, ETnodes, EvalNodes, HashAdd, HashCnt,
     HashCol, THashCol, FHashCnt, FHashAdd, NodeCntLimit;
 extern short HashDepth, HashMoveLimit;
 extern struct GameRec  *GameList;
@@ -758,7 +758,7 @@ extern unsigned short PrVar[MAXDEPTH];
 extern unsigned short PV, SwagHt, Swag0, Swag1, Swag2, Swag3, Swag4, sidebit;
 extern short mtl[2], pmtl[2], hung[2];
 extern const small_short relative_value[];
-extern const long control[];
+extern const int control[];
 extern small_short diagonal(short delta);
 extern const small_short promoted[NO_PIECES], unpromoted[NO_PIECES];
 extern const small_short is_promoted[NO_PIECES];
@@ -795,7 +795,7 @@ extern distdata_array  *ptype_distdata[NO_PTYPE_PIECES];
 
 extern const small_short ptype[2][NO_PIECES];
 
-extern long filesz, hashmask, hashbase;
+extern int  filesz, hashmask, hashbase;
 extern FILE *hashfile;
 extern unsigned int starttime;
 
@@ -825,7 +825,7 @@ extern char GameType[2];
 extern unsigned short bookmaxply;
 extern unsigned int bookcount;
 extern unsigned int booksize;
-extern unsigned long hashkey, hashbd;
+extern unsigned int hashkey, hashbd;
 
 typedef struct hashval hashcode_array[2][NO_PIECES][NO_SQUARES];
 typedef struct hashval drop_hashcode_array[2][NO_PIECES][NO_SQUARES];
@@ -1084,7 +1084,7 @@ extern void  ChangeSearchDepth(void);
 extern void  skip(void);
 extern void  skipb(void);
 extern void  EnPassant(short xside, short f, short t, short iop);
-extern void  ShowNodeCnt(long NodeCnt);
+extern void  ShowNodeCnt(int NodeCnt);
 extern void  ShowLine(unsigned short *bstline);
 extern int   pick(short p1, short p2);
 extern short repetition(void);

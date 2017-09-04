@@ -356,7 +356,7 @@ ProbeFTable(short side,
             short *score)
 {
     short i;
-    unsigned long hashix;
+    unsigned int hashix;
     struct fileentry new, t;
     int rc;
 
@@ -435,7 +435,7 @@ PutInFTable(short side,
             unsigned short t)
 {
     unsigned short i;
-    unsigned long hashix;
+    unsigned int hashix;
     struct fileentry new, tmp;
     int rc;
 

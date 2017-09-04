@@ -57,9 +57,9 @@
 
 struct gdxadmin
 {
-    ULONG bookcount;
-    ULONG booksize;
-    ULONG maxoffset;
+    UINT bookcount;
+    UINT booksize;
+    UINT maxoffset;
 };
 
 extern struct gdxadmin B;
@@ -71,7 +71,7 @@ extern struct gdxadmin B;
 
 struct gdxdata
 {
-    ULONG  hashbd;
+    UINT   hashbd;
     USHORT hashkey;
     USHORT bmove;
     USHORT flags; /* flags BADMOVE, GOODMOVE,  LASTMOVE */

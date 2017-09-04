@@ -162,7 +162,7 @@ ShowResults(short score, unsigned short *bstline, char ch)
     if (flag.post)
     {
         ElapsedTime(2);
-        printf("%2d%c %6d %4ld %8ld  ",
+        printf("%2d%c %6d %4d %8d  ",
                Sdepth, ch, score, et / 100, NodeCnt);
         ShowLine(bstline);
     }

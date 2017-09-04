@@ -703,23 +703,13 @@ NewGame(void)
                 for (l = 0; l < NO_SQUARES; l++)
                 {
                     (*hashcode)[c][p][l].key
-                         = (((unsigned long) urand()));
+                         = ((urand()));
                     (*hashcode)[c][p][l].key
-                        += (((unsigned long) urand()) << 16);
+                        += ((urand()) << 16);
                     (*hashcode)[c][p][l].bd
-                         = (((unsigned long) urand()));
+                         = ((urand()));
                     (*hashcode)[c][p][l].bd
-                        += (((unsigned long) urand()) << 16);
-#if SIZEOF_LONG == 8  /* 64-bit long i.e. 8 bytes */
-                    (*hashcode)[c][p][l].key
-                        += (((unsigned long) urand()) << 32);
-                    (*hashcode)[c][p][l].key
-                        += (((unsigned long) urand()) << 48);
-                    (*hashcode)[c][p][l].bd
-                        += (((unsigned long) urand()) << 32);
-                    (*hashcode)[c][p][l].bd
-                        += (((unsigned long) urand()) << 48);
-#endif
+                        += ((urand()) << 16);
                 }
             }
         }
@@ -731,23 +721,13 @@ NewGame(void)
                 for (l = 0; l < MAX_CAPTURED; l++)
                 {
                     (*drop_hashcode)[c][p][l].key
-                         = (((unsigned long) urand()));
+                         = ((urand()));
                     (*drop_hashcode)[c][p][l].key
-                        += (((unsigned long) urand()) << 16);
+                        += ((urand()) << 16);
                     (*drop_hashcode)[c][p][l].bd
-                         = (((unsigned long) urand()));
+                         = ((urand()));
                     (*drop_hashcode)[c][p][l].bd
-                        += (((unsigned long) urand()) << 16);
-#if SIZEOF_LONG == 8  /* 64-bit long i.e. 8 bytes */
-                    (*drop_hashcode)[c][p][l].key
-                        += (((unsigned long) urand()) << 32);
-                    (*drop_hashcode)[c][p][l].key
-                        += (((unsigned long) urand()) << 48);
-                    (*drop_hashcode)[c][p][l].bd
-                        += (((unsigned long) urand()) << 32);
-                    (*drop_hashcode)[c][p][l].bd
-                        += (((unsigned long) urand()) << 48);
-#endif
+                        += ((urand()) << 16);
                 }
             }
         }
@@ -768,11 +748,7 @@ NewGame(void)
     gettimeofday(&tv, NULL);
     time0 = tv.tv_sec*100 + tv.tv_usec/10000;
 #else
-#if defined(__MINGW64__) || defined(_WIN64)
-    time0 = time((long long *) 0);
-#else
-    time0 = time((long *) 0);
-#endif
+    time0 = time((time_t *) 0);
 #endif
 
     /* resetting reference time */
@@ -835,8 +811,8 @@ Initialize_data(void)
 
     if (!Tree)
     {
-        sprintf(buffer, "Cannot allocate %ld bytes for search tree",
-                (long)n);
+        sprintf(buffer, "Cannot allocate %d bytes for search tree",
+                (int)n);
         ShowMessage(buffer);
         return 1;
     }
@@ -846,7 +822,7 @@ Initialize_data(void)
 
     if (!hashcode)
     {
-        sprintf(buffer, "Cannot allocate %ld bytes for hashcode", (long)n);
+        sprintf(buffer, "Cannot allocate %d bytes for hashcode", (int)n);
         ShowMessage(buffer);
         return 1;
     }
@@ -857,8 +833,8 @@ Initialize_data(void)
     if (!drop_hashcode)
     {
         sprintf(buffer,
-                "Cannot allocate %ld bytes for drop_hashcode",
-                (long)n);
+                "Cannot allocate %d bytes for drop_hashcode",
+                (int)n);
         ShowMessage(buffer);
         return 1;
     }
@@ -869,8 +845,8 @@ Initialize_data(void)
     if (!GameList)
     {
         sprintf(buffer,
-                "Cannot allocate %ld bytes for game record",
-                (long)n);
+                "Cannot allocate %d bytes for game record",
+                (int)n);
         ShowMessage(buffer);
         return 1;
     }
@@ -886,8 +862,8 @@ Initialize_data(void)
         {
             if (use_nextpos)
             {
-                sprintf(buffer, "cannot allocate %ld space for nextdir %d",
-                        (long)(n), i);
+                sprintf(buffer, "cannot allocate %d space for nextdir %d",
+                        (int)(n), i);
                 ShowMessage(buffer);
             }
 
@@ -901,8 +877,8 @@ Initialize_data(void)
         {
             if (use_nextpos)
             {
-                sprintf(buffer, "cannot allocate %ld space for nextpos %d",
-                        (long)(n), i);
+                sprintf(buffer, "cannot allocate %d space for nextpos %d",
+                        (int)(n), i);
                 ShowMessage(buffer);
             }
 
@@ -940,8 +916,8 @@ Initialize_data(void)
 
     if (!history)
     {
-        sprintf(buffer, "Cannot allocate %ld bytes for history table",
-                (long)sizeof_history);
+        sprintf(buffer, "Cannot allocate %d bytes for history table",
+                (int)sizeof_history);
         ShowMessage(buffer);
         use_history = false;
     }
@@ -956,8 +932,8 @@ Initialize_data(void)
 
         if (!etab[i])
         {
-            sprintf(buffer, "Cannot allocate %ld bytes for cache table %ld",
-                    (long)n, (long)i);
+            sprintf(buffer, "Cannot allocate %d bytes for cache table %d",
+                    (int)n, (int)i);
             ShowMessage(buffer);
             use_etable = false;
         }
@@ -1006,8 +982,8 @@ Initialize_data(void)
     }
     else
     {
-        sprintf(buffer, "Cannot allocate %ld bytes for transposition table",
-                (long)(2 * n));
+        sprintf(buffer, "Cannot allocate %d bytes for transposition table",
+                (int)(2 * n));
         ShowMessage(buffer);
         ttable[0] = ttable[1] = NULL;
     }
@@ -1034,8 +1010,8 @@ Initialize_data(void)
         if (!ptype_distdata[i])
         {
             sprintf(buffer,
-                    "cannot allocate %ld bytes for ptype_distdata %d...",
-                    (long)n, i);
+                    "cannot allocate %d bytes for ptype_distdata %d...",
+                    (int)n, i);
             use_ptype_distdata = false;
         }
     }
@@ -1273,11 +1249,7 @@ InitConst(char *lang)
 int
 InitMain(void)
 {
-#if defined( __MINGW64__) || defined(_WIN64)
-    gsrand(starttime = ((unsigned int)time((long long *)0)));    /* init urand */
-#else
-    gsrand(starttime = ((unsigned int)time((long *)0)));    /* init urand */
-#endif
+    gsrand(starttime = ((unsigned int)time((time_t *)0)));    /* init urand */
 
     NodeCntLimit = 0;
 
@@ -1324,7 +1296,7 @@ InitMain(void)
 
 #if ttblsz
 #ifdef HASHFILE
-#if defined(__MINGW32__) || defined(__MINGW64__) || defined(_WIN32)
+#if defined(_WIN32)
     hashfile = NULL;
 #else
     hashfile = fopen(HASHFILE, RWA_ACC);

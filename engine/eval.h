@@ -64,8 +64,8 @@
 
 struct signature
 {
-    unsigned long hashbd;
-    unsigned long hashkey;
+    unsigned int hashbd;
+    unsigned int hashkey;
 };
 
 #define MatchSignature(s) ((s.hashbd == hashbd) && (s.hashkey == hashkey))
@@ -79,7 +79,7 @@ extern fscore_array *fscore;
 
 extern void threats (short side);
 
-extern long attack[2][NO_SQUARES];
+extern int attack[2][NO_SQUARES];
 extern small_short sseed[NO_SQUARES];
 
 extern struct signature threats_signature[2];

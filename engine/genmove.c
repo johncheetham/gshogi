@@ -605,7 +605,7 @@ LinkMove(short ply, short f,
     short side, piece, mv;
     short flag_tsume, try_link = true;
     short c1, c2, ds, is_drop = f > NO_SQUARES;
-    unsigned long as = 0;
+    unsigned int as = 0;
 
     flag_tsume = flag.tsume;
 
@@ -692,7 +692,7 @@ LinkMove(short ply, short f,
         /* square t not threatened by opponent or
          * defended and only threatened by opponents king ?
          */
-        unsigned long axs;
+        unsigned int axs;
 
         if (!(axs = attack[xside][t])
             || (tas && as && (axs & control[king]) && (axs & CNT_MASK) == 1))

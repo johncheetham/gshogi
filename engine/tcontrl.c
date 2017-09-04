@@ -65,7 +65,7 @@
  * are going to share the same transposition table.
  */
 
-static unsigned long next = 1;
+static unsigned int next = 1;
 
 unsigned int
 urand(void)
@@ -179,7 +179,7 @@ void SetResponseTime(short side)
             if (TimeControl.clock[side] <= 0)
             {
                 ResponseTime = 0;
-                TCleft = (long)MINRESPONSETIME / MAXTCCOUNTX;
+                TCleft = (int)MINRESPONSETIME / MAXTCCOUNTX;
             }
             else
             {
@@ -189,7 +189,7 @@ void SetResponseTime(short side)
                 TimeControl.clock[side] += TCadd;
                 ResponseTime = (TimeControl.clock[side])
                     / (((TimeControl.moves[side]) * rtf) + 1);
-                TCleft = (long)ResponseTime / tcq;
+                TCleft = (int)ResponseTime / tcq;
                 ResponseTime += TCadd / 2;
             }
 

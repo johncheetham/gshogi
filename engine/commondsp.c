@@ -755,7 +755,7 @@ SaveGame(char *filename, char *sfen)
             t = (g->gmove & 0xFF);
             algbr(f, t, g->flags);
 
-            fprintf(fd, "%c%c%-5s %6d %5d %7ld %6ld %5d  0x%08lx 0x%08lx",
+            fprintf(fd, "%c%c%-5s %6d %5d %7d %6d %5d  0x%08x 0x%08x",
                     ((f > NO_SQUARES)
                      ? ' '
                      : (is_promoted[g->fpiece] ? '+' : ' ')),
@@ -850,7 +850,7 @@ ListGame(void)
 
         if (GameList[i].flags & book)
         {
-            fprintf(fd, "%c%c%-5s  %5d    Book%7ld %5ld",
+            fprintf(fd, "%c%c%-5s  %5d    Book%7d %5d",
                     ((f > NO_SQUARES)
                      ? ' '
                      : (is_promoted[GameList[i].fpiece] ? '+' : ' ')),
@@ -863,7 +863,7 @@ ListGame(void)
         }
         else
         {
-            fprintf(fd, "%c%c%-5s  %5d     %2d %7ld %5ld",
+            fprintf(fd, "%c%c%-5s  %5d     %2d %7d %5d",
                     (f > NO_SQUARES
                      ? ' '
                      : (is_promoted[GameList[i].fpiece] ? '+' : ' ')),
@@ -1068,7 +1068,7 @@ TestSpeed(void(*f)(short side, short ply,
 #endif
 
     unsigned i;
-    long cnt, rate, t1, t2;
+    int cnt, rate, t1, t2;
 
 #ifdef HAVE_GETTIMEOFDAY
     struct timeval tv;
@@ -1125,7 +1125,7 @@ void
 TestPSpeed(short(*f) (short side), unsigned j)
 {
     short i;
-    long cnt, rate, t1, t2;
+    int cnt, rate, t1, t2;
 #ifdef HAVE_GETTIMEOFDAY
     struct timeval tv;
 #endif

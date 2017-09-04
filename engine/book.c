@@ -85,8 +85,8 @@ char *binbookfile = NULL;
 
 static char bmvstr[3][7];
 
-static ULONG bhashbd;
-static ULONG bhashkey;
+static UINT bhashbd;
+static UINT bhashkey;
 
 
 /*
@@ -578,38 +578,19 @@ static struct gdxadmin ADMIN;
 struct gdxadmin B;
 static struct gdxdata DATA;
 
-/* lts(l) returns most significant 16 bits of l */
-
-#if SIZEOF_LONG == 8  /* 64-bit long i.e. 8 bytes */
-#  define lts(x) (USHORT)(((x >> 48) & 0xfffe) | side)
-#else
-#  if defined USE_LTSIMP
-static USHORT ltsimp(long x)
-{
-    USHORT n;
-    n = (((x >> 16) & 0xfffe));
-    return n;
-}
-#    define lts(x) (USHORT)(ltsimp(x) | side)
-#  else
-#    define lts(x) (USHORT)(((x >> 16)&0xfffe) | side)
-#  endif
-#endif
-
-
 /* #define HashValue(l) lts(l) */
 #define HashValue(l) (USHORT)(l & 0xffff)
 
 
 static int gfd;
-static ULONG currentoffset;
+static UINT currentoffset;
 
 
 #define MAXOFFSET(B) ((B.booksize - 1) * sizeof_gdxdata + sizeof_gdxadmin)
 
 #define HashOffset(hashkey, B) \
 { \
-  currentoffset = ((ULONG)hashkey % B.booksize) \
+  currentoffset = (hashkey % B.booksize) \
     * sizeof_gdxdata + sizeof_gdxadmin; \
 }
 
@@ -677,10 +658,10 @@ GetOpenings(void)
     USHORT mv, flags;
     unsigned int x;
     unsigned int games = 0;
-    LONG collisions = 0;
+    int  collisions = 0;
     char msg[80];
     int rc;
-#if !defined( __MINGW32__) && !defined( __MINGW64__)
+#if !defined( __MINGW32__)
     FILE *fd;
 
     fd = NULL;
@@ -732,7 +713,7 @@ GetOpenings(void)
             DATA.hint = 0;
             DATA.count = 0;
             rc = write(gfd, (char *)&ADMIN, sizeof_gdxadmin);
-            printf("creating bookfile %s %ld %ld\n",
+            printf("creating bookfile %s %d %d\n",
                     binbookfile, B.maxoffset, B.booksize);
 
             for (x = 0; x < B.booksize; x++)
@@ -831,7 +812,7 @@ GetOpenings(void)
                                 {
                                     /* CHECKME: may want to get rid of this,
                                      * especially for xshogi. */
-                                    printf("%ld rec %d openings "
+                                    printf("%d rec %d openings "
                                            "processed\n",
                                            B.bookcount, games);
                                 }
@@ -910,7 +891,7 @@ GetOpenings(void)
         sprintf(msg, CP[213], B.bookcount, B.booksize);
         ShowMessage(msg);
     }
-#endif /* !defined(MINGW32) && !defined(MINGW64)
+#endif /* !defined(MINGW32) && !defined(MINGW64) */
 
     /* Set everything back to start the game. */
     Book = BOOKFAIL;
@@ -945,11 +926,7 @@ OpeningBook(unsigned short *hint, short side)
     unsigned short r, m;
     int possibles = TrPnt[2] - TrPnt[1];
 
-#if defined(__MINGW64__) || defined(_WIN64)
-    gsrand((unsigned int) time((long long *) 0));
-#else
-    gsrand((unsigned int) time((long *) 0));
-#endif
+    gsrand((unsigned int) time((time_t *) 0));
 
     m = 0;
 
@@ -974,8 +951,8 @@ OpeningBook(unsigned short *hint, short side)
         x = 0;
         HashOffset(hashkey, B);
 #ifdef BOOKTEST
-        printf("looking for book move, bhashbd = 0x%lx bhashkey = 0x%x\n",
-               (ULONG)hashbd, HashValue(hashkey));
+        printf("looking for book move, bhashbd = 0x%x bhashkey = 0x%x\n",
+               hashbd, HashValue(hashkey));
 #endif
         while (true)
         {
@@ -986,11 +963,11 @@ OpeningBook(unsigned short *hint, short side)
                 break;
 
 #ifdef BOOKTEST
-            printf("compare with bhashbd = 0x%lx bhashkey = 0x%x\n",
+            printf("compare with bhashbd = 0x%x bhashkey = 0x%x\n",
                    OBB[x].hashbd, OBB[x].hashkey);
 #endif
             if ((OBB[x].hashkey == HashValue(hashkey))
-                && (OBB[x].hashbd == (ULONG)hashbd))
+                && (OBB[x].hashbd == hashbd))
             {
                 x++;
 

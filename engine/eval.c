@@ -244,7 +244,7 @@ static const short KTHRT[36] =
 
 static small_short fvalue[2][NO_FEATURES];
 
-long attack[2][NO_SQUARES];         /* threats to squares */
+int attack[2][NO_SQUARES];          /* threats to squares */
 small_short sseed[NO_SQUARES];      /* square occupied by a seed piece? */
 
 struct signature threats_signature[2] = /* statistics valid for position.. */
@@ -294,8 +294,8 @@ Mpiece_array *Mpiece[NO_PIECES] =
 static short c1, c2;
 static small_short *PC1, *PC2;
 static small_short *fv1;
-static long *atk1, *atk2;
-static long  a1, a2;
+static int *atk1, *atk2;
+static int  a1, a2;
 
 #define csquare(side, sq) ((side == black) ? sq : (NO_SQUARES_1 - sq))
 #define crow(side, sq)    row(csquare(side, sq))
@@ -376,8 +376,8 @@ void
 threats(short side)
 {
     short  u, sq;
-    long   c;
-    long  *a;
+    int    c;
+    int   *a;
 #ifdef SAVE_NEXTPOS
     short d;
 #else
@@ -756,7 +756,7 @@ evaluate(short side,
 
 
 static short
-value_of_weakest_attacker(long a2)
+value_of_weakest_attacker(int a2)
 {
     short piece;
     short min_value, v;
@@ -2687,9 +2687,9 @@ linear_feature_value(short feature, short stage, short i, short j)
 #define MAX_VALUE 1000
 
 #define max_value(stage) \
-((long)(MIN_VALUE - MAX_VALUE) * stage + (long)100 * MAX_VALUE)
+((int)(MIN_VALUE - MAX_VALUE) * stage + (int)100 * MAX_VALUE)
 #define matweight(value, stage) \
-((long)max_value(stage) * value / 10000)
+((int)max_value(stage) * value / 10000)
 
 
 

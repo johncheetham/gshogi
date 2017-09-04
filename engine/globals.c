@@ -71,13 +71,13 @@ small_short PieceCnt[2];
 
 char ColorStr[2][10];
 
-long znodes;
+int znodes;
 
 extern char *binbookfile;
 
 extern char *bookfile;
 
-unsigned long hashkey, hashbd;
+unsigned int hashkey, hashbd;
 
 char savefile[128];
 char listfile[128];
@@ -97,16 +97,16 @@ struct flags flag;
 
 short opponent, computer, WAwindow, WBwindow, BAwindow, BBwindow, dither,
     INCscore = 0;
-long ResponseTime = 0, ExtraTime = 0, MaxResponseTime = 0,
+int ResponseTime = 0, ExtraTime = 0, MaxResponseTime = 0,
     et = 0, et0 = 0, time0 = 0, ft = 0;
 
 #ifdef INTERRUPT_TEST
-long it, itime0;
+int it, itime0;
 #endif
 
-long  GenCnt, NodeCnt, ETnodes, EvalNodes, HashCnt, HashAdd,
+int   GenCnt, NodeCnt, ETnodes, EvalNodes, HashCnt, HashAdd,
     FHashCnt, FHashAdd, HashCol, THashCol, filesz, hashmask, hashbase, NodeCntLimit;
-long  replus, reminus;
+int   replus, reminus;
 short HashDepth = HASHDEPTH, HashMoveLimit = HASHMOVELIMIT;
 short player, xwndw;
 short rehash = -1;
@@ -138,7 +138,7 @@ const small_short relative_value[NO_PIECES] =
 { 0,  1,  3,  4,  7,  9,  10,  12,
   2,  5,  6,  8, 11, 13,  14 };
 
-const long control[NO_PIECES] =
+const int control[NO_PIECES] =
 { 0,  ctlP,  ctlL,  ctlN,  ctlS,  ctlG, ctlB, ctlR,
      ctlPp, ctlLp, ctlNp, ctlSp, ctlBp, ctlRp, ctlK };
 

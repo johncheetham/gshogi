@@ -94,13 +94,9 @@ ElapsedTime(ElapsedTime_mode iop)
 void
 ElapsedTime_NOFIONREAD(ElapsedTime_mode iop)
 {
-    long current_time;
+    int current_time;
 
-#if defined(__MINGW64__) || defined(_WIN64)
-    et = ((current_time = time((long long *) 0)) - time0) * 100;
-#else
-    et = ((current_time = time((long *) 0)) - time0) * 100;
-#endif
+    et = ((current_time = time((time_t *) 0)) - time0) * 100;
 
 #ifdef INTERRUPT_TEST
     if (iop == INIT_INTERRUPT_MODE)

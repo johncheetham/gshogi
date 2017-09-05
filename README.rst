@@ -41,17 +41,9 @@ Running gshogi from the Source Directory
 
 Installing on the system
 
-    Enter 'python setup.py build' to build it (as normal user).
-    Then 'python setup.py install' to install it (as root user).
+    Enter 'python setup.py install' to install it (as root user).
 
     Note:
-
-        You must run 'python setup.py build' first since this creates
-        the opening book (don't just run 'python setup.py install'
-        on it's own)
-
-        You can check the build step worked by looking for a file called
-        engine.so under the build directory.
 
         gshogi should now be installed on your system. You can launch it from
         the gnome menu (under games) or type 'gshogi' in any terminal window.
@@ -63,10 +55,8 @@ Installing on the system
         If running the build/install multiple times it's best to delete the
         build folder each time.
 
-Note that the binary opening book (data/opening.bbk) has a different format
-on 32 bit and 64 bit systems. You cannot use the 32 bit book on a 64 bit
-system and vice versa. For this reason the opening book is created during the
-install when you do 'python setup.py build'.
+You can download windows versions from the website.
+Also see README-windows.txt for compile info.
 
 Here is some help for installing on specific distros.
 

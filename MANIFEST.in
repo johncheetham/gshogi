@@ -1,3 +1,14 @@
+include ChangeLog
+include create_book.py
+include create_pot_file
+include create_pynsist_pkgs
+include gnome_preamble.py
+include gshogi/data/opening.bbk
+include installer32.cfg
+include installer64.cfg
+include README-windows.txt
+include gshogirun2
+include gshogirun3
 include LICENSE
 include run.py
 include gshogi.desktop

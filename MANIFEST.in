@@ -2,6 +2,7 @@ include ChangeLog
 include create_book.py
 include create_pot_file
 include create_pynsist_pkgs
+include createwheels
 include gnome_preamble.py
 include gshogi/data/opening.bbk
 include installer32.cfg

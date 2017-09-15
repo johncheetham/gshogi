@@ -1,0 +1,33 @@
+#!/bin/sh
+#
+# create gshogi manylinux wheels
+#
+# This should be run in a manylinux docker container like this:
+#   cd somefolder
+#   git clone https://github.com/johncheetham/gshogi.git
+#   # create 64 bit wheels
+#   sudo docker run --privileged=true -v $PWD:/host \
+#       -it quay.io/pypa/manylinux1_x86_64:latest /host/gshogi/createwheels.sh
+#   # create 32 bit wheels
+#   sudo docker run --privileged=true -v $PWD:/host \
+#       -it quay.io/pypa/manylinux1_i686:latest linux32 /host/gshogi/createwheels.sh
+#
+
+cd
+
+# clone gshogi from host or from github
+git clone /host/gshogi
+#git clone https://github.com/johncheetham/gshogi.git
+
+# create a wheel for each version of python3 in ~/wheels
+for PYBIN in /opt/python/cp3*/bin; do
+    "${PYBIN}/pip" install setuptools --upgrade
+    "${PYBIN}/pip" wheel ~/gshogi/ -w wheels
+done
+
+# repair the wheel (make it manylinux) and save on the host
+for whl in `pwd`/wheels/*.whl; do
+    auditwheel repair "$whl" -w /host/gshogiwheels/
+done
+
+

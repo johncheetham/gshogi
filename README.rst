@@ -3,129 +3,90 @@ gshogi - John Cheetham - http://www.johncheetham.com/projects/gshogi
 Description
 -----------
 gshogi is a program to play Shogi (Japanese Chess). It has a builtin
-engine and can also use USI engines. It is written in python3/C and runs
+engine and can also use USI engines. It is written in python3 and C and runs
 on GTK3 (PyGI) desktops.
 
-It's licensed under the GPL v3+ (see the file named LICENSE) and aimed mainly
-at Linux users.
+It's licensed under the GPL v3+ (see the file named LICENSE).
 
-It uses GTK3 for the gui and C for the engine code.
+It uses python for the gui and C for the engine code.
 
 See the project homepage for more information on gshogi and USI engines.
 
+Linux Installation
+------------------
+**Prerequisites**
 
-Installation
-------------
-Python 3 is required. If you are using a system that uses python 2 as default
-(do python -V to check) then you need to use python3 for commands and package
-names. For example the package name will be python3-cairo instead of
-python-cairo and the build command will be python3 setup.py build.
+You need to install these prerequisites first:
 
+    * python
+    * python-cairo
+    * python-gobject
 
-You need to install these packages first:
-
-    gcc python python-devel python-cairo python-gobject gtk3
-
-
-Running gshogi from the Source Directory
-
-    You can run gshogi from the source directory without
-    doing the full install.
-
-    To do this:
-
-        Enter 'python setup.py build' to build it.
-
-        Then 'python run.py' to run it.
-
-
-Installing on the system
-
-    Enter 'python setup.py install' to install it (as root user).
-
-    Note:
-
-        gshogi should now be installed on your system. You can launch it from
-        the gnome menu (under games) or type 'gshogi' in any terminal window.
-
-        There is no uninstall (setuptools doesn't have one). If you need to
-        uninstall you have to make a note of the file names and then delete
-        them manually.
-
-        If running the build/install multiple times it's best to delete the
-        build folder each time.
-
-You can download windows versions from the website.
-Also see README-windows.txt for compile info.
-
-Here is some help for installing on specific distros.
-
-For Fedora 23:
-
-    Install packages (as root user)
-
-        dnf install gcc redhat-rpm-config python3 python3-devel python3-cairo python3-gobject
-
-    build (as normal user)
-
-        python3 setup.py build
-
-    run from the source directory
-
-        python3 run.py
-
-    Install on the system (as root user)
-
-        python3 setup.py install
-
-    run the installed version
-
-        gshogi
+You need the python3 versions.
+These will have different names depending on your Linux.
     
+On Debian/Mint/Ubuntu
+    * python3-gi-cairo
+    * gir1.2-rsvg-2.0
 
-For Debian 8 Jessie:
+On Fedora
+    * python3-cairo
+    * python3-gobject
 
-    Install packages (as root user)
+On Arch
+    * python-cairo
+    * python-gobject
 
-        apt-get install gcc python3-dev python3-gi-cairo
+**Install gshogi**
 
-    build (as normal user)
+Installing from source
+  
+  Use this method if you are using the latest development version from github.
 
-        python3 setup.py build
+  Install gcc, python3-devel in addition to the above prerequisites.
 
-    run from the source directory
+  |  Then enter *'python3 setup.py build'* to build it.
 
-        python3 run.py
+  |  Then *'python3 run.py'* to run it from within the source folder.
 
-    Install on the system (as root user)
+  You can also install it on the system.
 
-        python3 setup.py install
+  To do this enter *'python setup.py install'* (as root user).
 
-    run the installed version
+  Note if installing on the system:
 
-        gshogi
+      gshogi should now be installed on your system. You can launch it from
+      the gnome menu (under games) or type 'gshogi' in any terminal window.
 
-For Arch:
+      There is no uninstall (setuptools doesn't have one). If you need to
+      uninstall you have to make a note of the file names and then delete
+      them manually.
 
-    Install packages (as root user)
+      If running the build/install multiple times it's best to delete the
+      build folder each time.
 
-        pacman -S python python-gobject python-cairo gcc
+Installing from the Python Package Index with pip
 
-    build (as normal user)
+  If you want to install the last release you can install wheels from PyPI using pip.  
 
-        python setup.py build
+    pip3 install gshogi
 
-    run from the source directory
+  Or install it into a virtual env:
 
-        python run.py
+    |  python3 -m venv --system-site-packages testvenv
+    |  source testvenv/bin/activate
+    |  pip install gshogi
 
-    Install on the system (as root user)
+  Note you still need to install the python-gobject and python-cairo prerequisites listed above.
 
-        python setup.py install
+Windows Installation
+--------------------
+The best method for windows is to use the all in one installer from the project website.
 
-    run the installed version
+You can also use pip to install it but you will need to install pygobject for windows
+first.
 
-        gshogi
+You can also build it yourself (see the file Readme-windows.txt).
 
 
 Usage
@@ -138,7 +99,17 @@ you want to move it to (or drag it and drop it).
 Also you can play one engine against another which is good for comparing
 USI engines.
 
-See http://en.wikipedia.org/wiki/Shogi for the rules of Shogi.
+**Adding a USI engine**
+
+To add a USI engine to play against click on Options, engines then click
+the 'Add' button to add a new engine. Navigate to the engine executable
+and add it. Then click the OK button.
+
+If the USI engine has parameters (eg. *'java -jar enginename'* or *'enginename -usi'*)
+then you can set up a shell script (or bat file in windows) to start the engine and
+then add the shell script in gshogi. 
+
+**command line options**
 
 You can specify some options on the command line.
 
@@ -166,6 +137,7 @@ Use -mh to show both:
     
     gshogi -mh /path/to/gamefile.psn
 
+See http://en.wikipedia.org/wiki/Shogi for the rules of Shogi.
 
 File Support
 ------------
@@ -173,9 +145,6 @@ You can load/save games in PSN format or in gshog format.
 It is recommended to use PSN format.
 
 gshogi can also read multi-game PSN files.
-
-Use gshog format for exchanging games with GNU Shogi.
-
 
 Edit Board Function
 -------------------
@@ -318,4 +287,3 @@ Acknowledgements
 ----------------
 gshogi uses C engine code and includes some board pieces from
 GNU Shogi (version 1.3.2).
-

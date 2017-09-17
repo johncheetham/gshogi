@@ -1,5 +1,25 @@
 Minor modifications for 0.5.1
 ----------------------------------
+2017-09-15 John Cheetham
+    * Add script to create manylinux wheels
+
+2017-09-04 John Cheetham
+    * Standardise format of opening book on 32/64 bit Linux
+
+2017-08-26 John Cheetham
+    * Suppress console window when starting engines on windows
+
+2017-08-17 John Cheetham
+    * Add files for creating windows installer
+
+2017-06-01 John Cheetham
+    * Add buttons to move engines up and down the list
+    * Add auto scroll bars to engine manager dialog and USI options dialog
+    * Add configure button to engine dialog
+    * Save engine USI option settings when quitting game
+    * Add buttons to engine dialog to move up/down and configure
+    * Allow spaces in USI option name
+
 2017-05-28 Bernd Wille
     * Bugfix initialisation of header fields
     * Bugfix reads now games with repetition (sennichite)
@@ -11,6 +31,9 @@ Minor modifications for 0.5.1
     * bug-fix in automatic comments on checkmates etc.
     * had to change usi.py line 152 to 200 to have the program work with apery-engine (https://github.com/HiraokaTakuya/apery) on my slow old box
     * start *.psn-Files out of filemanagers using gshogirun2 or gshogirun3 scripts. Please edit paths.
+
+2017-03-24 Eric James Michael Ritz
+    * Support three pawn handicap games
 
 2017-03-01 Bernd Wille
     * Bugfix hanging 3rd party engines during ponder

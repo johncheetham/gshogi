@@ -285,16 +285,7 @@ class Set_Board_Colours:
             "#1A1110", "#B5651D", "#000000")],
           [ "Peach",
           ('#645452', '#D7AD7C', '#D7AD7C', '#FFFDD0',  '#F5DEB3', '#000000',
-          '#1A1110', '#D7AD7C', '#000000' )],  # peach                       
-          [ "Silver", 
-          ("#BEBEBE", "#ACE1AF", "#ACE1AF", "#195905", "#C0C0C0",
-          "#465945", "#A0785A", "#EBDFB0", "#000000") ],  # silver          
-          [ "new"   , 
-          ("#0000FF", "#FE6F5E", "#00FFFF", "#000000", "#FBAB60",
-          "#E30022", "#000001", "#EBDFB0", "#000000")],
-          [ "Gold2",  
-          ("#50404D", "#E3A857", "#E3A857", "#FADA5E",  "#FADA5E",
-          "#FE6F5E", "#4B3621", "#EBDFB0", "#000000") ],  # gold
+          '#1A1110', '#D7AD7C', '#000000' )],  # peach
            [ "Blue", 
            ("#00008B", "#ACE5EE", "#ACE5EE", "#FFFDD0", "#E6E8FA",
            "#71A6D2", "#446CCF" ,"#EBDFB0", "#000000") ] ,   # blizzard bue

@@ -1069,6 +1069,9 @@ search(short side,
     }
 
     /******************************************************/
+    /* no move */
+    if (best == -(SCORE_LIMIT + 3000))
+        return Tscore[ply - 1];
 
     node = &Tree[pbst];
     mv = (node->f << 8) | node->t;

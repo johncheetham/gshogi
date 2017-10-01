@@ -70,7 +70,7 @@
 #endif
 
 #include "book.h"
-
+#include <errno.h>
 unsigned booksize = BOOKSIZE;
 unsigned short bookmaxply = BOOKMAXPLY;
 unsigned bookcount = 0;
@@ -606,7 +606,10 @@ static UINT currentoffset;
 #define WriteAdmin() \
 { \
   lseek(gfd, 0, 0); \
-  rc = write(gfd, (char *)&ADMIN, sizeof_gdxadmin); \
+  if (write(gfd, (char *)&ADMIN, sizeof_gdxadmin) == -1) \
+    { \
+        printf("write failed in WriteAdmin, errno=%d - %s\n", errno, strerror(errno)); \
+    } \
 }
 
 #define WriteData() \
@@ -614,7 +617,10 @@ static UINT currentoffset;
   if (mustwrite ) \
   { \
     lseek(gfd, currentoffset, 0); \
-    rc = write(gfd, (char *)&DATA, sizeof_gdxdata); \
+    if (write(gfd, (char *)&DATA, sizeof_gdxdata) == -1) \
+    { \
+        printf("write failed in WriteData, errno=%d - %s\n", errno, strerror(errno)); \
+    } \
     mustwrite = false; \
   } \
 }
@@ -653,14 +659,14 @@ GetOpenings(void)
 {
     short i;
     int mustwrite = false, first;
-    unsigned short xside, side;
+    unsigned short side;
     short c;
     USHORT mv, flags;
     unsigned int x;
     unsigned int games = 0;
     int  collisions = 0;
     char msg[80];
-    int rc;
+
 #if !defined( __MINGW32__)
     FILE *fd;
 
@@ -712,13 +718,19 @@ GetOpenings(void)
             DATA.flags = 0;
             DATA.hint = 0;
             DATA.count = 0;
-            rc = write(gfd, (char *)&ADMIN, sizeof_gdxadmin);
+            if (write(gfd, (char *)&ADMIN, sizeof_gdxadmin) == -1)
+            {
+                printf("write admin failed in GetOpenings, errno=%d - %s\n", errno, strerror(errno));
+            }
             printf("creating bookfile %s %d %d\n",
                     binbookfile, B.maxoffset, B.booksize);
 
             for (x = 0; x < B.booksize; x++)
             {
-                rc = write(gfd, (char *)&DATA, sizeof_gdxdata);
+                if (write(gfd, (char *)&DATA, sizeof_gdxdata) == -1)
+                {
+                    printf("write data failed in GetOpenings, errno=%d - %s\n", errno, strerror(errno));
+                }
             }
         }
 
@@ -726,7 +738,6 @@ GetOpenings(void)
         {
             /* setvbuf(fd, buffr, _IOFBF, 2048); */
             side = black;
-            xside = white;
             hashbd = hashkey = 0;
             i = 0;
 
@@ -832,7 +843,6 @@ GetOpenings(void)
                     computer = opponent;
                     opponent = computer ^ 1;
 
-                    xside = side;
                     side = side ^ 1;
                 }
                 else if (i > 0)
@@ -843,7 +853,6 @@ GetOpenings(void)
                     RESET();
                     i = 0;
                     side = black;
-                    xside = white;
 
                 }
             }

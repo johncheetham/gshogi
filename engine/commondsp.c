@@ -1168,16 +1168,14 @@ void
 SetOppTime(char *s)
 {
     char *time;
-    int m, t, sec;
+    int m, t;
 
-    sec = 0;
     time = &s[strlen(CP[228])];
     t = (int)strtol(time, &time, 10);
 
     if (*time == ':')
     {
         time++;
-        sec = (int)strtol(time, &time, 10);
     }
 
     m = (int)strtol(time, &time, 10);
@@ -1198,16 +1196,14 @@ void
 SetMachineTime(char *s)
 {
     char *time;
-    int m, t, sec;
+    int m, t;
 
     time = &s[strlen(CP[197])];
-    sec = 0;
     t = (int)strtol(time, &time, 10);
 
     if (*time == ':')
     {
         time++;
-        sec = (int)strtol(time, &time, 10);
     }
 
     m = (int)strtol(time, &time, 10);
@@ -1283,7 +1279,7 @@ InputCommand(char *command)
 {
     int eof = 0;
     short have_shown_prompt = false;
-    short ok, done, is_move = false;
+    short ok, done = false;
     unsigned short mv;
     char s[80], sx[80];
 
@@ -1709,10 +1705,6 @@ InputCommand(char *command)
                     GameList[GameCnt].flags |= draw;
 
                         flag.mate = true;
-                }
-                else
-                {
-                    is_move = true;
                 }
             }
 

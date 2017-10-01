@@ -811,10 +811,9 @@ search(short side,
 
     PVarisave = PVari;
 
-    /* CHECKME: is the & really an && here? */
     if (!null  &&                        /* no previous null-move */
         !PVari &&                        /* no null-move during the PV */
-        (ply > 2) &                      /* not at ply 1 */
+        (ply > 2) &&                     /* not at ply 1 */
         (ply <= Sdepth) &&
         (depth > 3) &&
         !in_check)                       /* no check */

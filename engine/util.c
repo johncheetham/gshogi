@@ -358,7 +358,6 @@ ProbeFTable(short side,
     short i;
     unsigned int hashix;
     struct fileentry new, t;
-    int rc;
 
     hashix = ((side == black) ? (hashkey & 0xFFFFFFFE)
               : (hashkey | 1)) % filesz;
@@ -373,8 +372,10 @@ ProbeFTable(short side,
         fseek(hashfile,
               sizeof(struct fileentry) * ((hashix + 2 * i) % (filesz)),
               SEEK_SET);
-        rc = fread(&t, sizeof(struct fileentry), 1, hashfile);
-
+        if (fread(&t, sizeof(struct fileentry), 1, hashfile) != 1)
+        {
+            printf("fread failed,\n");
+        }
         if (!t.depth)
             break;
 
@@ -437,7 +438,6 @@ PutInFTable(short side,
     unsigned short i;
     unsigned int hashix;
     struct fileentry new, tmp;
-    int rc;
 
     hashix = ((side == black) ? (hashkey & 0xFFFFFFFE)
               : (hashkey | 1)) % filesz;
@@ -489,7 +489,7 @@ PutInFTable(short side,
                   sizeof(struct fileentry) * ((hashix + 2 * i) % (filesz)),
                   SEEK_SET);
 
-            rc = fwrite(&new, sizeof(struct fileentry), 1, hashfile);
+            fwrite(&new, sizeof(struct fileentry), 1, hashfile);
             FHashAdd++;
 
             break;

@@ -486,12 +486,10 @@ UpdateDisplay(short f, short t, short redraw, short isspec)
 void
 ChangeAlphaWindow(void)
 {
-    int rc;
-
     printf("WAwindow: ");
-    rc = scanf("%hd", &WAwindow);
+    if (scanf("%hd", &WAwindow) != 1) printf("WAwindow scanf error\n");
     printf("BAwindow: ");
-    rc = scanf("%hd", &BAwindow);
+    if (scanf("%hd", &BAwindow) != 1) printf("BAwindow scanf error\n");
 }
 
 
@@ -499,12 +497,10 @@ ChangeAlphaWindow(void)
 void
 ChangeBetaWindow(void)
 {
-    int rc;
-
     printf("WBwindow: ");
-    rc = scanf("%hd", &WBwindow);
+    if (scanf("%hd", &WBwindow) != 1) printf("WBwindow scanf error\n");
     printf("BBwindow: ");
-    rc = scanf("%hd", &BBwindow);
+    if (scanf("%hd", &BBwindow) != 1) printf("BBwindow scanf error\n");
 }
 
 
@@ -528,7 +524,6 @@ SelectLevel(char *sx)
 {
 
     char T[NO_SQUARES + 1], *p, *q;
-    char *rcc;
 
     if ((p = strstr(sx, CP[169])) != NULL)
         p += strlen(CP[169]);
@@ -547,7 +542,7 @@ SelectLevel(char *sx)
     if (!T[0])
     {
         printf("%s", CP[61]);
-        rcc = fgets(T, NO_SQUARES + 1, stdin);
+        if (fgets(T, NO_SQUARES + 1, stdin) == NULL) printf("fgets error in SelectLevel\n");
         strcat(T, "XX");
     }
 
@@ -605,10 +600,8 @@ SelectLevel(char *sx)
 void
 ChangeSearchDepth(void)
 {
-    int rc;
-
     printf("depth = ");
-    rc = scanf("%hd", &MaxSearchDepth);
+    if (scanf("%hd", &MaxSearchDepth) != 1) printf("MaxSearchDepth scanf error\n");
     TCflag = !(MaxSearchDepth > 0);
 }
 
@@ -618,12 +611,10 @@ ChangeSearchDepth(void)
 void
 ChangeHashDepth(void)
 {
-    int rc;
-
     printf("hashdepth = ");
-    rc = scanf("%hd", &HashDepth);
+    if (scanf("%hd", &HashDepth) != 1) printf("HashDepth scanf error\n");
     printf("MoveLimit = ");
-    rc = scanf("%hd", &HashMoveLimit);
+    if (scanf("%hd", &HashMoveLimit) != 1) printf("HashMoveLimit scanf error\n");
 }
 
 
@@ -631,10 +622,8 @@ ChangeHashDepth(void)
 void
 SetContempt(void)
 {
-    int rc;
-
     printf("contempt = ");
-    rc = scanf("%hd", &contempt);
+    if (scanf("%hd", &contempt) != 1) printf("contempt scanf error\n");
 }
 
 
@@ -642,10 +631,8 @@ SetContempt(void)
 void
 ChangeXwindow(void)
 {
-    int rc;
-
     printf("xwndw = ");
-    rc = scanf("%hd", &xwndw);
+    if (scanf("%hd", &xwndw) != 1) printf("xwndw scanf error\n");
 }
 
 
@@ -657,9 +644,6 @@ ChangeXwindow(void)
 void
 ShowPostnValue(short sq)
 {
-    short score;
-    score = ScorePosition(color[sq]);
-
     if (color[sq] != neutral)
     {
 #if defined SAVE_SVALUE
@@ -681,11 +665,10 @@ DoDebug(void)
 {
     short c, p, sq, tp, tc, tsq, score, j, k;
     char s[40];
-    int rc;
 
     ExaminePosition(opponent);
     ShowMessage(CP[65]);
-    rc = scanf("%s", s);
+    if (scanf("%s", s) != 1) printf("scanf error in DoDebug\n");
     c = neutral;
 
     if ((s[0] == CP[9][0]) || (s[0] == CP[9][1]))    /* w W */

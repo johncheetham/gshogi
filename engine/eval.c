@@ -1094,7 +1094,7 @@ KingScan(short sq)
 
                     if (atk2[u] & control[p])
                         SCORETHREAT
-                    else if ((Captured[c2][p] && color[u]) == neutral)
+                    else if (Captured[c2][p] && (color[u] == neutral))
                         SCORETHREAT
 
 #ifdef SAVE_NEXTPOS
@@ -1225,11 +1225,10 @@ trapped(short sq)
 static int
 AttackedPieceValue(short sq, short side)
 {
-    short s, ds;
+    short s;
 
     s = 0;
 
-	ds = -fv1[HUNGP] * 2;
     hung[c1]++;
     shung[sq]++;
 

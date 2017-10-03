@@ -37,3 +37,6 @@ NEUTRAL = 2
 
 # Drag and Drop
 TARGET_TYPE_TEXT = 1180
+
+# Time to wait for response to "isready" in seconds
+WAIT_FOR_READYOK=50

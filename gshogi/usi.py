@@ -29,7 +29,7 @@ import time
 from . import engine_debug
 from . import engine_output
 from . import gv
-
+from .constants import WAIT_FOR_READYOK
 
 class Usi:
 
@@ -121,7 +121,9 @@ class Usi:
                 l = l.strip()
                 # print l
                 if l.startswith("option"):
-                    self.usi_option.append(self.option_parse(l))
+                    optlist = self.option_parse(l)
+                    if optlist is not None:
+                        self.usi_option.append(optlist)
                 if l == "usiok":
                     usi_ok = True
             self.op = []
@@ -158,6 +160,8 @@ class Usi:
         # wait for reply
         ready_ok = False
         i = 0
+        sleep_duration = 0.25 # 1/4 second
+        loop_limit = int(WAIT_FOR_READYOK / sleep_duration)
         while True:
             for l in self.op:
                 l = l.strip()
@@ -168,10 +172,12 @@ class Usi:
             if ready_ok:
                 break
             i += 1
-            if i > 200:
+            if i > loop_limit:
                 print("error - readyok not returned from engine")
-                return False
-            time.sleep(0.25)
+                print("continuing anyway")
+                print("you can set time to wait in constants.py")
+                break
+            time.sleep(sleep_duration)
 
         # Tell engine we are starting new game
         self.command("usinewgame\n")
@@ -193,14 +199,14 @@ class Usi:
             if w != "option":
                 if gv.verbose:
                     print("invalid option line ignored:", option_line)
-                return
+                return None
 
             # get option name
             w = words.pop(0)
             if w != "name":
                 if gv.verbose:
                     print("invalid option line ignored:", option_line)
-                return
+                return None
             # name can contain spaces
             name = ''
             w = words.pop(0)
@@ -213,7 +219,7 @@ class Usi:
             if w != "type":
                 if gv.verbose:
                     print("invalid option line ignored:", option_line)
-                return
+                return None
             otype = words.pop(0)
 
             uvars = []
@@ -233,6 +239,7 @@ class Usi:
                 else:
                     if gv.verbose:
                         print("error parsing option:", option_line)
+                    return None
         except IndexError:
             pass
         userval = self.uservalues.get(name, default)
@@ -629,7 +636,7 @@ class Usi:
     # used when adding new engines in engine_manager
     def test_engine(self, path):
         msg = ""
-        name = ""
+        name = "No Name"
 
         # path is the path to the USI engine executable
         if not os.path.isfile(path):
@@ -692,8 +699,10 @@ class Usi:
                         for j in w:
                             name = name + j + " "
                         name.strip()
-                elif l.startswith("option"):    
-                    self.usi_option.append(self.option_parse(l))
+                elif l.startswith("option"):
+                    optlist = self.option_parse(l)
+                    if optlist is not None:
+                        self.usi_option.append(optlist)
                 elif l == "usiok":
                     usi_ok = True
             self.op = []

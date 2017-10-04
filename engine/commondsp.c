@@ -1122,9 +1122,9 @@ TestSpeed(void(*f)(short side, short ply,
 
 
 void
-TestPSpeed(short(*f) (short side), unsigned j)
+TestPSpeed(short(*f) (short side), int j)
 {
-    short i;
+    int i;
     int cnt, rate, t1, t2;
 #ifdef HAVE_GETTIMEOFDAY
     struct timeval tv;

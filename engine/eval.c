@@ -2361,7 +2361,7 @@ GuessGameType(short side_to_move)
                 }
                 else
                 {
-                    unsigned int random = urand() % 100;
+                    int random = (int)(urand() % 100);
                     short d = StaticRook[side] - RangingRook[side];
 
                     switch (GameType[side ^ 1])

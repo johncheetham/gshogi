@@ -5,7 +5,8 @@ Minor modifications for 0.5.1
     * several bugfixes -mh Version
     * Bugfix storing files (Problem with empty event-field) changed load_save.py
     * Dialog for editing Headers (in version to start with -mh)
-Note: the gshogirun2 and gshogirun3 scripts can be used to start psn-files in Filemanagers (open with..) or to create launchers in gnome
+Note: the gshogirun2 and gshogirun3 scripts can be used to start psn-files in Filemanagers (open with..) or to create 
+launchers in gnome
 
 2017-09-15 John Cheetham
     * Add script to create manylinux wheels

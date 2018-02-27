@@ -23,6 +23,8 @@ from gi.repository import GObject
 from gi.repository import GLib
 from gi.repository import GdkPixbuf
 from gi.repository import Pango
+#from gi.repository import GdkPixb led to problems in my installation B.Wille
+
 import os
 import cairo
 from datetime import date
@@ -36,6 +38,7 @@ from . import load_save
 from . import utils
 from . import gamelist
 from . import comments
+#from . import set_header
 from .constants import WHITE, BLACK, NAME, VERSION, TARGET_TYPE_TEXT
 from . import gv
 
@@ -71,6 +74,8 @@ class Gui:
         self.glade_file = os.path.join(glade_dir, "main_window.glade")
         self.glade_file_preferences = os.path.join(
             glade_dir, "preferences.glade")
+        self.glade_set_header = os.path.join(
+            glade_dir, "set_header.glade")        
         self.builder = Gtk.Builder()
         self.builder.set_translation_domain(gv.domain)
         self.builder.add_from_file(self.glade_file)
@@ -310,8 +315,7 @@ class Gui:
 
         tb.attach(self.side_to_move[WHITE], 0, 1, 1,2)
         tb.attach(self.side_to_move[BLACK], 0, 1, 2,3)
-        #self.side_to_move.set_tooltip_text(_("Header from loaded file"))
-
+        
         ue1 =Gtk.Label(label=_("Active:"))
         lw = Gtk.Label(label=_("White ") + ": ")
         lb = Gtk.Label(label=_("Black ") + ": ")
@@ -321,7 +325,13 @@ class Gui:
         tb.attach(ue1, 1, 2, 0, 1)
         tb.attach(lw, 1, 2, 1, 2)
         tb.attach(lb, 1, 2, 2, 3)
-
+        # Button for Header
+        if  gv.show_header == True:
+            self.headerbutton = Gtk.ToolButton(Gtk.STOCK_INDEX)       
+            tb.attach(self.headerbutton, 3, 4, 0, 1)
+            self.headerbutton.connect("clicked", self.go_header_clicked)  #
+            self.headerbutton.show()
+            self.headerbutton.set_tooltip_text("Edit Header") 
         self.engines_lblw = Gtk.Label(label=" ") # This blank is mandatory, otherwise a fileheader will be written, reason not clear b.wille
         self.engines_lblw.set_use_markup(True)
         self.engines_lblw.set_alignment(0, 0.5)
@@ -365,8 +375,6 @@ class Gui:
             toolitem.add(hb)
             toolbar.insert(toolitem, -1)               
 
-              
-
         # Header
         tb = Gtk.Table(5, 8, False)
         if  gv.show_header == True:                 
@@ -382,6 +390,7 @@ class Gui:
             self.header_levent.set_alignment(0, 0.5)
             self.header_ldate.set_alignment(0, 0.5)
             tb.attach(self.header_lue, 5, 6, 0, 1)
+            tb.attach(self.headerbutton, 7,8,0,1)
             tb.attach(self.header_levent, 5, 6, 1, 2)
             tb.attach(self.header_ldate, 5, 6, 2, 3)
             tb.attach(self.header_lsente, 5, 6, 4,5)
@@ -402,8 +411,7 @@ class Gui:
             toolitem = Gtk.ToolItem()
             toolitem.add(tb)
             toolbar.insert(toolitem, -1)
-
-
+                    
         # add a vertical separator
         hb = Gtk.HBox(False, 0)
         toolitem = Gtk.ToolItem()
@@ -474,12 +482,13 @@ class Gui:
             hb = Gtk.HBox(False, 0)
             self.cedit = Gtk.ToolButton(Gtk.STOCK_EDIT)
             self.cedit.connect("clicked", self.set_cedit)
-            hb.set_tooltip_text(_("Comments"))
+            self.cedit.set_tooltip_text(_("Edit Comments"))
             self.csave = Gtk.ToolButton(Gtk.STOCK_SAVE)
             self.csave.connect("clicked", self.set_csave)
-        
+            self.csave.set_tooltip_text(_("Save Comments"))
             self.ccancel = Gtk.ToolButton(Gtk.STOCK_CANCEL)
             self.ccancel.connect("clicked", self.set_ccancel)
+            self.ccancel.set_tooltip_text(_("Cease edit- do not save"))
             
             hb.pack_start(self.cedit, False, True, 0)
             hb.pack_start(self.ccancel, False, True, 0)
@@ -498,7 +507,6 @@ class Gui:
         if gv.show_moves == True:
             self.move_box = Gtk.ScrolledWindow()
             self.move_view = Gtk.TreeView()
-            #mlabel = Gtk.Label("Moves")
             mframe = Gtk.Frame()
             mframe.set_label("Moves")
             mframe.add(self.move_box)
@@ -506,10 +514,6 @@ class Gui:
             main_grid.attach(mframe, 0, 14, 4, 6)  #Synthax: left, top, width, height
             self.move_box.set_policy(1,1)
             self.move_view.set_headers_visible(False)
-            #main_grid.attach(mlabel,0,14,4,1)
-            #model
-            #has to be implemented in init
-            #self.movestore = Gtk.ListStore(GObject.TYPE_STRING)  #model for Treeview 
             self.move_view.set_model(self.movestore)
             self.move_view.set_tooltip_text(_("Moves: click to jump to"))
             self.comment_box = Gtk.ScrolledWindow()
@@ -523,7 +527,7 @@ class Gui:
             gv.gui.comment_view.modify_bg(
                         Gtk.StateType.NORMAL, Gdk.color_parse(gv.set_board_colours.bg_colour))                        
             gv.gui.move_view.modify_bg(
-                    Gtk.StateType.NORMAL, Gdk.color_parse(gv.set_board_colours.bg_colour))            #angleichen an grid                 
+                    Gtk.StateType.NORMAL, Gdk.color_parse(gv.set_board_colours.bg_colour))                           
             self.comment_view.set_wrap_mode(2)   #GTK_WRAP_WORD)
             g = self.comment_view.get_wrap_mode()
             self.comment_view.set_tooltip_text(_("Comments: Button in right part of menu to edit")) 
@@ -627,17 +631,26 @@ class Gui:
 
         self.build_edit_popup()
     
+    def go_header_clicked(self, widget, data=None):
+        self.set_header(action=0)
        
     def moves_clicked(self, widget, data=None):
-        self.moves_clicked_(0)
+        if gv.show_moves == True:
+            self.moves_clicked_(0)
+            
     
     def moves_clicked_(self, incr):
-        model, triter = self.move_view.get_selection().get_selected()
-        if triter != None: 
-            k = self.movestore.get_value(triter,0).find(".")      
-            nmove = int(self.movestore.get_value(triter,0)[0:k])   
-            self.move_list.set_move(nmove)                                            
-            self.move_list.move_box_selection()
+        try:            
+            model, triter = self.move_view.get_selection().get_selected()
+            if triter != None: 
+                if self.movestore.iter_is_valid(triter):
+                    k = self.movestore.get_value(triter,0).find(".")      
+                    nmove = int(self.movestore.get_value(triter,0)[0:k])   
+                    self.move_list.set_move(nmove)   
+                    self.move_list.move_box_selection()
+        except:
+            pass
+        
     
     def set_cedit(self, widget):
         self.cedit.set_sensitive(False)
@@ -649,21 +662,26 @@ class Gui:
         
     
     def set_csave(self, widget):
-        self.cedit.set_sensitive(True)
-        self.ccancel.set_sensitive(False)
-        self.csave.set_sensitive(False)
-        self.comment_view.set_editable(False)
-        self.comment_view.cursor_visible = False       
-        model, triter = self.move_view.get_selection().get_selected()
-        if triter != None:
-            k = self.movestore.get_value(triter,0).find(".")      
-            nmove = int(self.movestore.get_value(triter,0)[0:k])
-            start = self.comment_view.get_buffer().get_start_iter()
-            end = self.comment_view.get_buffer().get_end_iter()
-            self.move_list.set_comment(nmove,self.comment_view.get_buffer().get_text(start, end, False))
-            self.move_list.set_comment_ind(True)
-        #print("comment ",nmove)
-        #save
+       
+        if self.comment_view.get_editable() == True:
+            self.cedit.set_sensitive(True)
+            self.ccancel.set_sensitive(False)
+            self.csave.set_sensitive(False)
+            self.comment_view.set_editable(False)
+            self.comment_view.cursor_visible = False
+       
+            model, triter = self.move_view.get_selection().get_selected()
+            if triter != None:
+                k = self.movestore.get_value(triter,0).find(".")      
+                nmove = int(self.movestore.get_value(triter,0)[0:k])
+                start = self.comment_view.get_buffer().get_start_iter()
+                end = self.comment_view.get_buffer().get_end_iter()
+                self.move_list.set_comment(nmove,self.comment_view.get_buffer().get_text(start, end, False))
+                self.move_list.set_comment_ind(True)
+                self.move_list.update()
+                self.move_view.set_cursor(nmove-1,None,False)
+            #st=self.get_status_bar_msg()
+        
     
     def set_ccancel(self, widget):   
         self.cedit.set_sensitive(True)
@@ -1431,6 +1449,38 @@ along with gshogi.  If not, see <http://www.gnu.org/licenses/>."""
             # gv.board.update()
             self.border_eb.queue_draw()
         dialog.destroy()
+    
+    def set_header(self, action):
+        self.builder = Gtk.Builder()
+        self.builder.set_translation_domain(gv.domain)
+        self.builder.add_from_file(self.glade_set_header)
+        self.builder.connect_signals(self)
+        self.dialog = self.builder.get_object("set_header_dialog")
+        self.dialog.set_transient_for(self.window)
+        self.dialog.event=self.builder.get_object("entry_event")
+        self.dialog.date=self.builder.get_object("entry_date")
+        self.dialog.gote=self.builder.get_object("entry_gote")
+        self.dialog.sente=self.builder.get_object("entry_sente")
+        self.dialog.sente.set_text(gv.sente)
+        self.dialog.gote.set_text(gv.gote)
+        self.dialog.date.set_text(gv.gamedate)
+        self.dialog.event.set_text(gv.event)
+        resp_cancel = 1
+        resp_ok = 2
+        if self.dialog.run() != resp_ok:
+            self.dialog.destroy()        
+        else:
+            gv.gamedate = self.dialog.date.get_text()
+            gv.gote = self.dialog.gote.get_text()
+            gv.sente = self.dialog.sente.get_text()
+            gv.event = self.dialog.event.get_text()
+            if gv.show_header == True:
+                GLib.idle_add(gv.gui.header_lblsente.set_text, gv.sente[:50])
+                GLib.idle_add(gv.gui.header_lblgote.set_text, gv.gote[:50])
+                GLib.idle_add(gv.gui.header_lblevent.set_text, gv.event[:50])
+                GLib.idle_add(gv.gui.header_lbldate.set_text, gv.gamedate[:50])            
+            self.dialog.destroy()
+
 
     def set_show_coords(self, coords):
         self.show_coords = coords

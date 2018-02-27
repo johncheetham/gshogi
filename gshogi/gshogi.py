@@ -960,6 +960,7 @@ class Game:
             gv.usiw.stop_engine()
         except:
             pass
+        gv.gui.set_csave(gv.gui.csave)
         self.gameover = False
         if move_idx < len(self.movelist):
             while move_idx < len(self.movelist):
@@ -982,7 +983,13 @@ class Game:
             pass
 
         if move is not None:
-            gv.gui.set_status_bar_msg(str(move_idx) +"." +move)
+            amodel = self.move_list.treeview.get_model()
+            try:
+               aniter = amodel.get_iter(move_idx) 
+               gv.gui.set_status_bar_msg(str(move_idx) +"." + amodel.get_value(aniter,1))
+            except:
+               gv.gui.set_status_bar_msg("")
+           
             if gv.show_moves == True:
                nmoves = len(self.movelist)
                path =(nmoves-1,)
@@ -998,10 +1005,11 @@ class Game:
     # (or ctrl-u is pressed) (passed widget is Gtk.Action object)
     #
     def undo_single_move(self, b):
-        
+        gv.gui.set_csave(gv.gui.csave)
         move = None
         nmove = len(self.movelist)
         try:
+       
             move = self.movelist.pop()
             engine.command("undo")
             self.redolist.append(move)
@@ -1028,15 +1036,20 @@ class Game:
         self.lastmove = ""
         gv.board.update(squares_to_hilite=squares_to_hilite)
         if move is not None:
-            gv.gui.set_status_bar_msg("back: (" + str(nmove) + ". " + move + ")")                   
+           amodel = self.move_list.treeview.get_model()
+           aniter = amodel.get_iter(nmove) 
+           gv.gui.set_status_bar_msg("back: (" +str(nmove-1) +"." + amodel.get_value(aniter,1)+ ")")           
+            #gv.gui.set_status_bar_msg("back: (" + str(nmove) + ". " + move + ")")                   
                    
     # undo a move without updating the gui
     def undo_move(self):
+        gv.gui.set_csave(gv.gui.csave)
         engine.command("undo")
         move = None
         try:
             move = self.movelist.pop()
             self.redolist.append(move)
+            
                   
         except IndexError:
             pass
@@ -1047,6 +1060,7 @@ class Game:
             gv.usiw.stop_engine()
         except:
             pass
+        gv.gui.set_csave(gv.gui.csave)
         self.gameover = False
         while len(self.movelist) != 0:
             self.undo_move()
@@ -1057,13 +1071,14 @@ class Game:
 
         gv.board.update()
         # set move list window to initial position
-        self.move_list.set_move(1)
+                
         gv.gui.set_status_bar_msg(" ")
         if gv.show_moves == True:
             start, end =gv.gui.comment_view.get_buffer().get_bounds()
             gv.gui.comment_view.get_buffer().delete(start,end)
             gv.gui.comment_view.get_buffer().insert(start,"-")        
-                  
+            gv.gui.move_view.set_cursor(0,None,False)
+            gv.gui.move_list.move_box_selection()
 
 
     #
@@ -1072,6 +1087,7 @@ class Game:
     # (or ctrl-r is pressed) (passed widget is Gtk.Action object)
     #
     def redo_single_move(self, widget):
+        gv.gui.set_csave(gv.gui.csave)
         move = None
         try:
             move = self.redolist.pop()
@@ -1102,10 +1118,14 @@ class Game:
         self.goto_move(len(self.movelist))
         nmove = len(self.movelist)
         if move is not None:
-           gv.gui.set_status_bar_msg("forward: (" + str(nmove) + ". " + move + ")")
+           amodel = self.move_list.treeview.get_model()
+           aniter = amodel.get_iter(nmove) 
+           gv.gui.set_status_bar_msg("forward: (" +str(nmove) +"." + amodel.get_value(aniter,1)+ ")")              
+           #gv.gui.set_status_bar_msg("forward: (" + str(nmove) + ". " + move + ")")
             
     # redo a move without updating the gui
     def redo_move(self):
+        gv.gui.set_csave(gv.gui.csave)
         move = None
         try:
             move = self.redolist.pop()
@@ -1121,6 +1141,7 @@ class Game:
             pass
 
     def redo_all(self, toolbutton):
+        gv.gui.set_csave(gv.gui.csave)
         while len(self.redolist) != 0:
             self.redo_move()
         self.stm = self.get_side_to_move()
@@ -1145,8 +1166,11 @@ class Game:
             
 
         if move is not None:
-            gv.gui.set_status_bar_msg(" (" + str(nmove) + ". " + move + ")")
-            self.lastmove = move
+           amodel = self.move_list.treeview.get_model()
+           aniter = amodel.get_iter(nmove) 
+           gv.gui.set_status_bar_msg("last: (" +str(nmove) +"." + amodel.get_value(aniter,1)+ ")")              
+            #gv.gui.set_status_bar_msg(" (" + str(nmove) + ". " + move + ")")
+           self.lastmove = move
             #Lists?         
 
     def set_movelist(self, movelist):

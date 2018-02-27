@@ -115,6 +115,7 @@ class Gamelist:
             psnref = gshogi.psn.get_ref()
             psnref.move_list.liststore.clear()
             if gv.show_moves == True:
+                gv.multigame = True
                 gv.gui.movestore.clear()
                 gv.gui.move_view.get_selection().unselect_all()
             psnref.comments.comment_list = []

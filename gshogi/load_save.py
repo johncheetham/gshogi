@@ -93,6 +93,18 @@ class Load_Save:
                 GLib.idle_add(gv.gui.header_lbldate.set_text, gv.gamedate[:50])
                 #print(gv.gamedate)
             self.psn.load_game_psn(fname)
+            
+            if gv.show_moves == True:
+                #for unknown reasons this is mandatory to initiate the moves-Box
+                gv.gui.move_view.set_cursor(0,None,False)
+                gv.gui.move_view.grab_focus()
+                model, triter = gv.gui.move_view.get_selection().get_selected()
+                if triter != None: 
+                    k = gv.gui.movestore.get_value(triter,0).find(".")      
+                    nmove = int(gv.gui.movestore.get_value(triter,0)[0:k])   
+                    gv.gui.move_list.set_move(nmove)                                            
+                    gv.gui.move_list.move_box_selection()                
+            gv.gui.move_view.set_cursor(0,None,False)
             return
 
         if fname.endswith(".gshog"):
@@ -102,8 +114,19 @@ class Load_Save:
                 GLib.idle_add(gv.gui.header_lblgote.set_text, "")
                 GLib.idle_add(gv.gui.header_lblevent.set_text, "")
                 GLib.idle_add(gv.gui.header_lbldate.set_text, "")
+            if gv.show_moves == True:
+                #for unknown reasons this is mandatory to initiate the moves-Box
+                gv.gui.move_view.set_cursor(0,None,False)
+                gv.gui.move_view.grab_focus()
+                model, triter = gv.gui.move_view.get_selection().get_selected()
+                if triter != None: 
+                    k = gv.gui.movestore.get_value(triter,0).find(".")      
+                    nmove = int(gv.gui.movestore.get_value(triter,0)[0:k])   
+                    gv.gui.move_list.set_move(nmove)                                            
+                    gv.gui.move_list.move_box_selection()
+                gv.gui.move_view.set_cursor(0,None,False)
             return
-
+        
          #loads filename from 1st argument in commandline
     
     
@@ -348,6 +371,7 @@ class Load_Save:
                 if comment != "":
                     gamestr = gamestr + "{" + comment + "}\n"
                 moveno += 1
+        gv.gui.moves_clicked_(0)
         return (gamestr)
 
     # Save game to a file
@@ -417,7 +441,8 @@ class Load_Save:
                         #if gv.verbose == True:
                         #print( gv.event, "header rewritten")
                         gamelistnew = []
-                        gamelistnew.append("[" + gv.event + "]\n")
+                        if gv.event != "":
+                            gamelistnew.append("[" + "Event: " + gv.event + "]\n")
                         gamelistnew.append("[Date: " + gv.gamedate+ "]\n")
                         gamelistnew.append("[Black:  " + gv.sente + "]\n")
                         gamelistnew.append("[White:  " + gv.gote + "]\n")

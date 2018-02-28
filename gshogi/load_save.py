@@ -104,7 +104,7 @@ class Load_Save:
                     nmove = int(gv.gui.movestore.get_value(triter,0)[0:k])   
                     gv.gui.move_list.set_move(nmove)                                            
                     gv.gui.move_list.move_box_selection()                
-            gv.gui.move_view.set_cursor(0,None,False)
+                gv.gui.move_view.set_cursor(0,None,False)
             return
 
         if fname.endswith(".gshog"):

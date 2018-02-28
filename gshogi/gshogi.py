@@ -960,7 +960,7 @@ class Game:
             gv.usiw.stop_engine()
         except:
             pass
-        gv.gui.set_csave(gv.gui.csave)
+       
         self.gameover = False
         if move_idx < len(self.movelist):
             while move_idx < len(self.movelist):
@@ -971,9 +971,9 @@ class Game:
 
         self.stm = self.get_side_to_move()
         gv.gui.set_side_to_move(self.stm)
-
+        gv.gui.move_list.treeview.set_cursor(move_idx,None,False)
         gv.board.update()
-        # gv.gui.set_status_bar_msg(" ")
+
         move = None
         try:
             move = self.movelist[len(self.movelist) - 1]
@@ -1005,7 +1005,8 @@ class Game:
     # (or ctrl-u is pressed) (passed widget is Gtk.Action object)
     #
     def undo_single_move(self, b):
-        gv.gui.set_csave(gv.gui.csave)
+        if gv.show_moves == True:
+           gv.gui.set_csave()
         move = None
         nmove = len(self.movelist)
         try:
@@ -1043,7 +1044,8 @@ class Game:
                    
     # undo a move without updating the gui
     def undo_move(self):
-        gv.gui.set_csave(gv.gui.csave)
+        if gv.show_moves == True:
+            gv.gui.set_csave()
         engine.command("undo")
         move = None
         try:
@@ -1060,7 +1062,8 @@ class Game:
             gv.usiw.stop_engine()
         except:
             pass
-        gv.gui.set_csave(gv.gui.csave)
+        if gv.show_moves == True:
+           gv.gui.set_csave()
         self.gameover = False
         while len(self.movelist) != 0:
             self.undo_move()
@@ -1087,7 +1090,8 @@ class Game:
     # (or ctrl-r is pressed) (passed widget is Gtk.Action object)
     #
     def redo_single_move(self, widget):
-        gv.gui.set_csave(gv.gui.csave)
+        if gv.show_moves == True:
+           gv.gui.set_csave()
         move = None
         try:
             move = self.redolist.pop()
@@ -1125,7 +1129,8 @@ class Game:
             
     # redo a move without updating the gui
     def redo_move(self):
-        gv.gui.set_csave(gv.gui.csave)
+        if gv.show_moves == True:
+           gv.gui.set_csave()
         move = None
         try:
             move = self.redolist.pop()
@@ -1141,7 +1146,8 @@ class Game:
             pass
 
     def redo_all(self, toolbutton):
-        gv.gui.set_csave(gv.gui.csave)
+        if gv.show_moves == True:
+           gv.gui.set_csave()
         while len(self.redolist) != 0:
             self.redo_move()
         self.stm = self.get_side_to_move()

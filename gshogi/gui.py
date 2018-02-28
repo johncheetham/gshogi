@@ -23,7 +23,7 @@ from gi.repository import GObject
 from gi.repository import GLib
 from gi.repository import GdkPixbuf
 from gi.repository import Pango
-#from gi.repository import GdkPixb led to problems in my installation B.Wille
+
 
 import os
 import cairo
@@ -390,7 +390,7 @@ class Gui:
             self.header_levent.set_alignment(0, 0.5)
             self.header_ldate.set_alignment(0, 0.5)
             tb.attach(self.header_lue, 5, 6, 0, 1)
-            tb.attach(self.headerbutton, 7,8,0,1)
+            
             tb.attach(self.header_levent, 5, 6, 1, 2)
             tb.attach(self.header_ldate, 5, 6, 2, 3)
             tb.attach(self.header_lsente, 5, 6, 4,5)
@@ -661,8 +661,8 @@ class Gui:
         
         
     
-    def set_csave(self, widget):
-       
+    def set_csave(self):
+        
         if self.comment_view.get_editable() == True:
             self.cedit.set_sensitive(True)
             self.ccancel.set_sensitive(False)
@@ -679,6 +679,8 @@ class Gui:
                 self.move_list.set_comment(nmove,self.comment_view.get_buffer().get_text(start, end, False))
                 self.move_list.set_comment_ind(True)
                 self.move_list.update()
+                #self.move_list.set_move(nmove)   
+                #self.move_list.move_box_selection()                
                 self.move_view.set_cursor(nmove-1,None,False)
             #st=self.get_status_bar_msg()
         

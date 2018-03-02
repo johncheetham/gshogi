@@ -736,7 +736,7 @@ class Game:
 
         if menu_name == "NewGame":
             # Normal Game (No handicap)
-            self.startpos = "startpos"
+            self.startpos = "startpos"                   
             self.start_stm = BLACK
         else:
             # Handicap Game
@@ -780,6 +780,9 @@ class Game:
 
         gv.board.update()
         # update move list in move list window
+        self.move_list.liststore = []
+        if gv.show_moves:
+           gv.gui.movestore =[]
         self.move_list.update()
         # clean comments (bugfix)
         self.move_list.comments.clear_comments()

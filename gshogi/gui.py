@@ -678,11 +678,9 @@ class Gui:
                 end = self.comment_view.get_buffer().get_end_iter()
                 self.move_list.set_comment(nmove,self.comment_view.get_buffer().get_text(start, end, False))
                 self.move_list.set_comment_ind(True)
-                self.move_list.update()
-                #self.move_list.set_move(nmove)   
-                #self.move_list.move_box_selection()                
+                self.move_list.update()                            
                 self.move_view.set_cursor(nmove-1,None,False)
-            #st=self.get_status_bar_msg()
+            
         
     
     def set_ccancel(self, widget):   

@@ -113,6 +113,7 @@ class Move_List:
         if gv.show_moves == True:
             gv.gui.movestore.clear()
         self.liststore.append(("0.", _("Start Pos"), " "))
+        mvstr = ""
         mvstr = engine.getmovelist()
         #
         

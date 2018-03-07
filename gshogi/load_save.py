@@ -94,7 +94,7 @@ class Load_Save:
                 #print(gv.gamedate)
             self.psn.load_game_psn(fname)
             
-            if gv.show_moves == True:                  
+            if gv.show_moves == True:                               
                 gv.gui.move_view.set_cursor(0,None,False)
             return
 
@@ -105,7 +105,7 @@ class Load_Save:
                 GLib.idle_add(gv.gui.header_lblgote.set_text, "")
                 GLib.idle_add(gv.gui.header_lblevent.set_text, "")
                 GLib.idle_add(gv.gui.header_lbldate.set_text, "")
-            if gv.show_moves == True:
+            if gv.show_moves == True:                
                 gv.gui.move_view.set_cursor(0,None,False)
             return
         
@@ -212,8 +212,6 @@ class Load_Save:
         gv.gshogi.set_movelist([])
         gv.gshogi.set_redolist([])
         gv.gshogi.set_startpos(startpos)
-        if gv.show_moves:
-            gv.gui.moveview = None
 
         gv.board.update()
 
@@ -355,7 +353,8 @@ class Load_Save:
                 if comment != "":
                     gamestr = gamestr + "{" + comment + "}\n"
                 moveno += 1
-        gv.gui.moves_clicked_(0)
+        #if gv.show_moves:
+         #   gv.gui.moves_clicked_(0)
         return (gamestr)
 
     # Save game to a file

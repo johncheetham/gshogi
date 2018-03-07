@@ -1,6 +1,6 @@
 Minor modifications for 0.5.1
 ----------------------------------
-2018-03-02 Bernd Wille 
+2018-03-07 Bernd Wille 
     * Bugfix storing comments
     * several bugfixes -mh Version
     * Bugfix storing files (Problem with empty event-field) changed load_save.py

@@ -1,14 +1,10 @@
 Minor modifications for 0.5.1
 ----------------------------------
-2018-02-27 Bernd Wille 
-Remaining bug only with -m Option
-	after loading a game from file the program may hang if you select "new game" - workaround: call "new game" again
+2018-03-07 Bernd Wille 
     * Bugfix storing comments
     * several bugfixes -mh Version
     * Bugfix storing files (Problem with empty event-field) changed load_save.py
     * Dialog for editing Headers (in version to start with -h)
-Note: the gshogirun2 and gshogirun3 scripts can be used to start psn-files in Filemanagers (open with..) or to create
-launchers in gnome after adjusting the paths in the scripts
 
 2017-09-15 John Cheetham
     * Add script to create manylinux wheels

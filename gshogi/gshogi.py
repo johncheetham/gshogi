@@ -777,7 +777,7 @@ class Game:
 
             engine.setfen(sfen)
             self.startpos = sfen
-
+        self.movelist = []  #mandatory
         gv.board.update()
         # update move list in move list window
         self.move_list.update()
@@ -790,6 +790,7 @@ class Game:
         gv.usiw.set_newgame()
         self.movelist = []
         self.redolist = []
+        #gv.gui.movestore.clear()  #kills move-box!!!!!!!!!!!!!!!!!!!!!!!!!!111
         self.lastmove = ""
         #clear comment-and move windows
         #self.move_list.comments.automatic_comment("") # just a  Test
@@ -1125,6 +1126,7 @@ class Game:
            amodel = self.move_list.treeview.get_model()
            aniter = amodel.get_iter(nmove) 
            gv.gui.set_status_bar_msg("forward: (" +str(nmove) +"." + amodel.get_value(aniter,1)+ ")")              
+           #gv.gui.set_status_bar.msg("forward: (" + str( gv.gui.movestore[nmove,1]) + ")")
            #gv.gui.set_status_bar_msg("forward: (" + str(nmove) + ". " + move + ")")
             
     # redo a move without updating the gui

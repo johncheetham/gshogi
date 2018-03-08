@@ -112,7 +112,9 @@ class Move_List:
         self.liststore.clear()
         if gv.show_moves == True:
             gv.gui.movestore.clear()
+         #clear() calls clicked !
         self.liststore.append(("0.", _("Start Pos"), " "))
+        mvstr = ""  #initialize to avoid problem with new game after loaded file
         mvstr = engine.getmovelist()
         #
         
@@ -141,9 +143,9 @@ class Move_List:
                 e = str(moveno) + ".", move, cind
                 e1 = str(moveno) + "." + " " + move +" " + cind #+"\n"
                 le = []
-                # to move_view box
+                # to move_view model
                 le.append(e1)
-                # to move_list window
+                # to move_list model
                 self.liststore.append(e)
                 if gv.show_moves == True:                    
                                       
@@ -199,7 +201,7 @@ class Move_List:
         if gv.gshogi.get_stopped():
                        
             (treemodel, treeiter) = gv.gui.move_view.get_selection().get_selected()
-            if treeiter is not None:
+            if treeiter is not None and gv.gui.movestore!=[]:
                 k = gv.gui.movestore.get_value(treeiter,0).find(".")      
                 nmove = int(gv.gui.movestore.get_value(treeiter,0)[0:k])
                 self.comments.set_moveno(nmove)

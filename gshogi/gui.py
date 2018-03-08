@@ -53,7 +53,7 @@ class Gui:
         Gui.gui_ref = self
 
     def build_gui(self):
-
+        gv.gui.commentatmove = 0
         self.gobactive = False
         self.engine_debug = engine_debug.get_ref()
         self.engine_output = engine_output.get_ref()
@@ -61,6 +61,7 @@ class Gui:
         if gv.show_moves == True:
             self.comment_view = Gtk.TextView()
             self.movestore = Gtk.ListStore(GObject.TYPE_STRING)  #model for Treeview 
+            #self.comment_view.set_highlight_current_line(True) SourceView ist in PyGTK nicht implementiert
         self.move_list = move_list.get_ref()
         self.gamelist = gamelist.get_ref()
         self.drag_and_drop = drag_and_drop.get_ref()
@@ -506,7 +507,7 @@ class Gui:
         # Insert Movebox
         if gv.show_moves == True:
             self.move_box = Gtk.ScrolledWindow()
-            self.move_view = Gtk.TreeView()
+            self.move_view = Gtk.TreeView()            
             mframe = Gtk.Frame()
             mframe.set_label("Moves")
             mframe.add(self.move_box)
@@ -517,9 +518,6 @@ class Gui:
             self.move_view.set_model(self.movestore)
             self.move_view.set_tooltip_text(_("Moves: click to jump to"))
             self.comment_box = Gtk.ScrolledWindow()
-            #has to be implemented in init
-            #self.comment_view = Gtk.TextView()
-            #clabel = Gtk.Label("Comments")
             cframe = Gtk.Frame()
             cframe.set_label("Comments")
             cframe.add(self.comment_box)
@@ -529,14 +527,10 @@ class Gui:
             gv.gui.move_view.modify_bg(
                     Gtk.StateType.NORMAL, Gdk.color_parse(gv.set_board_colours.bg_colour))                           
             self.comment_view.set_wrap_mode(2)   #GTK_WRAP_WORD)
-            g = self.comment_view.get_wrap_mode()
+            #g = self.comment_view.get_wrap_mode()
             self.comment_view.set_tooltip_text(_("Comments: Button in right part of menu to edit")) 
-            
-            main_grid.attach(cframe, 28, 0, 4, 6)        
-            #main_grid.attach(clabel,28,0,4,1)
-            #self.move_view.set_editable(False)
+            main_grid.attach(cframe, 28, 0, 4, 6)               
             cell0 = Gtk.CellRendererText()
-            # cell0.set_property("cell-background", Gdk.color_parse("#F8F8FF"))
             mvcolumn0 = Gtk.TreeViewColumn("#")
             self.move_view.append_column(mvcolumn0)
             mvcolumn0.pack_start(cell0, True)
@@ -631,6 +625,7 @@ class Gui:
 
         self.build_edit_popup()
     
+    
     def go_header_clicked(self, widget, data=None):
         self.set_header(action=0)
        
@@ -640,14 +635,30 @@ class Gui:
             
     
     def moves_clicked_(self, incr):
-        try:            
+        try:
+            if gv.gui.commentatmove != 0:
+                start = self.comment_view.get_buffer().get_start_iter()
+                end = self.comment_view.get_buffer().get_end_iter()
+                self.move_list.set_comment(gv.gui.commentatmove,self.comment_view.get_buffer().get_text(start, end, False))
+                self.move_list.set_comment_ind(True)
+                s = str(self.movestore[gv.gui.commentatmove-1,0][0])
+                self.movestore[gv.gui.commentatmove-1,0][0]= s + ".."
+                self.cedit.set_sensitive(True)
+                self.ccancel.set_sensitive(False)
+                self.csave.set_sensitive(False)
+                self.comment_view.set_editable(False)
+                self.comment_view.cursor_visible = False                  
+                gv.gui.commentatmove = 0
+                
             model, triter = self.move_view.get_selection().get_selected()
             if triter != None: 
-                if self.movestore.iter_is_valid(triter):
+                if self.movestore.iter_is_valid(triter) and gv.gshogi.movelist!=[]:
                     k = self.movestore.get_value(triter,0).find(".")      
-                    nmove = int(self.movestore.get_value(triter,0)[0:k])   
+                    nmove = int(self.movestore.get_value(triter,0)[0:k]) 
                     self.move_list.set_move(nmove)   
-                    self.move_list.move_box_selection()
+                    self.move_list.move_box_selection()                    
+                                     
+                    
         except:
             pass
         
@@ -659,6 +670,19 @@ class Gui:
         self.comment_view.set_editable(True)
         self.comment_view.cursor_visible = True
         
+        model, triter = self.move_view.get_selection().get_selected()
+        if triter != None:
+            k = self.movestore.get_value(triter,0).find(".")      
+            nmove = int(self.movestore.get_value(triter,0)[0:k])
+            gv.gui.commentatmove = nmove     #memorize comment-line
+                
+        else:
+            gv.gui.commentatmove = 0
+            self.cedit.set_sensitive(True)
+            self.ccancel.set_sensitive(False)
+            self.csave.set_sensitive(False)
+            self.comment_view.set_editable(False)
+            self.comment_view.cursor_visible = False            
         
     
     def set_csave(self):
@@ -670,19 +694,18 @@ class Gui:
             self.comment_view.set_editable(False)
             self.comment_view.cursor_visible = False
        
-            model, triter = self.move_view.get_selection().get_selected()
-            if triter != None:
-                k = self.movestore.get_value(triter,0).find(".")      
-                nmove = int(self.movestore.get_value(triter,0)[0:k])
+            if gv.gui.commentatmove != 0:                 
+                nmove = gv.gui.commentatmove
                 start = self.comment_view.get_buffer().get_start_iter()
                 end = self.comment_view.get_buffer().get_end_iter()
                 self.move_list.set_comment(nmove,self.comment_view.get_buffer().get_text(start, end, False))
                 self.move_list.set_comment_ind(True)
-                self.move_list.update()
-                #self.move_list.set_move(nmove)   
-                #self.move_list.move_box_selection()                
-                self.move_view.set_cursor(nmove-1,None,False)
-            #st=self.get_status_bar_msg()
+                s = str(self.movestore[gv.gui.commentatmove-1,0][0])
+                self.movestore[gv.gui.commentatmove-1,0][0]= s + ".."                
+                #self.move_list.update()                             
+                #self.move_view.set_cursor(nmove-1,None,False)
+                gv.gui.commentatmove = 0
+           
         
     
     def set_ccancel(self, widget):   
@@ -691,7 +714,8 @@ class Gui:
         self.csave.set_sensitive(False) 
         self.comment_view.set_editable(False)
         self.comment_view.set_editable(False)
-        self.comment_view.cursor_visible = False          
+        self.comment_view.cursor_visible = False 
+        gv.gui.commentatmove = 0
 
       
     def draw_board_square(self, widget, cr, x, y):

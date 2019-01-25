@@ -159,10 +159,6 @@ typedef unsigned long  ULONG;
 #    include <time.h>
 #endif   /* !defined(_WIN32) */
 
-#ifdef HAVE_SETLINEBUF
-/* Not necessarily included in <stdio.h> */
-extern void setlinebuf(FILE *__stream);
-#endif
 
 #define RWA_ACC "r+"
 #define WA_ACC "w+"

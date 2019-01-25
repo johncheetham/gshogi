@@ -18,7 +18,6 @@ macros = [
         ("HAVE_FCNTL_H", "1"),
         ("HAVE_MEMCPY", "1"),
         ("HAVE_MEMSET", "1"),
-        ("HAVE_SETLINEBUF", "1"),
         ]
 
 if os.name == "nt":

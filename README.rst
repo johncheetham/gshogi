@@ -1,5 +1,7 @@
 gshogi - John Cheetham - http://www.johncheetham.com/projects/gshogi
 
+**NOTE: This project is no longer developed and has been archived.**
+
 Description
 -----------
 gshogi is a program to play Shogi (Japanese Chess). It has a builtin
